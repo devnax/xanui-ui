@@ -1,0 +1,27 @@
+{
+   "name": "@xanui/components",
+   "version": "1.0.0",
+   "description": "",
+   "main": "./index.js",
+   "publishConfig": {
+      "access": "public"
+   },
+   "scripts": {
+      "start": "makepack serve -p 4000",
+      "pack": "makepack pack",
+      "publish:pack": "makepack pack -p"
+   },
+   "dependencies": {
+      "@xanui/core": "^1.0.10",
+      "@xanui/icons": "^1.0.2"
+   },
+   "devDependencies": {
+      "@types/react": "^19.0.2",
+      "@types/react-dom": "^19.0.2",
+      "makepack": "latest",
+      "typescript": "^4.4.2",
+      "react": "^19.0.0",
+      "react-dom": "^19.0.0"
+   },
+   "keywords": []
+}
