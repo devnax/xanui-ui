@@ -3,8 +3,8 @@ import Select, { SelectProps } from '../Select'
 import Option from '../Option'
 import IconButton, { IconButtonProps } from '../IconButton'
 import React, { useMemo, useState } from 'react'
-import PrevIcon from '@xanui/icons/round/IconKeyboardArrowLeft'
-import NextIcon from '@xanui/icons/round/IconKeyboardArrowRight'
+import PrevIcon from '@xanui/icons/KeyboardArrowLeftRound'
+import NextIcon from '@xanui/icons/KeyboardArrowRightRound'
 import { TagProps, Tag, useInterface, ColorTemplateColors, ColorTemplateType, useBreakpointPropsType } from '@xanui/core';
 
 

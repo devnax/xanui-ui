@@ -2,7 +2,7 @@
 
 ```tsx
 import IconButton, {IconButtonProps} from 'naxui/IconButton'
-import HomeIcon from '@xanui/icons/round/IconHome'
+import HomeIcon from '@xanui/icons/HomeRound'
 
 const App = () => {
     return (

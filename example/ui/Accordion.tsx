@@ -1,11 +1,11 @@
 import React from 'react'
 import Accordion from '../../src/Accordion'
 import Stack from '../../src/Stack'
-import ExpandIcon from "@xanui/icons/round/IconSettings";
+import ExpandIcon from "@xanui/icons/SettingsRound";
 import Section from '../Layout/Section'
-
 const Accordions = () => {
     const [expand, setExpand] = React.useState(1)
+
     return (
         <Stack>
             <Section title="Basic">

@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import { Tag, TagProps, TagComponentType, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType } from '@xanui/core';
 
 export type TableColumnProps<T extends TagComponentType = "td"> = TagProps<T> & {
     th?: boolean

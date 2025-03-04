@@ -1,4 +1,3 @@
-import React from 'react'
 import { ThemeProvider as RootThemeProvider, ThemeProviderProps as RootThemeProviderProps } from '@xanui/core'
 import { RenderComponents } from './RenderRoot'
 

@@ -5,9 +5,9 @@ import IconButton from "../../src/IconButton"
 import Container from "../../src/Container"
 import Badge from "../../src/Badge"
 import MetaBox from "../MetaBox"
-import InfoIcon from '@xanui/icons/round/IconInfo';
-import HomeIcon from '@xanui/icons/round/IconHome';
-import IconClose from '@xanui/icons/round/IconClose';
+import InfoIcon from '@xanui/icons/InfoRound';
+import HomeIcon from '@xanui/icons/HomeRound';
+import IconClose from '@xanui/icons/CloseRound';
 import CircleProgress from "../../src/CircleProgress"
 
 

@@ -1,5 +1,5 @@
 'use client'
-import React, { ReactElement, forwardRef } from 'react';
+import React, { ReactElement } from 'react';
 import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, ColorTemplateColors, ColorTemplateType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import useCorner, { UseCornerTypes } from '../useCorner'
 

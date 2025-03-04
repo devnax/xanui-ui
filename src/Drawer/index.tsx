@@ -1,6 +1,6 @@
 'use client'
-import React, { ReactElement, ReactNode } from 'react';
-import { Tag, TagProps, Transition, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
+import { ReactElement, ReactNode } from 'react';
+import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import Layer, { LayerProps } from '../Layer';
 import ClickOutside from '../ClickOutside';
 

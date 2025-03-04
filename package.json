@@ -1,27 +1,41 @@
 {
    "name": "@xanui/components",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "description": "",
-   "main": "./index.js",
    "publishConfig": {
       "access": "public"
    },
+   "main": "./index.js",
+   "module": "./esm/index.js",
+   "types": "./types/index.d.ts",
+   "exports": {
+      ".": {
+         "types": "./types/index.d.ts",
+         "import": "./index.js",
+         "require": "./cjs/index.js"
+      },
+      "./*": {
+         "types": "./types/*.d.ts",
+         "import": "./*.js",
+         "require": "./cjs/*.js"
+      }
+   },
    "scripts": {
-      "start": "makepack serve -p 4000",
-      "pack": "makepack pack",
-      "publish:pack": "makepack pack -p"
+      "start": "makepack start",
+      "build": "makepack build",
+      "build:publish": "makepack publish"
    },
    "dependencies": {
-      "@xanui/core": "^1.0.10",
-      "@xanui/icons": "^1.0.2"
+      "@xanui/core": "^1.0.21",
+      "@xanui/icons": "^1.1.3"
    },
    "devDependencies": {
       "@types/react": "^19.0.2",
       "@types/react-dom": "^19.0.2",
-      "makepack": "latest",
-      "typescript": "^4.4.2",
+      "makepack": "^1.5.10",
       "react": "^19.0.0",
-      "react-dom": "^19.0.0"
+      "react-dom": "^19.0.0",
+      "typescript": "^4.4.2"
    },
    "keywords": []
 }

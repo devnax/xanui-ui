@@ -1,5 +1,4 @@
 'use client'
-import React from 'react'
 import TableHead from './TableHead'
 import Table from '../Table'
 import TableBody from '../TableBody'

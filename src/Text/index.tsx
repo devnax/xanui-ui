@@ -1,5 +1,5 @@
 'use client'
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { Tag, TagProps, TagComponentType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 
 
@@ -15,7 +15,7 @@ const Text = React.forwardRef(<T extends TagComponentType = "p">({ children, var
 
     return (
         <Tag
-            component={variant === 'text' || variant === 'small' ? "p" : variant}
+            component={(variant === 'text' || variant === 'small' ? "p" : variant) as any}
             {...props}
             sxr={{
                 fontSize: variant,

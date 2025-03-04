@@ -2,7 +2,7 @@ import React from 'react'
 import Stack from '../../src/Stack'
 import Badge from '../../src/Badge'
 import IconButton from '../../src/IconButton'
-import UserIcon from '@xanui/icons/round/IconPeople'
+import UserIcon from '@xanui/icons/PeopleRound'
 import Section from '../Layout/Section'
 
 const Badges = () => {

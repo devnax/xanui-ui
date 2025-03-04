@@ -1,6 +1,6 @@
 'use client'
 import React, { ReactElement } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, ColorTemplateColors, useColorTemplate, useBreakpointPropsType, useBreakpointProps, TransitionProps, Transition } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, ColorTemplateColors, useColorTemplate, useBreakpointPropsType, useBreakpointProps, TransitionProps } from '@xanui/core';
 
 
 export type BadgeProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "baseClass" | "content"> & {

@@ -1,5 +1,5 @@
 'use client'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import Layer, { LayerProps } from "../Layer"
 import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType } from '@xanui/core'
 

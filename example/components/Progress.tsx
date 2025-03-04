@@ -7,7 +7,7 @@ import List from '../../src/List'
 import ListItem from '../../src/ListItem'
 import IconButton from '../../src/IconButton'
 import Divider from '../../src/Divider'
-import PlusIcon from '@xanui/icons/round/IconAdd'
+import PlusIcon from '@xanui/icons/AddRound'
 import MetaBox from "../MetaBox"
 
 

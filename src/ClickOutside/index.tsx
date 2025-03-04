@@ -1,6 +1,6 @@
 'use client'
-import { Tag, TagComponentType, TagProps, useBreakpointPropsType } from '@xanui/core';
-import React, { forwardRef, useEffect, useRef } from 'react';
+import { Tag, TagComponentType, TagProps } from '@xanui/core';
+import React, { useEffect, useRef } from 'react';
 
 export type ClickOutsideProps<T extends TagComponentType = "div"> = TagProps<T> & {
     onClickOutside: () => void

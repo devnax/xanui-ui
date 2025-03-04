@@ -3,8 +3,8 @@ import MetaBox from "../MetaBox"
 import Stack from '../../src/Stack'
 import List from '../../src/List'
 import ListItem from '../../src/ListItem'
-import HomeIcon from '@xanui/icons/round/IconHome';
-import InfoIcon from '@xanui/icons/round/IconInfo';
+import HomeIcon from '@xanui/icons/HomeRound';
+import InfoIcon from '@xanui/icons/InfoRound';
 
 
 const Lists = () => {

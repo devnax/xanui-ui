@@ -1,5 +1,4 @@
 'use client'
-import React from 'react'
 import Stack from '../Stack'
 import { DatatableFilter, DatatablePropsWithState } from '.'
 import Tabs from '../Tabs'
@@ -7,7 +6,7 @@ import Tab from '../Tab'
 import Select from '../Select'
 import Option from '../Option'
 import Input from '../Input'
-import IconSearch from '@xanui/icons/round/IconSearch'
+import IconSearch from '@xanui/icons/SearchRound'
 
 
 const FilterBox = (props: DatatablePropsWithState) => {

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import TableRow from '../TableRow'
 import TableCell from '../TableCell'
 import { DataTableDefaultRow, DatatablePropsWithState } from '.'
@@ -7,7 +7,7 @@ import Checkbox from '../Checkbox'
 import IconButton from '../IconButton'
 import List from '../List'
 import ListItem from '../ListItem'
-import ActionIcon from '@xanui/icons/round/IconMoreVert'
+import ActionIcon from '@xanui/icons/MoreVertRound'
 import Menu from '../Menu'
 
 
@@ -87,7 +87,7 @@ const Row = ({ rows, rawRow, row, rowAction, disableRow, disableSelect, columns,
                                 }
                             }}
                         >
-                            {rowAction({ row, state }).map(({ label, icon, onClick, ...bprops }) => {
+                            {rowAction({ row, state }).map(({ label, icon, onClick }) => {
                                 return (
                                     <ListItem
                                         key={label}

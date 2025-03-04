@@ -1,5 +1,5 @@
 'use client'
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { Tag, TagProps, TagComponentType, useInterface } from '@xanui/core';
 
 export type PaperProps<T extends TagComponentType = "div"> = TagProps<T>

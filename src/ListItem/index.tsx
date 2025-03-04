@@ -1,5 +1,5 @@
 'use client'
-import React, { forwardRef, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { Tag, TagProps, TagComponentType, useInterface, useBreakpointProps, useBreakpointPropsType } from '@xanui/core'
 import Text from '../Text';
 

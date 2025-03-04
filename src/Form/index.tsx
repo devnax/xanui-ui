@@ -1,6 +1,6 @@
 'use client'
 import React, { useRef } from 'react';
-import { Tag, TagProps, TagComponentType, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType } from '@xanui/core';
 
 export type FormProps<T extends TagComponentType = "form"> = TagProps<T> & {
 
@@ -17,7 +17,7 @@ const Form = React.forwardRef(<T extends TagComponentType = "form">({ children, 
                 const form = formRef.current
                 const formData = new FormData(form);
                 return React.cloneElement(child, {
-                    onChange: (e: any) => {
+                    onChange: () => {
                         console.log(formData.get(c.props.name));
                     },
                     value: formData.get(c.props.name),

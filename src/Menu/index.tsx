@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useId, useState } from 'react'
+import { ReactNode, useEffect, useId, useState } from 'react'
 import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType, useInterface, TransitionProps, Transition } from "@xanui/core"
 import { placedMenu, PlacementTypes } from "./placedMenu";
 import Portal, { PortalProps } from "../Portal";

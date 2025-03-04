@@ -1,11 +1,10 @@
 'use client'
-import React from 'react'
 import TableHead from '../TableHead'
 import TableRow from '../TableRow'
 import TableCell from '../TableCell'
 import { DatatablePropsWithState } from '.'
 import Checkbox from '../Checkbox'
-import IntermidiatIcon from '@xanui/icons/round/IconIndeterminateCheckBox'
+import IntermidiatIcon from '@xanui/icons/IndeterminateCheckBoxRound'
 
 
 const TableHeadRender = ({ columns, rows, disableRow, disableSelect, state, update }: DatatablePropsWithState) => {
