@@ -1,4 +1,4 @@
-'use client'
+
 import { Children, cloneElement, ReactElement, useState } from 'react'
 import Menu, { MenuProps } from '../Menu'
 import { useBreakpointProps, useColorTemplate, ColorTemplateColors, ColorTemplateType, useBreakpointPropsType } from '@xanui/core'

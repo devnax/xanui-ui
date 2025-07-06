@@ -1,4 +1,4 @@
-'use client'
+
 import React, { useState, ReactElement } from 'react';
 import { Tag, useInterface, ColorTemplateColors, TagProps, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import CheckIcon from '@xanui/icons/CheckBoxRound'

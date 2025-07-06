@@ -24,7 +24,6 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "outDir": "dist",
     "rootDir": "src"
   },
   "include": [

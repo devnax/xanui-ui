@@ -1,4 +1,4 @@
-"use client"
+
 import React, { ReactElement, useId } from "react"
 import { Tag, ColorTemplateColors, useInterface, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 
@@ -60,8 +60,8 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
     }
 
     let isVal = typeof value === 'number'
-    const animrotate = "anim" + useId().replaceAll(":", "")
-    const animdash = "anim" + useId().replaceAll(":", "")
+    const animrotate = "anim" + useId().replace(":", "")
+    const animdash = "anim" + useId().replace(":", "")
     if (isVal && (value as number) > 100) value = 100
     const circumference = 125.66370614359172 //radius * 2 * Math.PI
     const percent = circumference - ((value || 0) / 100) * circumference

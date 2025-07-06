@@ -28,7 +28,7 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
 
     const isOpen = Boolean(target)
     const [closed, setClosed] = useState(!isOpen)
-    let id = "menu-" + useId().replaceAll(":", "")
+    let id = "menu-" + useId().replace(":", "")
     const [placed, setPlaced] = useState<any>(placement)
     placement = placement || "bottom-left"
 

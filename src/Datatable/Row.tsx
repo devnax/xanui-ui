@@ -1,4 +1,4 @@
-'use client'
+
 import { useState } from 'react'
 import TableRow from '../TableRow'
 import TableCell from '../TableCell'

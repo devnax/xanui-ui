@@ -1,4 +1,4 @@
-'use client'
+
 import React, { MutableRefObject, ReactElement, useEffect, useMemo, useRef, useState } from 'react';
 import { Tag, TagProps, TagComponentType, useInterface, ColorTemplateColors, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import Text from '../Text';
@@ -193,9 +193,10 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                             bgcolor: "transparent",
                             color: error ? "danger.primary" : "text.primary",
                             fontSize: _size.fontSize,
-                            height: multiline ? "auto" : _size.height,
+                            height: multiline ? "auto" : _size.height + "px!important",
                             width: "100%",
                             maxHeight: 200,
+
                         }}
                         value={value}
                         baseClass='input-box'

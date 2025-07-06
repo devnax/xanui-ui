@@ -5,7 +5,7 @@ import Option from '../../src/Option'
 import Tabs from '../../src/Tabs'
 import Tab from '../../src/Tab'
 import Checkbox from '../../src/Checkbox'
-import HomeIcon from '@xanui/icons/Home'
+import HomeIcon from '@xanui/icons/HomeRound'
 import Section from '../Layout/Section'
 import Text from '../../src/Text'
 

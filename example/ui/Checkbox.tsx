@@ -4,7 +4,7 @@ import Checkbox from '../../src/Checkbox'
 import Radio from '../../src/Radio'
 import Switch from '../../src/Switch'
 import Section from '../Layout/Section'
-import HeartIcon from '@xanui/icons/HeartBroken'
+import HeartIcon from '@xanui/icons/HeartBrokenRound'
 
 const Checkboxes = () => {
     const [value, setValue] = useState("A")

@@ -1,4 +1,4 @@
-"use client"
+
 import React, { ReactElement, useId } from "react"
 import { Tag, useBreakpointProps, ColorTemplateColors, useInterface, useBreakpointPropsType } from '@xanui/core';
 
@@ -13,7 +13,7 @@ export type LineProgressProps = {
 
 
 const LineProgress = React.forwardRef(({ children, ...props }: LineProgressProps, ref: React.Ref<any>) => {
-    const uid = "line-progress" + useId().replaceAll(":", "")
+    const uid = "line-progress" + useId().replace(":", "")
     let [{ color, value, thumbSize, hideTrack, speed }] = useInterface<any>("LineProgress", props, {})
     const _p: any = {}
     if (thumbSize) _p.thumbSize = thumbSize

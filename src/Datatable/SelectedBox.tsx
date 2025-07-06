@@ -1,4 +1,4 @@
-'use client'
+
 import IconButton from '../IconButton'
 import Stack from '../Stack'
 import Text from '../Text'

@@ -1,4 +1,4 @@
-'use client'
+
 import { Tag, TagProps, useBreakpointProps, TransitionVariantTypes, useColorTemplate, ColorTemplateColors, ColorTemplateType, useInterface, useBreakpointPropsType } from "@xanui/core"
 import React, { isValidElement, ReactElement, ReactNode } from "react"
 import Text from "../Text"
@@ -23,7 +23,7 @@ export type AlertProps = Omit<TagProps<"div">, "content" | "title" | "direction"
 
 export type AlertMesssageType = string | ReactElement | AlertProps
 
-export const Alert = ({ children, ...rest }: AlertProps) => {
+const Alert = ({ children, ...rest }: AlertProps) => {
     let [{
         title,
         variant,

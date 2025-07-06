@@ -1,4 +1,4 @@
-'use client'
+
 import React, { useState } from 'react';
 import { Tag, TagProps, TagComponentType, useInterface, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
 import PersonIcon from '@xanui/icons/PersonRound'

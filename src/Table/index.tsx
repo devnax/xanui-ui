@@ -1,4 +1,4 @@
-'use client'
+
 import React from 'react';
 import { Tag, TagProps, TagComponentType, ColorTemplateColors, useInterface, useColorTemplate, ColorTemplateType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import Scrollbar from '../Scrollbar';

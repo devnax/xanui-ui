@@ -1,4 +1,4 @@
-'use client'
+
 import { Tag, ColorTemplateColors, ColorTemplateType, useBreakpointPropsType, Transition } from '@xanui/core'
 import { ReactElement } from "react";
 import Renderar from '../ThemeProvider/RenderRoot';

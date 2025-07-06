@@ -171,6 +171,4 @@ Layer.close = (id: string) => {
     }
 }
 
-
-
 export default Layer

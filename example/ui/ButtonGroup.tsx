@@ -3,8 +3,8 @@ import Stack from '../../src/Stack'
 import ButtonGroup from '../../src/ButtonGroup'
 import Button from '../../src/Button'
 import Section from '../Layout/Section'
-import NextIcon from '@xanui/icons/ArrowForward'
-import PrevIcon from '@xanui/icons/ArrowBack'
+import NextIcon from '@xanui/icons/ArrowForwardRound'
+import PrevIcon from '@xanui/icons/ArrowBackRound'
 
 const ButtonGroups = () => {
     return (

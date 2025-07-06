@@ -266,7 +266,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
         <ViewBox
             className='calender-root'
             maxHeight={308}
-            width={boxWidth + 12}
+            width={250}
             radius={1}
             bgcolor="background.primary"
             startContent={

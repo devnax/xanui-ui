@@ -1,4 +1,4 @@
-'use client'
+
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom';
 import { useTagProps, TagProps, TagComponentType, useTheme, ThemeProvider } from '@xanui/core';

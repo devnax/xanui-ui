@@ -1,4 +1,4 @@
-'use client'
+
 import React, { ReactElement } from 'react';
 import { Tag, TagProps, TagComponentType, useInterface, ColorTemplateColors, useColorTemplate, useBreakpointPropsType, useBreakpointProps, TransitionProps } from '@xanui/core';
 

@@ -1,4 +1,4 @@
-'use client'
+
 import React, { ReactElement, useState } from 'react';
 import { Tag, TagProps, useInterface, ColorTemplateColors, ColorTemplateType, TagComponentType, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
 import ExpandIcon from "@xanui/icons/ExpandMoreRound";

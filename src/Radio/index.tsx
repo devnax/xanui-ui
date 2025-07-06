@@ -1,4 +1,4 @@
-'use client'
+
 import React from 'react';
 import { useInterface } from '@xanui/core';
 import CheckIcon from '@xanui/icons/RadioButtonCheckedRound'

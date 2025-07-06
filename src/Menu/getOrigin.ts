@@ -1,4 +1,4 @@
-'use client'
+
 export const getOrigin = (placed: string) => {
     let _origin: any = "top"
     switch (placed) {

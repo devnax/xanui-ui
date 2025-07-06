@@ -1,4 +1,4 @@
-"use client"
+
 import Input, { InputProps } from '../Input'
 import Menu, { MenuProps } from '../Menu'
 import { useRef, useState } from 'react'
