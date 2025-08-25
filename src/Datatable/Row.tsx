@@ -7,7 +7,7 @@ import Checkbox from '../Checkbox'
 import IconButton from '../IconButton'
 import List from '../List'
 import ListItem from '../ListItem'
-import ActionIcon from '@xanui/icons/MoreVertRound'
+import ActionIcon from '@xanui/icons/MoreVert'
 import Menu from '../Menu'
 
 

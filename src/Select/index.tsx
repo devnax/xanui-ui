@@ -5,8 +5,8 @@ import List, { ListProps } from '../List'
 import Menu, { MenuProps } from '../Menu'
 import Stack from '../Stack'
 import { OptionProps } from '../Option'
-import DownIcon from '@xanui/icons/KeyboardArrowDownRound';
-import UpIcon from '@xanui/icons/KeyboardArrowUpRound';
+import DownIcon from '@xanui/icons/KeyboardArrowDown';
+import UpIcon from '@xanui/icons/KeyboardArrowUp';
 import { ColorTemplateColors, ColorTemplateType, useInterface, useBreakpointPropsType } from '@xanui/core'
 
 

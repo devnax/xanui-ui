@@ -3,8 +3,8 @@ import Stack from '../../src/Stack'
 import Chip from '../../src/Chip'
 import IconButton from '../../src/IconButton'
 import Section from '../Layout/Section'
-import HomeIcon from '@xanui/icons/HomeRound'
-import CloseIcon from '@xanui/icons/CloseRound'
+import HomeIcon from '@xanui/icons/Home'
+import CloseIcon from '@xanui/icons/Close'
 
 const ChipBox = ({ color }) => {
     return (

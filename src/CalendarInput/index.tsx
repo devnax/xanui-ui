@@ -5,9 +5,9 @@ import { useRef, useState } from 'react'
 import Calendar, { CalendarProps } from '../Calendar'
 import Stack from '../Stack'
 import ClickOutside from '../ClickOutside'
-import CalendarIcon from '@xanui/icons/CalendarMonthRound';
+import CalendarIcon from '@xanui/icons/CalendarMonth';
 import IconButton from '../IconButton'
-import ClearIcon from '@xanui/icons/ClearRound';
+import ClearIcon from '@xanui/icons/Clear';
 import { useInterface } from '@xanui/core'
 
 export type CalenderInpurProps = Omit<InputProps, "value" | "onChange"> & {

@@ -4,7 +4,7 @@ import TableRow from '../TableRow'
 import TableCell from '../TableCell'
 import { DatatablePropsWithState } from '.'
 import Checkbox from '../Checkbox'
-import IntermidiatIcon from '@xanui/icons/IndeterminateCheckBoxRound'
+import IntermidiatIcon from '@xanui/icons/IndeterminateCheckBox'
 
 
 const TableHeadRender = ({ columns, rows, disableRow, disableSelect, state, update }: DatatablePropsWithState) => {

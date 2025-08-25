@@ -1,7 +1,7 @@
 import React from 'react'
 import Accordion from '../../src/Accordion'
 import Stack from '../../src/Stack'
-import ExpandIcon from "@xanui/icons/SettingsRound";
+import ExpandIcon from "@xanui/icons/Settings";
 import Section from '../Layout/Section'
 const Accordions = () => {
     const [expand, setExpand] = React.useState(1)

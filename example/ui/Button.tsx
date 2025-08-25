@@ -4,11 +4,11 @@ import Button from "../../src/Button"
 import IconButton from "../../src/IconButton"
 import Container from "../../src/Container"
 import Section from "../Layout/Section"
-import InfoIcon from '@xanui/icons/InfoRound';
-import HomeIcon from '@xanui/icons/HomeRound';
-import IconClose from '@xanui/icons/CloseRound';
-import UserIcon from '@xanui/icons/PeopleRound';
-import UnarchiveIcon from '@xanui/icons/UnarchiveRound';
+import InfoIcon from '@xanui/icons/Info';
+import HomeIcon from '@xanui/icons/Home';
+import IconClose from '@xanui/icons/Close';
+import UserIcon from '@xanui/icons/People';
+import UnarchiveIcon from '@xanui/icons/Unarchive';
 import CircleProgress from "../../src/CircleProgress"
 
 

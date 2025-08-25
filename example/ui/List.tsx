@@ -3,8 +3,8 @@ import Section from "../Layout/Section"
 import Stack from '../../src/Stack'
 import List from '../../src/List'
 import ListItem from '../../src/ListItem'
-import HomeIcon from '@xanui/icons/HomeRound';
-import InfoIcon from '@xanui/icons/InfoRound';
+import HomeIcon from '@xanui/icons/Home';
+import InfoIcon from '@xanui/icons/Info';
 
 
 const Lists = () => {

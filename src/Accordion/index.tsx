@@ -1,7 +1,7 @@
 
 import React, { ReactElement, useState } from 'react';
 import { Tag, TagProps, useInterface, ColorTemplateColors, ColorTemplateType, TagComponentType, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
-import ExpandIcon from "@xanui/icons/ExpandMoreRound";
+import ExpandIcon from "@xanui/icons/ExpandMore";
 import Collaps, { CollapsProps } from '../Collaps';
 import List, { ListProps } from '../List';
 import ListItem, { ListItemProps } from '../ListItem';

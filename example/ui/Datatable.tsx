@@ -2,7 +2,7 @@ import React from 'react'
 import Section from '../Layout/Section'
 import Stack from '../../src/Stack'
 import Datatable from '../../src/Datatable'
-import DeleteIcon from '@xanui/icons/DeleteRound'
+import DeleteIcon from '@xanui/icons/Delete'
 
 
 const rows = [

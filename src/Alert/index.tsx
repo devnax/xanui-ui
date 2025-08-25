@@ -2,11 +2,11 @@
 import { Tag, TagProps, useBreakpointProps, TransitionVariantTypes, useColorTemplate, ColorTemplateColors, ColorTemplateType, useInterface, useBreakpointPropsType } from "@xanui/core"
 import React, { isValidElement, ReactElement, ReactNode } from "react"
 import Text from "../Text"
-import InfoIcon from '@xanui/icons/InfoRound';
-import WarningIcon from '@xanui/icons/WarningRound';
-import SuccessIcon from '@xanui/icons/CheckCircleRound';
-import ErrorIcon from '@xanui/icons/CancelRound';
-import IconClose from '@xanui/icons/CloseRound';
+import InfoIcon from '@xanui/icons/Info';
+import WarningIcon from '@xanui/icons/Warning';
+import SuccessIcon from '@xanui/icons/CheckCircle';
+import ErrorIcon from '@xanui/icons/Cancel';
+import IconClose from '@xanui/icons/Close';
 import IconButton from "../IconButton";
 import Modal, { ModalProps } from "../Modal";
 import Button, { ButtonProps } from "../Button";

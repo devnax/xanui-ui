@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { useInterface } from '@xanui/core';
-import CheckIcon from '@xanui/icons/RadioButtonCheckedRound'
-import UnCheckIcon from '@xanui/icons/RadioButtonUncheckedRound'
+import CheckIcon from '@xanui/icons/RadioButtonChecked'
+import UnCheckIcon from '@xanui/icons/RadioButtonUnchecked'
 import Checkbox, { CheckboxProps } from '../Checkbox';
 
 export type RadioProps = CheckboxProps

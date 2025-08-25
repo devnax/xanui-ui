@@ -1,9 +1,9 @@
 
 import React, { useState, ReactElement } from 'react';
 import { Tag, useInterface, ColorTemplateColors, TagProps, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
-import CheckIcon from '@xanui/icons/CheckBoxRound'
-import UnCheckIcon from '@xanui/icons/CheckBoxOutlineBlankRound'
-import IndeterminateCheckBoxIcon from '@xanui/icons/IndeterminateCheckBoxRound';
+import CheckIcon from '@xanui/icons/CheckBox'
+import UnCheckIcon from '@xanui/icons/CheckBoxOutlineBlank'
+import IndeterminateCheckBoxIcon from '@xanui/icons/IndeterminateCheckBox';
 
 
 export type CheckboxProps = Omit<TagProps<"input">, "color" | "size" | "component" | "type" | "checked"> & {

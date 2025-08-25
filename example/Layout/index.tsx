@@ -1,6 +1,6 @@
 import * as React from 'react';
-import DarkModeIcon from '@xanui/icons/DarkModeRound';
-import LightModeIcon from '@xanui/icons/LightModeRound';
+import DarkModeIcon from '@xanui/icons/DarkMode';
+import LightModeIcon from '@xanui/icons/LightMode';
 import Stack from '../../src/Stack'
 import ViewBox from '../../src/ViewBox'
 import IconButton from '../../src/IconButton'
@@ -9,7 +9,7 @@ import List from '../../src/List'
 import ListItem from '../../src/ListItem'
 import menu from './menus'
 import ThemeProvider from '../../src/ThemeProvider'
-import CheckIcon from '@xanui/icons/CheckCircleRound'
+import CheckIcon from '@xanui/icons/CheckCircle'
 import { createThemeSwitcher, css, Tag, useTagProps, useTheme } from '@xanui/core';
 import ThemeProviders from '../ui/ThemeProvider';
 import Icon from '@xanui/icons/Icon';

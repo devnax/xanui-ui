@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import Stack from '../Stack'
 import IconButton from '../IconButton';
-import IconKeyboardArrowRight from '@xanui/icons/KeyboardArrowRightRound';
-import IconKeyboardArrowLeft from '@xanui/icons/KeyboardArrowLeftRound';
+import IconKeyboardArrowRight from '@xanui/icons/KeyboardArrowRight';
+import IconKeyboardArrowLeft from '@xanui/icons/KeyboardArrowLeft';
 import Text from '../Text';
 import Button from '../Button';
-import ResetIcon from '@xanui/icons/ReplayRound';
+import ResetIcon from '@xanui/icons/Replay';
 import ViewBox from '../ViewBox';
 import { ColorTemplateColors, useInterface, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
 

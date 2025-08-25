@@ -6,7 +6,7 @@ import Tab from '../Tab'
 import Select from '../Select'
 import Option from '../Option'
 import Input from '../Input'
-import IconSearch from '@xanui/icons/SearchRound'
+import IconSearch from '@xanui/icons/Search'
 
 
 const FilterBox = (props: DatatablePropsWithState) => {

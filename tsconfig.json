@@ -7,7 +7,7 @@
       "ESNext"
     ],
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "node",
     "allowJs": false,
     "jsx": "react-jsx",
     "declaration": true,

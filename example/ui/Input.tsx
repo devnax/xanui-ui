@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import Stack from '../../src/Stack'
 import Input from '../../src/Input'
 import IconButton from '../../src/IconButton'
-import SendIcon from '@xanui/icons/SendRound'
-import SearchIcon from '@xanui/icons/SearchRound'
+import SendIcon from '@xanui/icons/Send'
+import SearchIcon from '@xanui/icons/Search'
 import Section from '../Layout/Section'
 
 const Inputs = () => {

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Tag, TagProps, TagComponentType, useInterface, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
-import PersonIcon from '@xanui/icons/PersonRound'
+import PersonIcon from '@xanui/icons/Person'
 
 export type AvatarProps<T extends TagComponentType = "img"> = TagProps<T> & {
     size?: useBreakpointPropsType<number>;
