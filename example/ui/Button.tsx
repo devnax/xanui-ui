@@ -81,7 +81,7 @@ const Buttons = () => {
                     <Button color="default" loading>Button</Button>
                     <Button startIcon={<InfoIcon />} color="brand" loading>Button</Button>
                     <Button startIcon={<InfoIcon />} color="info" direction="row">Button</Button>
-                    <Button color="accent" endIcon={<HomeIcon />} direction="row">Button</Button>
+                    <Button color="accent" loading endIcon={<HomeIcon />} direction="row">Button</Button>
                     <Button color="warning">Button</Button>
                     <Button color="success">Button</Button>
                     <Button color="danger" >Button</Button>

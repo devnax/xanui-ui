@@ -98,6 +98,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
                         }
                     },
                     "& circle.circle-progress-thumb": {
+
                         strokeDasharray: circumference,
                         strokeDashoffset: percent,
                         stroke: thumbColor || (color === 'default' ? `background.secondary` : `${color}.primary`),

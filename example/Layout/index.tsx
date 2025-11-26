@@ -32,7 +32,7 @@ const ThemeEle = () => {
     )
 }
 
-const useThemeSwitcher = createThemeSwitcher("light", "local")
+const useThemeSwitcher = createThemeSwitcher("light", { store: "local" })
 
 const ThemeBox = () => {
     const theme = useThemeSwitcher()
@@ -50,7 +50,6 @@ const ThemeBox = () => {
 }
 
 const Layout = () => {
-    const [theme, setTheme] = React.useState("dark")
     const [, dispatch] = React.useState(0)
     const currentMenuIndex = parseInt(localStorage.getItem("currentMenuIndex") || "0")
     const currentMenu = menu[currentMenuIndex]
@@ -64,7 +63,7 @@ const Layout = () => {
     }, [])
 
     return (
-        <ThemeProvider resetCss isRootProvider theme={themeSwitcher.name} >
+        <ThemeProvider isRootProvider theme={themeSwitcher.name} >
             <Stack height="100vh" flexRow bgcolor="background.primary">
                 <ViewBox
                     width={250}

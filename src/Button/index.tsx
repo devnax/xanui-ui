@@ -1,6 +1,6 @@
 
 import React, { ReactElement } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, ColorTemplateColors, ColorTemplateType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, ColorTemplateColors, ColorTemplateType, useBreakpointProps, useBreakpointPropsType, alpha } from '@xanui/core';
 import useCorner, { UseCornerTypes } from '../useCorner'
 import CircleProgress, { CircleProgressProps } from '../CircleProgress'
 
@@ -125,6 +125,7 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    bgcolor: alpha(templatecss.color as string, 0.4)
                 }}
             >
                 <CircleProgress
