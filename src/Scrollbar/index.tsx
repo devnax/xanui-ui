@@ -1,7 +1,7 @@
 
-import { Tag, TagComponentType, TagProps, useBreakpointProps, useInterface, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagComponentType, TagProps, useBreakpointProps, useInterface, useBreakpointPropsType, useScrollbar, useTheme } from '@xanui/core';
 
-import React, { ReactNode, UIEvent, useMemo, useRef } from 'react'
+import React, { ReactNode, UIEvent, useImperativeHandle, useRef } from 'react'
 
 export type ScrollbarProps<T extends TagComponentType = "div"> = TagProps<T> & {
     children: ReactNode;
@@ -11,31 +11,52 @@ export type ScrollbarProps<T extends TagComponentType = "div"> = TagProps<T> & {
     onScrollEnd?: (e: UIEvent<HTMLDivElement>) => void;
 }
 
-const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ children, ...rest }: ScrollbarProps<T>, ref: React.Ref<any>) => {
+export type ScrollbarHandle = {
+    scrollTo: (pos: number) => void;
+    scrollToBottom: () => void;
+    scrollToTop: () => void;
+};
+
+const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ children, ...rest }: ScrollbarProps<T>, ref: React.Ref<ScrollbarHandle>) => {
     let [{ thumbSize, thumbColor, trackColor, onScroll, onScrollEnd, ...props }] = useInterface<any>("Scrollbar", rest, {})
     const _p: any = {}
     if (thumbSize) _p.thumbSize = thumbSize
     if (thumbColor) _p.thumbColor = thumbColor
     if (trackColor) _p.trackColor = trackColor
     const p: any = useBreakpointProps(_p)
+    const theme = useTheme()
+    const sclass = useScrollbar({
+        themeName: theme.name,
+        thumbSize: p.thumbSize,
+        thumbColor: p.thumbColor,
+        trackColor: p.trackColor,
+    })
+    props.className = props.className ? `${props.className} ${sclass}` : sclass
+    const innerRef = useRef<HTMLDivElement>(null);
 
-    thumbSize = p.thumbSize ?? 10
-    thumbColor = p.thumbColor ?? "var(--color-divider)"
-    trackColor = p.trackColor ?? "var(--color-background-secondary)"
 
-    ref = ref || useRef(null)
-
-    useMemo(() => {
-        ((ref as any)).scrollTo = (pos: number) => {
-            (ref as any).current.scrollTo({ top: pos, behavior: 'smooth' })
+    useImperativeHandle(ref, () => ({
+        scrollTo(pos: number) {
+            innerRef.current?.scrollTo({
+                top: pos,
+                behavior: "smooth"
+            });
+        },
+        scrollToBottom() {
+            if (!innerRef.current) return;
+            const ele = innerRef.current;
+            ele.scrollTo({
+                top: ele.scrollHeight,
+                behavior: "smooth"
+            });
+        },
+        scrollToTop() {
+            innerRef.current?.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
         }
-        (ref as any).scrollToBottom = () => {
-            (ref as any).scrollTo((ref as any).current.scrollHeight)
-        }
-        (ref as any).scrollToTop = () => {
-            (ref as any).scrollTo(0)
-        }
-    }, [])
+    }));
 
     if (onScroll || onScrollEnd) {
         props.onScroll = (e: UIEvent<HTMLDivElement>) => {
@@ -54,31 +75,12 @@ const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ childr
     return (
         <Tag
             {...props}
-            ref={ref}
+            ref={innerRef}
             baseClass='scrollbar'
             sxr={{
                 height: "100%",
                 width: "100%",
                 overflow: "auto",
-                // scrollbarWidth: "thin", // Firefox specific
-                // scrollbarColor: `${thumbColor} ${trackColor}`, //"#888 #f4f4f4", // Thumb and track colors for Firefox
-                // msOverflowStyle: "scrollbar", // Internet Explorer
-                "&::-webkit-scrollbar": {
-                    width: thumbSize, // Width of the vertical scrollbar
-                    height: thumbSize, // Height of the horizontal scrollbar
-                },
-                "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: thumbColor, // Color of the scroll thumb
-                    borderRadius: "5px", // Rounded corners
-                    border: "2px solid #f4f4f4", // Space around the thumb
-                },
-                "&::-webkit-scrollbar-thumb:hover": {
-                    backgroundColor: thumbColor, // Thumb color on hover
-                },
-                "&::-webkit-scrollbar-track": {
-                    backgroundColor: trackColor, // Background color of the scrollbar track
-                    borderRadius: "5px", // Rounded corners
-                },
             }}
         >
             {children}
