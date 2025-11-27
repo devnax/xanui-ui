@@ -1,6 +1,6 @@
 {
    "name": "@xanui/ui",
-   "version": "1.1.1",
+   "version": "1.1.2",
    "description": "",
    "publishConfig": {
       "access": "public"
@@ -15,11 +15,11 @@
       "release": "makepack release"
    },
    "dependencies": {
-      "@xanui/core": "^1.1.14",
+      "@xanui/core": "^1.1.15",
       "@xanui/icons": "^1.1.10",
       "oncss": "^1.1.15",
       "pretty-class": "^1.0.5",
-      "react-state-bucket": "^1.1.9",
+      "react-state-bucket": "^1.2.4",
       "tslib": "^2.8.1"
    },
    "devDependencies": {
