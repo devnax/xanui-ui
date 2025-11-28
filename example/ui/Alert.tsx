@@ -3,22 +3,29 @@ import Alert from '../../src/Alert'
 import Stack from '../../src/Stack'
 import Text from '../../src/Text'
 import Button from '../../src/Button'
+import useAlert from '../../src/useAlert'
 
 const Alerts = () => {
+
+    const alert = useAlert({
+        color: "danger",
+        title: "Alert from useAlert Hook",
+        okButtonText: "Agree",
+        buttonPlacement: "full",
+        content: <>
+            This is alert content from useAlert hook. you can use this hook to show alert modals in your application.
+        </>,
+        onConfirm: () => {
+            console.log("Alert confirmed")
+        }
+    })
     return (
         <Stack gap={1}
 
         >
             <Button
                 onClick={() => {
-                    Alert.confirm({
-                        title: "Are You Sure?",
-                        content: <>
-                            This action cannot be undone. so be carefull go confirm this action.
-                            This action cannot be undone. so be carefull go confirm this action.
-                        </>,
-                        okButtonText: "Agree"
-                    })
+                    alert.open()
                 }}>Open</Button>
             <Alert
                 width={300}

@@ -1,6 +1,6 @@
 
-import { Tag, TagProps, useBreakpointProps, TransitionVariantTypes, useColorTemplate, ColorTemplateColors, ColorTemplateType, useInterface, useBreakpointPropsType } from "@xanui/core"
-import React, { isValidElement, ReactElement, ReactNode } from "react"
+import { Tag, TagProps, useBreakpointProps, useColorTemplate, ColorTemplateColors, ColorTemplateType, useInterface, useBreakpointPropsType } from "@xanui/core"
+import React, { isValidElement, ReactElement } from "react"
 import Text from "../Text"
 import InfoIcon from '@xanui/icons/Info';
 import WarningIcon from '@xanui/icons/Warning';
@@ -8,8 +8,6 @@ import SuccessIcon from '@xanui/icons/CheckCircle';
 import ErrorIcon from '@xanui/icons/Cancel';
 import IconClose from '@xanui/icons/Close';
 import IconButton from "../IconButton";
-import Modal, { ModalProps } from "../Modal";
-import Button, { ButtonProps } from "../Button";
 
 
 export type AlertProps = Omit<TagProps<"div">, "content" | "title" | "direction"> & {
@@ -170,153 +168,5 @@ const Alert = ({ children, ...rest }: AlertProps) => {
     )
 }
 
-export type AlertConfirmProps = Omit<AlertProps, 'children' | 'onClose' | 'variant' | "size"> & {
-    content?: ReactNode;
-    size?: "small" | "medium" | "large" | number;
-    closeButton?: boolean;
-    clickOutsideToClose?: boolean;
-    okButtonText?: string;
-    closeButtonText?: string;
-    hideOkButton?: boolean;
-    hideCloseButton?: boolean;
-    buttonPlacement?: "start" | "end" | "between" | "full";
-    variant?: "text" | "fill"
-    onConfirm?: (ok: boolean) => void;
-    transition?: TransitionVariantTypes;
-    blurMode?: ModalProps['blurMode'];
-    slotProps?: {
-        modal?: Omit<ModalProps, "childred" | "transition" | "blurMode">;
-        okButton?: Omit<ButtonProps, "children">;
-        closeButton?: Omit<ButtonProps, "children">;
-    }
-}
-
-Alert.confirm = (props: AlertConfirmProps) => {
-    const id = "_" + Math.random().toString(16)
-    let {
-        content,
-        size,
-        color,
-        direction,
-        variant,
-        closeButton,
-        clickOutsideToClose,
-        okButtonText,
-        closeButtonText,
-        hideOkButton,
-        hideCloseButton,
-        buttonPlacement,
-        onConfirm,
-        transition,
-        blurMode,
-        slotProps,
-        ...rest
-    } = props
-
-    hideOkButton ??= false
-    hideCloseButton ??= false
-
-    size ??= "small"
-    color ??= 'default'
-    variant ??= "text"
-    direction ??= "row"
-    buttonPlacement ??= "end"
-    let sx: any = {};
-
-    switch (buttonPlacement) {
-        case "start":
-            sx.justifyContent = 'flex-start'
-            break;
-        case "end":
-            sx.justifyContent = 'flex-end'
-            break;
-        case "between":
-            sx.justifyContent = 'space-between'
-            break;
-        case "full":
-            sx = {
-                "& button": {
-                    flex: 1
-                }
-            }
-            break;
-    }
-
-    let sizes: any = {
-        small: 320,
-        medium: 400,
-        large: 600
-    }
-
-    const close = () => Modal.close(id)
-    let okcolor = color
-    let closecolor = color
-    if (color === 'default') {
-        okcolor = 'brand'
-        closecolor = 'default'
-        variant = 'text'
-    } else {
-        if (variant === 'fill') {
-            okcolor = 'default'
-            closecolor = 'default'
-        } else {
-            okcolor = color
-            closecolor = 'default'
-        }
-    }
-
-    return Modal.open(id, <Alert
-        direction={direction}
-        sx={{
-            px: 2,
-            py: 1,
-            pt: direction === 'row' ? 1 : 2
-        }}
-        color={color}
-        variant={variant}
-        onClose={closeButton ? close : undefined}
-        {...rest}
-    >
-        {content}
-        <Tag
-            sxr={{
-                display: "flex",
-                gap: 1,
-                pt: 4,
-                flexDirection: "row",
-                ...sx,
-            }}
-        >
-            {!hideCloseButton && <Button
-                color={closecolor}
-                variant="fill"
-                {...slotProps?.closeButton}
-                onClick={() => {
-                    close()
-                    onConfirm && onConfirm(false)
-                }}
-            >{closeButtonText || "Close"}</Button>}
-            {!hideOkButton && <Button
-                color={okcolor}
-                variant="fill"
-                {...slotProps?.okButton}
-
-                onClick={() => {
-                    Modal.close(id)
-                    onConfirm && onConfirm(true)
-                }}
-            >{okButtonText || "OK"}</Button>}
-        </Tag>
-    </Alert>, {
-        ...slotProps?.modal,
-        size: sizes[size] || size,
-        blur: 40,
-        blurMode: blurMode || "transparent",
-        transition: transition || "zoom",
-        onClickOutside: () => {
-            clickOutsideToClose && close()
-        }
-    })
-}
 
 export default Alert

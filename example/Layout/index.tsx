@@ -8,9 +8,8 @@ import Text from '../../src/Text'
 import List from '../../src/List'
 import ListItem from '../../src/ListItem'
 import menu from './menus'
-import ThemeProvider from '../../src/ThemeProvider'
 import CheckIcon from '@xanui/icons/CheckCircle'
-import { createThemeSwitcher, css, Tag, useTagProps, useTheme } from '@xanui/core';
+import { AppRoot, createThemeSwitcher, css, Tag, ThemeProvider, useTagProps, useTheme } from '@xanui/core';
 import ThemeProviders from '../ui/ThemeProvider';
 import Icon from '@xanui/icons/Icon';
 
@@ -55,6 +54,7 @@ const Layout = () => {
     const currentMenu = menu[currentMenuIndex]
     const Render: any = currentMenu?.render || (() => <></>)
     const themeSwitcher = useThemeSwitcher()
+
     React.useEffect(() => {
         const ele = document.getElementById(`menu-${currentMenuIndex}`)
         if (ele) {
@@ -63,7 +63,7 @@ const Layout = () => {
     }, [])
 
     return (
-        <ThemeProvider isRootProvider theme={themeSwitcher.name} >
+        <AppRoot theme={themeSwitcher.name} >
             <Stack height="100vh" flexRow bgcolor="background.primary">
                 <ViewBox
                     width={250}
@@ -93,7 +93,7 @@ const Layout = () => {
                     <Render />
                 </Stack>
             </Stack>
-        </ThemeProvider>
+        </AppRoot>
     );
 };
 

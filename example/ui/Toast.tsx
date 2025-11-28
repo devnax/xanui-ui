@@ -3,18 +3,22 @@ import Stack from '../../src/Stack'
 import Button from '../../src/Button'
 import Toast from '../../src/Toast'
 import Section from '../Layout/Section'
+import useToast from '../../useToast'
 
 const Toasts = () => {
     const [open, setOpen] = React.useState(false)
+    const toast = useToast({
+        title: "Hello World",
+        content: "This is a toast message",
+        placement: "bottom-right",
+        color: "success",
+        closeable: true
+    })
     return (
         <Stack>
             <Section title="Basic" flexRow gap={2}>
                 <Button onClick={() => setOpen(!open)}>Toggle</Button>
-                <Button onClick={() => Toast.open({
-                    title: "Warning",
-                    content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-                    color: "warning"
-                })}>Open</Button>
+                <Button onClick={() => toast.show()}>Open</Button>
             </Section>
         </Stack>
     )

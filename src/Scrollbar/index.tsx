@@ -4,7 +4,7 @@ import { Tag, TagComponentType, TagProps, useBreakpointProps, useInterface, useB
 import React, { ReactNode, UIEvent, useImperativeHandle, useRef } from 'react'
 
 export type ScrollbarProps<T extends TagComponentType = "div"> = TagProps<T> & {
-    children: ReactNode;
+    children?: ReactNode;
     thumbSize?: useBreakpointPropsType<number>;
     thumbColor?: useBreakpointPropsType<string>;
     trackColor?: useBreakpointPropsType<string>;
@@ -31,6 +31,7 @@ const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ childr
         thumbColor: p.thumbColor,
         trackColor: p.trackColor,
     })
+
     props.className = props.className ? `${props.className} ${sclass}` : sclass
     const innerRef = useRef<HTMLDivElement>(null);
 
@@ -71,6 +72,8 @@ const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ childr
             onScroll && onScroll(e)
         }
     }
+
+
 
     return (
         <Tag

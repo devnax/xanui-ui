@@ -5,6 +5,7 @@ import Layer from '../../src/Layer'
 import List from '../../src/List'
 import ListItem from '../../src/ListItem'
 import ClickOutside from '../../src/ClickOutside'
+import useLayer from '../../src/useLayer'
 
 const Layers = () => {
     const [open, setOpen] = useState<any>(false)
@@ -18,7 +19,7 @@ const Layers = () => {
             <Stack gap={2}>
                 <Button
                     onClick={(e) => {
-                        Layer.close("id")
+                        setOpen(false)
                     }}
                 >Close</Button>
                 <List radius={1} width={180} variant="fill" bgcolor="background.primary" shadow={5}>
@@ -31,6 +32,28 @@ const Layers = () => {
         </ClickOutside>
     </Stack>
 
+    const layer = useLayer(<Stack
+        height="100%"
+        alignItems="center"
+        justifyContent="center"
+    >
+        <ClickOutside onClickOutside={() => layer.close()}>
+            <Stack gap={2}>
+                <Button
+                    onClick={(e) => {
+                        layer.close()
+                    }}
+                >Close</Button>
+                <List radius={1} width={180} variant="fill" bgcolor="background.primary" shadow={5}>
+                    <ListItem >Home</ListItem>
+                    <ListItem >About</ListItem>
+                    <ListItem >Services</ListItem>
+                    <ListItem >Contact</ListItem>
+                </List>
+            </Stack>
+        </ClickOutside>
+    </Stack>)
+
     return (
         <div>
             <Stack
@@ -40,10 +63,7 @@ const Layers = () => {
             >
                 <Button
                     onClick={(e) => {
-                        // setOpen(!open)
-                        Layer.open("id", layerContent, {
-                            blur: 20
-                        })
+                        layer.open()
                     }}
                 >Open</Button>
                 <Layer

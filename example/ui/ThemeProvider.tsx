@@ -1,9 +1,9 @@
 import React from 'react'
 import Stack from '../../src/Stack'
-import ThemeProvider from '../../src/ThemeProvider'
 import Lists from './List'
 import Accodiond from './Accordion'
 import Section from '../Layout/Section'
+import { ThemeProvider } from '@xanui/core'
 const E = () => {
     return (
         <div>

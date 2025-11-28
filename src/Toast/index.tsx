@@ -103,9 +103,9 @@ const ToastContainer = ({ placement }: { placement: PlacementType }) => {
             }}
         >
             <Scrollbar
-                style={{
-                    padding: 8
-                }}
+                p={1}
+                overflowX="hidden"
+
             >
                 {
                     items.map(({ open, id, props }) => {
