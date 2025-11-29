@@ -19,10 +19,9 @@ const Alerts = () => {
             console.log("Alert confirmed")
         }
     })
-    return (
-        <Stack gap={1}
 
-        >
+    return (
+        <Stack gap={1}>
             <Button
                 onClick={() => {
                     alert.open()

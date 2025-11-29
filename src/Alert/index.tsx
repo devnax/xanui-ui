@@ -168,5 +168,4 @@ const Alert = ({ children, ...rest }: AlertProps) => {
     )
 }
 
-
 export default Alert

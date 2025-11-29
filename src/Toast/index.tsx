@@ -1,14 +1,21 @@
+import { createRoot } from "react-dom/client";
+import { appRootElement, ColorTemplateColors, ColorTemplateType, Transition, useBreakpointPropsType } from "@xanui/core";
+import React, { ReactElement } from "react";
+import Alert, { AlertProps } from "../Alert";
+import Scrollbar from "../Scrollbar";
 
-import { Tag, ColorTemplateColors, ColorTemplateType, useBreakpointPropsType, Transition } from '@xanui/core'
-import { ReactElement } from "react";
-import Renderar from '../ThemeProvider/RenderRoot';
-import Alert, { AlertProps } from '../Alert';
-import Scrollbar from '../Scrollbar';
 
 
 type PlacementType = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right"
 
-export type ToastProps = {
+export type useToastContentProps = {
+    show: () => string;
+    hide: () => void;
+}
+
+export type UseTastContent = string | ReactElement | ((props: useToastContentProps) => ReactElement)
+
+export type UseToastProps = {
     title?: useBreakpointPropsType<string | ReactElement>;
     content?: AlertProps['children'];
     variant?: useBreakpointPropsType<ColorTemplateType>;
@@ -18,48 +25,27 @@ export type ToastProps = {
     closeable?: useBreakpointPropsType<boolean>;
 }
 
-type StateValue = { open: boolean, id: string, timer?: NodeJS.Timeout, props: ToastProps }
-const State = new Map<PlacementType, StateValue[]>()
 
-
-let updateState = (placement: PlacementType, id: string, callback: (item: StateValue) => StateValue) => {
-    const items = State.get(placement)
-    if (items) {
-        for (let i = 0; i < items.length; i++) {
-            let item = items[i]
-            if (item.id === id) {
-                items[i] = callback(item)
-                State.set(placement, items)
-                Renderar.dispatch()
-                break;
-            }
-        }
-    }
-}
-
-const ToastContainer = ({ placement }: { placement: PlacementType }) => {
-    const items = State.get(placement)
-    if (!items || !items?.length) return <></>
-
-    let sxr: any = {}
+const formatPacement = (placement: PlacementType) => {
+    let sx: any = {}
     let transition: any = ""
     switch (placement) {
         case "top-left":
-            sxr = {
+            sx = {
                 top: 0,
                 left: 0
             }
             transition = "fadeRight"
             break;
         case "top-right":
-            sxr = {
+            sx = {
                 top: 0,
                 right: 0
             }
             transition = "fadeLeft"
             break;
         case "top-center":
-            sxr = {
+            sx = {
                 top: 0,
                 left: "50%",
                 transform: "translateX(-50%)"
@@ -67,21 +53,21 @@ const ToastContainer = ({ placement }: { placement: PlacementType }) => {
             transition = "fadeDown"
             break;
         case "bottom-right":
-            sxr = {
+            sx = {
                 bottom: 0,
                 right: 0
             }
             transition = "fadeLeft"
             break;
         case "bottom-left":
-            sxr = {
+            sx = {
                 bottom: 0,
                 left: 0
             }
             transition = "fadeRight"
             break;
         case "bottom-center":
-            sxr = {
+            sx = {
                 bottom: 0,
                 left: "50%",
                 transform: "translateX(-50%)"
@@ -89,125 +75,110 @@ const ToastContainer = ({ placement }: { placement: PlacementType }) => {
             transition = "fadeUp"
             break;
     }
-    return (
-        <Tag
-            sxr={{
+    return { sx, transition }
+}
+
+const ToastView = (props: UseToastProps & { onClosed: () => void }) => {
+    const [open, setOpen] = React.useState(true)
+    const [timer, setTimer] = React.useState<any>(null)
+    const { placement = "bottom-right", content, closeable, onClosed, ...rest } = props || {}
+    const { transition } = formatPacement(placement)
+
+    return (<Transition
+        open={open}
+        variant={transition}
+        onClosed={() => {
+            onClosed()
+        }}
+        onOpened={() => {
+            setTimer(setTimeout(() => {
+                setOpen(false)
+            }, 6000))
+        }}
+    >
+        <Alert
+            shadow={2}
+            variant="fill"
+            color="brand"
+            {...rest as any}
+            mode="item"
+            mb={1}
+            onMouseEnter={() => {
+                clearTimeout(timer)
+            }}
+            onMouseLeave={() => {
+                setTimer(setTimeout(() => {
+                    setOpen(false)
+                }, 6000))
+            }}
+            onClose={closeable ? () => {
+                setOpen(false)
+            } : undefined}
+        >{content}</Alert>
+    </Transition>)
+}
+
+const Toast = (props?: string | UseToastProps) => {
+    if (typeof props === "string") {
+        props = { content: props }
+    }
+    let { placement = "bottom-right", content, closeable, ...rest } = props || {}
+    const { sx } = formatPacement(placement)
+
+    const wrapperContainerClassName = `xui-toast-container-${placement}`
+    const wrapperClassName = `xui-toast-list-${placement}`
+    let wrapperEle = document.querySelector(`.${wrapperContainerClassName}`) as HTMLElement
+    if (!wrapperEle) {
+        wrapperEle = document.createElement('div')
+        wrapperEle.className = wrapperContainerClassName
+        const appRoot = appRootElement()
+        appRoot.appendChild(wrapperEle)
+
+        const wrapperRoot = createRoot(wrapperEle);
+        wrapperRoot.render(<Scrollbar
+            p={1}
+            overflow="hidden"
+            className={wrapperClassName}
+            sx={{
                 position: "fixed",
                 zIndex: 99999999,
                 display: "flex",
-                gap: 2,
+                justifyContent: "flex-end",
                 flexDirection: "column",
-                maxHeight: "100%",
                 width: 320,
-                ...sxr
+                height: "auto",
+                maxHeight: "100vh",
+                ...sx
             }}
         >
-            <Scrollbar
-                p={1}
-                overflowX="hidden"
 
-            >
-                {
-                    items.map(({ open, id, props }) => {
-                        let { content, closeable, ...rest } = props
-                        closeable ??= true
-                        return (
-                            <Transition
-                                key={id}
-                                open={open}
-                                variant={transition}
-                                onClosed={() => {
-                                    const items = State.get(placement)
-                                    if (items) {
-                                        for (let i = 0; i < items.length; i++) {
-                                            let item = items[i]
-                                            if (item.id === id) {
-                                                items.splice(i, 1)
-                                                State.set(placement, items)
-                                                Renderar.dispatch()
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }}
-                                onOpened={() => {
-                                    let timer = setTimeout(() => {
-                                        updateState(placement, id, (_item) => {
-                                            _item.open = false
-                                            return _item
-                                        })
-                                    }, 6000)
-                                    updateState(placement, id, (_item) => {
-                                        _item.timer = timer
-                                        return _item
-                                    })
-                                }}
-                            >
-                                <Alert
-                                    shadow={2}
-                                    variant="fill"
-                                    color="brand"
-                                    {...rest as any}
-                                    mode="item"
-                                    mb={1.5}
-                                    onMouseEnter={() => {
-                                        updateState(placement, id, (_item) => {
-                                            clearTimeout(_item.timer)
-                                            return _item
-                                        })
-                                    }}
-                                    onMouseLeave={() => {
-                                        let timer = setTimeout(() => {
-                                            updateState(placement, id, (_item) => {
-                                                _item.open = false
-                                                return _item
-                                            })
-                                        }, 6000)
-                                        updateState(placement, id, (_item) => {
-                                            _item.timer = timer
-                                            return _item
-                                        })
-                                    }}
-                                    onClose={closeable ? () => {
-                                        updateState(placement, id, (_item) => {
-                                            _item.open = false
-                                            clearTimeout(_item.timer)
-                                            return _item
-                                        })
-                                    } : undefined}
-                                >{content}</Alert>
-                            </Transition>
-                        )
-                    })
-                }
-            </Scrollbar>
-        </Tag>
-    )
-}
-const uid = (p: string) => {
-    const id = Math.random().toString(32).substring(2, 5)
-    return `TOAST_CONTAINER_${p}_${id}`.toUpperCase()
-}
-Renderar.create(uid("TOP_LEFT"), () => <ToastContainer placement='top-left' />)
-Renderar.create(uid("TOP_RIGHT"), () => <ToastContainer placement='top-right' />)
-Renderar.create(uid("TOP_CENTER"), () => <ToastContainer placement='top-center' />)
-Renderar.create(uid("BOTTOM_LEFT"), () => <ToastContainer placement='bottom-left' />)
-Renderar.create(uid("BOTTOM_RIGHT"), () => <ToastContainer placement='bottom-right' />)
-Renderar.create(uid("BOTTOM_CENTER"), () => <ToastContainer placement='bottom-center' />)
-
-const Toast = {
-    open: (props: ToastProps) => {
-        let { placement } = props || {}
-        placement ??= "bottom-right"
-        let prev = State.get(placement) || []
-        prev.push({
-            open: true,
-            id: Math.random().toString(),
-            props
-        })
-        State.set(placement, prev)
-        Renderar.dispatch()
+        </Scrollbar>);
     }
+
+    setTimeout(() => {
+        const wrapper = document.querySelector(`.${wrapperClassName}`) as HTMLElement;
+        const div = document.createElement('div');
+        wrapper.appendChild(div);
+        const root = createRoot(div);
+
+        root.render(<ToastView
+            placement={placement}
+            content={content}
+            closeable={closeable}
+            {...rest}
+            onClosed={() => {
+                root.unmount();
+                wrapper.removeChild(div);
+                if (wrapper.children.length === 0) {
+                    const container = document.querySelector(`.${wrapperContainerClassName}`) as HTMLElement
+                    if (container) {
+                        appRootElement().removeChild(container);
+                    }
+                }
+            }}
+        />);
+    }, 5);
+
 }
 
-export default Toast
+export default Toast;
