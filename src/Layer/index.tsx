@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType, useInterface, TransitionProps, Transition } from "@xanui/core"
 import useBlurCss from '../useBlurCss';
+import { Renderar } from "@xanui/core";
 
 export type LayerProps = {
     open: boolean;
@@ -109,4 +110,29 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
     )
 }
 
+
+Layer.open = (children: LayerProps['children'], props?: Partial<Omit<LayerProps, 'children'>>) => {
+    const l = Renderar.render(Layer as any, {
+        open: true,
+        ...props,
+        children,
+        onClosed: () => {
+            Renderar.unrender(Layer as any)
+            if (props?.onClosed) {
+                props.onClosed()
+            }
+        }
+    })
+    return {
+        open: () => {
+            l.updateProps({ open: true })
+        },
+        close: () => {
+            l.updateProps({ open: false })
+        },
+    }
+}
+Layer.close = () => {
+    Renderar.unrender(Layer as any)
+}
 export default Layer

@@ -1,10 +1,10 @@
-import useLayer, { UseLayerOption } from "../useLayer";
+import useLayer, { UseLayerProps } from "../useLayer";
 import { Tag, TagProps } from '@xanui/core'
 
-export type UseModalOption = Omit<UseLayerOption, "slotProps"> & {
+export type UseModalProps = Omit<UseLayerProps, "slotProps"> & {
    size?: "xs" | "sm" | "md" | "lg" | "xl" | "fullWidth" | number;
    slotProps?: {
-      layer?: UseLayerOption['slotProps'];
+      layer?: UseLayerProps['slotProps'];
       root?: Omit<TagProps<'div'>, "children">
    }
 }
@@ -16,7 +16,7 @@ export type UseModalReturn = {
    close: () => void;
 }
 
-const useModal = (children: UseModalChildren, option?: UseModalOption) => {
+const useModal = (children: UseModalChildren, props?: UseModalProps) => {
 
    let sizes: any = {
       xs: 420,
@@ -26,7 +26,7 @@ const useModal = (children: UseModalChildren, option?: UseModalOption) => {
       xl: 1300,
       fullWidth: "100%"
    }
-   let { size, slotProps, ...useLayerOption } = option || {}
+   let { size, slotProps, ...useLayerProps } = props || {}
    size = size ?? "xs"
    slotProps = slotProps || {} as any
    const root: any = slotProps?.root || {}
@@ -49,10 +49,10 @@ const useModal = (children: UseModalChildren, option?: UseModalOption) => {
          </Tag>
       )
    }, {
-      ...useLayerOption,
+      ...useLayerProps,
       onClickOutside: () => {
-         if (option?.onClickOutside) {
-            option.onClickOutside()
+         if (props?.onClickOutside) {
+            props.onClickOutside()
          } else {
             layer.close()
          }

@@ -1,10 +1,9 @@
 
 import { Tag, TransitionVariantTypes } from "@xanui/core"
 import Button, { ButtonProps } from "../Button";
-import useModal, { UseModalOption } from "../useModal";
+import useModal, { UseModalProps } from "../useModal";
 import Alert, { AlertProps } from "../Alert";
 import React from "react";
-
 export type UseAlertContentProps = {
     open: () => void;
     close: () => void;
@@ -14,7 +13,7 @@ export type UseAlertContentProps = {
 
 export type UseAlertContent = React.ReactElement | ((props: UseAlertContentProps) => React.ReactElement)
 
-export type UseAlerOption = Omit<AlertProps, 'children' | 'onClose' | 'variant' | "size"> & {
+export type UseAlerProps = Omit<AlertProps, 'children' | 'onClose' | 'variant' | "size"> & {
     content: string | UseAlertContent,
     size?: "small" | "medium" | "large" | number;
     closeButton?: boolean;
@@ -28,16 +27,16 @@ export type UseAlerOption = Omit<AlertProps, 'children' | 'onClose' | 'variant' 
     onConfirm?: () => Promise<void> | void;
     onCancel?: () => Promise<void> | void;
     transition?: TransitionVariantTypes;
-    blurMode?: UseModalOption['blurMode'];
+    blurMode?: UseModalProps['blurMode'];
     slotProps?: {
-        modal?: UseModalOption['slotProps']
+        modal?: UseModalProps;
         okButton?: Omit<ButtonProps, "children">;
         closeButton?: Omit<ButtonProps, "children">;
     }
 }
 
 
-const useAlert = (option: UseAlerOption) => {
+const useAlert = (props: UseAlerProps) => {
     const [loading, setLoading] = React.useState(false)
     let {
         content,
@@ -58,7 +57,7 @@ const useAlert = (option: UseAlerOption) => {
         blurMode,
         slotProps,
         ...rest
-    } = option
+    } = props
 
     hideOkButton ??= false
     hideCancelButton ??= false

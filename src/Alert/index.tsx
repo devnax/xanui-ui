@@ -1,6 +1,6 @@
 
-import { Tag, TagProps, useBreakpointProps, useColorTemplate, ColorTemplateColors, ColorTemplateType, useInterface, useBreakpointPropsType } from "@xanui/core"
-import React, { isValidElement, ReactElement } from "react"
+import { Tag, TagProps, useBreakpointProps, useColorTemplate, ColorTemplateColors, ColorTemplateType, useInterface, useBreakpointPropsType, Renderar } from "@xanui/core"
+import React, { isValidElement, ReactElement, useEffect, useRef } from "react"
 import Text from "../Text"
 import InfoIcon from '@xanui/icons/Info';
 import WarningIcon from '@xanui/icons/Warning';
@@ -8,6 +8,7 @@ import SuccessIcon from '@xanui/icons/CheckCircle';
 import ErrorIcon from '@xanui/icons/Cancel';
 import IconClose from '@xanui/icons/Close';
 import IconButton from "../IconButton";
+import useAlert, { UseAlerProps } from "../useAlert";
 
 
 export type AlertProps = Omit<TagProps<"div">, "content" | "title" | "direction"> & {
@@ -166,6 +167,66 @@ const Alert = ({ children, ...rest }: AlertProps) => {
             </Tag>
         </Tag>
     )
+}
+
+const ActionAlert = (props: UseAlerProps) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const alert = useAlert({
+        ...props,
+        slotProps: {
+            ...props.slotProps,
+            modal: {
+                ...props.slotProps?.modal,
+                slotProps: {
+                    ...props.slotProps?.modal?.slotProps,
+                    layer: {
+                        ...props.slotProps?.modal?.slotProps?.layer,
+                        portal: {
+                            ...props.slotProps?.modal?.slotProps?.layer?.portal,
+                            container: ref.current || undefined
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    useEffect(() => {
+        if (props.open) {
+            alert.open()
+        } else {
+            alert.close()
+        }
+    }, [props.open])
+    return <Tag ref={ref}></Tag>
+}
+
+Alert.confirm = (props: UseAlerProps) => {
+    const a = Renderar.render(ActionAlert as any, {
+        open: true,
+        ...props,
+        slotProps: {
+            ...props.slotProps,
+            modal: {
+                ...props.slotProps?.modal,
+                onClosed: () => {
+                    a.unrender()
+                    if (props?.slotProps?.modal?.onClosed) {
+                        props.slotProps?.modal?.onClosed()
+                    }
+                },
+            }
+        },
+    })
+
+    return {
+        open: () => {
+            a.updateProps({ open: true })
+        },
+        close: () => {
+            a.updateProps({ open: false })
+        },
+    }
 }
 
 export default Alert

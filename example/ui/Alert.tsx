@@ -26,6 +26,29 @@ const Alerts = () => {
                 onClick={() => {
                     alert.open()
                 }}>Open</Button>
+            <Button
+                onClick={() => {
+                    Alert.confirm({
+                        title: "Action Alert",
+                        content: "This is an action alert from static confirm method.",
+                        color: "brand",
+                        okButtonText: "OK",
+                        cancelButtonText: "Cancel",
+                        onConfirm: () => {
+                            console.log("Action Alert confirmed")
+                        },
+                        onCancel: () => {
+                            console.log("Action Alert cancelled")
+                        },
+                        slotProps: {
+                            modal: {
+                                onClosed: () => {
+                                    console.log("Action Alert closed")
+                                }
+                            }
+                        }
+                    })
+                }}>Action Alert</Button>
             <Alert
                 width={300}
                 direction="column"

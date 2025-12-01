@@ -15,7 +15,7 @@ export type DrawerProps = Omit<TagProps, "children" | "size"> & {
     onClickOutside?: () => void;
     slotProps?: {
         root?: TagProps<"div">;
-        layer?: Omit<LayerProps, 'id' | 'children' | 'open' | 'transition'>;
+        layer?: Partial<Omit<LayerProps, 'children' | "transition" | "open">>;
     }
 }
 
@@ -49,25 +49,23 @@ const MainView = ({ children, placement, open, size, slotProps, onClickOutside, 
                 justifyContent: placement === 'left' || placement === 'top' ? "flex-start" : "flex-end"
             }}
         >
-            <ClickOutside onClickOutside={onClickOutside || (() => { })}>
-                <Tag
-                    {...rest}
-                    sxr={{
-                        width: isSide ? _size : "100%",
-                        height: isSide ? "100%" : _size,
-                        bgcolor: "background.primary",
-                        shadow: 10
-                    }}
-                    baseClass='drawer-content'
-                >
-                    {children}
-                </Tag>
-            </ClickOutside>
+            {/* <ClickOutside onClickOutside={onClickOutside || (() => { })}> */}
+            <Tag
+                {...rest}
+                sxr={{
+                    width: isSide ? _size : "100%",
+                    height: isSide ? "100%" : _size,
+                    bgcolor: "background.primary",
+                    shadow: 10
+                }}
+                baseClass='drawer-content'
+            >
+                {children}
+            </Tag>
+            {/* </ClickOutside> */}
         </Tag>
     )
 }
-
-let drawerId = "_" + Math.random().toString(32).substring(2)
 
 const getVariant = (placement?: any) => {
     switch (placement) {
@@ -98,18 +96,16 @@ const Drawer = ({ children, open, ...rest }: DrawerProps) => {
 Drawer.open = (content: DrawerChildrenType, props?: Omit<DrawerProps, "children" | "open">) => {
     let { placement, slotProps } = props || {}
     placement ??= 'left'
-    Layer.open(drawerId, <MainView
-        onClickOutside={() => Layer.close(drawerId)}
+    const l = Layer.open(<MainView
+        onClickOutside={() => l.close()}
         {...props}
         open={true}
-    >{content}</MainView>, {
+    >{"content"}</MainView>, {
         ...slotProps?.layer,
-        transition: getVariant(placement)
+        transition: getVariant(placement) as any,
     })
-}
 
-Drawer.close = () => {
-    Layer.close(drawerId)
+    return l
 }
 
 export default Drawer

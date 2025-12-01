@@ -66,6 +66,29 @@ const Layers = () => {
                         layer.open()
                     }}
                 >Open</Button>
+                <Button
+                    onClick={(e) => {
+                        const l = Layer.open(<Stack
+                            height="100%"
+                            alignItems="center"
+                            justifyContent="center"
+                        >
+                            <Stack gap={2}>
+                                <Button
+                                    onClick={(e) => {
+                                        l.close()
+                                    }}
+                                >Close</Button>
+                                <List radius={1} width={180} variant="fill" bgcolor="background.primary" shadow={5}>
+                                    <ListItem >Home</ListItem>
+                                    <ListItem >About</ListItem>
+                                    <ListItem >Services</ListItem>
+                                    <ListItem >Contact</ListItem>
+                                </List>
+                            </Stack>
+                        </Stack>)
+                    }}
+                >Action Layer</Button>
                 <Layer
                     open={open}
                     blur={20}
