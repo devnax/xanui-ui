@@ -1,25 +1,34 @@
 
-import { ReactElement, ReactNode } from 'react';
-import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
+import { Renderar, Tag, TagProps, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import Layer, { LayerProps } from '../Layer';
 import ClickOutside from '../ClickOutside';
 
 
-export type DrawerChildrenType = ReactNode | ReactElement | string
-
-export type DrawerProps = Omit<TagProps, "children" | "size"> & {
-    children?: DrawerChildrenType;
+export type DrawerProps = Omit<LayerProps, "transition" | "slotProps"> & {
     placement?: useBreakpointPropsType<"left" | "right" | "bottom" | "top">;
-    open?: boolean;
     size?: useBreakpointPropsType<number | "small" | "medium" | "large">;
     onClickOutside?: () => void;
     slotProps?: {
+        layer?: LayerProps['slotProps']
         root?: TagProps<"div">;
-        layer?: Partial<Omit<LayerProps, 'children' | "transition" | "open">>;
+        content?: TagProps<"div">;
     }
 }
 
-const MainView = ({ children, placement, open, size, slotProps, onClickOutside, ...rest }: DrawerProps) => {
+const getVariant = (placement?: any) => {
+    switch (placement) {
+        case "right":
+            return "fadeLeft"
+        case "top":
+            return "fadeDown"
+        case "bottom":
+            return "fadeUp"
+        default:
+            return "fadeRight"
+    }
+}
+
+const Drawer = ({ children, placement, size, slotProps, onClickOutside, ...layerProps }: DrawerProps) => {
     const _p: any = {}
     if (placement) _p.placement = placement
     if (size) _p.size = size
@@ -38,74 +47,72 @@ const MainView = ({ children, placement, open, size, slotProps, onClickOutside, 
     let _size = sizes[size as any] || size
 
     return (
-        <Tag
-            {...slotProps?.root}
-            baseClass='drawer'
-            sxr={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                direction: isSide ? "row" : "column" as any,
-                justifyContent: placement === 'left' || placement === 'top' ? "flex-start" : "flex-end"
-            }}
-        >
-            {/* <ClickOutside onClickOutside={onClickOutside || (() => { })}> */}
-            <Tag
-                {...rest}
-                sxr={{
-                    width: isSide ? _size : "100%",
-                    height: isSide ? "100%" : _size,
-                    bgcolor: "background.primary",
-                    shadow: 10
-                }}
-                baseClass='drawer-content'
-            >
-                {children}
-            </Tag>
-            {/* </ClickOutside> */}
-        </Tag>
-    )
-}
-
-const getVariant = (placement?: any) => {
-    switch (placement) {
-        case "right":
-            return "fadeLeft"
-        case "top":
-            return "fadeDown"
-        case "bottom":
-            return "fadeUp"
-        default:
-            return "fadeRight"
-    }
-}
-
-const Drawer = ({ children, open, ...rest }: DrawerProps) => {
-    return (
         <Layer
-            {...rest?.slotProps?.layer}
-            open={open ?? true}
-            transition={getVariant(rest.placement)}
+            {...layerProps}
+            transition={getVariant(placement)}
         >
-            <MainView {...rest} open={true}>{children}</MainView>
+            <Tag
+                {...slotProps?.root}
+                baseClass='drawer'
+                sxr={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    direction: isSide ? "row" : "column" as any,
+                    justifyContent: placement === 'left' || placement === 'top' ? "flex-start" : "flex-end"
+                }}
+            >
+                <ClickOutside onClickOutside={onClickOutside || (() => { })}>
+                    <Tag
+                        sxr={{
+                            width: isSide ? _size : "100%",
+                            height: isSide ? "100%" : _size,
+                            bgcolor: "background.primary",
+                            shadow: 10
+                        }}
+                        baseClass='drawer-content'
+                    >
+                        {children}
+                    </Tag>
+                </ClickOutside>
+            </Tag>
         </Layer>
     )
 }
 
 
-Drawer.open = (content: DrawerChildrenType, props?: Omit<DrawerProps, "children" | "open">) => {
-    let { placement, slotProps } = props || {}
-    placement ??= 'left'
-    const l = Layer.open(<MainView
-        onClickOutside={() => l.close()}
-        {...props}
-        open={true}
-    >{"content"}</MainView>, {
-        ...slotProps?.layer,
-        transition: getVariant(placement) as any,
+Drawer.open = (children: DrawerProps["children"], props?: Omit<DrawerProps, "children" | "open">) => {
+    const d = Renderar.render(Drawer as any, {
+        open: true,
+        ...props,
+        children,
+        slotProps: {
+            layer: {
+                onClosed: () => {
+                    d.unrender()
+                    alert("closed")
+                }
+            }
+        },
+        onClickOutside: () => {
+            if (props?.onClickOutside) {
+                props.onClickOutside()
+            }
+        }
     })
 
-    return l
+    return {
+        open: () => {
+            d.updateProps({ open: true })
+        },
+        close: () => {
+            d.updateProps({ open: false })
+        },
+    }
+}
+
+Drawer.close = () => {
+    Renderar.unrender(Drawer as any)
 }
 
 export default Drawer

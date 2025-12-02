@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType, useInterface, TransitionProps, Transition } from "@xanui/core"
 import useBlurCss from '../useBlurCss';
 import { Renderar } from "@xanui/core";
+import ClickOutside from '../ClickOutside';
 
 export type LayerProps = {
     open: boolean;
@@ -80,31 +81,28 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
                     right: 0,
                     ...blurCss
                 }}
-                onClick={(e: any) => {
-                    if (!e.currentTarget.firstChild?.contains(e.target)) {
-                        if (onClickOutside) {
-                            onClickOutside()
-                        }
-                    }
-                }}
             >
-                <Transition
-                    duration={duration}
-                    delay={delay}
-                    easing="easeOut"
-                    variant={transition || "zoomOver"}
-                    {...slotProps?.transition}
-                    open={open}
-                    onOpen={onOpen}
-                    onOpened={onOpened}
-                    onClose={onClose}
-                    onClosed={() => {
-                        setClosed(true)
-                        onClosed && onClosed()
-                    }}
+                <ClickOutside
+                    onClickOutside={onClickOutside || (() => { })}
                 >
-                    {children}
-                </Transition>
+                    <Transition
+                        duration={duration}
+                        delay={delay}
+                        easing="easeOut"
+                        variant={transition || "zoomOver"}
+                        {...slotProps?.transition}
+                        open={open}
+                        onOpen={onOpen}
+                        onOpened={onOpened}
+                        onClose={onClose}
+                        onClosed={() => {
+                            setClosed(true)
+                            onClosed && onClosed()
+                        }}
+                    >
+                        {children}
+                    </Transition>
+                </ClickOutside>
             </Tag>
         </Transition>
     )

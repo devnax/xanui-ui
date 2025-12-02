@@ -8,6 +8,7 @@ XanUI is a React design-system toolkit powered by `@xanui/core`. It combines low
 - **Production-ready defaults** – the color palette, typography scale, shadows, and radii mirror modern SaaS expectations yet remain overridable.
 - **Server compatible** – SSR-safe patterns ensure components render on the server and hydrate cleanly on the client.
 - **Documentation first** – each component ships with a dedicated Markdown guide in `docs/`, ready for consumption by the upcoming Next.js documentation site.
+- **Hooks & utilities** – helpers such as `useClickOutside` mirror the component APIs so lower-level integrations feel consistent.
 
 ## Installation
 
@@ -69,7 +70,7 @@ npm run dev
 | Data Display           | Table (and TableBody/TableCell/TableFooter/TableHead/TablePagination/TableRow), Datatable, Chip, Avatar, Image, Badge, CircleProgress, LineProgress, LoadingBox | `docs/Table*.md`, `docs/Datatable.md`, `docs/Chip.md`, `docs/Avatar.md`, `docs/Image.md`, `docs/Badge.md`, `docs/CircleProgress.md`, `docs/LineProgress.md`, `docs/LoadingBox.md`                                                                       |
 | Inputs & Forms         | Button, ButtonGroup, IconButton, Form, Input, Select, Option, Checkbox, Radio, Switch, Calendar, CalendarInput, Label                                           | `docs/Button.md`, `docs/ButtonGroup.md`, `docs/IconButton.md`, `docs/Form.md`, `docs/Input.md`, `docs/Select.md`, `docs/Option.md`, `docs/Checkbox.md`, `docs/Radio.md`, `docs/Switch.md`, `docs/Calendar.md`, `docs/CalendarInput.md`, `docs/Label.md` |
 | Disclosure & Feedback  | Accordion, Collaps, Alert, Toast, Tooltip, Modal, Portal, Scrollbar, Toast, NoSSR                                                                               | `docs/Accordion.md`, `docs/Collaps.md`, `docs/Alert.md`, `docs/Toast.md`, `docs/Tooltip.md`, `docs/Modal.md`, `docs/Portal.md`, `docs/Scrollbar.md`, `docs/NoSSR.md`                                                                                    |
-| Typography & Utilities | Text, ThemeProvider, useCorner, ClickOutside, View helpers                                                                                                      | `docs/Text.md`, `docs/ThemeProvider.md`, `docs/useCorner.md`, `docs/ClickOutside.md`, `docs/ViewBox.md`                                                                                                                                                 |
+| Typography & Utilities | Text, ThemeProvider, ClickOutside, useCorner, useClickOutside, View helpers                                                                                     | `docs/Text.md`, `docs/ThemeProvider.md`, `docs/ClickOutside.md`, `docs/useCorner.md`, `docs/useClickOutside.md`, `docs/ViewBox.md`                                                                                                                      |
 
 > The full list is available in `docs/`. Each entry adheres to the shared documentation template for easy navigation and consistency.
 

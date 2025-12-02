@@ -10,11 +10,12 @@ import IconButton from '../IconButton'
 import ClearIcon from '@xanui/icons/Clear';
 import { useInterface } from '@xanui/core'
 
-export type CalenderInpurProps = Omit<InputProps, "value" | "onChange"> & {
+export type CalenderInpurProps = Omit<InputProps, "value" | "onChange" | "slotProps"> & {
     value?: CalendarProps["value"];
     onChange?: CalendarProps["onChange"];
     getInputValue?: (value?: Date | null) => string;
     slotProps?: {
+        input?: InputProps['slotProps'];
         calender?: CalendarProps;
         menu?: MenuProps;
     }

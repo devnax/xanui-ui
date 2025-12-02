@@ -1,33 +1,43 @@
-
 import { Tag, TagComponentType, TagProps } from '@xanui/core';
 import React, { useEffect, useRef } from 'react';
 
 export type ClickOutsideProps<T extends TagComponentType = "div"> = TagProps<T> & {
-    onClickOutside: () => void
-}
+    onClickOutside: () => void;
+};
 
-const ClickOutside = React.forwardRef(({ children, onClickOutside, ...props }: ClickOutsideProps, ref: React.Ref<any>) => {
-    const _ref: any = ref || useRef(null)
-    const handler = (e: any) => {
-        if (!_ref.current.contains(e.target)) {
-            onClickOutside()
+const ClickOutside = React.forwardRef(({ children, onClickOutside, ...props }: ClickOutsideProps, forwardedRef: any) => {
+
+    const innerRef = useRef<HTMLElement | null>(null);
+
+    // merge refs
+    const setRefs = (el: HTMLElement) => {
+        innerRef.current = el;
+
+        if (typeof forwardedRef === "function") {
+            forwardedRef(el);
+        } else if (forwardedRef) {
+            forwardedRef.current = el;
         }
-    }
+    };
+
     useEffect(() => {
-        document.addEventListener("click", handler)
-        return () => {
-            document.removeEventListener("click", handler)
-        }
-    }, [])
+        const handler = (e: MouseEvent) => {
+            if (!innerRef.current) return;
+            if (!innerRef.current.contains(e.target as Node)) {
+                onClickOutside();
+            }
+        };
 
+        document.addEventListener("mousedown", handler);
+        return () => document.removeEventListener("mousedown", handler);
+    }, [onClickOutside]);
 
-    return <Tag
-        {...props}
-        ref={_ref}
-    >
-        {children}
-    </Tag>
+    return (
+        <Tag {...props} ref={setRefs}>
+            {children}
+        </Tag>
+    );
+}
+);
 
-})
-
-export default ClickOutside
+export default ClickOutside;

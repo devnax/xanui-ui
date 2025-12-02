@@ -65,3 +65,8 @@ export default function InlineDialog({ onDismiss }) {
   );
 }
 ```
+
+### Hook alternative
+Prefer hooks? Reach for `useClickOutside` when you already manage the DOM node yourself and simply need a ref plus callback wiring.
+
+````

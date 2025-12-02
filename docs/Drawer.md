@@ -1,6 +1,6 @@
 # Drawer
 
-`Drawer` presents contextual navigation or content by sliding in from any screen edge. It can be controlled declaratively or opened imperatively through helper methods.
+`Drawer` presents contextual navigation or content by sliding in from any screen edge. It wraps the panel with `ClickOutside` so `onClickOutside` fires automatically whenever users interact outside of the sheet.
 
 ## Basic Example
 
@@ -26,15 +26,15 @@ export default function BasicDrawer() {
 
 ## Props
 
-| Name              | Type                                       | Default    | Description                                                |
-| ----------------- | ------------------------------------------ | ---------- | ---------------------------------------------------------- |
-| `placement`       | `'left' \| 'right' \| 'top' \| 'bottom'`   | `'left'`   | Edge of the viewport from which the drawer appears.        |
-| `open`            | `boolean`                                  | `true`     | Controls whether the drawer is visible (controlled usage). |
-| `size`            | `number \| 'small' \| 'medium' \| 'large'` | `'medium'` | Pixel width/height of the panel depending on placement.    |
-| `onClickOutside`  | `() => void`                               | no-op      | Invoked when the backdrop is clicked.                      |
-| `slotProps.root`  | `TagProps<'div'>`                          | —          | Overrides for the root flex container.                     |
-| `slotProps.layer` | `LayerProps`                               | —          | Props passed down to the underlying `Layer`.               |
-| `children`        | `ReactNode`                                | —          | Content rendered inside the drawer panel.                  |
+| Name              | Type                                       | Default    | Description                                                                 |
+| ----------------- | ------------------------------------------ | ---------- | --------------------------------------------------------------------------- |
+| `open`            | `boolean`                                  | `false`    | Controls whether the drawer is visible (controlled usage).                  |
+| `placement`       | `'left' \| 'right' \| 'top' \| 'bottom'`   | `'left'`   | Edge of the viewport from which the drawer appears.                         |
+| `size`            | `number \| 'small' \| 'medium' \| 'large'` | `'medium'` | Width/height of the panel depending on placement (presets map to px sizes). |
+| `onClickOutside`  | `() => void`                               | no-op      | Fired automatically via the embedded `ClickOutside` wrapper.                |
+| `slotProps.root`  | `TagProps<'div'>`                          | —          | Styles for the flex container that positions the drawer.                    |
+| `slotProps.layer` | `LayerProps`                               | —          | Pass props to the underlying `Layer` (blur, transition, z-index, etc.).     |
+| `children`        | `ReactNode`                                | —          | Content rendered inside the drawer panel.                                   |
 
 ## Usage Examples
 
