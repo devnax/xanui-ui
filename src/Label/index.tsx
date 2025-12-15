@@ -12,8 +12,12 @@ const Label = React.forwardRef(<T extends TagComponentType = "label">({ children
             display: "inline-flex",
             alignItems: "center",
             verticalAlign: "middle",
-            fontSize: "button",
+            fontSize: "text",
             gap: .4,
+            color: "text.primary",
+            userSelect: "none",
+            cursor: "pointer",
+            fontWeight: "500",
         }}
         baseClass='label'
         ref={ref}

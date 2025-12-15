@@ -1,6 +1,6 @@
 {
    "name": "@xanui/ui",
-   "version": "1.1.5",
+   "version": "1.1.6",
    "description": "",
    "publishConfig": {
       "access": "public"
@@ -15,12 +15,11 @@
       "release": "makepack release"
    },
    "dependencies": {
-      "@xanui/core": "^1.2.0",
+      "@xanui/core": "^1.2.1",
       "@xanui/icons": "^1.1.10",
       "oncss": "^1.2.3",
       "pretty-class": "^1.0.5",
-      "react-state-bucket": "^1.2.4",
-      "tslib": "^2.8.1"
+      "react-state-bucket": "^1.2.4"
    },
    "devDependencies": {
       "@types/react": "^19.1.8",
@@ -28,6 +27,7 @@
       "makepack": "^1.7.15",
       "react": "^19.1.0",
       "react-dom": "^19.1.0",
+      "tslib": "^2.8.1",
       "typescript": "^5.9.3"
    },
    "keywords": [],
