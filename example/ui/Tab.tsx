@@ -21,7 +21,7 @@ const TabItem = ({ color, variant, verticle }: any) => {
                 color={color}
                 radius={1}
                 overflow="hidden"
-                bgcolor="background.secondary"
+                bgcolor="common.secondary"
                 value={val}
                 onChange={(v: any) => {
                     setVal(v)

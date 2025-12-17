@@ -1,12 +1,12 @@
 
 import React, { ReactElement, useId } from "react"
-import { Tag, ColorTemplateColors, useInterface, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
+import { Tag, useInterface, useBreakpointProps, useBreakpointPropsType, ThemeColor } from '@xanui/core';
 
 export type CircleProgressProps = {
     children?: ReactElement;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
-    trackColor?: useBreakpointPropsType<ColorTemplateColors>;
-    thumbColor?: useBreakpointPropsType<ColorTemplateColors>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
+    trackColor?: useBreakpointPropsType<keyof ThemeColor>;
+    thumbColor?: useBreakpointPropsType<keyof ThemeColor>;
     size?: useBreakpointPropsType<number | "small" | "medium" | "large">;
     thumbSize?: useBreakpointPropsType<number>;
     trackSize?: useBreakpointPropsType<number>;
@@ -47,7 +47,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
     }
 
     if (thumbColor === 'default') {
-        thumbColor = "background.secondary"
+        thumbColor = "common.secondary"
     }
 
     let sizes: any = {
@@ -101,7 +101,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
 
                         strokeDasharray: circumference,
                         strokeDashoffset: percent,
-                        stroke: thumbColor || (color === 'default' ? `background.secondary` : `${color}.primary`),
+                        stroke: thumbColor || (color === 'default' ? `common.secondary` : `${color}.primary`),
                         fill: "none",
                         strokeWidth: thumbSize,
                         strokeLinecap: "round",

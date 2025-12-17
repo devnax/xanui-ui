@@ -63,12 +63,12 @@ const Layout = () => {
     }, [])
 
     return (
-        <AppRoot theme={themeSwitcher.name} >
-            <Stack height="100vh" flexRow bgcolor="background.primary">
+        <AppRoot theme={themeSwitcher.name} fontFamily={"inter"}>
+            <Stack height="100vh" flexRow bgcolor="common.primary">
                 <ViewBox
                     width={250}
                     height="100%"
-                    bgcolor="background.secondary"
+                    bgcolor="common.secondary"
                     endContent={<ThemeBox />}
                 >
                     <Text p={1} variant='text' fontWeight={600} mb={2} color="text.primary">Components</Text>

@@ -1,6 +1,6 @@
 
 import React, { ReactElement } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, ColorTemplateColors, ColorTemplateType, useBreakpointProps, useBreakpointPropsType, alpha } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointProps, useBreakpointPropsType, alpha, ThemeColor, UseColorTemplateType } from '@xanui/core';
 import useCorner, { UseCornerTypes } from '../useCorner'
 import CircleProgress, { CircleProgressProps } from '../CircleProgress'
 
@@ -8,8 +8,8 @@ import CircleProgress, { CircleProgressProps } from '../CircleProgress'
 export type ButtonProps<T extends TagComponentType = 'button'> = Omit<TagProps<T>, "color" | "size" | "direction"> & {
     startIcon?: useBreakpointPropsType<ReactElement>;
     endIcon?: useBreakpointPropsType<ReactElement>;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
-    variant?: useBreakpointPropsType<ColorTemplateType>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
+    variant?: useBreakpointPropsType<UseColorTemplateType>;
     corner?: useBreakpointPropsType<UseCornerTypes>;
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
     direction?: useBreakpointPropsType<"row" | "column">;

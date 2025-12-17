@@ -1,12 +1,12 @@
 
 import React, { ReactElement, Children, cloneElement } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, ColorTemplateColors, ColorTemplateType, useColorTemplate, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointPropsType, useBreakpointProps, ThemeColor, UseColorTemplateType } from '@xanui/core';
 import { ButtonProps } from '../Button';
 
 export type ButtonGroupProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, 'children' | "size"> & {
     children?: ReactElement<ButtonProps> | ReactElement<ButtonProps>[];
-    color?: useBreakpointPropsType<ColorTemplateColors>;
-    variant?: useBreakpointPropsType<ColorTemplateType>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
+    variant?: useBreakpointPropsType<UseColorTemplateType>;
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
 }
 
@@ -19,7 +19,7 @@ const ButtonGroup = React.forwardRef(<T extends TagComponentType = "div">({ chil
     const p: any = useBreakpointProps(_p)
     color = p.color
 
-    const template = useColorTemplate(color, "outline")
+    const template: any = useColorTemplate(color, "outline")
 
     const sizes: any = {
         small: {

@@ -1,11 +1,11 @@
 
 import React, { ReactElement } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, ColorTemplateColors, useColorTemplate, useBreakpointPropsType, useBreakpointProps, TransitionProps } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointPropsType, useBreakpointProps, TransitionProps, ThemeColor } from '@xanui/core';
 
 
 export type BadgeProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "baseClass" | "content"> & {
     content?: useBreakpointPropsType<number | ReactElement>;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
     placement?: useBreakpointPropsType<"left-top" | "left-bottom" | "right-top" | "right-bottom">;
     visible?: useBreakpointPropsType<boolean>;
     slotProps?: {
@@ -32,9 +32,7 @@ const Badge = React.forwardRef(<T extends TagComponentType = "div">({ children, 
     color = p.color
     placement = p.placement
     visible = p.visible
-
-    const template = useColorTemplate(color, "fill")
-    delete template.hover
+    const { hover, ...template } = useColorTemplate(color, "fill")
     let _css: any = {}
     let pos = -3;
     if (typeof content === "number") {

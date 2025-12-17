@@ -1,5 +1,5 @@
 
-import { Tag, TagProps, useBreakpointProps, useColorTemplate, ColorTemplateColors, ColorTemplateType, useInterface, useBreakpointPropsType, Renderar } from "@xanui/core"
+import { Tag, TagProps, useBreakpointProps, useColorTemplate, useInterface, useBreakpointPropsType, Renderar, ThemeColor, UseColorTemplateType } from "@xanui/core"
 import React, { isValidElement, ReactElement, useEffect, useRef } from "react"
 import Text from "../Text"
 import InfoIcon from '@xanui/icons/Info';
@@ -14,8 +14,8 @@ import useAlert, { UseAlerProps } from "../useAlert";
 export type AlertProps = Omit<TagProps<"div">, "content" | "title" | "direction"> & {
     title?: useBreakpointPropsType<string | ReactElement>;
     direction?: useBreakpointPropsType<"row" | "column">;
-    variant?: useBreakpointPropsType<ColorTemplateType>;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
+    variant?: useBreakpointPropsType<UseColorTemplateType>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
     icon?: useBreakpointPropsType<"info" | "warning" | "success" | "error" | false | ReactElement>;
     onClose?: React.DOMAttributes<"button">['onClick'];
 }
@@ -56,7 +56,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
     let isRow = direction === 'row'
 
 
-    const template = useColorTemplate(color, variant)
+    const template: any = useColorTemplate(color, variant)
     delete template.hover
 
     let iconsx = {

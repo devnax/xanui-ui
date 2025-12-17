@@ -36,7 +36,7 @@ const CalenderInput = (props: CalenderInpurProps) => {
                 endIcon={<>
                     {value && <Stack>
                         <IconButton
-                            color="default"
+                            color="surface"
                             size={28}
                             variant="text"
                             onClick={() => {

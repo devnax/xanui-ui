@@ -11,7 +11,7 @@ import Box from '@xanui/ui/Box';
 
 export default function BasicBox() {
     return (
-        <Box p={3} radius={2} bgcolor="background.secondary">
+        <Box p={3} radius={2} bgcolor="common.secondary">
             Drop anything inside this flexible container.
         </Box>
     );
@@ -59,7 +59,7 @@ export default function ResponsiveBox() {
             flexDirection={{ xs: 'column', md: 'row' }}
             gap={2}
             p={2}
-            bgcolor="background.primary"
+            bgcolor="common.primary"
         >
             <Box flex={1}>Panel A</Box>
             <Box flex={1}>Panel B</Box>

@@ -1,14 +1,14 @@
 
 import React from 'react';
-import { Tag, TagProps, TagComponentType, ColorTemplateColors, useInterface, useColorTemplate, ColorTemplateType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointProps, useBreakpointPropsType, ThemeColor, UseColorTemplateType } from '@xanui/core';
 import Scrollbar from '../Scrollbar';
 
 
 export type TableProps<T extends TagComponentType = "table"> = Omit<TagProps<T>, "color" | "size"> & {
     evenColor?: useBreakpointPropsType<boolean>;
     size?: useBreakpointPropsType<"small" | "medium" | "large" | number>;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
-    variant?: useBreakpointPropsType<Omit<ColorTemplateType, "outline">>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
+    variant?: useBreakpointPropsType<Omit<UseColorTemplateType, "outline">>;
     borderType?: useBreakpointPropsType<"box" | "line" | "none">;
 }
 

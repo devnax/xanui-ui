@@ -25,7 +25,7 @@ const Buttons = () => {
             </Section>
             <Section title="Icon Button" gap={2}>
                 <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-                    <IconButton color="default">
+                    <IconButton color="surface">
                         <UnarchiveIcon />
                     </IconButton>
                     <IconButton >
@@ -78,7 +78,7 @@ const Buttons = () => {
             </Section>
             <Section title="Colors">
                 <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-                    <Button color="default" loading>Button</Button>
+                    <Button color="surface" loading>Button</Button>
                     <Button startIcon={<InfoIcon />} color="brand" loading>Button</Button>
                     <Button startIcon={<InfoIcon />} color="info" direction="row">Button</Button>
                     <Button color="accent" loading endIcon={<HomeIcon />} direction="row">Button</Button>

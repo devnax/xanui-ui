@@ -1,12 +1,12 @@
 
 import React, { ReactElement, useState } from 'react';
-import { Tag, TagProps, useBreakpointProps, ColorTemplateColors, useInterface, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagProps, useBreakpointProps, useInterface, useBreakpointPropsType, ThemeColor } from '@xanui/core';
 
 
 export type SwitchProps = Omit<TagProps<"input">, "color" | "size" | "component" | "type" | "checked"> & {
     checked?: boolean;
     size?: useBreakpointPropsType<number | "small" | "medium" | "large">;
-    color?: useBreakpointPropsType<Omit<ColorTemplateColors, "default">>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
     disabled?: useBreakpointPropsType<boolean>;
     trackSize?: useBreakpointPropsType<number>;
     icon?: useBreakpointPropsType<ReactElement>;

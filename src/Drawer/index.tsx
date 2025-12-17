@@ -67,7 +67,7 @@ const Drawer = ({ children, placement, size, slotProps, onClickOutside, ...layer
                         sxr={{
                             width: isSide ? _size : "100%",
                             height: isSide ? "100%" : _size,
-                            bgcolor: "background.primary",
+                            bgcolor: "common.primary",
                             shadow: 10
                         }}
                         baseClass='drawer-content'

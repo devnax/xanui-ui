@@ -1,11 +1,11 @@
 
 import React from 'react';
-import { Tag, TagProps, TagComponentType, ColorTemplateColors, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useBreakpointProps, useBreakpointPropsType, ThemeColor } from '@xanui/core';
 
 
 export type DividerProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "color"> & {
     direction?: useBreakpointPropsType<"verticle" | "horizental">;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
     size?: useBreakpointPropsType<number>;
 }
 
@@ -16,7 +16,7 @@ const Divider = React.forwardRef(<T extends TagComponentType = "div">({ children
     if (size) _p.size = size
     const p: any = useBreakpointProps(_p)
     direction = p.direction ?? "horizental"
-    color = p.color ?? "default"
+    color = p.color ?? "surface.secondary"
     size = p.size ?? 1
 
     let isHori = direction === 'horizental'
@@ -28,7 +28,7 @@ const Divider = React.forwardRef(<T extends TagComponentType = "div">({ children
             sxr={{
                 width: isHori ? "100%" : size,
                 height: isHori ? size : "100%",
-                bgcolor: color === 'default' ? `background.secondary` : `${color}.secondary`,
+                bgcolor: color,
             }}
             ref={ref}
         >{children}</Tag>

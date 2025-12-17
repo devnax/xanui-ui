@@ -9,7 +9,7 @@ import Stack from '@xanui/ui/Stack';
 
 export default function BasicStack() {
     return (
-        <Stack gap={1} p={2} bgcolor="background.secondary">
+        <Stack gap={1} p={2} bgcolor="common.secondary">
             <strong>Title</strong>
             <span>Description text</span>
             <button>Action</button>

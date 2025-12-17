@@ -1,13 +1,13 @@
 
 import React from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, ColorTemplateColors, ColorTemplateType, useColorTemplate, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointProps, useBreakpointPropsType, ThemeColor, UseColorTemplateType } from '@xanui/core';
 import useCorner from '../useCorner'
 
 
 export type IconButtonProps<T extends TagComponentType = 'button'> = Omit<TagProps<T>, "color" | "size"> & {
     size?: useBreakpointPropsType<number | "small" | "medium" | "large">;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
-    variant?: useBreakpointPropsType<ColorTemplateType>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
+    variant?: useBreakpointPropsType<UseColorTemplateType>;
     corner?: useBreakpointPropsType<"square" | "rounded" | "circle">;
 }
 

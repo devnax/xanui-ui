@@ -39,7 +39,7 @@ const useModal = (children: UseModalChildren, props?: UseModalProps) => {
                maxWidth: sizes[size as any] || size,
                width: "100%",
                radius: 2,
-               bgcolor: "background.primary",
+               bgcolor: "common.primary",
                shadow: 15,
                ...root?.sx
             }}

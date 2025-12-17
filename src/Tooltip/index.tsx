@@ -1,14 +1,14 @@
 
 import { Children, cloneElement, ReactElement, useState } from 'react'
 import Menu, { MenuProps } from '../Menu'
-import { useBreakpointProps, useColorTemplate, ColorTemplateColors, ColorTemplateType, useBreakpointPropsType } from '@xanui/core'
+import { useBreakpointProps, useColorTemplate, useBreakpointPropsType, ThemeColor, UseColorTemplateType } from '@xanui/core'
 
 
 export type TooltipProps = {
     children: ReactElement;
     title: useBreakpointPropsType<string>;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
-    variant?: useBreakpointPropsType<ColorTemplateType>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
+    variant?: useBreakpointPropsType<UseColorTemplateType>;
     placement?: MenuProps['placement']
 }
 

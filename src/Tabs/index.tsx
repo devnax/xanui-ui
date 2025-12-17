@@ -1,7 +1,7 @@
 
 import React, { useEffect, ReactElement, useMemo, cloneElement, useState, Children, useRef } from 'react'
 import { TabProps } from '../Tab'
-import { Tag, TagProps, useBreakpointProps, ColorTemplateColors, useInterface, useBreakpointPropsType, Transition } from '@xanui/core'
+import { Tag, TagProps, useBreakpointProps, useInterface, useBreakpointPropsType, Transition, ThemeColor } from '@xanui/core'
 import { ButtonProps } from '../Button'
 
 
@@ -11,7 +11,7 @@ export type TabsProps = Omit<TagProps, 'onChange'> & {
     value?: ValueType;
     onChange?: (value: ValueType) => void;
     variant?: useBreakpointPropsType<"start-line" | "end-line" | "fill" | "outline" | "text" | "alpha">;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
     verticle?: useBreakpointPropsType<boolean>;
     disableTransition?: useBreakpointPropsType<boolean>;
     indicatorSize?: useBreakpointPropsType<number>;

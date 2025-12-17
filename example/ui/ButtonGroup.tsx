@@ -20,7 +20,7 @@ const ButtonGroups = () => {
                     <Button>3</Button>
                 </ButtonGroup>
                 <ButtonGroup
-                    color='default'
+                    color="surface"
                     variant='alpha'
                     size="small"
                 >

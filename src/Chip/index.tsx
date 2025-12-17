@@ -1,6 +1,6 @@
 
 import React, { ReactElement } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, ColorTemplateColors, ColorTemplateType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointProps, useBreakpointPropsType, ThemeColor, UseColorTemplateType } from '@xanui/core';
 import useCorner, { UseCornerTypes } from '../useCorner'
 
 
@@ -9,8 +9,8 @@ export type ChipProps<T extends TagComponentType = 'div'> = Omit<TagProps<T>, "c
     label: useBreakpointPropsType<string | ReactElement>;
     startIcon?: useBreakpointPropsType<ReactElement>;
     endIcon?: useBreakpointPropsType<ReactElement>;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
-    variant?: useBreakpointPropsType<ColorTemplateType>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
+    variant?: useBreakpointPropsType<UseColorTemplateType>;
     corner?: useBreakpointPropsType<UseCornerTypes>;
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
 }
@@ -38,8 +38,7 @@ const Chip = React.forwardRef(<T extends TagComponentType = 'div'>(props: ChipPr
     rest.sx = (rest as any).sx || {};
 
     const cornerCss = useCorner(corner)
-    const template = useColorTemplate(color, variant)
-    delete template?.hover
+    const { hover, ...template } = useColorTemplate(color, variant)
 
     const sizes: any = {
         small: {

@@ -1,6 +1,6 @@
 
 import React, { ReactElement, useState } from 'react';
-import { Tag, TagProps, useInterface, ColorTemplateColors, ColorTemplateType, TagComponentType, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
+import { Tag, TagProps, useInterface, TagComponentType, useBreakpointPropsType, useBreakpointProps, ThemeColor, UseColorTemplateType } from '@xanui/core';
 import ExpandIcon from "@xanui/icons/ExpandMore";
 import Collaps, { CollapsProps } from '../Collaps';
 import List, { ListProps } from '../List';
@@ -16,10 +16,10 @@ export type AccordionProps<T extends TagComponentType = "div"> = Omit<TagProps<T
     expandIcon?: useBreakpointPropsType<ReactElement>;
     expandIconPlacement?: useBreakpointPropsType<"start" | "end">;
     expandAction?: useBreakpointPropsType<"header" | "icon">;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
-    variant?: useBreakpointPropsType<ColorTemplateType>;
-    hoverColor?: useBreakpointPropsType<ColorTemplateColors>;
-    hoverVariant?: useBreakpointPropsType<ColorTemplateType>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
+    variant?: useBreakpointPropsType<UseColorTemplateType>;
+    hoverColor?: useBreakpointPropsType<keyof ThemeColor>;
+    hoverVariant?: useBreakpointPropsType<UseColorTemplateType>;
 
     slotProps?: {
         header?: Omit<ListProps, "children" | "color" | "variant" | "hoverColor" | "hoverVariant" | "className">;
@@ -146,7 +146,7 @@ const Accordion = React.forwardRef(<T extends TagComponentType = "div">({ childr
             {...rootProps}
             sxr={{
                 fontFamily: "default",
-                bgcolor: "background.primary"
+                bgcolor: "common.primary"
             }}
             baseClass='accordion'
             classNames={[{ "accordion-expanded": expand }, ...(classNames || [])]}
@@ -183,7 +183,7 @@ const Accordion = React.forwardRef(<T extends TagComponentType = "div">({ childr
                             color: "text.primary",
                             p: 2,
                             py: 1,
-                            bgcolor: "background.primary"
+                            bgcolor: "common.primary"
                         }}
                         baseClass='accordion-content'
                     >

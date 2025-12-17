@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { Tag, TagProps, TagComponentType, ColorTemplateColors, useInterface, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, useBreakpointProps, useBreakpointPropsType, ThemeColor } from '@xanui/core';
 import CircleProgress, { CircleProgressProps } from '../CircleProgress';
 
 
 export type LoadingBoxProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "color"> & {
     loading?: boolean;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
     slotProps?: {
         CircleProgress?: Omit<CircleProgressProps, "value">
     }

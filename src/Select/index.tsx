@@ -7,7 +7,7 @@ import Stack from '../Stack'
 import { OptionProps } from '../Option'
 import DownIcon from '@xanui/icons/KeyboardArrowDown';
 import UpIcon from '@xanui/icons/KeyboardArrowUp';
-import { ColorTemplateColors, ColorTemplateType, useInterface, useBreakpointPropsType } from '@xanui/core'
+import { useInterface, useBreakpointPropsType, ThemeColor, UseColorTemplateType } from '@xanui/core'
 
 
 export type SelectProps = {
@@ -15,8 +15,8 @@ export type SelectProps = {
     onChange?: (value: string | number) => void;
     children: ReactElement<OptionProps> | ReactElement<OptionProps>[];
     placeholder?: useBreakpointPropsType<string>;
-    color?: useBreakpointPropsType<ColorTemplateColors>;
-    variant?: useBreakpointPropsType<ColorTemplateType>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
+    variant?: useBreakpointPropsType<UseColorTemplateType>;
     slotProps?: {
         menu?: Omit<MenuProps, 'children' | 'target'>;
         input?: Omit<InputProps, "onChange" | "value">;

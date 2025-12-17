@@ -1,6 +1,6 @@
 
 import React, { MutableRefObject, ReactElement, useEffect, useMemo, useRef, useState } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, ColorTemplateColors, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, useBreakpointProps, useBreakpointPropsType, ThemeColor } from '@xanui/core';
 import Text from '../Text';
 
 
@@ -9,7 +9,7 @@ export type InputProps<T extends TagComponentType = "input"> = Omit<TagProps<T>,
     endIcon?: useBreakpointPropsType<ReactElement>;
     iconPlacement?: useBreakpointPropsType<"start" | "center" | "end">;
     focused?: boolean;
-    color?: useBreakpointPropsType<Omit<ColorTemplateColors, "default">>;
+    color?: useBreakpointPropsType<keyof ThemeColor>;
     containerRef?: MutableRefObject<HTMLDivElement | undefined>;
     variant?: useBreakpointPropsType<"fill" | "outline" | "text">;
     error?: boolean;
@@ -148,7 +148,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                     flexWrap: "nowrap",
                     minWidth: 150,
                     transitionProperty: "border, box-shadow, background",
-                    bgcolor: error ? "danger.alpha" : variant === "fill" ? "background.secondary" : "background.primary",
+                    bgcolor: error ? "danger.alpha" : variant === "fill" ? "common.secondary" : "common.primary",
                     border: variant === "text" ? 0 : 1,
                     borderColor: borderColor,
                     borderRadius: 1,
