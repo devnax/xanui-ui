@@ -12,29 +12,29 @@ import CheckIcon from '@xanui/icons/CheckCircle'
 import { AppRoot, createThemeSwitcher, css, Tag, ThemeProvider, useTagProps, useTheme } from '@xanui/core';
 
 
-// const useThemeSwitcher = createThemeSwitcher("light", { store: "local" })
+const useThemeSwitcher = createThemeSwitcher("light", { store: "local" })
 
-// const ThemeBox = () => {
-//     const theme = useThemeSwitcher()
-//     return (
-//         <Stack>
-//             <IconButton
-//                 onClick={() => {
-//                     theme.change(theme.name === 'light' ? 'dark' : 'light')
-//                 }}
-//             >
-//                 {theme.name === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
-//             </IconButton>
-//         </Stack>
-//     )
-// }
+const ThemeBox = () => {
+    const theme = useThemeSwitcher()
+    return (
+        <Stack>
+            <IconButton
+                onClick={() => {
+                    theme.change(theme.name === 'light' ? 'dark' : 'light')
+                }}
+            >
+                {theme.name === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+            </IconButton>
+        </Stack>
+    )
+}
 
 const Layout = () => {
     const [, dispatch] = React.useState(0)
     const currentMenuIndex = parseInt(localStorage.getItem("currentMenuIndex") || "0")
     const currentMenu = menu[currentMenuIndex]
     const Render: any = currentMenu?.render || (() => <></>)
-    // const themeSwitcher = useThemeSwitcher()
+    const themeSwitcher = useThemeSwitcher()
 
     React.useEffect(() => {
         const ele = document.getElementById(`menu-${currentMenuIndex}`)
@@ -44,13 +44,13 @@ const Layout = () => {
     }, [])
 
     return (
-        <AppRoot theme={"light"} >
+        <AppRoot theme={themeSwitcher.name} >
             <Stack height="100vh" flexRow bgcolor="background.primary">
                 <ViewBox
                     width={250}
                     height="100%"
                     bgcolor="background.secondary"
-                // endContent={<ThemeBox />}
+                    endContent={<ThemeBox />}
                 >
                     <Text p={1} variant='text' fontWeight={600} mb={2} color="text.primary">Components</Text>
                     <List p={1} variant="soft">

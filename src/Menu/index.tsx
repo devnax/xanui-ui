@@ -57,7 +57,7 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
     if (closed) return <></>
 
     return (
-        <Portal {...slotProps?.portal} className='asdasdasd'>
+        <Portal {...slotProps?.portal}>
             <ClickOutside
                 onClickOutside={() => {
                     onClickOutside && onClickOutside()
@@ -88,7 +88,7 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
                             sxr={{
                                 overflow: "hidden",
                                 bgcolor: "background.primary",
-                                shadow: 5,
+                                shadow: 10,
                                 radius: 1,
                                 transformOrigin: getOrigin(placed) || "top",
                                 ...slotProps?.content?.sx

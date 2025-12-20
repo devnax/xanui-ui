@@ -31,7 +31,7 @@ const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, ..
     if (hoverVariant == 'outline' || variant === 'outline') {
         sxOutline = {
             "& .list-item": {
-                border: 1,
+                border: "1px solid",
                 borderColor: "transparent"
             }
         }

@@ -32,7 +32,7 @@ const ButtonGroups = () => {
                 <div>
                     <ButtonGroup
                         color='success'
-                        variant='soft'
+                        variant='fill'
                         size="small"
                     >
                         <Button>1</Button>

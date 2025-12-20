@@ -89,7 +89,7 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                 onClick: () => {
                     onChange && onChange(child.props.value)
                 },
-                border: 1,
+                border: "1px solid",
                 borderColor: "transparent",
                 ...slotProps?.button,
                 ...btnProps,
@@ -184,7 +184,7 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
             case "outline":
                 _indicatorProps = {
                     top: 0,
-                    border: 1,
+                    border: "1px solid",
                     borderColor: color,
                     bgcolor: "transparent"
                 }

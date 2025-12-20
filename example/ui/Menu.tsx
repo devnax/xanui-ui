@@ -9,7 +9,6 @@ const Menus = () => {
     const [target, setTarget] = useState<any>()
     return (
         <div>
-
             <Stack
                 pt={40}
                 alignItems="center"
@@ -21,7 +20,7 @@ const Menus = () => {
                     }}
                 >Open</Button>
                 <Menu target={target} onClickOutside={() => setTarget(null)}>
-                    <List width={180} variant="fill" bgcolor="background.primary" shadow={5}>
+                    <List width={180} variant="fill" color={"brand"} shadow={5}>
                         <ListItem >Home</ListItem>
                         <ListItem >About</ListItem>
                         <ListItem >Services</ListItem>

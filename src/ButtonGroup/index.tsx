@@ -1,6 +1,6 @@
 
 import React, { ReactElement, Children, cloneElement } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, UseColorTemplateColor, UseColorTemplateType, useColorTemplate, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, UseColorTemplateColor, UseColorTemplateType, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
 import { ButtonProps } from '../Button';
 
 export type ButtonGroupProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, 'children' | "size"> & {
@@ -21,8 +21,6 @@ const ButtonGroup = React.forwardRef(<T extends TagComponentType = "div">({ chil
     const p: any = useBreakpointProps(_p)
     color = p.color
 
-    const template = useColorTemplate(color, "outline")
-
     const sizes: any = {
         small: {
             height: 40,
@@ -35,44 +33,37 @@ const ButtonGroup = React.forwardRef(<T extends TagComponentType = "div">({ chil
         }
     }
 
+    let borderColor = color === 'default' ? 'divider.secondary' : `${color}.secondary`
+
     return (
         <Tag
             {...props}
             {...sizes[size]}
             sxr={{
                 display: "inline-flex",
+                flexWrap: "nowrap",
                 overflow: "hidden",
                 radius: 1,
-                border: 1,
-                borderColor: template.primary.borderColor,
-                '& button': {
-                    borderRight: 1,
-                    borderColor: template.primary.borderColor
+                border: "1px solid",
+                borderColor: borderColor,
+                '& button, & button:hover': {
+                    borderRight: "1px solid",
+                    borderColor: borderColor
                 },
-                // '& button:not(:last-of-type)': {
-                //     borderTopRightRadius: 0,
-                //     borderBottomRightRadius: 0,
-                //     borderRight: 1,
-                //     borderColor: template.primary.borderColor
-                // },
-                // '& button:not(:first-of-type)': {
-                //     borderTopLeftRadius: 0,
-                //     borderBottomLeftRadius: 0,
-                //     borderLeft: 0,
-                //     borderColor: template.primary.borderColor
-                // }
+                "& button:last-child, & button:last-child:hover": {
+                    borderRight: "none"
+                }
             }}
             baseClass='button-group'
             ref={ref}
         >
             {Children.map(children, (child: any) => {
                 return cloneElement(child, {
-                    flex: 1,
+                    flex: "0 0 auto",
                     color,
                     variant,
                     size,
                     corner: "squar",
-                    border: 0
                 })
             })}
         </Tag>

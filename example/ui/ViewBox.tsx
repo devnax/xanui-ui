@@ -7,7 +7,8 @@ const Viewboxes = () => {
     return (
         <Stack gap={2}>
             <ViewBox
-                border={1}
+                border="1px solid"
+                borderColor='divider'
                 borderRadius={1}
                 overflow="hidden"
                 height={300}
@@ -29,7 +30,8 @@ const Viewboxes = () => {
                 <Text variant="h1">Hello World</Text>
             </ViewBox>
             <ViewBox
-                border={1}
+                border="1px solid"
+                borderColor='divider'
                 borderRadius={1}
                 overflow="hidden"
                 height={300}
