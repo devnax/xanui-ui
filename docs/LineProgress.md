@@ -15,14 +15,14 @@ export default function BasicLineProgress() {
 ```
 
 ## Props
-| Name      | Type                | Default   | Description                                                                                                |
-| --------- | ------------------- | --------- | ---------------------------------------------------------------------------------------------------------- |
-| value     | number (0-100)      | undefined | Current progress percent. If omitted, indeterminate mode is used. Values >100 are clamped.                 |
-| color     | ColorTemplateColors | 'brand'   | Semantic color used for the thumb and track (alpha background). 'default' uses divider / background tones. |
-| thumbSize | number              | 4         | Height (thickness) of the progress bar in pixels.                                                          |
-| hideTrack | boolean             | false     | If true, hides the track background making only the moving thumb visible.                                  |
-| speed     | number (seconds)    | 1         | Duration of one full indeterminate animation cycle (only applies when `value` is undefined).               |
-| children  | ReactElement        | -         | Optional custom element (currently unused; reserved for future overlays).                                  |
+| Name      | Type                  | Default   | Description                                                                                                |
+| --------- | --------------------- | --------- | ---------------------------------------------------------------------------------------------------------- |
+| value     | number (0-100)        | undefined | Current progress percent. If omitted, indeterminate mode is used. Values >100 are clamped.                 |
+| color     | UseColorTemplateColor | 'brand'   | Semantic color used for the thumb and track (alpha background). 'default' uses divider / background tones. |
+| thumbSize | number                | 4         | Height (thickness) of the progress bar in pixels.                                                          |
+| hideTrack | boolean               | false     | If true, hides the track background making only the moving thumb visible.                                  |
+| speed     | number (seconds)      | 1         | Duration of one full indeterminate animation cycle (only applies when `value` is undefined).               |
+| children  | ReactElement          | -         | Optional custom element (currently unused; reserved for future overlays).                                  |
 
 ## Usage Examples
 

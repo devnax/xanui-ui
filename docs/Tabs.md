@@ -35,7 +35,7 @@ export default function BasicTabs() {
 | `onChange`          | `(value: string \| number) => void`                                      | —            | Receives the `value` of the clicked tab.                |
 | `children`          | `ReactElement<TabProps> \| ReactElement<TabProps>[]`                     | —            | Tab components rendered inside the container.           |
 | `variant`           | `'start-line' \| 'end-line' \| 'fill' \| 'outline' \| 'text' \| 'alpha'` | `'end-line'` | Indicator style and animation preset.                   |
-| `color`             | `ColorTemplateColors`                                                    | `'brand'`    | Accent color used by the indicator and selected tab.    |
+| `color`             | `UseColorTemplateColor`                                                  | `'brand'`    | Accent color used by the indicator and selected tab.    |
 | `verticle`          | `boolean`                                                                | `false`      | Displays tabs vertically instead of horizontally.       |
 | `indicatorSize`     | `number`                                                                 | `3`          | Thickness of line indicators.                           |
 | `disableTransition` | `boolean`                                                                | `false`      | Turns off indicator animation.                          |

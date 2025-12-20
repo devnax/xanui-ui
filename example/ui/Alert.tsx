@@ -53,7 +53,7 @@ const Alerts = () => {
                 width={300}
                 direction="column"
                 color="warning"
-                variant='alpha'
+                variant='outline'
                 title="Warning"
             >
                 <Stack
@@ -64,7 +64,7 @@ const Alerts = () => {
             </Alert>
             <Alert
                 title="Information"
-                variant='alpha'
+                variant='soft'
                 color="danger"
                 onClose={() => { }}
             >

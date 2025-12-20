@@ -23,7 +23,7 @@ export default function BasicSwitch() {
 | `onChange`        | `() => void`                               | toggle internal | Handler invoked when the switch is clicked.                  |
 | `size`            | `number \| 'small' \| 'medium' \| 'large'` | `'medium'`      | Determines the track width; preset labels map to 32/48/60px. |
 | `trackSize`       | `number`                                   | `height + 4`    | Overrides the track thickness independently of `size`.       |
-| `color`           | `ColorTemplateColors` (except `default`)   | `'brand'`       | Active color applied to the track when checked.              |
+| `color`           | `UseColorTemplateColor` (except `default`) | `'brand'`       | Active color applied to the track when checked.              |
 | `disabled`        | `boolean`                                  | `false`         | Disables interaction and dims colors.                        |
 | `icon`            | `ReactElement`                             | —               | Optional content rendered inside the thumb.                  |
 | `slotProps.track` | `TagProps`                                 | —               | Style or extend the track element.                           |

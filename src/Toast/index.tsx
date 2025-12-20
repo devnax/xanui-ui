@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { appRootElement, ThemeColor, Transition, useBreakpointPropsType, UseColorTemplateType } from "@xanui/core";
+import { appRootElement, UseColorTemplateColor, UseColorTemplateType, Transition, useBreakpointPropsType } from "@xanui/core";
 import React, { ReactElement } from "react";
 import Alert, { AlertProps } from "../Alert";
 import Scrollbar from "../Scrollbar";
@@ -19,7 +19,7 @@ export type UseToastProps = {
     title?: useBreakpointPropsType<string | ReactElement>;
     content?: AlertProps['children'];
     variant?: useBreakpointPropsType<UseColorTemplateType>;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     icon?: useBreakpointPropsType<"info" | "warning" | "success" | "error" | false | ReactElement>;
     placement?: PlacementType;
     closeable?: useBreakpointPropsType<boolean>;

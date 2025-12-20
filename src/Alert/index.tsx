@@ -1,5 +1,5 @@
 
-import { Tag, TagProps, useBreakpointProps, useColorTemplate, useInterface, useBreakpointPropsType, Renderar, ThemeColor, UseColorTemplateType } from "@xanui/core"
+import { Tag, TagProps, useBreakpointProps, useColorTemplate, useInterface, useBreakpointPropsType, Renderar, UseColorTemplateType, UseColorTemplateColor } from "@xanui/core"
 import React, { isValidElement, ReactElement, useEffect, useRef } from "react"
 import Text from "../Text"
 import InfoIcon from '@xanui/icons/Info';
@@ -15,7 +15,7 @@ export type AlertProps = Omit<TagProps<"div">, "content" | "title" | "direction"
     title?: useBreakpointPropsType<string | ReactElement>;
     direction?: useBreakpointPropsType<"row" | "column">;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     icon?: useBreakpointPropsType<"info" | "warning" | "success" | "error" | false | ReactElement>;
     onClose?: React.DOMAttributes<"button">['onClick'];
 }
@@ -56,12 +56,11 @@ const Alert = ({ children, ...rest }: AlertProps) => {
     let isRow = direction === 'row'
 
 
-    const template: any = useColorTemplate(color, variant)
-    delete template.hover
+    const template = useColorTemplate(color, variant)
 
     let iconsx = {
         fontSize: isRow ? 22 : 40,
-        color: color === 'default' ? "text.primary" : template.color
+        color: color === 'default' ? "text.primary" : template.primary.color
     }
 
     const icons: any = {
@@ -85,10 +84,9 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                 py: isRow ? .5 : 3,
                 flexDirection: "column",
                 display: 'flex',
-                fontFamily: "default",
                 ..._props?.sx
             }}
-            {...template}
+            {...template.primary}
         >
             {
                 onClose && <IconButton
@@ -124,7 +122,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                             justifyContent: "center",
                             p: isRow ? 1 : 0,
                             "& svg": {
-                                color: template.color
+                                color: template.primary.color
                             }
                         }}
                     >
@@ -137,7 +135,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                         display: "flex",
                         flexDirection: "column",
                         flex: 1,
-                        color: template.color,
+                        color: template.primary.color,
                         py: 1,
                         textAlign: isRow ? "left" : "center",
                         gap: isRow ? 0 : 1
@@ -151,7 +149,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                                 sx={{
                                     font: "text",
                                     fontWeight: "bold!important",
-                                    color: template.color
+                                    color: template.primary.color
                                 }}
                             >{title}</Text>
                         }

@@ -24,8 +24,8 @@ export default function BasicIconButton() {
 | Name       | Type                                       | Default    | Description                                   |
 | ---------- | ------------------------------------------ | ---------- | --------------------------------------------- |
 | `size`     | `number \| 'small' \| 'medium' \| 'large'` | `'medium'` | Sets the button's width/height (square).      |
-| `color`    | `ColorTemplateColors`                      | `'brand'`  | Palette token for the background/border.      |
-| `variant`  | `ColorTemplateType`                        | `'fill'`   | Visual style such as fill, outline, or text.  |
+| `color`    | `UseColorTemplateColor`                    | `'brand'`  | Palette token for the background/border.      |
+| `variant`  | `UseColorTemplateType`                     | `'fill'`   | Visual style such as fill, outline, or text.  |
 | `corner`   | `'square' \| 'rounded' \| 'circle'`        | `'circle'` | Border radius preset; circle produces a pill. |
 | `children` | `ReactNode`                                | —          | Usually a single icon element.                |
 

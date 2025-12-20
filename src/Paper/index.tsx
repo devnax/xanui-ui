@@ -12,7 +12,7 @@ const Paper = React.forwardRef(<T extends TagComponentType = "div">({ children, 
             sxr={{
                 radius: 1,
                 p: 1.5,
-                bgcolor: "common.secondary",
+                bgcolor: "background.secondary",
                 color: "text.primary",
                 ...props?.sx
             }}

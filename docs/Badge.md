@@ -24,7 +24,7 @@ export default function BasicBadge() {
 | Name                   | Type                                                           | Default       | Description                                                                      |
 | ---------------------- | -------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------- |
 | `content`              | `number \| ReactElement`                                       | —             | Content displayed inside the badge. Numbers greater than `99` collapse to `99+`. |
-| `color`                | `ColorTemplateColors`                                          | `'danger'`    | Tone applied to the badge pill.                                                  |
+| `color`                | `UseColorTemplateColor`                                        | `'danger'`    | Tone applied to the badge pill.                                                  |
 | `placement`            | `'left-top' \| 'left-bottom' \| 'right-top' \| 'right-bottom'` | `'right-top'` | Defines which corner the badge sticks to.                                        |
 | `visible`              | `boolean`                                                      | `true`        | Allows toggling the badge without removing the child.                            |
 | `slotProps.transition` | `TransitionProps`                                              | —             | Animation configuration for showing or hiding the badge.                         |

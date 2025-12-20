@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointProps, useBreakpointPropsType, ThemeColor, UseColorTemplateType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, UseColorTemplateColor, UseColorTemplateType, useColorTemplate, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import useCorner from '../useCorner'
 
 
 export type IconButtonProps<T extends TagComponentType = 'button'> = Omit<TagProps<T>, "color" | "size"> & {
     size?: useBreakpointPropsType<number | "small" | "medium" | "large">;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
     corner?: useBreakpointPropsType<"square" | "rounded" | "circle">;
 }
@@ -45,7 +45,7 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
             ref={ref}
             {...cornerCss}
             {..._props}
-            {...template}
+            {...template.primary}
             baseClass='icon-button'
             sxr={{
                 border: 0,
@@ -53,7 +53,7 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
                 height: size,
                 width: size,
                 cursor: "pointer",
-                fontFamily: "default",
+                fontFamily: "inherit",
                 display: "inline-flex",
                 flexDirection: "row",
                 alignItems: "center",
@@ -65,7 +65,7 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
                 }
             }}
             hover={{
-                ...((template as any)?.hover || {}),
+                ...template.secondary,
                 ...((_props as any)?.hover || {})
             }}
         >

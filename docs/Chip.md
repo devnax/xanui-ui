@@ -20,8 +20,8 @@ export default function BasicChip() {
 | ----------------------- | -------------------------------- | ---------- | -------------------------------------------- |
 | `label`                 | `string \| ReactElement`         | —          | Mandatory content displayed inside the chip. |
 | `startIcon` / `endIcon` | `ReactElement`                   | —          | Optional icons that flank the label.         |
-| `color`                 | `ColorTemplateColors`            | `'brand'`  | Palette token used with the chosen variant.  |
-| `variant`               | `ColorTemplateType`              | `'fill'`   | Visual style (fill, outline, alpha, etc.).   |
+| `color`                 | `UseColorTemplateColor`          | `'brand'`  | Palette token used with the chosen variant.  |
+| `variant`               | `UseColorTemplateType`           | `'fill'`   | Visual style (fill, outline, alpha, etc.).   |
 | `corner`                | `UseCornerTypes`                 | `'circle'` | Border radius preset, e.g., pill or rounded. |
 | `size`                  | `'small' \| 'medium' \| 'large'` | `'medium'` | Sets height, padding, and font sizing.       |
 | `component`             | `TagComponentType`               | `'div'`    | Change the rendered element for semantics.   |

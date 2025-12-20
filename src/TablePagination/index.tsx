@@ -5,14 +5,14 @@ import IconButton, { IconButtonProps } from '../IconButton'
 import React, { useMemo, useState } from 'react'
 import PrevIcon from '@xanui/icons/KeyboardArrowLeft'
 import NextIcon from '@xanui/icons/KeyboardArrowRight'
-import { TagProps, Tag, useInterface, useBreakpointPropsType, ThemeColor, UseColorTemplateType } from '@xanui/core';
+import { TagProps, Tag, useInterface, UseColorTemplateColor, UseColorTemplateType, useBreakpointPropsType } from '@xanui/core';
 
 
 export type TablePaginationProps = Omit<TagProps, "children"> & {
     page: number;
     total: number;
     perpages?: number[];
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
     onChange?: (state: { page: number, perpage: number, from: number, to: number }) => void;
 

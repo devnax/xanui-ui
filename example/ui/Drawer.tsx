@@ -13,12 +13,13 @@ const Drawers = () => {
                 <Drawer
                     open={open}
                     onClickOutside={() => setOpen(false)}
-                    placement='bottom'
+                    placement="bottom"
                 >
                     <Text>Hello World</Text>
                 </Drawer>
                 <Button onClick={() => setOpen(!open)}>Toggle</Button>
-                <Button onClick={() => Drawer.open(<Text>Hello World</Text>)}>Open</Button>
+                <Button onClick={() => Drawer.open(<Text>Hello World</Text>, {
+                })}>Open</Button>
             </Section>
         </Stack>
     )

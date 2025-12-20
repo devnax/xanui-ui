@@ -22,9 +22,9 @@ export default function BasicCircleProgress() {
 | `size`           | `number \| 'small' \| 'medium' \| 'large'` | `'medium'`  | Outer diameter of the progress indicator.                              |
 | `thumbSize`      | `number`                                   | `4`         | Stroke width of the active progress arc.                               |
 | `trackSize`      | `number`                                   | `thumbSize` | Stroke width of the background track.                                  |
-| `color`          | `ColorTemplateColors`                      | `'brand'`   | Accent color for the thumb arc.                                        |
-| `trackColor`     | `ColorTemplateColors`                      | derived     | Color token used for the background circle.                            |
-| `thumbColor`     | `ColorTemplateColors`                      | derived     | Override the actual stroke color.                                      |
+| `color`          | `UseColorTemplateColor`                    | `'brand'`   | Accent color for the thumb arc.                                        |
+| `trackColor`     | `UseColorTemplateColor`                    | derived     | Color token used for the background circle.                            |
+| `thumbColor`     | `UseColorTemplateColor`                    | derived     | Override the actual stroke color.                                      |
 | `hideTrack`      | `boolean`                                  | `false`     | Removes the background circle, leaving only the animated arc.          |
 | `showPercentage` | `boolean`                                  | `false`     | Renders the numeric percentage when no children are provided.          |
 | `children`       | `ReactElement`                             | —           | Custom content centered inside the loader.                             |
@@ -44,7 +44,7 @@ export default function ContrastCircleProgress() {
 			value={45}
 			size={80}
 			color="warning"
-			trackColor="common.secondary"
+			trackColor="background.secondary"
 			thumbColor="warning"
 		/>
 	);

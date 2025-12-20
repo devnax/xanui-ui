@@ -15,7 +15,7 @@ const TableArea = (props: DatatablePropsWithState) => {
    } = props
 
    return (
-      <Table width="100%" border={1} {...slotProps?.table}>
+      <Table width="100%" border={1} borderColor="divider" {...slotProps?.table}>
          <TableHead {...props} update={update} state={state} />
          <TableBody
             sx={{

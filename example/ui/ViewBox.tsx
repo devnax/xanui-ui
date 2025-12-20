@@ -13,13 +13,13 @@ const Viewboxes = () => {
                 height={300}
                 horizental
                 startContent={<Stack
-                    bgcolor="common.secondary"
+                    bgcolor="background.secondary"
                     width={60}
                 >
 
                 </Stack>}
                 endContent={<Stack
-                    bgcolor="common.secondary"
+                    bgcolor="background.secondary"
                     width={60}
                 >
 
@@ -34,13 +34,13 @@ const Viewboxes = () => {
                 overflow="hidden"
                 height={300}
                 startContent={<Stack
-                    bgcolor="common.secondary"
+                    bgcolor="background.secondary"
                     height={60}
                 >
 
                 </Stack>}
                 endContent={<Stack
-                    bgcolor="common.secondary"
+                    bgcolor="background.secondary"
                     height={60}
                 >
 

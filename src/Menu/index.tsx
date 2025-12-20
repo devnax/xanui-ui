@@ -57,44 +57,47 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
     if (closed) return <></>
 
     return (
-        <Portal {...slotProps?.portal}>
+        <Portal {...slotProps?.portal} className='asdasdasd'>
             <ClickOutside
-                baseClass="menu"
-                id={id}
-                sx={{
-                    position: "fixed",
-                    zIndex: 1500 + (zIndex || 0)
-                }}
                 onClickOutside={() => {
                     onClickOutside && onClickOutside()
                 }}
             >
-                <Transition
-                    duration={200}
-                    easing="easeInOut"
-                    variant="grow"
-                    {...slotProps?.transition}
-                    open={isOpen}
-                    onClosed={() => {
-                        setClosed(true)
-                        slotProps?.transition?.onClosed && slotProps?.transition?.onClosed()
+                <Tag
+                    baseClass="menu"
+                    id={id}
+                    sx={{
+                        position: "fixed",
+                        zIndex: 1500 + (zIndex || 0)
                     }}
                 >
-                    <Tag
-                        baseClass='menu-content'
-                        {...slotProps?.content}
-                        sxr={{
-                            overflow: "hidden",
-                            bgcolor: "common.primary",
-                            shadow: 5,
-                            radius: 1,
-                            transformOrigin: getOrigin(placed) || "top",
-                            ...slotProps?.content?.sx
+                    <Transition
+                        duration={200}
+                        easing="easeInOut"
+                        variant="grow"
+                        {...slotProps?.transition}
+                        open={isOpen}
+                        onClosed={() => {
+                            setClosed(true)
+                            slotProps?.transition?.onClosed && slotProps?.transition?.onClosed()
                         }}
                     >
-                        {children}
-                    </Tag>
-                </Transition>
+                        <Tag
+                            baseClass='menu-content'
+                            {...slotProps?.content}
+                            sxr={{
+                                overflow: "hidden",
+                                bgcolor: "background.primary",
+                                shadow: 5,
+                                radius: 1,
+                                transformOrigin: getOrigin(placed) || "top",
+                                ...slotProps?.content?.sx
+                            }}
+                        >
+                            {children}
+                        </Tag>
+                    </Transition>
+                </Tag>
             </ClickOutside>
         </Portal>
     )

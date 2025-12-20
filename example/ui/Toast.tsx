@@ -3,6 +3,7 @@ import Stack from '../../src/Stack'
 import Button from '../../src/Button'
 import Toast from '../../src/Toast'
 import Section from '../Layout/Section'
+import useToast from '../../useToast'
 
 const Toasts = () => {
     const [open, setOpen] = React.useState(false)

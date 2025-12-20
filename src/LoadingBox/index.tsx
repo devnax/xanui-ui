@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useBreakpointProps, useBreakpointPropsType, ThemeColor } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, UseColorTemplateColor, useInterface, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import CircleProgress, { CircleProgressProps } from '../CircleProgress';
 
 
 export type LoadingBoxProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "color"> & {
     loading?: boolean;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     slotProps?: {
         CircleProgress?: Omit<CircleProgressProps, "value">
     }
@@ -44,7 +44,7 @@ const LoadingBox = React.forwardRef(<T extends TagComponentType = "div">({ child
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    bgcolor: "background.alpha"
+                    bgcolor: "divider.soft.primary"
                 }}
             >
                 <CircleProgress

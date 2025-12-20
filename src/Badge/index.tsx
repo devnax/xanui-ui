@@ -1,11 +1,11 @@
 
 import React, { ReactElement } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointPropsType, useBreakpointProps, TransitionProps, ThemeColor } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, UseColorTemplateColor, useColorTemplate, useBreakpointPropsType, useBreakpointProps, TransitionProps } from '@xanui/core';
 
 
 export type BadgeProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "baseClass" | "content"> & {
     content?: useBreakpointPropsType<number | ReactElement>;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     placement?: useBreakpointPropsType<"left-top" | "left-bottom" | "right-top" | "right-bottom">;
     visible?: useBreakpointPropsType<boolean>;
     slotProps?: {
@@ -32,7 +32,8 @@ const Badge = React.forwardRef(<T extends TagComponentType = "div">({ children, 
     color = p.color
     placement = p.placement
     visible = p.visible
-    const { hover, ...template } = useColorTemplate(color, "fill")
+
+    const template = useColorTemplate(color, "fill")
     let _css: any = {}
     let pos = -3;
     if (typeof content === "number") {
@@ -89,7 +90,7 @@ const Badge = React.forwardRef(<T extends TagComponentType = "div">({ children, 
                     fontWeight: 500,
                     fontSize: 11
                 }}
-                {...template}
+                {...template.primary}
                 {..._css}
             >
                 {typeof content === 'number' ? (content >= 100 ? "99+" : content) : content}

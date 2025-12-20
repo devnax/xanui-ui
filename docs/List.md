@@ -23,13 +23,13 @@ export default function BasicList() {
 
 ## Props
 
-| Name           | Type                  | Default     | Description                                           |
-| -------------- | --------------------- | ----------- | ----------------------------------------------------- |
-| `color`        | `ColorTemplateColors` | `'brand'`   | Color palette applied to selected list items.         |
-| `variant`      | `ColorTemplateType`   | `'fill'`    | Visual style for selected rows (fill, outline, etc.). |
-| `hoverColor`   | `ColorTemplateColors` | `'default'` | Palette token used on hover states.                   |
-| `hoverVariant` | `ColorTemplateType`   | `'alpha'`   | How hovered rows are tinted.                          |
-| `component`    | `TagComponentType`    | `'ul'`      | Underlying element for the list.                      |
+| Name           | Type                    | Default     | Description                                           |
+| -------------- | ----------------------- | ----------- | ----------------------------------------------------- |
+| `color`        | `UseColorTemplateColor` | `'brand'`   | Color palette applied to selected list items.         |
+| `variant`      | `UseColorTemplateType`  | `'fill'`    | Visual style for selected rows (fill, outline, etc.). |
+| `hoverColor`   | `UseColorTemplateColor` | `'default'` | Palette token used on hover states.                   |
+| `hoverVariant` | `UseColorTemplateType`  | `'alpha'`   | How hovered rows are tinted.                          |
+| `component`    | `TagComponentType`      | `'ul'`      | Underlying element for the list.                      |
 
 ## Usage Examples
 

@@ -7,14 +7,14 @@ import Text from '../Text';
 import Button from '../Button';
 import ResetIcon from '@xanui/icons/Replay';
 import ViewBox from '../ViewBox';
-import { useInterface, useBreakpointPropsType, useBreakpointProps, ThemeColor } from '@xanui/core';
+import { UseColorTemplateColor, useInterface, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
 
 export type CalendarProps = {
     value?: Date | null;
     onChange?: (date: Date | null) => void;
     viewMode?: useBreakpointPropsType<"year" | "month" | "day">;
     onButtonClick?: (mode: CalendarProps["viewMode"], value: CalendarProps["value"]) => void;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
 }
 
 
@@ -140,7 +140,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         <IconButton
                             className='calender-day-button'
                             variant={isSelected ? "fill" : "text"}
-                            color={isToday ? color : "surface"}
+                            color={isToday ? color : "default"}
                             {...css}
                             data-value={date}
                             onClick={(e: any) => {
@@ -179,7 +179,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                 className='calender-months-item'
             >
                 <Button
-                    color={selected ? color : "surface"}
+                    color={selected ? color : "default"}
                     className='calender-month-button'
                     size='small'
                     corner="circle"
@@ -268,7 +268,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
             maxHeight={308}
             width={250}
             radius={1}
-            bgcolor="surface.primary"
+            bgcolor="background.primary"
             startContent={
                 <Stack className='calender-header' flexRow alignItems="center" justifyContent="space-between" p={1}>
                     <Text
@@ -280,7 +280,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         {currentDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long' })}
                     </Text>
                     <IconButton
-                        color="common"
+                        color="default"
                         variant='text'
                         size={28}
                         onClick={() => {
@@ -291,8 +291,8 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         <ResetIcon fontSize={20} />
                     </IconButton>
                     <IconButton
-                        color="surface"
-                        variant='fill'
+                        color="default"
+                        variant='text'
                         size={28}
                         onClick={() => {
                             setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
@@ -301,8 +301,8 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         <IconKeyboardArrowLeft />
                     </IconButton>
                     <IconButton
-                        color="surface"
-                        variant='fill'
+                        color="default"
+                        variant='text'
                         size={28}
                         onClick={() => {
                             setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))

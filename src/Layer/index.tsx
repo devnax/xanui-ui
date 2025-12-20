@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType, useInterface, TransitionProps, Transition } from "@xanui/core"
 import useBlurCss from '../useBlurCss';
 import { Renderar } from "@xanui/core";
-import ClickOutside from '../ClickOutside';
+import ClickOutside, { ClickOutsideProps } from '../ClickOutside';
 
 export type LayerProps = {
     open: boolean;
@@ -18,8 +18,9 @@ export type LayerProps = {
     onClosed?: Function;
     slotProps?: {
         root?: Omit<TagProps<"div">, "children">;
-        transition?: Omit<TransitionProps, "open" | "variant" | "onClose" | "onClosed" | "onOpen" | "onOpened">;
+        transition?: Omit<TransitionProps, "children" | "open" | "variant" | "onClose" | "onClosed" | "onOpen" | "onOpened">;
         content?: Omit<TagProps<"div">, "children">;
+        clickOutside?: Omit<ClickOutsideProps, "children">;
     }
 }
 
@@ -83,6 +84,7 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
                 }}
             >
                 <ClickOutside
+                    {...slotProps?.clickOutside}
                     onClickOutside={onClickOutside || (() => { })}
                 >
                     <Transition

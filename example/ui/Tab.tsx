@@ -21,7 +21,7 @@ const TabItem = ({ color, variant, verticle }: any) => {
                 color={color}
                 radius={1}
                 overflow="hidden"
-                bgcolor="common.secondary"
+                bgcolor="background.secondary"
                 value={val}
                 onChange={(v: any) => {
                     setVal(v)
@@ -70,7 +70,7 @@ const TabView = () => {
                     <Option value="start-line">start-line</Option>
                     <Option value="end-line">end-line</Option>
                     <Option value="fill">fill</Option>
-                    <Option value="alpha">alpha</Option>
+                    <Option value="soft">soft</Option>
                     <Option value="outline">outline</Option>
                     <Option value="text">text</Option>
                 </Select>

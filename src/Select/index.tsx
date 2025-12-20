@@ -7,7 +7,7 @@ import Stack from '../Stack'
 import { OptionProps } from '../Option'
 import DownIcon from '@xanui/icons/KeyboardArrowDown';
 import UpIcon from '@xanui/icons/KeyboardArrowUp';
-import { useInterface, useBreakpointPropsType, ThemeColor, UseColorTemplateType } from '@xanui/core'
+import { UseColorTemplateColor, UseColorTemplateType, useInterface, useBreakpointPropsType } from '@xanui/core'
 
 
 export type SelectProps = {
@@ -15,7 +15,7 @@ export type SelectProps = {
     onChange?: (value: string | number) => void;
     children: ReactElement<OptionProps> | ReactElement<OptionProps>[];
     placeholder?: useBreakpointPropsType<string>;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
     slotProps?: {
         menu?: Omit<MenuProps, 'children' | 'target'>;
@@ -56,7 +56,7 @@ const Select = React.forwardRef(({ onChange, value, children, ...props }: Select
         <>
             <Input
                 color={color}
-                variant={variant === "alpha" ? "fill" : variant}
+                variant={variant === "soft" ? "fill" : variant}
                 endIcon={<Stack flexDirection="row" component="span" > {(target ? <UpIcon /> : <DownIcon />)}</Stack>}
                 readOnly
                 value={typeof selectedProps.children === 'string' ? selectedProps.children : value}

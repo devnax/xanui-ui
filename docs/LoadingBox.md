@@ -18,12 +18,12 @@ export default function BasicLoadingBox() {
 
 ## Props
 
-| Name                       | Type                  | Default   | Description                                                            |
-| -------------------------- | --------------------- | --------- | ---------------------------------------------------------------------- |
-| `loading`                  | `boolean`             | `false`   | When true, shows the overlay and disables the child content.           |
-| `color`                    | `ColorTemplateColors` | `'brand'` | Color passed to the spinner.                                           |
-| `slotProps.CircleProgress` | `CircleProgressProps` | —         | Customize the internal `CircleProgress` instance (size, speed, etc.).  |
-| `children`                 | `ReactNode`           | —         | The underlying content that should remain visible beneath the overlay. |
+| Name                       | Type                    | Default   | Description                                                            |
+| -------------------------- | ----------------------- | --------- | ---------------------------------------------------------------------- |
+| `loading`                  | `boolean`               | `false`   | When true, shows the overlay and disables the child content.           |
+| `color`                    | `UseColorTemplateColor` | `'brand'` | Color passed to the spinner.                                           |
+| `slotProps.CircleProgress` | `CircleProgressProps`   | —         | Customize the internal `CircleProgress` instance (size, speed, etc.).  |
+| `children`                 | `ReactNode`             | —         | The underlying content that should remain visible beneath the overlay. |
 
 ## Usage Examples
 

@@ -26,8 +26,8 @@ export default function BasicButtonGroup() {
 | Name        | Type                                 | Default     | Description                                   |
 | ----------- | ------------------------------------ | ----------- | --------------------------------------------- |
 | `children`  | `ReactElement<ButtonProps>` \| array | —           | Buttons cloned with shared styling.           |
-| `color`     | `ColorTemplateColors`                | inherit     | Color token propagated to each child button.  |
-| `variant`   | `ColorTemplateType`                  | `'outline'` | Variant applied to every button in the group. |
+| `color`     | `UseColorTemplateColor`              | inherit     | Color token propagated to each child button.  |
+| `variant`   | `UseColorTemplateType`               | `'outline'` | Variant applied to every button in the group. |
 | `size`      | `'small' \| 'medium' \| 'large'`     | `'medium'`  | Determines matched heights and spacing.       |
 | `component` | `TagComponentType`                   | `'div'`     | Wrapper element for the group.                |
 

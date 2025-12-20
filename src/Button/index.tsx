@@ -1,6 +1,6 @@
 
 import React, { ReactElement } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointProps, useBreakpointPropsType, alpha, ThemeColor, UseColorTemplateType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, UseColorTemplateColor, UseColorTemplateType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import useCorner, { UseCornerTypes } from '../useCorner'
 import CircleProgress, { CircleProgressProps } from '../CircleProgress'
 
@@ -8,7 +8,7 @@ import CircleProgress, { CircleProgressProps } from '../CircleProgress'
 export type ButtonProps<T extends TagComponentType = 'button'> = Omit<TagProps<T>, "color" | "size" | "direction"> & {
     startIcon?: useBreakpointPropsType<ReactElement>;
     endIcon?: useBreakpointPropsType<ReactElement>;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
     corner?: useBreakpointPropsType<UseCornerTypes>;
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
@@ -46,27 +46,27 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
     size = p.size
     direction = p.direction || "row"
 
-    const { hover: templateHover, ...templatecss } = useColorTemplate(color, variant)
+    const template = useColorTemplate(color, variant)
     const cornerCss = useCorner(corner)
 
     const sizes: any = {
         small: {
-            height: 32,
-            px: 2,
+            height: 40,
+            px: (startIcon || endIcon) ? 1 : 1.5,
             gap: .5,
-            fontSize: 12
+            fontSize: 'button'
         },
         medium: {
-            height: 40,
-            px: 2,
+            height: 46,
+            px: (startIcon || endIcon) ? 1.5 : 2,
             gap: 1,
-            fontSize: 14
+            fontSize: 'button'
         },
         large: {
             height: 52,
-            px: 3,
+            px: (startIcon || endIcon) ? 2 : 3,
             gap: 1,
-            fontSize: 16
+            fontSize: "text"
         }
     }
 
@@ -91,9 +91,7 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
             sxr={{
                 flexShrink: "0",
                 whiteSpace: "nowrap",
-                border: 0,
                 cursor: "pointer",
-                font: "button",
                 display: "flex",
                 textTransform: "uppercase",
                 flexDirection: direction,
@@ -102,12 +100,14 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
                 position: "relative",
                 overflow: "hidden",
                 userSelect: "none",
+                fontWeight: 500,
                 ..._size,
                 ...cornerCss,
-                ...templatecss,
+                ...template.primary,
+
             }}
             hover={{
-                ...templateHover,
+                ...template.secondary,
                 ...((_props as any)?.hover || {})
             }}
             disabled={loading ?? _props.disabled ?? false}
@@ -125,13 +125,11 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    bgcolor: alpha(templatecss.color as string, 0.4)
                 }}
             >
                 <CircleProgress
                     {...slotProps?.loading}
                     color={color === 'default' ? `brand` : "default"}
-                    hideTrack
                     size={progressSizes[size]}
                     className='button-loading-progress'
                 />
@@ -140,12 +138,14 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
                 baseClass='button-start-icon'
                 component='span'
                 display="inline-block"
+                flexShrink={0}
             >{startIcon}</Tag>}
             {children}
             {endIcon && <Tag
                 baseClass='button-end-icon'
                 component='span'
                 display="inline-block"
+                flexShrink={0}
             >{endIcon}</Tag>}
         </Tag>
     )

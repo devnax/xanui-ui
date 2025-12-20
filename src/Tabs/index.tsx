@@ -1,7 +1,7 @@
 
 import React, { useEffect, ReactElement, useMemo, cloneElement, useState, Children, useRef } from 'react'
 import { TabProps } from '../Tab'
-import { Tag, TagProps, useBreakpointProps, useInterface, useBreakpointPropsType, Transition, ThemeColor } from '@xanui/core'
+import { Tag, TagProps, useBreakpointProps, UseColorTemplateColor, useInterface, useBreakpointPropsType, Transition } from '@xanui/core'
 import { ButtonProps } from '../Button'
 
 
@@ -10,8 +10,8 @@ export type TabsProps = Omit<TagProps, 'onChange'> & {
     children: ReactElement<TabProps> | ReactElement<TabProps>[];
     value?: ValueType;
     onChange?: (value: ValueType) => void;
-    variant?: useBreakpointPropsType<"start-line" | "end-line" | "fill" | "outline" | "text" | "alpha">;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    variant?: useBreakpointPropsType<"start-line" | "end-line" | "fill" | "outline" | "text" | "soft">;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     verticle?: useBreakpointPropsType<boolean>;
     disableTransition?: useBreakpointPropsType<boolean>;
     indicatorSize?: useBreakpointPropsType<number>;
@@ -74,7 +74,7 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                         color: "#FFFFFF!important"
                     }
                 }
-            } else if (variant === 'alpha' && selected) {
+            } else if (variant === 'soft' && selected) {
                 btnProps = {
                     sx: {
                         bgcolor: "transparent!importnat",
@@ -121,7 +121,7 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                         height: rect?.height || 0,
                     }
                 }
-                if (["fill", "alpha", "outline"].includes(variant)) {
+                if (["fill", "soft", "outline"].includes(variant)) {
                     anim.from.width = prevRect?.width
                     anim.to.width = rect?.width
                 }
@@ -136,7 +136,7 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                         width: rect?.width || 0,
                     },
                 }
-                if (["fill", "alpha", "outline"].includes(variant)) {
+                if (["fill", "soft", "outline"].includes(variant)) {
                     anim.from.height = prevRect?.height || 0
                     anim.to.height = rect?.height || 0
                 }
@@ -189,10 +189,10 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                     bgcolor: "transparent"
                 }
                 break;
-            case "alpha":
+            case "soft":
                 _indicatorProps = {
                     top: 0,
-                    bgcolor: `${color}.alpha`
+                    bgcolor: `${color}.soft.primary`
                 }
                 break;
             case "text":

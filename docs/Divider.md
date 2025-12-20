@@ -25,7 +25,7 @@ export default function BasicDivider() {
 | Name        | Type                         | Default        | Description                                                            |
 | ----------- | ---------------------------- | -------------- | ---------------------------------------------------------------------- |
 | `direction` | `'horizental' \| 'verticle'` | `'horizental'` | Chooses horizontal (full-width) or vertical (full-height) orientation. |
-| `color`     | `ColorTemplateColors`        | `'default'`    | Palette token for the divider stroke.                                  |
+| `color`     | `UseColorTemplateColor`      | `'default'`    | Palette token for the divider stroke.                                  |
 | `size`      | `number`                     | `1`            | Thickness of the divider in pixels.                                    |
 | `component` | `TagComponentType`           | `'div'`        | Underlying element for the divider.                                    |
 

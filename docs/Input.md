@@ -26,7 +26,7 @@ export default function BasicInput() {
 | ---------------------------- | ---------------------------------- | ------------ | -------------------------------------------------- |
 | `startIcon` / `endIcon`      | `ReactElement`                     | —            | Optional icons rendered inside the container.      |
 | `iconPlacement`              | `'start' \| 'center' \| 'end'`     | auto         | Aligns icons vertically when multiline/responsive. |
-| `color`                      | `ColorTemplateColors`              | `'brand'`    | Accent color for focus state.                      |
+| `color`                      | `UseColorTemplateColor`            | `'brand'`    | Accent color for focus state.                      |
 | `variant`                    | `'fill' \| 'outline' \| 'text'`    | `'fill'`     | Container treatment.                               |
 | `focused`                    | `boolean`                          | uncontrolled | Force focus style externally.                      |
 | `containerRef`               | `MutableRefObject<HTMLDivElement>` | —            | Access the wrapping container element.             |

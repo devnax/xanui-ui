@@ -26,8 +26,8 @@ export default function DeleteTooltip() {
 | ----------- | ------------------------ | ----------- | ---------------------------------------------------------------------- |
 | `title`     | `string \| ReactNode`    | —           | Content displayed inside the tooltip. Responsive values are supported. |
 | `children`  | `ReactElement`           | —           | A single focusable/hoverable element that triggers the tooltip.        |
-| `color`     | `ColorTemplateColors`    | `'default'` | Color palette used for the tooltip surface.                            |
-| `variant`   | `ColorTemplateType`      | `'fill'`    | Styling mode for the tooltip surface.                                  |
+| `color`     | `UseColorTemplateColor`  | `'default'` | Color palette used for the tooltip surface.                            |
+| `variant`   | `UseColorTemplateType`   | `'fill'`    | Styling mode for the tooltip surface.                                  |
 | `placement` | `MenuProps['placement']` | `'bottom'`  | Preferred position relative to the trigger element.                    |
 
 ## Usage Examples

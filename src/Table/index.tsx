@@ -1,13 +1,13 @@
 
 import React from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointProps, useBreakpointPropsType, ThemeColor, UseColorTemplateType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, UseColorTemplateColor, useInterface, useColorTemplate, UseColorTemplateType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import Scrollbar from '../Scrollbar';
 
 
 export type TableProps<T extends TagComponentType = "table"> = Omit<TagProps<T>, "color" | "size"> & {
     evenColor?: useBreakpointPropsType<boolean>;
     size?: useBreakpointPropsType<"small" | "medium" | "large" | number>;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<Omit<UseColorTemplateType, "outline">>;
     borderType?: useBreakpointPropsType<"box" | "line" | "none">;
 }
@@ -28,13 +28,13 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
     borderType = p.borderType ?? "line"
 
     const main = useColorTemplate(color, variant)
-    const alpha = useColorTemplate(color, "alpha")
+    const soft = useColorTemplate(color, "soft")
 
     let sx: any = {}
     if (evenColor) {
         sx = {
             "& tbody tr:nth-child(even)": {
-                bgcolor: alpha.bgcolor
+                bgcolor: soft.primary.bgcolor
             }
         }
     }
@@ -91,9 +91,9 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
                     fontSize: size === "small" ? "button" : "text",
                     width: "100%",
                     "& thead, & tfoot": {
-                        bgcolor: main.bgcolor,
+                        bgcolor: main.primary.bgcolor,
                         "& th": {
-                            color: main.color
+                            color: main.primary.color
                         }
                     },
                     "& td, & th": {
@@ -107,7 +107,7 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
                         borderTop: 0
                     },
                     "& tbody tr:hover": {
-                        bgcolor: alpha.bgcolor
+                        bgcolor: soft.primary.bgcolor
                     },
                     ...sx,
                     ...((rest as any).sx || {})

@@ -1,12 +1,12 @@
 
 import React, { ReactElement, useId } from "react"
-import { Tag, useInterface, useBreakpointProps, useBreakpointPropsType, ThemeColor } from '@xanui/core';
+import { Tag, UseColorTemplateColor, useInterface, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 
 export type CircleProgressProps = {
     children?: ReactElement;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
-    trackColor?: useBreakpointPropsType<keyof ThemeColor>;
-    thumbColor?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
+    trackColor?: useBreakpointPropsType<UseColorTemplateColor>;
+    thumbColor?: useBreakpointPropsType<UseColorTemplateColor>;
     size?: useBreakpointPropsType<number | "small" | "medium" | "large">;
     thumbSize?: useBreakpointPropsType<number>;
     trackSize?: useBreakpointPropsType<number>;
@@ -47,8 +47,9 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
     }
 
     if (thumbColor === 'default') {
-        thumbColor = "common.secondary"
+        thumbColor = "divider.secondary"
     }
+
 
     let sizes: any = {
         small: 24,
@@ -101,7 +102,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
 
                         strokeDasharray: circumference,
                         strokeDashoffset: percent,
-                        stroke: thumbColor || (color === 'default' ? `common.secondary` : `${color}.primary`),
+                        stroke: thumbColor || (color === 'default' ? `divider` : `${color}.primary`),
                         fill: "none",
                         strokeWidth: thumbSize,
                         strokeLinecap: "round",
@@ -114,7 +115,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
                     },
                     "& circle.circle-progress-track": {
                         fill: "none",
-                        stroke: trackColor || (color === 'default' ? `divider` : `${color}.alpha`),
+                        stroke: trackColor || (color === 'default' ? `text.primary` : `${color}.soft.secondary`),
                         strokeWidth: trackSize ?? thumbSize,
                     }
                 },

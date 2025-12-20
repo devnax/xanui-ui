@@ -28,7 +28,7 @@ export default function BasicCheckbox() {
 | `uncheckIcon`   | `ReactElement`                             | outline square  | Icon shown when unchecked.                                               |
 | `indeterminate` | `boolean`                                  | `false`         | Displays the indeterminate icon and locks the checkbox in a third state. |
 | `size`          | `number \| 'small' \| 'medium' \| 'large'` | `'medium'`      | Controls icon size and interactive area.                                 |
-| `color`         | `ColorTemplateColors`                      | `'brand'`       | Accent color for the checked icon.                                       |
+| `color`         | `UseColorTemplateColor`                    | `'brand'`       | Accent color for the checked icon.                                       |
 
 ## Usage Examples
 

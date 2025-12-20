@@ -45,7 +45,7 @@ export default function BasicRadioGroup() {
 | `name`                      | `string`                                   | —                    | Link multiple radios together for mutual exclusivity.              |
 | `value`                     | `string \| number`                         | —                    | Payload submitted with the radio input.                            |
 | `size`                      | `number \| 'small' \| 'medium' \| 'large'` | `'medium'`           | Icon size and interactive area.                                    |
-| `color`                     | `ColorTemplateColors`                      | `'brand'`            | Accent color when checked.                                         |
+| `color`                     | `UseColorTemplateColor`                    | `'brand'`            | Accent color when checked.                                         |
 | `checkIcon` / `uncheckIcon` | `ReactElement`                             | Material radio icons | Custom artwork for checked and unchecked states.                   |
 | `disabled`                  | `boolean`                                  | `false`              | Prevents selection and dims styling.                               |
 | `...rest`                   | `TagProps<'input'>`                        | —                    | Additional native input props (aria attributes, data props, etc.). |

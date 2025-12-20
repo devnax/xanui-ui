@@ -30,8 +30,8 @@ export default function BasicAccordion() {
 | `expandIcon`                  | `ReactElement`                                                     | chevron           | Custom indicator shown near the header.                                       |
 | `expandIconPlacement`         | `'start' \| 'end'`                                                 | `'end'`           | Where to render the expand icon relative to the header.                       |
 | `expandAction`                | `'header' \| 'icon'`                                               | `'header'`        | Whether toggling occurs on the full header or just the icon.                  |
-| `color` / `variant`           | `ColorTemplateColors` / `ColorTemplateType`                        | `brand` / `alpha` | Visual styling tokens for the header.                                         |
-| `hoverColor` / `hoverVariant` | `ColorTemplateColors` / `ColorTemplateType`                        | inherit           | Hover palette overrides.                                                      |
+| `color` / `variant`           | `UseColorTemplateColor` / `UseColorTemplateType`                   | `brand` / `alpha` | Visual styling tokens for the header.                                         |
+| `hoverColor` / `hoverVariant` | `UseColorTemplateColor` / `UseColorTemplateType`                   | inherit           | Hover palette overrides.                                                      |
 | `slotProps`                   | `{ header, headerContent, collaps, content, expandIconContainer }` | —                 | Fine-grained overrides for internal subcomponents.                            |
 
 ## Usage Examples

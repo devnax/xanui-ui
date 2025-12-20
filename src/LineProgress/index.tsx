@@ -1,11 +1,11 @@
 
 import React, { ReactElement, useId } from "react"
-import { Tag, useBreakpointProps, useInterface, useBreakpointPropsType, ThemeColor } from '@xanui/core';
+import { Tag, useBreakpointProps, UseColorTemplateColor, useInterface, useBreakpointPropsType } from '@xanui/core';
 
 export type LineProgressProps = {
     children?: ReactElement;
     thumbSize?: useBreakpointPropsType<number>;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     value?: useBreakpointPropsType<number>;
     hideTrack?: useBreakpointPropsType<boolean>;
     speed?: useBreakpointPropsType<number>;
@@ -42,7 +42,7 @@ const LineProgress = React.forwardRef(({ children, ...props }: LineProgressProps
                 height: thumbSize,
                 position: "relative",
                 overflow: "hidden",
-                bgcolor: hideTrack ? "transparent" : (color === 'default' ? `common.secondary` : `${color}.alpha`),
+                bgcolor: hideTrack ? "transparent" : (color === 'default' ? `text.primary` : `${color}.soft.primary`),
                 radius: 2,
             }}
             ref={ref}

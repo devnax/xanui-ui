@@ -23,8 +23,8 @@ export default function BasicButton() {
 | Name                    | Type                             | Default     | Description                                                                      |
 | ----------------------- | -------------------------------- | ----------- | -------------------------------------------------------------------------------- |
 | `startIcon` / `endIcon` | `ReactElement`                   | —           | Optional icons rendered before/after the button label; accept responsive values. |
-| `color`                 | `ColorTemplateColors`            | `'brand'`   | Palette token controlling background, border, and text.                          |
-| `variant`               | `ColorTemplateType`              | `'fill'`    | Selects visual treatment (fill, outline, text, etc.).                            |
+| `color`                 | `UseColorTemplateColor`          | `'brand'`   | Palette token controlling background, border, and text.                          |
+| `variant`               | `UseColorTemplateType`           | `'fill'`    | Selects visual treatment (fill, outline, text, etc.).                            |
 | `corner`                | `UseCornerTypes`                 | `'rounded'` | Border radius preset plugged into the `useCorner` utility.                       |
 | `size`                  | `'small' \| 'medium' \| 'large'` | `'medium'`  | Determines height, horizontal padding, and spacing.                              |
 | `direction`             | `'row' \| 'column'`              | `'row'`     | Aligns label and icons horizontally or vertically.                               |

@@ -30,8 +30,8 @@ export default function BasicSelect() {
 | `onChange`        | `(value: string \| number) => void`                        | —         | Called when an option is chosen.                |
 | `children`        | `ReactElement<OptionProps> \| ReactElement<OptionProps>[]` | —         | `Option` nodes rendered inside the dropdown.    |
 | `placeholder`     | `string`                                                   | —         | Text shown when no value is selected.           |
-| `color`           | `ColorTemplateColors`                                      | `'brand'` | Accent color applied to the input and list.     |
-| `variant`         | `ColorTemplateType`                                        | `'fill'`  | Input variant; `alpha` is normalized to `fill`. |
+| `color`           | `UseColorTemplateColor`                                    | `'brand'` | Accent color applied to the input and list.     |
+| `variant`         | `UseColorTemplateType`                                     | `'fill'`  | Input variant; `alpha` is normalized to `fill`. |
 | `slotProps.menu`  | `MenuProps` (except `children`, `target`)                  | —         | Overrides passed to the popover menu.           |
 | `slotProps.input` | `InputProps` (except `value`, `onChange`)                  | —         | Customize the trigger input.                    |
 | `slotProps.list`  | `ListProps`                                                | —         | Additional props for the internal list.         |

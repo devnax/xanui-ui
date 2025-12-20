@@ -9,7 +9,7 @@ const Colored = () => {
     return (
         <Section title="Colors" gap={2} flexRow>
             <CircleProgress
-                color="surface"
+                color="default"
             />
             <CircleProgress
                 color="brand"
@@ -38,7 +38,7 @@ const ColoredLineProgress = () => {
     return (
         <Section title="Colors" gap={2}>
             <LineProgress
-                color="surface"
+                color="default"
             />
             <LineProgress
                 color="brand"

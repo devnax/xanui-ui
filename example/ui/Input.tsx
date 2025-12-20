@@ -9,7 +9,7 @@ import Section from '../Layout/Section'
 const Inputs = () => {
     const [v, setV] = useState('')
     return (
-        <Stack gap={2}>
+        <Stack gap={2} width={400}>
             <Section title="Basic" gap={2}>
                 <Input
                     endIcon={<SendIcon />}

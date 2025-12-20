@@ -1,6 +1,6 @@
 
 import React, { MutableRefObject, ReactElement, useEffect, useMemo, useRef, useState } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useBreakpointProps, useBreakpointPropsType, ThemeColor } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, UseColorTemplateColor, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import Text from '../Text';
 
 
@@ -9,7 +9,7 @@ export type InputProps<T extends TagComponentType = "input"> = Omit<TagProps<T>,
     endIcon?: useBreakpointPropsType<ReactElement>;
     iconPlacement?: useBreakpointPropsType<"start" | "center" | "end">;
     focused?: boolean;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<Omit<UseColorTemplateColor, "default">>;
     containerRef?: MutableRefObject<HTMLDivElement | undefined>;
     variant?: useBreakpointPropsType<"fill" | "outline" | "text">;
     error?: boolean;
@@ -99,19 +99,19 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
 
     const sizes: any = {
         small: {
-            height: 38,
+            height: 40,
             gap: .5,
-            fontSize: 14,
+            fontSize: 'button',
         },
         medium: {
-            height: 44,
+            height: 48,
             gap: 1,
-            fontSize: 16
+            fontSize: "text"
         },
         large: {
             height: 52,
             gap: 1,
-            fontSize: 18
+            fontSize: 'big'
         }
     }
 
@@ -148,7 +148,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                     flexWrap: "nowrap",
                     minWidth: 150,
                     transitionProperty: "border, box-shadow, background",
-                    bgcolor: error ? "danger.alpha" : variant === "fill" ? "common.secondary" : "common.primary",
+                    bgcolor: error ? "danger.soft.primary" : variant === "fill" ? "background.secondary" : "background.primary",
                     border: variant === "text" ? 0 : 1,
                     borderColor: borderColor,
                     borderRadius: 1,

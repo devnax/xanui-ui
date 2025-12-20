@@ -1,12 +1,12 @@
 
 import React from 'react'
-import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointProps, useBreakpointPropsType, ThemeColor, UseColorTemplateType } from '@xanui/core'
+import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, UseColorTemplateType, UseColorTemplateColor, useBreakpointProps, useBreakpointPropsType } from '@xanui/core'
 
 
 export type ListProps<T extends TagComponentType = "ul"> = Omit<TagProps<T>, 'color'> & {
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
-    hoverColor?: useBreakpointPropsType<keyof ThemeColor>;
+    hoverColor?: useBreakpointPropsType<UseColorTemplateColor>;
     hoverVariant?: useBreakpointPropsType<UseColorTemplateType>;
 }
 
@@ -19,20 +19,18 @@ const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, ..
     if (hoverVariant) _p.hoverVariant = hoverVariant
     const p: any = useBreakpointProps(_p)
 
-    color = p.color ?? "common"
+    color = p.color ?? "brand"
     variant = p.variant ?? "fill"
-    hoverColor = p.hoverColor ?? "brand"
-    hoverVariant = p.hoverVariant ?? "alpha"
+    hoverColor = p.hoverColor ?? "default"
+    hoverVariant = p.hoverVariant ?? "soft"
 
-    const template: any = useColorTemplate(color, variant)
-    const hoverTemplate: any = useColorTemplate(hoverColor, hoverVariant)
-    delete template.hover
-    delete hoverTemplate.hover
+    const template = useColorTemplate(color, variant)
+    const hoverTemplate = useColorTemplate(hoverColor, hoverVariant)
 
     let sxOutline: any = {}
     if (hoverVariant == 'outline' || variant === 'outline') {
         sxOutline = {
-            "& .xui-list-item": {
+            "& .list-item": {
                 border: 1,
                 borderColor: "transparent"
             }
@@ -50,36 +48,36 @@ const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, ..
                 m: 0,
                 ...sxOutline,
                 "& .list-item-icon": {
-                    color: `${color}.text.secondary`
+                    color: "text.secondary"
                 },
                 "& .list-item-text": {
-                    color: `${color}.text.primary`
+                    color: "text.primary"
                 },
                 "& .list-item-subtitle": {
-                    color: `${color}.text.secondary`
+                    color: "text.secondary"
                 },
                 "& .xui-list-item:not(.list-item-selected):hover": {
-                    ...hoverTemplate,
+                    ...hoverTemplate.primary,
                     "& .list-item-icon": {
-                        color: hoverTemplate.color
+                        color: hoverTemplate.primary.color
                     },
                     "& .list-item-text": {
-                        color: hoverTemplate.color
+                        color: hoverTemplate.primary.color
                     },
                     "& .list-item-subtitle": {
-                        color: hoverTemplate.color
+                        color: hoverColor === 'default' ? "text.secondary" : hoverTemplate.primary.color
                     },
                 },
                 "& .xui-list-item.list-item-selected": {
-                    ...hoverTemplate,
+                    ...template.primary,
                     "& .list-item-icon": {
-                        color: hoverTemplate.color
+                        color: template.primary.color
                     },
                     "& .list-item-text": {
-                        color: hoverTemplate.color
+                        color: template.primary.color
                     },
                     "& .list-item-subtitle": {
-                        color: hoverTemplate.color
+                        color: template.primary.color
                     },
                 },
                 ...(sx || {} as any)

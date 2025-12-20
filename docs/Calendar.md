@@ -24,7 +24,7 @@ export default function BasicCalendar() {
 | `onChange`      | `(date: Date \| null) => void` | internal     | Called when a day is selected; use with `value` for controlled state.      |
 | `viewMode`      | `'day' \| 'month' \| 'year'`   | `'day'`      | Determines the initial panel that is shown. Supports responsive objects.   |
 | `onButtonClick` | `(mode, value) => void`        | —            | Invoked when navigation buttons switch view or date, useful for analytics. |
-| `color`         | `ColorTemplateColors`          | `'brand'`    | Accent color for selected days, months, and years.                         |
+| `color`         | `UseColorTemplateColor`        | `'brand'`    | Accent color for selected days, months, and years.                         |
 
 ## Usage Examples
 

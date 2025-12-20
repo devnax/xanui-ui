@@ -1,6 +1,6 @@
 
 import React, { ReactElement } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, useBreakpointProps, useBreakpointPropsType, ThemeColor, UseColorTemplateType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, UseColorTemplateColor, UseColorTemplateType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import useCorner, { UseCornerTypes } from '../useCorner'
 
 
@@ -9,7 +9,7 @@ export type ChipProps<T extends TagComponentType = 'div'> = Omit<TagProps<T>, "c
     label: useBreakpointPropsType<string | ReactElement>;
     startIcon?: useBreakpointPropsType<ReactElement>;
     endIcon?: useBreakpointPropsType<ReactElement>;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
     corner?: useBreakpointPropsType<UseCornerTypes>;
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
@@ -38,30 +38,33 @@ const Chip = React.forwardRef(<T extends TagComponentType = 'div'>(props: ChipPr
     rest.sx = (rest as any).sx || {};
 
     const cornerCss = useCorner(corner)
-    const { hover, ...template } = useColorTemplate(color, variant)
+    const template = useColorTemplate(color, variant)
 
     const sizes: any = {
         small: {
             height: 24,
             gap: .5,
-            fontSize: 12
+            px: startIcon || endIcon ? .8 : 1,
+            fontSize: "small"
         },
         medium: {
-            height: 34,
+            height: 32,
             gap: 1,
-            fontSize: 14,
+            px: startIcon || endIcon ? .8 : 1.5,
+            fontSize: 'button',
         },
         large: {
-            height: 38,
-            fontSize: 15,
+            height: 40,
+            fontSize: 'text',
             gap: 1,
+            px: startIcon || endIcon ? .8 : 1.5,
         }
     }
 
     return (
         <Tag
             {...cornerCss}
-            {...template}
+            {...template.primary}
             {...(sizes[size as any] || {})}
             {...rest}
             sxr={{
@@ -69,9 +72,14 @@ const Chip = React.forwardRef(<T extends TagComponentType = 'div'>(props: ChipPr
                 flexDirection: "row",
                 alignItems: "center",
                 transition: "background .3s",
-                fontFamily: "default",
                 overflow: "hidden",
-                px: startIcon || endIcon ? 1 : 1.5,
+
+                "&  > *": {
+                    flex: "0 0 auto",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                },
             }}
             baseClass='chip'
             ref={ref}

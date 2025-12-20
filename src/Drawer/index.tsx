@@ -1,7 +1,7 @@
 
 import { Renderar, Tag, TagProps, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import Layer, { LayerProps } from '../Layer';
-import ClickOutside from '../ClickOutside';
+import ClickOutside, { ClickOutsideProps } from '../ClickOutside';
 
 
 export type DrawerProps = Omit<LayerProps, "transition" | "slotProps"> & {
@@ -9,9 +9,10 @@ export type DrawerProps = Omit<LayerProps, "transition" | "slotProps"> & {
     size?: useBreakpointPropsType<number | "small" | "medium" | "large">;
     onClickOutside?: () => void;
     slotProps?: {
-        layer?: LayerProps['slotProps']
+        layer?: Partial<Omit<LayerProps, "children">>
         root?: TagProps<"div">;
         content?: TagProps<"div">;
+        clickOutside?: Omit<ClickOutsideProps, "children" | "onClickOutside">;
     }
 }
 
@@ -49,6 +50,7 @@ const Drawer = ({ children, placement, size, slotProps, onClickOutside, ...layer
     return (
         <Layer
             {...layerProps}
+            {...slotProps?.layer}
             transition={getVariant(placement)}
         >
             <Tag
@@ -62,12 +64,12 @@ const Drawer = ({ children, placement, size, slotProps, onClickOutside, ...layer
                     justifyContent: placement === 'left' || placement === 'top' ? "flex-start" : "flex-end"
                 }}
             >
-                <ClickOutside onClickOutside={onClickOutside || (() => { })}>
+                <ClickOutside {...slotProps?.clickOutside} onClickOutside={onClickOutside || (() => { })}>
                     <Tag
                         sxr={{
                             width: isSide ? _size : "100%",
                             height: isSide ? "100%" : _size,
-                            bgcolor: "common.primary",
+                            bgcolor: "background.primary",
                             shadow: 10
                         }}
                         baseClass='drawer-content'
@@ -86,17 +88,14 @@ Drawer.open = (children: DrawerProps["children"], props?: Omit<DrawerProps, "chi
         open: true,
         ...props,
         children,
-        slotProps: {
-            layer: {
-                onClosed: () => {
-                    d.unrender()
-                    alert("closed")
-                }
-            }
+        onClosed: () => {
+            d.unrender()
         },
         onClickOutside: () => {
             if (props?.onClickOutside) {
                 props.onClickOutside()
+            } else {
+                d.updateProps({ open: false })
             }
         }
     })

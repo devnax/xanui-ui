@@ -68,7 +68,7 @@ const Tables = () => {
             <Section title="Colors" gap={4}>
                 <Tb
                     color="brand"
-                    variant="alpha"
+                    variant="soft"
                 />
                 <Tb
                     color="brand"

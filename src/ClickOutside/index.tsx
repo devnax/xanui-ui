@@ -1,11 +1,11 @@
-import { Tag, TagComponentType, TagProps } from '@xanui/core';
 import React, { useEffect, useRef } from 'react';
 
-export type ClickOutsideProps<T extends TagComponentType = "div"> = TagProps<T> & {
+export type ClickOutsideProps = {
     onClickOutside: () => void;
+    children: React.ReactElement
 };
 
-const ClickOutside = React.forwardRef(({ children, onClickOutside, ...props }: ClickOutsideProps, forwardedRef: any) => {
+const ClickOutside = React.forwardRef(({ children, onClickOutside }: ClickOutsideProps, forwardedRef: any) => {
 
     const innerRef = useRef<HTMLElement | null>(null);
 
@@ -32,11 +32,9 @@ const ClickOutside = React.forwardRef(({ children, onClickOutside, ...props }: C
         return () => document.removeEventListener("mousedown", handler);
     }, [onClickOutside]);
 
-    return (
-        <Tag {...props} ref={setRefs}>
-            {children}
-        </Tag>
-    );
+    return React.cloneElement(children, {
+        ref: setRefs as any
+    } as any);
 }
 );
 

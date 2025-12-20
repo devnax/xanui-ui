@@ -10,50 +10,31 @@ import ListItem from '../../src/ListItem'
 import menu from './menus'
 import CheckIcon from '@xanui/icons/CheckCircle'
 import { AppRoot, createThemeSwitcher, css, Tag, ThemeProvider, useTagProps, useTheme } from '@xanui/core';
-import ThemeProviders from '../ui/ThemeProvider';
-import Icon from '@xanui/icons/Icon';
 
-const Btn = () => {
-    const theme = useTheme()
 
-    return (
-        <button>asd</button>
-    )
-}
+// const useThemeSwitcher = createThemeSwitcher("light", { store: "local" })
 
-const ThemeEle = () => {
-    return (
-        <ThemeProvider theme="light">
-            <List>
-
-            </List>
-        </ThemeProvider>
-    )
-}
-
-const useThemeSwitcher = createThemeSwitcher("light", { store: "local" })
-
-const ThemeBox = () => {
-    const theme = useThemeSwitcher()
-    return (
-        <Stack>
-            <IconButton
-                onClick={() => {
-                    theme.change(theme.name === 'light' ? 'dark' : 'light')
-                }}
-            >
-                {theme.name === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
-            </IconButton>
-        </Stack>
-    )
-}
+// const ThemeBox = () => {
+//     const theme = useThemeSwitcher()
+//     return (
+//         <Stack>
+//             <IconButton
+//                 onClick={() => {
+//                     theme.change(theme.name === 'light' ? 'dark' : 'light')
+//                 }}
+//             >
+//                 {theme.name === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+//             </IconButton>
+//         </Stack>
+//     )
+// }
 
 const Layout = () => {
     const [, dispatch] = React.useState(0)
     const currentMenuIndex = parseInt(localStorage.getItem("currentMenuIndex") || "0")
     const currentMenu = menu[currentMenuIndex]
     const Render: any = currentMenu?.render || (() => <></>)
-    const themeSwitcher = useThemeSwitcher()
+    // const themeSwitcher = useThemeSwitcher()
 
     React.useEffect(() => {
         const ele = document.getElementById(`menu-${currentMenuIndex}`)
@@ -63,16 +44,16 @@ const Layout = () => {
     }, [])
 
     return (
-        <AppRoot theme={themeSwitcher.name} fontFamily={"inter"}>
-            <Stack height="100vh" flexRow bgcolor="common.primary">
+        <AppRoot theme={"light"} >
+            <Stack height="100vh" flexRow bgcolor="background.primary">
                 <ViewBox
                     width={250}
                     height="100%"
-                    bgcolor="common.secondary"
-                    endContent={<ThemeBox />}
+                    bgcolor="background.secondary"
+                // endContent={<ThemeBox />}
                 >
                     <Text p={1} variant='text' fontWeight={600} mb={2} color="text.primary">Components</Text>
-                    <List p={1} variant="alpha">
+                    <List p={1} variant="soft">
                         {
                             menu.map((m, idx) => <ListItem
                                 key={m.label}
@@ -82,7 +63,7 @@ const Layout = () => {
                                     dispatch(Math.random())
                                 }}
                                 selected={currentMenuIndex === idx}
-                                endIcon={<CheckIcon color={m.done ? "success" : "success.alpha"} fontSize={20} />}
+                                endIcon={<CheckIcon color={m.done ? "success" : "success.soft"} fontSize={20} />}
                             >
                                 {m.label}
                             </ListItem>)

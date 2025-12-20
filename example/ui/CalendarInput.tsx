@@ -5,7 +5,7 @@ import CalendarInput from '../../src/CalendarInput'
 const CalendarInputs = () => {
     const [value, setValue] = useState(null)
     return (
-        <Stack>
+        <Stack width={250}>
             <CalendarInput
                 value={value}
                 placeholder='Birth of date'

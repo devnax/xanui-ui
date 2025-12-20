@@ -40,15 +40,15 @@ export default function BasicTable() {
 
 ## Props
 
-| Name         | Type                                       | Default     | Description                                               |
-| ------------ | ------------------------------------------ | ----------- | --------------------------------------------------------- |
-| `size`       | `'small' \| 'medium' \| 'large' \| number` | `'medium'`  | Controls padding and font sizing for cells.               |
-| `color`      | `ColorTemplateColors`                      | `'default'` | Applies theme colors to header/footer regions.            |
-| `variant`    | `ColorTemplateType` (except `'outline'`)   | `'fill'`    | Determines how the color template is used.                |
-| `borderType` | `'box' \| 'line' \| 'none'`                | `'line'`    | Chooses between full grid borders, row dividers, or none. |
-| `evenColor`  | `boolean`                                  | `false`     | Adds zebra striping to even rows.                         |
-| `children`   | `ReactNode`                                | —           | Table sections (`TableHead`, `TableBody`, etc.).          |
-| `...rest`    | `TagProps<'table'>`                        | —           | Additional attributes merged onto the table element.      |
+| Name         | Type                                        | Default     | Description                                               |
+| ------------ | ------------------------------------------- | ----------- | --------------------------------------------------------- |
+| `size`       | `'small' \| 'medium' \| 'large' \| number`  | `'medium'`  | Controls padding and font sizing for cells.               |
+| `color`      | `UseColorTemplateColor`                     | `'default'` | Applies theme colors to header/footer regions.            |
+| `variant`    | `UseColorTemplateType` (except `'outline'`) | `'fill'`    | Determines how the color template is used.                |
+| `borderType` | `'box' \| 'line' \| 'none'`                 | `'line'`    | Chooses between full grid borders, row dividers, or none. |
+| `evenColor`  | `boolean`                                   | `false`     | Adds zebra striping to even rows.                         |
+| `children`   | `ReactNode`                                 | —           | Table sections (`TableHead`, `TableBody`, etc.).          |
+| `...rest`    | `TagProps<'table'>`                         | —           | Additional attributes merged onto the table element.      |
 
 ## Usage Examples
 

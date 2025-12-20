@@ -70,13 +70,13 @@ const Row = ({ rows, rawRow, row, rowAction, disableRow, disableSelect, columns,
                         disabled={isDisable || selected}
                         onClick={(e: any) => setTarget(e.currentTarget)}
                         variant="text"
-                        color="surface"
+                        color="default"
                     >
                         <ActionIcon />
                     </IconButton>
                     <Menu target={target} placement="bottom-right" onClickOutside={() => setTarget(null)}>
                         <List
-                            bgcolor="common.primary"
+                            bgcolor="background.primary"
                             minWidth={160}
                             sx={{
                                 '& > li': {

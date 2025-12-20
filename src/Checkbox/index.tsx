@@ -1,6 +1,6 @@
 
 import React, { useState, ReactElement } from 'react';
-import { Tag, useInterface, TagProps, useBreakpointProps, useBreakpointPropsType, ThemeColor } from '@xanui/core';
+import { Tag, useInterface, UseColorTemplateColor, TagProps, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import CheckIcon from '@xanui/icons/CheckBox'
 import UnCheckIcon from '@xanui/icons/CheckBoxOutlineBlank'
 import IndeterminateCheckBoxIcon from '@xanui/icons/IndeterminateCheckBox';
@@ -12,7 +12,7 @@ export type CheckboxProps = Omit<TagProps<"input">, "color" | "size" | "componen
     indeterminate?: useBreakpointPropsType<boolean>;
     checked?: boolean;
     size?: useBreakpointPropsType<number | "small" | "medium" | "large">;
-    color?: useBreakpointPropsType<keyof ThemeColor>;
+    color?: useBreakpointPropsType<UseColorTemplateColor>;
 }
 
 const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<any>) => {
