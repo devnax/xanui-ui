@@ -27,9 +27,9 @@ const LoadingBox = React.forwardRef(<T extends TagComponentType = "div">({ child
             sxr={{
                 position: "relative",
                 display: "inline-block",
+                overflow: "hidden",
                 ...((rest as any).sx || {})
             }}
-            disabled={loading ?? rest.disabled ?? false}
             ref={ref}
         >
             {loading && <Tag
@@ -44,7 +44,6 @@ const LoadingBox = React.forwardRef(<T extends TagComponentType = "div">({ child
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    bgcolor: "divider.soft.primary"
                 }}
             >
                 <CircleProgress
@@ -53,7 +52,11 @@ const LoadingBox = React.forwardRef(<T extends TagComponentType = "div">({ child
                     {...slotProps?.CircleProgress}
                 />
             </Tag>}
-            {children}
+            <Tag
+                disabled={loading}
+            >
+                {children}
+            </Tag>
         </Tag>
     )
 })

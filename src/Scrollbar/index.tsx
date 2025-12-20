@@ -1,13 +1,10 @@
 
-import { Tag, TagComponentType, TagProps, useBreakpointProps, useInterface, useBreakpointPropsType, useScrollbar, useTheme } from '@xanui/core';
+import { Tag, TagComponentType, TagProps, useBreakpointProps, useInterface, useBreakpointPropsType, useScrollbar } from '@xanui/core';
 
 import React, { ReactNode, UIEvent, useImperativeHandle, useRef } from 'react'
 
 export type ScrollbarProps<T extends TagComponentType = "div"> = TagProps<T> & {
     children?: ReactNode;
-    thumbSize?: useBreakpointPropsType<number>;
-    thumbColor?: useBreakpointPropsType<string>;
-    trackColor?: useBreakpointPropsType<string>;
     onScrollEnd?: (e: UIEvent<HTMLDivElement>) => void;
 }
 
@@ -23,16 +20,7 @@ const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ childr
     if (thumbSize) _p.thumbSize = thumbSize
     if (thumbColor) _p.thumbColor = thumbColor
     if (trackColor) _p.trackColor = trackColor
-    const p: any = useBreakpointProps(_p)
-    const theme = useTheme()
-    const sclass = useScrollbar({
-        themeName: theme.name,
-        thumbSize: p.thumbSize,
-        thumbColor: p.thumbColor,
-        trackColor: p.trackColor,
-    })
 
-    props.className = props.className ? `${props.className} ${sclass}` : sclass
     const innerRef = useRef<HTMLDivElement>(null);
 
 
@@ -72,8 +60,6 @@ const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ childr
             onScroll && onScroll(e)
         }
     }
-
-
 
     return (
         <Tag

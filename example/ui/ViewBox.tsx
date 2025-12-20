@@ -51,6 +51,116 @@ const Viewboxes = () => {
             >
                 <Text>Hello World</Text>
             </ViewBox>
+            <ViewBox
+                border="1px solid"
+                borderColor='divider'
+                borderRadius={1}
+                overflow="hidden"
+                height={300}
+                startContent={<Stack
+                    bgcolor="background.secondary"
+                    height={60}
+                >
+
+                </Stack>}
+                endContent={<Stack
+                    bgcolor="background.secondary"
+                    height={60}
+                >
+
+                </Stack>}
+
+            >
+                <Text>Hello World</Text>
+            </ViewBox>
+            <ViewBox
+                border="1px solid"
+                borderColor='divider'
+                borderRadius={1}
+                overflow="hidden"
+                height={300}
+                startContent={<Stack
+                    bgcolor="background.secondary"
+                    height={60}
+                >
+
+                </Stack>}
+                endContent={<Stack
+                    bgcolor="background.secondary"
+                    height={60}
+                >
+
+                </Stack>}
+
+            >
+                <Text>Hello World</Text>
+            </ViewBox>
+            <ViewBox
+                border="1px solid"
+                borderColor='divider'
+                borderRadius={1}
+                overflow="hidden"
+                height={300}
+                startContent={<Stack
+                    bgcolor="background.secondary"
+                    height={60}
+                >
+
+                </Stack>}
+                endContent={<Stack
+                    bgcolor="background.secondary"
+                    height={60}
+                >
+
+                </Stack>}
+
+            >
+                <Text>Hello World</Text>
+            </ViewBox>
+            <ViewBox
+                border="1px solid"
+                borderColor='divider'
+                borderRadius={1}
+                overflow="hidden"
+                height={300}
+                startContent={<Stack
+                    bgcolor="background.secondary"
+                    height={60}
+                >
+
+                </Stack>}
+                endContent={<Stack
+                    bgcolor="background.secondary"
+                    height={60}
+                >
+
+                </Stack>}
+
+            >
+                <Text>Hello World</Text>
+            </ViewBox>
+            <ViewBox
+                border="1px solid"
+                borderColor='divider'
+                borderRadius={1}
+                overflow="hidden"
+                height={300}
+                startContent={<Stack
+                    bgcolor="background.secondary"
+                    height={60}
+                >
+
+                </Stack>}
+                endContent={<Stack
+                    bgcolor="background.secondary"
+                    height={60}
+                >
+
+                </Stack>}
+
+            >
+                <Text>Hello World</Text>
+            </ViewBox>
         </Stack>
     )
 }
