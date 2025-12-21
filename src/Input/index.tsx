@@ -45,7 +45,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
         maxRows,
         slotProps,
         ...rest
-    }] = useInterface<any>("Input", props, {})
+    }, theme] = useInterface<any>("Input", props, {})
     const _p: any = {}
     if (startIcon) _p.startIcon = startIcon
     if (endIcon) _p.endIcon = endIcon
@@ -149,7 +149,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                     minWidth: 150,
                     transitionProperty: "border, box-shadow, background",
                     bgcolor: error ? "danger.soft.primary" : variant === "fill" ? "background.secondary" : "background.primary",
-                    border: variant === "text" ? 0 : 1,
+                    border: variant === "text" ? 0 : "1px solid",
                     borderColor: borderColor,
                     borderRadius: 1,
                     px: 1,
@@ -180,7 +180,12 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                         minHeight: _size.height,
                         "& textarea": {
                             resize: "none"
-                        }
+                        },
+                        "& input:-webkit-autofill,& input:-webkit-autofill:hover, & input:-webkit-autofill:focus,& input:-webkit-autofill:active": {
+                            "-webkit-text-fill-color": "text.primary",
+                            "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.background.secondary : theme.colors.background.primary} inset`,
+                            transition: "background-color 5000s ease-in-out 0s"
+                        } as any
                     }}
                 >
                     <Tag
@@ -196,7 +201,6 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                             height: multiline ? "auto" : _size.height + "px!important",
                             width: "100%",
                             maxHeight: 200,
-
                         }}
                         value={value}
                         baseClass='input-box'

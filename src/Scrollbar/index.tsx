@@ -1,6 +1,5 @@
 
-import { Tag, TagComponentType, TagProps, useBreakpointProps, useInterface, useBreakpointPropsType, useScrollbar } from '@xanui/core';
-
+import { Tag, TagComponentType, TagProps, useInterface } from '@xanui/core';
 import React, { ReactNode, UIEvent, useImperativeHandle, useRef } from 'react'
 
 export type ScrollbarProps<T extends TagComponentType = "div"> = TagProps<T> & {
@@ -15,14 +14,8 @@ export type ScrollbarHandle = {
 };
 
 const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ children, ...rest }: ScrollbarProps<T>, ref: React.Ref<ScrollbarHandle>) => {
-    let [{ thumbSize, thumbColor, trackColor, onScroll, onScrollEnd, ...props }] = useInterface<any>("Scrollbar", rest, {})
-    const _p: any = {}
-    if (thumbSize) _p.thumbSize = thumbSize
-    if (thumbColor) _p.thumbColor = thumbColor
-    if (trackColor) _p.trackColor = trackColor
-
+    let [{ onScroll, onScrollEnd, ...props }] = useInterface<any>("Scrollbar", rest, {})
     const innerRef = useRef<HTMLDivElement>(null);
-
 
     useImperativeHandle(ref, () => ({
         scrollTo(pos: number) {

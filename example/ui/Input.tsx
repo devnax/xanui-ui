@@ -14,6 +14,7 @@ const Inputs = () => {
                 <Input
                     endIcon={<SendIcon />}
                     placeholder='Write a message...'
+                    name="email"
                 />
                 <Input
                     variant='outline'
