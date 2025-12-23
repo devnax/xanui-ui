@@ -61,11 +61,29 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
     let duration = slotProps?.transition?.duration || 300
     let delay = slotProps?.transition?.delay || 0
 
+    let content = <Transition
+        duration={duration}
+        delay={delay}
+        easing="standard"
+        variant={transition || "zoomOver"}
+        {...slotProps?.transition}
+        open={open}
+        onOpen={onOpen}
+        onOpened={onOpened}
+        onClose={onClose}
+        onClosed={() => {
+            setClosed(true)
+            onClosed && onClosed()
+        }}
+    >
+        {children}
+    </Transition>
+
     return (
         <Transition
             duration={duration}
             delay={delay}
-            easing="easeOut"
+            easing="smooth"
             variant={"fade"}
             open={open}
         >
@@ -80,31 +98,19 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
                     left: 0,
                     bottom: 0,
                     right: 0,
+                    width: "100%",
+                    height: "100%",
                     ...blurCss
                 }}
             >
-                <ClickOutside
-                    {...slotProps?.clickOutside}
-                    onClickOutside={onClickOutside || (() => { })}
-                >
-                    <Transition
-                        duration={duration}
-                        delay={delay}
-                        easing="easeOut"
-                        variant={transition || "zoomOver"}
-                        {...slotProps?.transition}
-                        open={open}
-                        onOpen={onOpen}
-                        onOpened={onOpened}
-                        onClose={onClose}
-                        onClosed={() => {
-                            setClosed(true)
-                            onClosed && onClosed()
-                        }}
+                {
+                    onClickOutside ? <ClickOutside
+                        {...slotProps?.clickOutside}
+                        onClickOutside={onClickOutside || (() => { })}
                     >
-                        {children}
-                    </Transition>
-                </ClickOutside>
+                        {content}
+                    </ClickOutside> : content
+                }
             </Tag>
         </Transition>
     )

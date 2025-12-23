@@ -16,10 +16,14 @@ const Menus = () => {
             >
                 <Button
                     onClick={(e) => {
-                        setTarget(!target ? e.currentTarget : null)
+                        setTarget(e.currentTarget)
                     }}
                 >Open</Button>
-                <Menu target={target} onClickOutside={() => setTarget(null)}>
+                <Menu
+                    target={target}
+                    onClickOutside={() => setTarget(null)}
+                    placement="bottom-right"
+                >
                     <List width={180} variant="fill" color={"brand"} shadow={5}>
                         <ListItem >Home</ListItem>
                         <ListItem >About</ListItem>

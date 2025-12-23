@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import ReactDOM from 'react-dom';
 import { useTheme, ThemeProvider } from '@xanui/core';
 export type PortalProps = {
@@ -9,30 +9,27 @@ export type PortalProps = {
 }
 
 const Portal = ({ children, appendTo, container }: PortalProps) => {
-    const [_container, setContainer] = useState<HTMLElement | undefined>(container)
     const theme = useTheme()
+    appendTo = appendTo || document.body
 
-    useEffect(() => {
-        appendTo = appendTo || document.body
-        let _con: HTMLElement = _container || document.createElement("div");
+    const c = useMemo(() => {
+        let _con: HTMLElement = container || document.createElement("div");
         appendTo.appendChild(_con);
         _con.className = "xui-portal"
-        if (!_container) {
-            setContainer(_con)
-        }
-
-        return () => {
-            (appendTo as any).removeChild(_con);
-        }
+        return _con
     }, [])
 
-    if (!_container) return <></>
+    useEffect(() => {
+        return () => {
+            (appendTo as any).removeChild(c);
+        }
+    }, [])
 
     return ReactDOM.createPortal(
         <ThemeProvider theme={theme.name}>
             {children}
         </ThemeProvider>,
-        _container,
+        c,
     );
 }
 

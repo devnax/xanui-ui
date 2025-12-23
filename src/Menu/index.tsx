@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useId, useState, useRef } from "react";
+import { ReactNode, useEffect, useState, useRef } from "react";
 import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType, useInterface, TransitionProps, Transition } from "@xanui/core";
 import Portal, { PortalProps } from "../Portal";
 import ClickOutside from "../ClickOutside";
@@ -22,7 +22,7 @@ export type MenuProps = {
     target?: HTMLElement;
     placement?: useBreakpointPropsType<PlacementTypes>;
     zIndex?: number;
-    onClickOutside?: () => void;
+    onClickOutside?: (e: MouseEvent) => void;
     slotProps?: {
         transition?: Omit<TransitionProps, "open">;
         portal?: Omit<PortalProps, "children">;
@@ -77,29 +77,42 @@ const getTransformOrigin = (placement: PlacementTypes) => {
 };
 
 // Compute coordinates for each placement
-const computePosition = (placement: PlacementTypes, menu: HTMLElement, target: HTMLElement) => {
+const computePosition = (
+    placement: PlacementTypes,
+    menu: HTMLElement,
+    target: HTMLElement
+) => {
     const { width: mw, height: mh } = menu.getBoundingClientRect();
-    const { top: tt, left: tl, bottom: tb, right: tr, width: tw, height: th } = target.getBoundingClientRect();
-    const scrollTop = window.scrollY;
-    const scrollLeft = window.scrollX;
+    const {
+        top: tt,
+        left: tl,
+        bottom: tb,
+        right: tr,
+        width: tw,
+        height: th,
+    } = target.getBoundingClientRect();
 
     const positions: Record<PlacementTypes, { top: number; left: number }> = {
-        "bottom-left": { top: tb + scrollTop, left: tl + scrollLeft },
-        "bottom-right": { top: tb + scrollTop, left: tr - mw + scrollLeft },
-        bottom: { top: tb + scrollTop, left: tl + scrollLeft + (tw - mw) / 2 },
-        "top-left": { top: tt - mh + scrollTop, left: tl + scrollLeft },
-        "top-right": { top: tt - mh + scrollTop, left: tr - mw + scrollLeft },
-        top: { top: tt - mh + scrollTop, left: tl + scrollLeft + (tw - mw) / 2 },
-        left: { top: tt + scrollTop + (th - mh) / 2, left: tl - mw + scrollLeft },
-        "left-top": { top: tt + scrollTop, left: tl - mw + scrollLeft },
-        "left-bottom": { top: tb - mh + scrollTop, left: tl - mw + scrollLeft },
-        right: { top: tt + scrollTop + (th - mh) / 2, left: tr + scrollLeft },
-        "right-top": { top: tt + scrollTop, left: tr + scrollLeft },
-        "right-bottom": { top: tb - mh + scrollTop, left: tr + scrollLeft },
+        "bottom-left": { top: tb, left: tl },
+        "bottom-right": { top: tb, left: tr - mw },
+        bottom: { top: tb, left: tl + (tw - mw) / 2 },
+
+        "top-left": { top: tt - mh, left: tl },
+        "top-right": { top: tt - mh, left: tr - mw },
+        top: { top: tt - mh, left: tl + (tw - mw) / 2 },
+
+        left: { top: tt + (th - mh) / 2, left: tl - mw },
+        "left-top": { top: tt, left: tl - mw },
+        "left-bottom": { top: tb - mh, left: tl - mw },
+
+        right: { top: tt + (th - mh) / 2, left: tr },
+        "right-top": { top: tt, left: tr },
+        "right-bottom": { top: tb - mh, left: tr },
     };
 
     return positions[placement];
 };
+
 
 // Check if menu is off-screen
 const isOffScreen = (menu: HTMLElement) => {
@@ -133,7 +146,6 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
 
     const isOpen = Boolean(target);
     const [closed, setClosed] = useState(!isOpen);
-    const id = "menu-" + useId().replace(":", "");
     const [placed, setPlaced] = useState<PlacementTypes>(placement);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -142,17 +154,8 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
         if (closed && isOpen) setClosed(false);
     }, [isOpen]);
 
-    // Position menu
-    const updatePosition = () => {
-        if (menuRef.current && target) {
-            const p = placeMenu(placement!, menuRef.current, target);
-            setPlaced(p);
-        }
-    };
 
     useEffect(() => {
-        console.log(menuRef.current);
-
         if (!closed && target && menuRef.current) {
             const updatePosition = () => {
                 if (menuRef.current && target) {
@@ -171,53 +174,48 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
                 window.removeEventListener("scroll", updatePosition, true);
             };
         }
-    }, [closed, target, placement]); // <- now includes placement
-
+        return undefined;
+    }, [closed, target, placement]);
 
     if (closed) return null;
 
     return (
         <Portal {...slotProps?.portal}>
             <ClickOutside
-                onClickOutside={() => {
-                    onClickOutside && onClickOutside();
+                onClickOutside={(e: MouseEvent) => {
+                    if (e.target !== target) {
+                        onClickOutside && onClickOutside(e);
+                    }
                 }}
+                ref={menuRef}
+                sx={{ position: "fixed", zIndex: 1500 + (zIndex || 0) }}
             >
-                <div>
+                <Transition
+                    duration={200}
+                    easing="fast"
+                    variant="grow"
+                    {...slotProps?.transition}
+                    open={isOpen}
+                    onClosed={() => {
+                        setClosed(true);
+                        slotProps?.transition?.onClosed?.();
+                    }}
+                >
                     <Tag
-                        baseClass="menu"
-                        id={id}
-                        ref={menuRef}
-                        sx={{ position: "fixed", zIndex: 1500 + (zIndex || 0) }}
+                        baseClass="menu-content"
+                        {...slotProps?.content}
+                        sxr={{
+                            overflow: "hidden",
+                            bgcolor: "background.primary",
+                            shadow: 2,
+                            radius: 1,
+                            transformOrigin: getTransformOrigin(placed),
+                            ...slotProps?.content?.sx,
+                        }}
                     >
-                        <Transition
-                            duration={200}
-                            easing="easeInOut"
-                            variant="grow"
-                            {...slotProps?.transition}
-                            open={isOpen}
-                            onClosed={() => {
-                                setClosed(true);
-                                slotProps?.transition?.onClosed?.();
-                            }}
-                        >
-                            <Tag
-                                baseClass="menu-content"
-                                {...slotProps?.content}
-                                sxr={{
-                                    overflow: "hidden",
-                                    bgcolor: "background.primary",
-                                    shadow: 10,
-                                    radius: 1,
-                                    transformOrigin: getTransformOrigin(placed),
-                                    ...slotProps?.content?.sx,
-                                }}
-                            >
-                                {children}
-                            </Tag>
-                        </Transition>
+                        {children}
                     </Tag>
-                </div>
+                </Transition>
             </ClickOutside>
         </Portal>
     );

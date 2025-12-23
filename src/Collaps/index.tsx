@@ -22,7 +22,7 @@ const Collaps = React.forwardRef(<T extends TagComponentType = "div">({ children
     }] = useInterface<any>("Collaps", props, {})
 
     open ??= false
-    easing ??= "easeOut"
+    easing ??= "standard"
 
     return (
         <Transition
@@ -39,7 +39,7 @@ const Collaps = React.forwardRef(<T extends TagComponentType = "div">({ children
                 onClosed
             }}
             disableInitialTransition
-            variant="collapsVerticle"
+            variant="collapseVertical"
             open={open}
         >
             <Tag

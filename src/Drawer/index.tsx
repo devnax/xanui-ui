@@ -57,14 +57,17 @@ const Drawer = ({ children, placement, size, slotProps, onClickOutside, ...layer
                 {...slotProps?.root}
                 baseClass='drawer'
                 sxr={{
-                    width: "100%",
-                    height: "100%",
+                    width: "100vw",
+                    height: "100vh",
                     display: "flex",
                     direction: isSide ? "row" : "column" as any,
                     justifyContent: placement === 'left' || placement === 'top' ? "flex-start" : "flex-end"
                 }}
             >
-                <ClickOutside {...slotProps?.clickOutside} onClickOutside={onClickOutside || (() => { })}>
+                <ClickOutside
+                    {...slotProps?.clickOutside}
+                    onClickOutside={onClickOutside || (() => { })}
+                >
                     <Tag
                         sxr={{
                             width: isSide ? _size : "100%",
