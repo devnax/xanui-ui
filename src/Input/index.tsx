@@ -1,7 +1,19 @@
 
 import React, { MutableRefObject, ReactElement, useEffect, useMemo, useRef, useState } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, UseColorTemplateColor, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, UseColorTemplateColor, useBreakpointProps, useBreakpointPropsType, useTheme } from '@xanui/core';
 import Text from '../Text';
+
+
+const useInterface = <P extends object>(name: string, userPorps: P, defaultProps: P) => {
+    const theme = useTheme()
+    const _interface = theme.interfaces[name]
+    console.log(userPorps);
+
+    if (_interface) {
+        // defaultProps = _interface<P>({ ...defaultProps, ...userPorps }, theme)
+    }
+    return [userPorps, theme]
+}
 
 
 export type InputProps<T extends TagComponentType = "input"> = Omit<TagProps<T>, "size" | "color"> & {
@@ -215,7 +227,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                         }}
                     />
                 </Tag>
-                {endIcon && <Tag
+                {p.endIcon && <Tag
                     sxr={{
                         height: "100%",
                         alignItems: 'center',
@@ -224,7 +236,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                         color: error ? "danger.primary" : "text.secondary",
                     }}
                     baseClass="input-end-icon"
-                >{endIcon}</Tag>}
+                >{p.endIcon}</Tag>}
             </Tag>
             {helperText && <Text
                 pl={.5}
