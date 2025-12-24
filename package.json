@@ -1,10 +1,8 @@
 {
    "name": "@xanui/ui",
-   "version": "1.1.10",
+   "version": "1.1.11",
    "description": "",
-   "publishConfig": {
-      "access": "public"
-   },
+   "private": false,
    "main": "./index.js",
    "module": "./index.mjs",
    "types": "./index.d.ts",
@@ -38,9 +36,9 @@
          "types": "./index.d.ts"
       },
       "./*": {
-         "import": "./**/*.mjs",
-         "require": "./**/*.js",
-         "types": "./**/*.d.ts"
+         "import": "./*/index.mjs",
+         "require": "./*/index.js",
+         "types": "./*/index.d.ts"
       }
    }
 }
