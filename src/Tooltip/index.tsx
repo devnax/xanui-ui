@@ -45,7 +45,8 @@ const Tooltip = ({ children, title, variant, color, placement }: TooltipProps) =
                     content: {
                         p: .5,
                         shadow: 1,
-                        ...template.primary
+                        ...template.primary,
+                        bgcolor: color == "default" ? "background.primary" : template.primary.bgcolor,
                     }
                 }}
             >

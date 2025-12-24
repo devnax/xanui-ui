@@ -10,7 +10,6 @@ import ListItem from '../../src/ListItem'
 import menu from './menus'
 import CheckIcon from '@xanui/icons/CheckCircle'
 import { AppRoot, createThemeSwitcher, css, Tag, ThemeProvider, useTagProps, useTheme } from '@xanui/core';
-import SigninForm from '../Form';
 
 
 const useThemeSwitcher = createThemeSwitcher("light", { store: "local" })
@@ -73,7 +72,6 @@ const Layout = () => {
                     </List>
                 </ViewBox>
                 <Stack flex={1} height="100%" p={2} overflow="auto">
-                    <SigninForm />
                     <Render />
                 </Stack>
             </Stack>

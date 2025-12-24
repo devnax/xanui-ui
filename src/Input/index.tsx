@@ -1,19 +1,8 @@
 
 import React, { MutableRefObject, ReactElement, useEffect, useMemo, useRef, useState } from 'react';
-import { Tag, TagProps, TagComponentType, UseColorTemplateColor, useBreakpointProps, useBreakpointPropsType, useTheme } from '@xanui/core';
+import { Tag, TagProps, TagComponentType, UseColorTemplateColor, useBreakpointPropsType, useInterface, useBreakpointProps } from '@xanui/core';
 import Text from '../Text';
 
-
-const useInterface = <P extends object>(name: string, userPorps: P, defaultProps: P) => {
-    const theme = useTheme()
-    const _interface = theme.interfaces[name]
-    console.log(userPorps);
-
-    if (_interface) {
-        // defaultProps = _interface<P>({ ...defaultProps, ...userPorps }, theme)
-    }
-    return [userPorps, theme]
-}
 
 
 export type InputProps<T extends TagComponentType = "input"> = Omit<TagProps<T>, "size" | "color"> & {
@@ -58,6 +47,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
         slotProps,
         ...rest
     }, theme] = useInterface<any>("Input", props, {})
+
     const _p: any = {}
     if (startIcon) _p.startIcon = startIcon
     if (endIcon) _p.endIcon = endIcon
@@ -175,6 +165,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                 minHeight={_size.height}
             >
                 {startIcon && <Tag
+                    flex={"0 0 auto"}
                     sxr={{
                         height: "100%",
                         alignItems: 'center',
@@ -185,6 +176,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                     baseClass="input-start-icon"
                 >{startIcon}</Tag>}
                 <Tag
+                    flex={1}
                     sxr={{
                         display: "flex",
                         alignItems: "center",
@@ -227,7 +219,8 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                         }}
                     />
                 </Tag>
-                {p.endIcon && <Tag
+                {endIcon && <Tag
+                    flex={"0 0 auto"}
                     sxr={{
                         height: "100%",
                         alignItems: 'center',
@@ -236,7 +229,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                         color: error ? "danger.primary" : "text.secondary",
                     }}
                     baseClass="input-end-icon"
-                >{p.endIcon}</Tag>}
+                >{endIcon}</Tag>}
             </Tag>
             {helperText && <Text
                 pl={.5}

@@ -1,5 +1,5 @@
 
-import { Tag, TransitionVariantTypes } from "@xanui/core"
+import { Tag, UseTransitionVariantTypes } from "@xanui/core"
 import Button, { ButtonProps } from "../Button";
 import useModal, { UseModalProps } from "../useModal";
 import Alert, { AlertProps } from "../Alert";
@@ -26,7 +26,7 @@ export type UseAlerProps = Omit<AlertProps, 'children' | 'onClose' | 'variant' |
     variant?: "text" | "fill"
     onConfirm?: () => Promise<void> | void;
     onCancel?: () => Promise<void> | void;
-    transition?: TransitionVariantTypes;
+    transition?: UseTransitionVariantTypes;
     blurMode?: UseModalProps['blurMode'];
     slotProps?: {
         modal?: UseModalProps;
