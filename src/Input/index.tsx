@@ -233,7 +233,6 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
             </Tag>
             {helperText && <Text
                 pl={.5}
-                height={_size.height}
                 className="input-helper-text"
                 fontSize="small"
                 color={error ? "danger.primary" : "text.primary"}

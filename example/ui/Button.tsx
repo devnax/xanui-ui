@@ -10,13 +10,30 @@ import IconClose from '@xanui/icons/Close';
 import UserIcon from '@xanui/icons/People';
 import UnarchiveIcon from '@xanui/icons/Unarchive';
 import CircleProgress from "../../src/CircleProgress"
+import { createBucket, xv } from "react-state-bucket"
 
+
+const useBucket = createBucket({
+    loading: xv.boolean().default(false),
+})
 
 const Buttons = () => {
+    const bucket = useBucket()
     return (
         <Container
             maxWidth="md"
         >
+            <Section title="Icon Button" gap={2}>
+                <Button
+                    startIcon={<UserIcon />}
+                    endIcon={<InfoIcon />}
+                    color="brand"
+                    loading={bucket.get('loading')}
+                    onClick={() => bucket.set('loading', !bucket.get('loading'))}
+                >
+                    Button
+                </Button>
+            </Section>
             <Section title="Icon Button" gap={2}>
                 <CircleProgress
                     showPercentage
