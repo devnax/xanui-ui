@@ -15,14 +15,13 @@ const Text = React.forwardRef(<T extends TagComponentType = "p">({ children, var
 
     return (
         <Tag
-            component={(variant === 'text' || variant === 'small' ? "p" : variant) as any}
+            component={(variant as string).startsWith('h') ? variant as any : "p"}
             {...props}
             sxr={{
                 fontSize: variant,
                 lineHeight: variant,
                 fontWeight: variant,
                 color: "text.primary",
-                ...(props as any)?.sx
             }}
             baseClass='text'
             ref={ref}
