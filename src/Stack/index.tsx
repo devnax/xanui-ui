@@ -4,7 +4,7 @@ import { Tag, TagProps, TagComponentType } from '@xanui/core';
 
 export type StackProps<T extends TagComponentType = "div"> = TagProps<T>
 
-const Stack = React.forwardRef(<T extends TagComponentType = "div">({ children, sx, ...props }: StackProps<T>, ref?: React.Ref<any>) => {
+const Stack = React.forwardRef(<T extends TagComponentType = "div">({ children, ...props }: StackProps<T>, ref?: React.Ref<any>) => {
     return (
         <Tag
             {...props}
