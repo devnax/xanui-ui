@@ -1,3 +1,4 @@
+"use client";
 
 import React, { ReactElement, useMemo, cloneElement, useState, Children, useRef } from 'react'
 import Input, { InputProps } from '../Input'

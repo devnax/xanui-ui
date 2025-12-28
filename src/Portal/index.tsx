@@ -1,4 +1,4 @@
-
+"use client";
 import React, { useEffect, useMemo } from 'react'
 import ReactDOM from 'react-dom';
 import { useTheme, ThemeProvider } from '@xanui/core';

@@ -1,3 +1,5 @@
+"use client";
+
 import Text from '../Text'
 import Select, { SelectProps } from '../Select'
 import Option from '../Option'

@@ -1,3 +1,4 @@
+"use client";
 
 import { Tag, UseTransitionVariantTypes } from "@xanui/core"
 import Button, { ButtonProps } from "../Button";

@@ -1,4 +1,4 @@
-
+"use client";
 import Stack from '../Stack'
 import { DatatableFilter, DatatablePropsWithState } from '.'
 import Tabs from '../Tabs'

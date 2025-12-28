@@ -1,3 +1,5 @@
+"use client";
+
 import useLayer, { UseLayerProps } from "../useLayer";
 import { Tag, TagProps } from '@xanui/core'
 

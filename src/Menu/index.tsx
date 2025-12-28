@@ -1,3 +1,4 @@
+"use client";
 import { ReactNode, useEffect, useState, useRef } from "react";
 import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType, useInterface, TransitionProps, Transition } from "@xanui/core";
 import Portal, { PortalProps } from "../Portal";

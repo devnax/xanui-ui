@@ -1,3 +1,4 @@
+"use client";
 import { Tag, TagComponentType, TagProps } from '@xanui/core';
 import React, { useEffect, useRef } from 'react';
 

@@ -1,4 +1,4 @@
-
+"use client";
 import { Tag, TagProps, useBreakpointProps, useColorTemplate, useInterface, useBreakpointPropsType, Renderar, UseColorTemplateType, UseColorTemplateColor } from "@xanui/core"
 import React, { isValidElement, ReactElement, useEffect, useRef } from "react"
 import Text from "../Text"

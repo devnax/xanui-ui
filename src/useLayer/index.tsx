@@ -1,3 +1,5 @@
+"use client";
+
 import { usePortal } from "@xanui/core"
 import { useState } from "react"
 import Layer, { LayerProps } from "../Layer"

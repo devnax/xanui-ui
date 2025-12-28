@@ -1,3 +1,4 @@
+"use client";
 
 import { Children, cloneElement, ReactElement, useState } from 'react'
 import Menu, { MenuProps } from '../Menu'

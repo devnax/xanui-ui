@@ -1,3 +1,5 @@
+"use client";
+
 import { createRoot } from "react-dom/client";
 import { appRootElement, UseColorTemplateColor, UseColorTemplateType, Transition, useBreakpointPropsType } from "@xanui/core";
 import React, { ReactElement } from "react";

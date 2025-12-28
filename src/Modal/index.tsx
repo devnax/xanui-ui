@@ -1,3 +1,4 @@
+"use client";
 import { ReactNode, useEffect, useRef } from "react";
 import useModal, { UseModalProps } from "../useModal";
 import { Renderar, Tag } from "@xanui/core";

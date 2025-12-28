@@ -1,3 +1,4 @@
+"use client";
 
 import TableHead from './TableHead'
 import Table from '../Table'

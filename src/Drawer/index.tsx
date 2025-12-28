@@ -1,4 +1,4 @@
-
+"use client";
 import { Renderar, Tag, TagProps, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import Layer, { LayerProps } from '../Layer';
 import ClickOutside, { ClickOutsideProps } from '../ClickOutside';
