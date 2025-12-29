@@ -2,13 +2,13 @@
 import { useState } from 'react'
 import TableRow from '../TableRow'
 import TableCell from '../TableCell'
-import { DataTableDefaultRow, DatatablePropsWithState } from '.'
 import Checkbox from '../Checkbox'
 import IconButton from '../IconButton'
 import List from '../List'
 import ListItem from '../ListItem'
 import ActionIcon from '@xanui/icons/MoreVert'
 import Menu from '../Menu'
+import { DataTableDefaultRow, DatatablePropsWithState } from './types';
 
 
 type Props = DatatablePropsWithState & {
@@ -16,22 +16,21 @@ type Props = DatatablePropsWithState & {
     row: DataTableDefaultRow;
 }
 
-const Row = ({ rows, rawRow, row, rowAction, disableRow, disableSelect, columns, state, update }: Props) => {
-    let selectesIds = state.selectedIds
-    const selected = row.id ? state.selectedIds.includes(row?.id) : false
+const Row = ({ rows, rawRow, row, rowAction, disableRow, hideCheckbox, columns, state, update }: Props) => {
+    const selected = row.id ? state.selected.includes(row?.id) : false
     let selectedColor = selected ? "primary.soft" : "transparent"
     const [target, setTarget] = useState<any>()
     const isDisable = (disableRow ? disableRow(rawRow, state) : false) || false
 
     return (
         <TableRow disabled={isDisable}>
-            {!disableSelect && <TableCell width={40} bgcolor={selectedColor}>
+            {!hideCheckbox && <TableCell width={40} bgcolor={selectedColor}>
                 {
                     !!row.id && <Checkbox
                         checked={selected}
                         onChange={() => {
                             if (isDisable || !row.id) return
-                            let ids = [...selectesIds]
+                            let ids = [...state.selected]
                             ids.includes(row.id) ? ids.splice(ids.indexOf(row.id), 1) : ids.push(row.id)
                             let selectedLength = 0
                             rows.forEach(r => {
@@ -41,7 +40,7 @@ const Row = ({ rows, rawRow, row, rowAction, disableRow, disableSelect, columns,
 
                             update({
                                 selectAll: selectedLength === ids.length,
-                                selectedIds: ids
+                                selected: ids
                             })
                         }}
                     />
@@ -49,7 +48,7 @@ const Row = ({ rows, rawRow, row, rowAction, disableRow, disableSelect, columns,
 
             </TableCell>}
             {
-                columns.map(({ label, field, ...rest }, idx) => {
+                columns.map(({ label, field, sortable, ...rest }, idx) => {
                     field = field || label
                     if (!row[field]) return <TableCell key={idx}></TableCell>
                     return (

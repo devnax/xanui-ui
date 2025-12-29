@@ -17,10 +17,32 @@ const Tb = () => {
     return (
         <Stack gap={2}>
             <Datatable
+                // filters={{
+                //     Status: [
+                //         { label: "Active", value: "active" },
+                //         { label: "Deactive", value: "deactive" },
+                //     ],
+                //     Role: [
+                //         { label: "Admin", value: "admin" },
+                //         { label: "User", value: "user" },
+                //     ],
+                //     Source: [
+                //         { label: "Google", value: "google" },
+                //         { label: "Facebook", value: "facebook" },
+                //     ],
+                //     Category: [
+                //         { label: "A", value: "a" },
+                //         { label: "B", value: "b" },
+                //     ]
+                // }}
+                onStateChange={state => {
+                    console.log(state);
+
+                }}
                 rows={rows as any}
                 columns={[
-                    { label: "Name", field: "name" },
-                    { label: "Email", field: "email" },
+                    { label: "Name", field: "name", sortable: true },
+                    { label: "Email", field: "email", sortable: true },
                 ]}
                 tabs={[
                     { label: "All" },
@@ -38,9 +60,10 @@ const Tb = () => {
 }
 
 const Tables = () => {
+
     return (
         <Stack gap={4}>
-            <Section title="Colors" gap={4}>
+            <Section title="" gap={4}>
                 <Tb
                 />
             </Section>

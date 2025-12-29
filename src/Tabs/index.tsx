@@ -231,7 +231,7 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
             </Tag>
             <Transition
                 open={!!trans}
-                variant={trans || (() => ({ from: {}, to: {} }))}
+                variant={trans}
                 duration={trans ? (disableTransition ? 0 : 250) : 0}
                 easing="smooth"
             >

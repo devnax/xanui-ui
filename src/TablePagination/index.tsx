@@ -4,7 +4,7 @@ import Text from '../Text'
 import Select, { SelectProps } from '../Select'
 import Option from '../Option'
 import IconButton, { IconButtonProps } from '../IconButton'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import PrevIcon from '@xanui/icons/KeyboardArrowLeft'
 import NextIcon from '@xanui/icons/KeyboardArrowRight'
 import { TagProps, Tag, useInterface, UseColorTemplateColor, UseColorTemplateType, useBreakpointPropsType } from '@xanui/core';
@@ -14,6 +14,7 @@ export type TablePaginationState = { page: number, perpage: number, from: number
 export type TablePaginationProps = Omit<TagProps, "children"> & {
     page: number;
     total: number;
+    perpage?: number;
     perpages?: number[];
     color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
@@ -25,12 +26,12 @@ export type TablePaginationProps = Omit<TagProps, "children"> & {
     }
 }
 
-const TablePagination = React.forwardRef(({ page, total, onChange, ...rest }: TablePaginationProps, ref: React.Ref<any>) => {
+const TablePagination = React.forwardRef(({ page, total, perpage, onChange, ...rest }: TablePaginationProps, ref: React.Ref<any>) => {
     let [{ perpages, color, variant, slotProps, ...props }] = useInterface<any>("TablePagination", rest, {})
     color ??= "default"
     variant ??= "fill"
     perpages ??= [30, 50, 100]
-    const [perpage, setPerpage] = useState(perpages[0] || 10)
+    perpage = perpage || perpages[0] as number
     const isPerpage = perpages[0] && perpages.length >= 1
 
     const chunks = useMemo(() => {
@@ -42,18 +43,15 @@ const TablePagination = React.forwardRef(({ page, total, onChange, ...rest }: Ta
             _page++
         }
         return chunks
-    }, [perpage, total])
+    }, [perpage, perpages, total])
 
     if (!chunks.length) {
         return <></>
     }
 
     const current = chunks[page] || chunks[1]
-    const next = chunks[page + 1]
-    const prev = chunks[page - 1]
-    if (!chunks[page]) {
-        console.error(`Indvalid page`)
-    }
+    const hasNext = !!chunks[page + 1]
+    const hasPrev = !!chunks[page - 1]
 
     return (
         <Tag
@@ -87,8 +85,7 @@ const TablePagination = React.forwardRef(({ page, total, onChange, ...rest }: Ta
                         }}
                         value={perpage}
                         onChange={(value: any) => {
-                            setPerpage(value);
-                            onChange && onChange(current)
+                            onChange && onChange({ page: 1, perpage: value, from: 1, to: Math.min(value, total) })
                         }}
                     >
                         {perpages.map((p: number) => <Option key={p} value={p}>{p}</Option>)}
@@ -112,11 +109,10 @@ const TablePagination = React.forwardRef(({ page, total, onChange, ...rest }: Ta
                     {...slotProps?.button}
                     color={color}
                     variant={variant}
-
                     size={30}
-                    disabled={!prev}
+                    disabled={!hasPrev}
                     onClick={() => {
-                        (onChange && prev) && onChange(prev)
+                        onChange && onChange(chunks[page - 1]);
                     }}
                 >
                     <PrevIcon />
@@ -126,9 +122,9 @@ const TablePagination = React.forwardRef(({ page, total, onChange, ...rest }: Ta
                     color={color}
                     variant={variant}
                     size={30}
-                    disabled={!next}
+                    disabled={!hasNext}
                     onClick={() => {
-                        (onChange && next) && onChange(next)
+                        onChange && onChange(chunks[page + 1]);
                     }}
                 >
                     <NextIcon />

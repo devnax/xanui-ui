@@ -2,22 +2,24 @@
 import TableHead from '../TableHead'
 import TableRow from '../TableRow'
 import TableCell from '../TableCell'
-import { DatatablePropsWithState } from '.'
 import Checkbox from '../Checkbox'
 import IntermidiatIcon from '@xanui/icons/IndeterminateCheckBox'
+import { DatatablePropsWithState } from './types';
+import Stack from '../Stack';
+import ArrowDropDown from '@xanui/icons/ArrowDropDown';
+import { ArrowDropUp } from '@xanui/icons';
 
 
-const TableHeadRender = ({ columns, rows, disableRow, disableSelect, state, update }: DatatablePropsWithState) => {
+const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, state, update }: DatatablePropsWithState) => {
     if (!columns.length) return <></>
-    let selected = state.selectedIds
-    let checked = state.selectAll || !!selected.length
-
+    let checked = state.selectAll || !!state.selected.length
+    const sortables = state.sortable || {}
     return (
         <TableHead position="relative">
             <TableRow bgcolor="default" borderBottom={1} >
-                {!disableSelect && <TableCell th width={40}>
+                {!hideCheckbox && <TableCell th width={40}>
                     <Checkbox
-                        checkIcon={selected.length && !state.selectAll ? <IntermidiatIcon /> : undefined}
+                        checkIcon={state.selected.length && !state.selectAll ? <IntermidiatIcon /> : undefined}
                         checked={checked}
                         onChange={() => {
                             let ids: any = []
@@ -34,12 +36,12 @@ const TableHeadRender = ({ columns, rows, disableRow, disableSelect, state, upda
 
                             if (undefinedCount) {
                                 update({
-                                    selectedIds: selected.length ? [] : ids,
-                                    selectAll: !selected.length
+                                    selected: state.selected.length ? [] : ids,
+                                    selectAll: !state.selected.length
                                 })
                             } else {
                                 update({
-                                    selectedIds: state.selectAll ? [] : ids,
+                                    selected: state.selectAll ? [] : ids,
                                     selectAll: !state.selectAll
                                 })
                             }
@@ -47,11 +49,37 @@ const TableHeadRender = ({ columns, rows, disableRow, disableSelect, state, upda
                     />
                 </TableCell>}
                 {
-                    columns.map(({ label, field: _f, ...rest }, idx) => <TableCell key={idx} th textAlign="left" {...rest}>{label}</TableCell>)
-                }
-                <TableCell th width={30}>
+                    columns.map(({ label, field: _f, sortable, ...rest }, idx) => <TableCell key={idx} th textAlign="left" {...rest}>
+                        <Stack
+                            flexRow
+                            alignItems="center"
+                            cursor={sortable ? "pointer" : "default"}
+                            userSelect={"none"}
+                            onClick={() => {
 
-                </TableCell>
+                                if (sortable) {
+                                    let newSort: any = sortables[_f as any] === 'asc' ? 'desc' : 'asc'
+                                    update({
+                                        sortable: {
+                                            ...sortables,
+                                            [_f as any]: newSort
+                                        }
+                                    })
+                                }
+                            }}
+                        >
+                            {label}
+                            {sortable && <>
+                                {
+                                    sortables[_f as any] === 'asc' ? <ArrowDropDown /> : <ArrowDropUp />
+                                }
+                            </>}
+                        </Stack>
+                    </TableCell>)
+                }
+                {
+                    rowAction && <TableCell th width={30} />
+                }
             </TableRow>
         </TableHead>
     )

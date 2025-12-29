@@ -1,28 +1,25 @@
 "use client";
 import Stack from '../Stack'
-import { DatatableFilter, DatatablePropsWithState } from '.'
 import Tabs from '../Tabs'
 import Tab from '../Tab'
 import Select from '../Select'
 import Option from '../Option'
 import Input from '../Input'
 import IconSearch from '@xanui/icons/Search'
+import { DatatableFilter, DatatablePropsWithState } from './types';
 
 
 const FilterBox = (props: DatatablePropsWithState) => {
    let {
       tabs,
       filters,
-      onSearch,
-      onTabChange,
-      disableSearch,
+      hideSearch,
       slotProps,
       state,
       update,
    } = props
 
-   let selected = state.selectedIds
-   let checked = state.selectAll || !!selected.length
+   let checked = state.selectAll || !!state.selected.length
 
    if (checked) return <></>
 
@@ -41,10 +38,9 @@ const FilterBox = (props: DatatablePropsWithState) => {
             {
                tabs && <Tabs
                   onChange={(value: any) => {
-                     update({ activeTab: value })
-                     onTabChange && onTabChange(value, state)
+                     update({ tab: value })
                   }}
-                  value={state.activeTab}
+                  value={state.tab}
                >
                   {
                      tabs.map(t => <Tab key={t.label} value={t.value || t.label.toLowerCase()}>{t.label}</Tab>)
@@ -80,8 +76,7 @@ const FilterBox = (props: DatatablePropsWithState) => {
             }
          </Stack>
          <Stack flexRow gap={2} className='datatable-header-right-area'>
-
-            {!disableSearch && <Input
+            {!hideSearch && <Input
                endIcon={<IconSearch />}
                p={1}
                placeholder='Search...'
@@ -89,7 +84,6 @@ const FilterBox = (props: DatatablePropsWithState) => {
                value={state.search}
                onChange={(e: any) => {
                   update({ search: e.target.value })
-                  onSearch && onSearch(e.target.value, state)
                }}
             />}
          </Stack>

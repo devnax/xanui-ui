@@ -4,7 +4,7 @@ import TableHead from './TableHead'
 import Table from '../Table'
 import TableBody from '../TableBody'
 import Row from './Row'
-import { DatatablePropsWithState } from '.'
+import { DatatablePropsWithState } from './types';
 
 const TableArea = (props: DatatablePropsWithState) => {
    let {

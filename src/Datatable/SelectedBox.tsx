@@ -1,7 +1,7 @@
 import IconButton from '../IconButton'
 import Stack from '../Stack'
 import Text from '../Text'
-import { DatatablePropsWithState } from '.'
+import { DatatablePropsWithState } from './types'
 
 const SelectedBox = (props: DatatablePropsWithState) => {
    let {
@@ -9,9 +9,7 @@ const SelectedBox = (props: DatatablePropsWithState) => {
       rowAction
    } = props
 
-   let selected = state.selectedIds
-   let checked = state.selectAll || !!selected.length
-
+   let checked = state.selectAll || !!state.selected.length
    if (!checked) return <></>
 
    return (
@@ -27,7 +25,7 @@ const SelectedBox = (props: DatatablePropsWithState) => {
          width="100%"
          px={1.5}
       >
-         <Text fontWeight={600}>Selected: {selected.length}</Text>
+         <Text fontWeight={600}>Selected: {state.selected.length}</Text>
          <Stack
             flexRow
             gap={1}
