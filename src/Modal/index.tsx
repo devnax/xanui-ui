@@ -45,7 +45,7 @@ const ActionModal = ({ children, ...props }: ModalProps) => {
    )
 }
 
-Modal.open = (children: ModalProps['children'], props?: Omit<ModalProps, 'children'>) => {
+Modal.open = (children: ModalProps['children'], props?: Omit<ModalProps, 'children' | "open">) => {
    const m = Renderar.render(ActionModal as any, {
       open: true,
       ...props,

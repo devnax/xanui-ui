@@ -6,16 +6,7 @@ import React, { ReactElement } from "react";
 import Alert, { AlertProps } from "../Alert";
 import Scrollbar from "../Scrollbar";
 
-
-
 type PlacementType = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right"
-
-export type useToastContentProps = {
-    show: () => string;
-    hide: () => void;
-}
-
-export type UseTastContent = string | ReactElement | ((props: useToastContentProps) => ReactElement)
 
 export type UseToastProps = {
     title?: useBreakpointPropsType<string | ReactElement>;
