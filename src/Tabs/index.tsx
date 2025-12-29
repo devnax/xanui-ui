@@ -90,8 +90,6 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                 onClick: () => {
                     onChange && onChange(child.props.value)
                 },
-                border: "1px solid",
-                borderColor: "transparent",
                 ...slotProps?.button,
                 ...btnProps,
                 color: selected ? color : "default",
@@ -110,9 +108,9 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
             const prevRect = getRect(selectedTab, con)
             const rect = getRect(conChilds[selectedIndex], con)
 
-            let anim: any = {}
+            let anim: any = () => ({})
             if (verticle) {
-                anim = {
+                let v: any = {
                     from: {
                         top: prevRect?.top || 0,
                         height: prevRect?.height || 0,
@@ -122,12 +120,14 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                         height: rect?.height || 0,
                     }
                 }
+
                 if (["fill", "soft", "outline"].includes(variant)) {
-                    anim.from.width = prevRect?.width
-                    anim.to.width = rect?.width
+                    v.from.width = prevRect?.width
+                    v.to.width = rect?.width
                 }
+                anim = () => v
             } else {
-                anim = {
+                let v: any = {
                     from: {
                         left: prevRect?.left || 0,
                         width: prevRect?.width || 0,
@@ -137,12 +137,14 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                         width: rect?.width || 0,
                     },
                 }
+
                 if (["fill", "soft", "outline"].includes(variant)) {
-                    anim.from.height = prevRect?.height || 0
-                    anim.to.height = rect?.height || 0
+                    v.from.height = prevRect?.height || 0
+                    v.to.height = rect?.height || 0
                 }
+                anim = () => v
             }
-            setTrans(anim)
+            setTrans(() => anim)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedIndex, variant, color, verticle])
@@ -228,11 +230,10 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                 {childs}
             </Tag>
             <Transition
-                key={!!trans ? "asd" : "qwe"}
                 open={!!trans}
-                variant={trans || { from: {}, to: {} }}
-                easing="smooth"
+                variant={trans || (() => ({ from: {}, to: {} }))}
                 duration={trans ? (disableTransition ? 0 : 250) : 0}
+                easing="smooth"
             >
                 <Tag
                     baseClass='tabs-indicator'

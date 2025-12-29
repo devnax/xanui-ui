@@ -10,13 +10,14 @@ import NextIcon from '@xanui/icons/KeyboardArrowRight'
 import { TagProps, Tag, useInterface, UseColorTemplateColor, UseColorTemplateType, useBreakpointPropsType } from '@xanui/core';
 
 
+export type TablePaginationState = { page: number, perpage: number, from: number, to: number }
 export type TablePaginationProps = Omit<TagProps, "children"> & {
     page: number;
     total: number;
     perpages?: number[];
     color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
-    onChange?: (state: { page: number, perpage: number, from: number, to: number }) => void;
+    onChange?: (state: TablePaginationState) => void;
 
     slotProps?: {
         button?: Omit<IconButtonProps, "children" | "color" | "variant">;

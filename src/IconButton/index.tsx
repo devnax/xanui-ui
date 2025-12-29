@@ -59,9 +59,14 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
                 alignItems: "center",
                 justifyContent: "center",
                 bgcolor: "transparent",
-                fontSize: (size / 5) * 2,
+                fontSize: Math.round((size / 3) * 2),
                 "& svg": {
-                    fontSize: (size / 3) * 2
+                    fontSize: "1em",
+                    width: "1em",
+                    height: "1em",
+                    display: "block",
+                    pointerEvents: "none",
+                    verticalAlign: "middle",
                 }
             }}
             hover={{

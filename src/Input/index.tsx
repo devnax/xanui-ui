@@ -3,8 +3,6 @@ import React, { MutableRefObject, ReactElement, useEffect, useMemo, useRef, useS
 import { Tag, TagProps, TagComponentType, UseColorTemplateColor, useBreakpointPropsType, useInterface, useBreakpointProps } from '@xanui/core';
 import Text from '../Text';
 
-
-
 export type InputProps<T extends TagComponentType = "input"> = Omit<TagProps<T>, "size" | "color"> & {
     startIcon?: useBreakpointPropsType<ReactElement>;
     endIcon?: useBreakpointPropsType<ReactElement>;
@@ -148,7 +146,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                     flexDirection: "row",
                     alignItems: iconPlacement === 'center' ? iconPlacement : `flex-${iconPlacement}`,
                     flexWrap: "nowrap",
-                    minWidth: 150,
+                    // minWidth: 100,
                     transitionProperty: "border, box-shadow, background",
                     bgcolor: error ? "danger.soft.primary" : variant === "fill" ? "background.secondary" : "background.primary",
                     border: variant === "text" ? 0 : "1px solid",

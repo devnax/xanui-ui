@@ -56,6 +56,10 @@ const Tb = (props: TableProps) => {
                 <TablePagination
                     total={5000}
                     page={2}
+                    onChange={(state) => {
+                        console.log(state);
+
+                    }}
                 />
             </Stack>
         </Stack>
