@@ -37,6 +37,7 @@ const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDi
         },
         tab: tabs ? (defaultState?.tab || tabs[0].value || tabs[0].label.toLowerCase()) : "",
         search: defaultState?.search || "",
+        sortable: defaultState?.sortable || {},
     })
 
     const update = (s: Partial<DatatableState>) => setState(o => ({ ...o, ...s }))

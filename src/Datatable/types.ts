@@ -34,7 +34,7 @@ export type DatatableProps = {
       perpages?: number[];
    };
 
-   defaultState?: Partial<DatatableState>;
+   defaultState?: DatatableStatePartial;
    onStateChange?: (state: DatatableState) => void;
 
    filters?: { [key: string]: DatatableFilter[] }
@@ -55,6 +55,17 @@ export type DatatableState = {
    pagination: TablePaginationState
    tab: string;
    search: string;
+   sortable: {
+      [field: string]: 'asc' | 'desc'
+   }
+}
+
+export type DatatableStatePartial = {
+   selected?: number[];
+   selectAll?: boolean;
+   pagination?: Partial<TablePaginationState>
+   tab?: string;
+   search?: string;
    sortable?: {
       [field: string]: 'asc' | 'desc'
    }
