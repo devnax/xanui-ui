@@ -21,7 +21,7 @@ export type LayerProps = {
         root?: Omit<TagProps<"div">, "children">;
         transition?: Omit<TransitionProps, "children" | "open" | "variant" | "onClose" | "onClosed" | "onOpen" | "onOpened">;
         content?: Omit<TagProps<"div">, "children">;
-        clickOutside?: Omit<ClickOutsideProps, "children">;
+        clickOutside?: Omit<ClickOutsideProps, "children" | "onClickOutside">;
     }
 }
 

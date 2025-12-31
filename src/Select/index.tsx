@@ -8,7 +8,7 @@ import Stack from '../Stack'
 import { OptionProps } from '../Option'
 import DownIcon from '@xanui/icons/KeyboardArrowDown';
 import UpIcon from '@xanui/icons/KeyboardArrowUp';
-import { UseColorTemplateColor, UseColorTemplateType, useInterface, useBreakpointPropsType } from '@xanui/core'
+import { UseColorTemplateColor, UseColorTemplateType, useInterface, useBreakpointPropsType, useMergeRefs } from '@xanui/core'
 
 
 export type SelectProps = {
@@ -18,6 +18,11 @@ export type SelectProps = {
     placeholder?: useBreakpointPropsType<string>;
     color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
+    refs?: {
+        input?: React.Ref<any>;
+        menu?: React.Ref<any>;
+        list?: React.Ref<any>;
+    };
     slotProps?: {
         menu?: Omit<MenuProps, 'children' | 'target'>;
         input?: Omit<InputProps, "onChange" | "value">;
@@ -25,7 +30,7 @@ export type SelectProps = {
     }
 }
 
-const Select = React.forwardRef(({ onChange, value, children, ...props }: SelectProps, ref: React.Ref<any>) => {
+const Select = React.forwardRef(({ onChange, value, children, refs, ...props }: SelectProps, ref: React.Ref<any>) => {
     let [{ slotProps, color, variant, placeholder }] = useInterface<any>("Select", props, {})
     color ??= "brand"
     variant ??= "fill"
@@ -51,11 +56,13 @@ const Select = React.forwardRef(({ onChange, value, children, ...props }: Select
         }
     }, [children, value])
 
+    const mergeRefs = useMergeRefs(ref, conRef)
     const toggleMenu = () => setTarget(target ? null : conRef.current)
 
     return (
         <>
             <Input
+                ref={mergeRefs}
                 color={color}
                 variant={variant === "soft" ? "fill" : variant}
                 endIcon={<Stack flexDirection="row" component="span" > {(target ? <UpIcon /> : <DownIcon />)}</Stack>}
@@ -67,31 +74,35 @@ const Select = React.forwardRef(({ onChange, value, children, ...props }: Select
                 focused={!!target}
                 placeholder={placeholder}
                 {...slotProps?.input}
+                refs={{
+                    input: refs?.input,
+                    ...slotProps?.input?.refs
+                }}
                 slotProps={{
-                    container: {
+                    rootContainer: {
                         cursor: "pointer",
                         userSelect: "none",
                         ...(slotProps?.input?.slotProps?.container || {}),
                         onClick: toggleMenu,
                     }
                 }}
-                containerRef={conRef}
-                ref={ref}
             />
             <Menu
+                ref={refs?.menu}
                 target={target}
-                placement="bottom"
+                placement="bottom-left"
                 {...slotProps?.menu}
                 slotProps={{
                     content: {
                         mt: .5,
+                        ...slotProps?.menu?.content,
                         width: conRef && (conRef?.current as any)?.clientWidth,
-                        ...slotProps?.menu?.content
                     }
                 }}
                 onClickOutside={toggleMenu}
             >
                 <List
+                    ref={refs?.list}
                     {...slotProps?.list}
                     color={color}
                     variant={variant}

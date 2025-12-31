@@ -4,7 +4,7 @@ import useLayer, { UseLayerProps } from "../useLayer";
 import { Tag, TagProps } from '@xanui/core'
 
 export type UseModalProps = Omit<UseLayerProps, "slotProps"> & {
-   size?: "xs" | "sm" | "md" | "lg" | "xl" | "fullWidth" | number;
+   size?: "xs" | "sm" | "md" | "lg" | "xl" | "full" | number;
    slotProps?: {
       layer?: UseLayerProps['slotProps'];
       root?: Omit<TagProps<'div'>, "children">
@@ -26,7 +26,7 @@ const useModal = (children: UseModalChildren, props?: UseModalProps) => {
       md: 990,
       lg: 1120,
       xl: 1300,
-      fullWidth: "100%"
+      full: "100%"
    }
    let { size, slotProps, ...useLayerProps } = props || {}
    size = size ?? "xs"
@@ -61,6 +61,11 @@ const useModal = (children: UseModalChildren, props?: UseModalProps) => {
       },
       slotProps: {
          ...slotProps?.layer,
+         clickOutside: {
+            maxWidth: sizes[size as any] || size,
+            width: "100%",
+            ...slotProps?.layer?.clickOutside,
+         },
          root: {
             display: "flex",
             alignItems: 'center',

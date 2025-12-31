@@ -1,38 +1,79 @@
 "use client";
-import React, { MutableRefObject, ReactElement, useEffect, useMemo, useRef, useState } from 'react';
-import { Tag, TagProps, TagComponentType, UseColorTemplateColor, useBreakpointPropsType, useInterface, useBreakpointProps } from '@xanui/core';
-import Text from '../Text';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import { Tag, TagProps, TagComponentType, UseColorTemplateColor, useBreakpointPropsType, useInterface, useBreakpointProps, useMergeRefs } from '@xanui/core';
 
-export type InputProps<T extends TagComponentType = "input"> = Omit<TagProps<T>, "size" | "color"> & {
+export type InputProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "size" | "color"> & {
+    value?: string;
+    type?: TagProps<'input'>['type'];
+    name?: string;
+    placeholder?: string;
+    readOnly?: boolean;
+    autoFocus?: boolean;
+    autoComplete?: string;
+
+
+    onFocus?: (e: React.FocusEvent<any>) => void;
+    onBlur?: (e: React.FocusEvent<any>) => void;
+    onChange?: (e: React.ChangeEvent<any>) => void;
+    onInput?: (e: React.FormEvent<any>) => void;
+    onKeyDown?: (e: React.KeyboardEvent<any>) => void;
+    onKeyUp?: (e: React.KeyboardEvent<any>) => void;
+
+    rows?: useBreakpointPropsType<number>;
+    minRows?: useBreakpointPropsType<number>;
+    maxRows?: useBreakpointPropsType<number>;
+    fullWidth?: boolean;
+
     startIcon?: useBreakpointPropsType<ReactElement>;
     endIcon?: useBreakpointPropsType<ReactElement>;
     iconPlacement?: useBreakpointPropsType<"start" | "center" | "end">;
     focused?: boolean;
     color?: useBreakpointPropsType<Omit<UseColorTemplateColor, "default">>;
-    containerRef?: MutableRefObject<HTMLDivElement | undefined>;
     variant?: useBreakpointPropsType<"fill" | "outline" | "text">;
     error?: boolean;
     helperText?: useBreakpointPropsType<string>;
     multiline?: boolean;
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
-    rows?: useBreakpointPropsType<number>;
-    minRows?: useBreakpointPropsType<number>;
-    maxRows?: useBreakpointPropsType<number>;
+
+    refs?: {
+        rootContainer?: React.Ref<"div">;
+        startIcon?: React.Ref<ReactElement>;
+        endIcon?: React.Ref<ReactElement>;
+        inputContainer?: React.Ref<"div">;
+        input?: React.Ref<'input' | 'textarea'>;
+        helperText?: React.Ref<"div">;
+    };
+
     slotProps?: {
-        container?: Omit<TagProps<"div">, "children">
+        rootContainer?: Omit<TagProps<"div">, "children">;
+        startIcon?: Omit<TagProps<'div'>, "children">;
+        endIcon?: Omit<TagProps<'div'>, "children">;
+        inputContainer?: Omit<TagProps<"div">, "children">;
+        helperText?: Omit<TagProps<"div">, "children">;
+        input?: Partial<TagProps<T>>;
     }
 }
 
-const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, ...props }: InputProps<T>, ref?: React.Ref<any>) => {
+const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, refs, ...props }: InputProps<T>, ref?: React.Ref<any>) => {
     let [{
         startIcon,
         endIcon,
         iconPlacement,
-        onFocus,
         color,
+
+        name,
+        placeholder,
+        type,
+        readOnly,
+        autoFocus,
+        autoComplete,
+        onFocus,
         onBlur,
+        onChange,
+        onKeyDown,
+        onKeyUp,
+
         focused,
-        containerRef,
         disabled,
         variant,
         error,
@@ -42,7 +83,9 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
         rows,
         minRows,
         maxRows,
+        fullWidth,
         slotProps,
+
         ...rest
     }, theme] = useInterface<any>("Input", props, {})
 
@@ -69,19 +112,21 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
     minRows = p.minRows
     maxRows = p.maxRows
 
-    ref ??= useRef(null);
     iconPlacement ??= multiline ? "end" : "center"
     if (!value) iconPlacement = 'center'
 
     const [_focused, setFocused] = useState(false)
-    const conRef: any = useRef(null)
     let _focus = focused || _focused
+    const inputRef = React.useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+    const inputMergeRef = useMergeRefs(inputRef, refs?.input as any);
 
     useEffect(() => {
-        if (containerRef) {
-            (containerRef as any).current = conRef?.current
+        if (autoFocus) {
+            setTimeout(() => {
+                inputRef.current?.focus()
+            }, 100);
         }
-    }, [containerRef])
+    }, [autoFocus])
 
     let _rows = useMemo(() => {
         if (rows) return rows
@@ -128,25 +173,30 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
         }
     }
 
-    useEffect(() => {
-        if ((ref as any).current) {
-            (ref as any).current.style.height = "auto";
-            (ref as any).current.style.height = `${(ref as any).current.scrollHeight}px`;
-        }
-    }, [value]);
-
     return (
         <Tag
-            baseClass={`input${_focus ? " input-focused" : ""}`}
+            width={fullWidth ? "100%" : undefined}
+            {...rest}
+            ref={ref}
+            baseClass={'input-root'}
+            classNames={{
+                'input-full-width': fullWidth || false,
+                'input-focused': _focus,
+                'input-error': error || false,
+                [`input-variant-${variant}`]: true,
+                [`input-size-${size}`]: true,
+            }}
         >
             <Tag
-                {...slotProps?.container}
+                {...slotProps?.rootContainer}
+                ref={refs?.rootContainer}
+                baseClass='root-container'
                 sxr={{
+                    width: "100%",
                     display: "flex",
                     flexDirection: "row",
                     alignItems: iconPlacement === 'center' ? iconPlacement : `flex-${iconPlacement}`,
                     flexWrap: "nowrap",
-                    // minWidth: 100,
                     transitionProperty: "border, box-shadow, background",
                     bgcolor: error ? "danger.soft.primary" : variant === "fill" ? "background.secondary" : "background.primary",
                     border: variant === "text" ? 0 : "1px solid",
@@ -155,14 +205,14 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                     px: 1,
                     py: .5,
                 }}
-                baseClass='input-container'
                 disabled={disabled || false}
-                ref={conRef}
                 {..._size}
                 height={multiline ? "auto" : _size.height}
                 minHeight={_size.height}
             >
                 {startIcon && <Tag
+                    {...slotProps?.startIcon}
+                    ref={refs?.startIcon}
                     flex={"0 0 auto"}
                     sxr={{
                         height: "100%",
@@ -174,8 +224,12 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                     baseClass="input-start-icon"
                 >{startIcon}</Tag>}
                 <Tag
+                    {...slotProps?.inputContainer}
+                    ref={refs?.inputContainer}
+                    baseClass='input-container'
                     flex={1}
                     sxr={{
+                        width: "100%",
                         display: "flex",
                         alignItems: "center",
                         flex: 1,
@@ -191,9 +245,11 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                     }}
                 >
                     <Tag
+                        {...slotProps?.input}
+                        ref={inputMergeRef}
+                        baseClass='input'
                         component={multiline ? 'textarea' : 'input'}
                         {...multiprops}
-                        {...rest}
                         sxr={{
                             border: 0,
                             outline: 0,
@@ -205,8 +261,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                             maxHeight: 200,
                         }}
                         value={value}
-                        baseClass='input-box'
-                        ref={ref}
+                        onChange={onChange}
                         onFocus={(e: any) => {
                             focused ?? setFocused(true)
                             onFocus && onFocus(e)
@@ -215,9 +270,18 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                             focused ?? setFocused(false)
                             onBlur && onBlur(e)
                         }}
+                        onKeyDown={onKeyDown}
+                        onKeyUp={onKeyUp}
+                        name={name}
+                        placeholder={placeholder}
+                        type={type}
+                        readOnly={readOnly}
+                        autoComplete={autoComplete}
                     />
                 </Tag>
                 {endIcon && <Tag
+                    {...slotProps?.endIcon}
+                    ref={refs?.endIcon}
                     flex={"0 0 auto"}
                     sxr={{
                         height: "100%",
@@ -229,12 +293,18 @@ const Input = React.forwardRef(<T extends TagComponentType = "input">({ value, .
                     baseClass="input-end-icon"
                 >{endIcon}</Tag>}
             </Tag>
-            {helperText && <Text
-                pl={.5}
-                className="input-helper-text"
-                fontSize="small"
-                color={error ? "danger.primary" : "text.primary"}
-            >{helperText}</Text>}
+            {helperText && <Tag
+                {...slotProps?.helperText}
+                ref={refs?.helperText}
+                baseClass="input-helper-text"
+                sxr={{
+                    color: error ? "danger.primary" : "text.primary",
+                    fontSize: "small",
+                    lineHeight: "text",
+                    fontWeight: 'text',
+                    pl: .5,
+                }}
+            >{helperText}</Tag>}
         </Tag>
     )
 })

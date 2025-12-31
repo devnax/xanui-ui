@@ -8,13 +8,20 @@ import Section from '../Layout/Section'
 
 const Inputs = () => {
     const [v, setV] = useState('')
+    const ref = useRef<any>(null);
+    useEffect(() => {
+        console.log(ref);
+
+    }, []);
     return (
         <Stack gap={2} width={400}>
             <Section title="Basic" gap={2}>
                 <Input
+                    ref={ref}
                     endIcon={<SendIcon />}
                     placeholder='Write a message...'
                     name="email"
+                    autoFocus
                 />
                 <Input
                     variant='outline'
@@ -51,7 +58,6 @@ const Inputs = () => {
                 <Input
                     size="large"
                     endIcon={<SendIcon />}
-                    autoFocus
                 />
             </Section>
             <Section title="Disabled" gap={2}>

@@ -160,13 +160,14 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
         if (!closed && target && menuRef.current) {
             const updatePosition = () => {
                 if (menuRef.current && target) {
-                    const p = placeMenu(placement!, menuRef.current, target);
-                    setPlaced(p);
+                    requestAnimationFrame(() => {
+                        const p = placeMenu(placement!, menuRef.current as any, target);
+                        setPlaced(p);
+                    });
                 }
             };
 
             updatePosition();
-
             window.addEventListener("resize", updatePosition);
             window.addEventListener("scroll", updatePosition, true);
 
@@ -175,8 +176,9 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
                 window.removeEventListener("scroll", updatePosition, true);
             };
         }
-        return undefined;
+        return
     }, [closed, target, placement]);
+
 
     if (closed) return null;
 
