@@ -18,6 +18,7 @@ export type SelectProps = {
     placeholder?: useBreakpointPropsType<string>;
     color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
+    fullWidth?: boolean;
     refs?: {
         input?: React.Ref<any>;
         menu?: React.Ref<any>;
@@ -31,7 +32,7 @@ export type SelectProps = {
 }
 
 const Select = React.forwardRef(({ onChange, value, children, refs, ...props }: SelectProps, ref: React.Ref<any>) => {
-    let [{ slotProps, color, variant, placeholder }] = useInterface<any>("Select", props, {})
+    let [{ slotProps, color, variant, fullWidth, placeholder }] = useInterface<any>("Select", props, {})
     color ??= "brand"
     variant ??= "fill"
     const [target, setTarget] = useState<any>()
@@ -73,6 +74,7 @@ const Select = React.forwardRef(({ onChange, value, children, refs, ...props }: 
                 startIcon={selectedProps.startIcon}
                 focused={!!target}
                 placeholder={placeholder}
+                fullWidth={fullWidth}
                 {...slotProps?.input}
                 refs={{
                     input: refs?.input,
@@ -93,6 +95,7 @@ const Select = React.forwardRef(({ onChange, value, children, refs, ...props }: 
                 placement="bottom-left"
                 {...slotProps?.menu}
                 slotProps={{
+                    ...slotProps?.menu?.slotProps,
                     content: {
                         mt: .5,
                         ...slotProps?.menu?.content,

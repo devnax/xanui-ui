@@ -17,7 +17,7 @@ const Portal = ({ children, appendTo, container }: PortalProps) => {
         appendTo.appendChild(_con);
         _con.className = "xui-portal"
         return _con
-    }, [])
+    }, [container])
 
     useEffect(() => {
         return () => {
