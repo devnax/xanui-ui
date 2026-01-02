@@ -65,7 +65,7 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
                 bgcolor: "transparent",
 
                 "& svg": {
-                    fontSize: Math.round((size / 3) * 2),
+                    fontSize: Math.round((size / 3) * 1.8),
                     display: "block",
                     width: "1em",
                     height: "1em",
