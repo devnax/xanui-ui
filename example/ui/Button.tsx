@@ -107,7 +107,7 @@ const Buttons = () => {
             <Section title="Variants">
                 <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
                     <Button color="brand" variant="fill">Button</Button>
-                    <Button color="brand" variant="outline">Button</Button>
+                    <Button color="brand" variant="outline">Outline</Button>
                     <Button color="brand" variant="text">Button</Button>
                 </Stack>
             </Section>

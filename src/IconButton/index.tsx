@@ -54,20 +54,30 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
                 width: size,
                 cursor: "pointer",
                 fontFamily: "inherit",
+
                 display: "inline-flex",
-                flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "center",
-                bgcolor: "transparent",
+
+                lineHeight: 1,
                 fontSize: Math.round((size / 3) * 2),
+
+                bgcolor: "transparent",
+
                 "& svg": {
-                    fontSize: "1em",
+                    fontSize: Math.round((size / 3) * 2),
+                    display: "block",
                     width: "1em",
                     height: "1em",
-                    display: "block",
-                    pointerEvents: "none",
-                    verticalAlign: "middle",
-                }
+                    flexShrink: 0,
+                },
+
+                "& > *": {
+                    fontSize: Math.round((size / 3) * 2),
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                },
             }}
             hover={{
                 ...template.secondary,
