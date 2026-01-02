@@ -14,7 +14,7 @@ const Badges = () => {
         <Stack>
             <Section title="Basic" flexRow gap={2}>
                 <Box>
-                    <Badge content={2} placement={"left-top"} disableTransition>
+                    <Badge placement={"left-top"} visible color={"danger"} disableTransition>
                         <IconButton>
                             <UserIcon />
                         </IconButton>
@@ -22,9 +22,9 @@ const Badges = () => {
                 </Box>
                 <Box>
                     <Button>
-                        <Badge content={2} placement={"right-bottom"} disableTransition>
+                        {/* <Badge content={2} placement={"right-bottom"} disableTransition>
                             <UserIcon />
-                        </Badge>
+                        </Badge> */}
                     </Button>
                 </Box>
                 <Box>
@@ -34,7 +34,7 @@ const Badges = () => {
                         </IconButton>
                     </Badge> */}
                 </Box>
-                <Badge
+                {/* <Badge
                     visible={visible}
                     onClick={() => setVisible(!visible)}
                     // disableTransition
@@ -65,7 +65,7 @@ const Badges = () => {
                     content={2200}
                 >
                     <Stack width={120} height={120} bgcolor="background.primary" border="1px dashed" borderColor="divider" ></Stack>
-                </Badge>
+                </Badge> */}
             </Section>
         </Stack>
     )

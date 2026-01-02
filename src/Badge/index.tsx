@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { Tag, TagProps, TagComponentType, Transition, useInterface, UseColorTemplateColor, useColorTemplate, useBreakpointPropsType, useBreakpointProps, TransitionProps } from '@xanui/core';
 
 export type BadgeProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "baseClass" | "content"> & {
-    content?: useBreakpointPropsType<number | ReactElement>;
+    content?: useBreakpointPropsType<number | string | ReactElement>;
     color?: useBreakpointPropsType<UseColorTemplateColor>;
     placement?: useBreakpointPropsType<"left-top" | "left-bottom" | "right-top" | "right-bottom">;
     visible?: useBreakpointPropsType<boolean>;
@@ -87,6 +87,19 @@ const Badge = React.forwardRef(<T extends TagComponentType = "div">({ children, 
     }
 
     if (!isReactElement) {
+        _css.userSelect = "none"
+        _css.pointerEvents = "none"
+        _css.fontSize = "small"
+        _css.lineHeight = 1
+        _css.fontWeight = 500
+        _css.radius = 2
+
+        if (typeof content === 'number') {
+            if (content > 99) {
+                content = "99+"
+            }
+        }
+
         if (content !== undefined) {
             _css.minWidth = 16
             _css.height = 16
@@ -108,20 +121,14 @@ const Badge = React.forwardRef(<T extends TagComponentType = "div">({ children, 
         sxr={{
             position: "absolute",
             zIndex: 1,
-            radius: 2,
             display: 'flex',
             justifyContent: "center",
             alignItems: 'center',
-            fontWeight: 500,
-            fontSize: 11,
-            userSelect: "none",
-            pointerEvents: "none",
-            lineHeight: 1,
+            ...template.primary,
+            ..._css,
         }}
-        {...template.primary}
-        {..._css}
     >
-        {typeof content === 'number' ? (content >= 100 ? "99+" : content) : content}
+        {content}
     </Tag>
 
     return (
@@ -151,7 +158,7 @@ const Badge = React.forwardRef(<T extends TagComponentType = "div">({ children, 
                     ref={refs?.transition}
                 >
                     {_badge}
-                </Transition>) : <>{(content !== undefined && visible) && _badge}</>
+                </Transition>) : <>{_badge}</>
             }
 
             {children}
