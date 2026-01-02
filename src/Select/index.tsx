@@ -19,6 +19,10 @@ export type SelectProps = {
     color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: useBreakpointPropsType<UseColorTemplateType>;
     fullWidth?: boolean;
+    name?: string;
+    error?: InputProps['error'];
+    helperText?: InputProps['helperText'];
+
     refs?: {
         input?: React.Ref<any>;
         menu?: React.Ref<any>;
@@ -31,7 +35,7 @@ export type SelectProps = {
     }
 }
 
-const Select = React.forwardRef(({ onChange, value, children, refs, ...props }: SelectProps, ref: React.Ref<any>) => {
+const Select = React.forwardRef(({ onChange, value, children, error, helperText, name, refs, ...props }: SelectProps, ref: React.Ref<any>) => {
     let [{ slotProps, color, variant, fullWidth, placeholder }] = useInterface<any>("Select", props, {})
     color ??= "brand"
     variant ??= "fill"
@@ -75,6 +79,9 @@ const Select = React.forwardRef(({ onChange, value, children, refs, ...props }: 
                 focused={!!target}
                 placeholder={placeholder}
                 fullWidth={fullWidth}
+                error={error}
+                helperText={helperText}
+                name={name}
                 {...slotProps?.input}
                 refs={{
                     input: refs?.input,
@@ -85,7 +92,11 @@ const Select = React.forwardRef(({ onChange, value, children, refs, ...props }: 
                         cursor: "pointer",
                         userSelect: "none",
                         ...(slotProps?.input?.slotProps?.container || {}),
-                        onClick: toggleMenu,
+                        onClick: () => {
+                            if (!target) {
+                                toggleMenu()
+                            }
+                        },
                     }
                 }}
             />
@@ -102,7 +113,10 @@ const Select = React.forwardRef(({ onChange, value, children, refs, ...props }: 
                         width: conRef && (conRef?.current as any)?.clientWidth,
                     }
                 }}
-                onClickOutside={toggleMenu}
+                onClickOutside={(e) => {
+                    if ((conRef.current as any).contains(e.target)) return;
+                    toggleMenu()
+                }}
             >
                 <List
                     ref={refs?.list}

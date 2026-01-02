@@ -18,7 +18,7 @@ const SelectMenu = () => {
                         setValue(val)
                     }}
                 >
-                    <Option value="Home">Home</Option>
+                    <Option value="homess">Home</Option>
                     <Option value="About">About</Option>
                     <Option value="Services">Services</Option>
                     <Option value="Contact">Contact</Option>
