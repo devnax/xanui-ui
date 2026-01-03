@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react';
 import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, UseColorTemplateColor, UseColorTemplateType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 import useCorner, { UseCornerTypes } from '../useCorner'
 import CircleProgress, { CircleProgressProps } from '../CircleProgress'
+import Skeleton, { SkeletonProps } from '../Skeleton';
 
 
 export type ButtonProps<T extends TagComponentType = 'button'> = Omit<TagProps<T>, "color" | "size" | "direction"> & {
@@ -14,13 +15,15 @@ export type ButtonProps<T extends TagComponentType = 'button'> = Omit<TagProps<T
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
     direction?: useBreakpointPropsType<"row" | "column">;
     loading?: boolean;
+    skeleton?: boolean;
     slotProps?: {
-        loading?: Omit<CircleProgressProps, "color" | "hideTrack" | "size">
+        loading?: Omit<CircleProgressProps, "color" | "hideTrack" | "size">;
+        skeleton?: Omit<SkeletonProps, "height" | "width" | "loading" | "children">
     }
 }
 
 
-const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ children, ...rest }: ButtonProps<T>, ref: React.Ref<any>) => {
+const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ children, skeleton, ...rest }: ButtonProps<T>, ref: React.Ref<any>) => {
     let [{ variant, startIcon, endIcon, color, corner, size, loading, direction, slotProps, ..._props }] = useInterface<any>('Button', rest, {
         variant: "fill",
         color: "brand",
@@ -81,6 +84,19 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
         delete _size.height
         _size.gap = .5
         _size.py = 1
+    }
+
+    if (skeleton) {
+        return <Skeleton
+            {...slotProps?.skeleton}
+            height={_size.height}
+            animation={"wave"}
+            sx={{
+                ...slotProps?.skeleton?.sx,
+                ..._size,
+                ...cornerCss,
+            }}
+        />
     }
 
     return (

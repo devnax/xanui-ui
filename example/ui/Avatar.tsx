@@ -8,7 +8,7 @@ const Avatars = () => {
         <Stack>
             <Section title="Basic" flexRow gap={2}>
                 <Avatar />
-                <Avatar size={45} />
+                <Avatar size={45} skeleton />
                 <Avatar size={50} />
             </Section>
         </Stack>

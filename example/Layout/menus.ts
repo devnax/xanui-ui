@@ -37,8 +37,10 @@ import Tooltip from "../ui/Tooltip"
 import Transition from "../ui/Transition"
 import ViewBox from "../ui/ViewBox"
 import ThemeProvider from "../ui/ThemeProvider"
+import Skeleton from "../ui/Skeleton"
 
 export default [
+    { "done": true, "label": "Skeleton", "render": Skeleton },
     { "done": true, "label": "Accordion", "render": Accordion },
     { "done": true, "label": "Alert", "render": Alert },
     { "done": true, "label": "Avatar", "render": Avatar },

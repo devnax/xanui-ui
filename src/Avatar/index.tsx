@@ -1,19 +1,37 @@
 import React, { useState } from 'react';
 import { Tag, TagProps, TagComponentType, useInterface, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
 import PersonIcon from '@xanui/icons/Person'
+import Skeleton, { SkeletonProps } from '../Skeleton';
 
 export type AvatarProps<T extends TagComponentType = "img"> = TagProps<T> & {
     size?: useBreakpointPropsType<number>;
+    skeleton?: boolean;
+    slotProps?: {
+        skeleton?: Omit<SkeletonProps, "height" | "width" | "loading" | "children">
+    }
 }
 
-const Avatar = React.forwardRef(<T extends TagComponentType = "img">({ children, src, alt, ...rest }: AvatarProps<T>, ref: any) => {
+const Avatar = React.forwardRef(<T extends TagComponentType = "img">({ children, src, alt, skeleton, ...rest }: AvatarProps<T>, ref: any) => {
     const [faild, setFaild] = useState<boolean>()
-    let [{ size, ...props }] = useInterface<any>("Avatar", rest, {})
+    let [{ size, slotProps, ...props }] = useInterface<any>("Avatar", rest, {})
     size ??= 36
     const _p: any = {}
     if (size) _p.size = size
     const p: any = useBreakpointProps(_p)
     size = p.size
+
+    if (skeleton) {
+        return <Skeleton
+            {...slotProps?.skeleton}
+            height={size}
+            width={size}
+            animation={"wave"}
+            sx={{
+                ...slotProps?.skeleton?.sx,
+                borderRadius: size,
+            }}
+        />
+    }
 
     if (faild === false || !src) {
         let t = alt?.charAt(0).toUpperCase() || (children || <PersonIcon />)

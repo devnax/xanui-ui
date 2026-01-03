@@ -25,6 +25,7 @@ const Buttons = () => {
         >
             <Section title="Icon Button" gap={2}>
                 <Button
+                    skeleton
                     startIcon={<UserIcon />}
                     endIcon={<InfoIcon />}
                     color="brand"
