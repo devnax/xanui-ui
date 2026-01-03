@@ -29,7 +29,7 @@ const TableArea = (props: DatatablePropsWithState) => {
                rows?.map((row: any, idx) => {
                   let _row = renderRow ? renderRow({ ...row }, state) : row
                   return <Row
-                     key={row.id + idx}
+                     key={`dt-row-${row.id}-${idx}`}
                      rawRow={row}
                      row={_row}
                      {...props}
