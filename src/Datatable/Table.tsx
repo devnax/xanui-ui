@@ -9,6 +9,7 @@ import { DatatablePropsWithState } from './types';
 const TableArea = (props: DatatablePropsWithState) => {
    let {
       rows,
+      compact,
       renderRow,
       state,
       update,
@@ -16,7 +17,7 @@ const TableArea = (props: DatatablePropsWithState) => {
    } = props
 
    return (
-      <Table width="100%" border="1px solid" borderColor="divider" {...slotProps?.table}>
+      <Table width="100%" size={compact ? "small" : "medium"} border="1px solid" borderColor="divider" {...slotProps?.table}>
          <TableHead {...props} update={update} state={state} />
          <TableBody
             sx={{

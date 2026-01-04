@@ -16,17 +16,18 @@ type Props = DatatablePropsWithState & {
     row: DataTableDefaultRow;
 }
 
-const Row = ({ rows, rawRow, row, rowAction, disableRow, hideCheckbox, columns, state, update }: Props) => {
+const Row = ({ rows, rawRow, row, rowAction, disableRow, hideCheckbox, columns, compact, state, update }: Props) => {
     const selected = row.id ? state.selected.includes(row?.id) : false
     let selectedColor = selected ? "primary.soft" : "transparent"
     const [target, setTarget] = useState<any>()
     const isDisable = (disableRow ? disableRow(rawRow, state) : false) || false
 
     return (
-        <TableRow disabled={isDisable}>
+        <TableRow >
             {!hideCheckbox && <TableCell width={40} bgcolor={selectedColor}>
                 {
                     !!row.id && <Checkbox
+                        size={compact ? "small" : "medium"}
                         checked={selected}
                         onChange={() => {
                             if (isDisable || !row.id) return
@@ -63,45 +64,44 @@ const Row = ({ rows, rawRow, row, rowAction, disableRow, hideCheckbox, columns, 
                     )
                 })
             }
-            <TableCell width={30} bgcolor={selectedColor} borderColor="divider">
-                {rowAction && <>
-                    <IconButton
-                        disabled={isDisable || selected}
-                        onClick={(e: any) => setTarget(e.currentTarget)}
-                        variant="text"
-                        color="default"
-                    >
-                        <ActionIcon />
-                    </IconButton>
-                    <Menu target={target} placement="bottom-right" onClickOutside={() => setTarget(null)}>
-                        <List
-                            bgcolor="background.primary"
-                            minWidth={160}
-                            sx={{
-                                '& > li': {
-                                    borderBottom: 1,
-                                    '&:last-child': {
-                                        borderBottom: 0
-                                    }
+            {!!(rows.length && rowAction && rowAction((rows as any)[0])?.length) && <TableCell width={30} bgcolor={selectedColor} borderColor="divider">
+                <IconButton
+                    disabled={isDisable || selected}
+                    onClick={(e: any) => setTarget(e.currentTarget)}
+                    variant="text"
+                    color="default"
+                >
+                    <ActionIcon />
+                </IconButton>
+                <Menu target={target} placement="bottom-right" onClickOutside={() => setTarget(null)}>
+                    <List
+                        bgcolor="background.primary"
+                        minWidth={160}
+                        sx={{
+                            '& > li': {
+                                borderBottom: 1,
+                                '&:last-child': {
+                                    borderBottom: 0
                                 }
-                            }}
-                        >
-                            {rowAction({ row, state }).map(({ label, icon, onClick }) => {
-                                return (
-                                    <ListItem
-                                        key={label}
-                                        startIcon={icon}
-                                        onClick={(e: any) => {
-                                            onClick && onClick(e)
-                                            setTarget(null)
-                                        }}
-                                    >{label}</ListItem>
-                                )
-                            })}
-                        </List>
-                    </Menu>
-                </>}
+                            }
+                        }}
+                    >
+                        {rowAction({ row, state }).map(({ label, icon, onClick }) => {
+                            return (
+                                <ListItem
+                                    key={label}
+                                    startIcon={icon}
+                                    onClick={(e: any) => {
+                                        onClick && onClick(e)
+                                        setTarget(null)
+                                    }}
+                                >{label}</ListItem>
+                            )
+                        })}
+                    </List>
+                </Menu>
             </TableCell>
+            }
         </TableRow>
     )
 }

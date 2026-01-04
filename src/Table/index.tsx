@@ -57,8 +57,8 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
     }
     let _size = size
     let sizes: any = {
-        small: .5,
-        medium: 1,
+        small: .4,
+        medium: .8,
         large: 2
     }
 
@@ -88,7 +88,7 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
                 baseClass='table'
                 sxr={{
                     color: "text.primary",
-                    fontSize: size === "small" ? "button" : "text",
+                    fontSize: size === "small" ? "text" : "text",
                     width: "100%",
                     "& thead, & tfoot": {
                         bgcolor: main.primary.bgcolor,

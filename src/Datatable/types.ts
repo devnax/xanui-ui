@@ -4,6 +4,7 @@ import { IconButtonProps } from "../IconButton";
 import { InputProps } from "../Input";
 import { TableProps } from "../Table";
 import { TablePaginationProps, TablePaginationState } from "../TablePagination";
+import { ViewBoxProps } from "../ViewBox";
 
 
 export type ColumnType = (Omit<TableColumnProps, "children"> & { label: string, field?: string, sortable?: boolean })
@@ -21,7 +22,7 @@ export type DatatableFilter = {
    value: string | number
 }
 
-export type DatatableProps = {
+export type DatatableProps = Omit<ViewBoxProps, "children"> & {
    rows: DataTableDefaultRow[];
    columns: ColumnType[];
    tabs?: TabsProps[];
@@ -42,6 +43,8 @@ export type DatatableProps = {
    hidePagination?: boolean;
    hideSearch?: boolean;
    hideCheckbox?: boolean;
+   skeleton?: boolean | number;
+   compact?: boolean;
    slotProps?: {
       search?: Omit<InputProps, "value" | "onChange">;
       table?: Omit<TableProps, 'children'>;

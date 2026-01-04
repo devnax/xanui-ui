@@ -7,7 +7,13 @@ import Option from '../Option'
 import Input from '../Input'
 import IconSearch from '@xanui/icons/Search'
 import { DatatableFilter, DatatablePropsWithState } from './types';
-
+import IconButton from '../IconButton';
+import FilterListOutlined from '@xanui/icons/FilterListOutlined';
+import Drawer from '../Drawer';
+import Text from '../Text';
+import React from 'react';
+import CloseOutlined from '@xanui/icons/CloseOutlined';
+import ViewBox from '../ViewBox';
 
 const FilterBox = (props: DatatablePropsWithState) => {
    let {
@@ -15,10 +21,11 @@ const FilterBox = (props: DatatablePropsWithState) => {
       filters,
       hideSearch,
       slotProps,
+      skeleton,
       state,
       update,
    } = props
-
+   const [openFilter, setOpenFilter] = React.useState(false)
    let checked = state.selectAll || !!state.selected.length
 
    if (checked) return <></>
@@ -37,6 +44,7 @@ const FilterBox = (props: DatatablePropsWithState) => {
          <Stack gap={2.4} flexRow>
             {
                tabs && <Tabs
+                  disabled={skeleton ? true : false}
                   onChange={(value: any) => {
                      update({ tab: value })
                   }}
@@ -48,37 +56,15 @@ const FilterBox = (props: DatatablePropsWithState) => {
                </Tabs>
             }
          </Stack>
-         <Stack className='datatable-header-filter-area' flex={1} flexRow>
-            {
-               filters && <Stack flexRow gap={2} px={2}>
-                  {
-                     Object.keys(filters).map(name => {
-                        const items: DatatableFilter[] = (filters as any)[name]
-                        return (
-                           <Select
-                              key={name}
-                              placeholder={name.charAt(0).toUpperCase() + name.slice(1)}
-                              value={(state as any)[name] || ""}
-                              onChange={(value) => {
-                                 update({ [name]: value } as any)
-                              }}
-                           >
-                              {
-                                 items.map((item) => <Option key={name + item.value} value={item.value}>
-                                    {item.label}
-                                 </Option>)
-                              }
-                           </Select>
-                        )
-                     })
-                  }
-               </Stack>
-            }
-         </Stack>
-         <Stack flexRow gap={2} className='datatable-header-right-area'>
+         <Stack
+            flexRow
+            gap={2}
+            className='datatable-header-right-area'
+            alignItems={"center"}
+         >
             {!hideSearch && <Input
+               disabled={skeleton ? true : false}
                endIcon={<IconSearch />}
-               p={1}
                placeholder='Search...'
                {...slotProps?.search}
                value={state.search}
@@ -86,6 +72,68 @@ const FilterBox = (props: DatatablePropsWithState) => {
                   update({ search: e.target.value })
                }}
             />}
+            <Stack>
+               <IconButton
+                  color="default"
+                  variant={"text"}
+                  onClick={() => {
+                     setOpenFilter(true)
+                  }}
+               >
+                  <FilterListOutlined />
+               </IconButton>
+               <Drawer
+                  open={openFilter}
+                  onClickOutside={() => { }}
+                  placement={"right"}
+               >
+                  <ViewBox
+                     p={2}
+                     startContent={<Stack mb={2} flexRow justifyContent={"space-between"} alignItems="center">
+                        <Text fontWeight={600} fontSize="h6">Filters</Text>
+                        <IconButton
+                           size="small"
+                           color="default"
+                           variant="text"
+                           onClick={() => {
+                              setOpenFilter(false)
+                           }}
+                        >
+                           <CloseOutlined />
+                        </IconButton>
+                     </Stack>}
+                  >
+                     <Stack
+                        gap={2}
+                     >
+                        {
+                           filters ? Object.keys(filters).map(name => {
+                              const items: DatatableFilter[] = (filters as any)[name]
+                              return (
+                                 <Select
+                                    key={name}
+                                    fullWidth
+                                    placeholder={name.charAt(0).toUpperCase() + name.slice(1)}
+                                    value={(state as any)[name] || ""}
+                                    onChange={(value) => {
+                                       update({ [name]: value } as any)
+                                    }}
+                                 >
+                                    {
+                                       items.map((item) => <Option key={name + item.value} value={item.value}>
+                                          {item.label}
+                                       </Option>)
+                                    }
+                                 </Select>
+                              )
+                           }) : <Text>No Filters Available</Text>
+                        }
+                     </Stack>
+
+                  </ViewBox>
+               </Drawer>
+            </Stack>
+
          </Stack>
       </Stack>
    )

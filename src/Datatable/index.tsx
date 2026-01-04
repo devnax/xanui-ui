@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import ViewBox from '../ViewBox'
 import { Tag, useInterface } from '@xanui/core';
 import SelectedBox from './SelectedBox'
@@ -8,22 +8,82 @@ import FilterBox from './FilterBox'
 import TablePagination, { TablePaginationState } from '../TablePagination'
 import Stack from '../Stack'
 import { DatatableProps, DatatableState } from './types';
+import Skeleton from '../Skeleton';
 
 
 const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDivElement>) => {
-    let [_props] = useInterface<any>("Datatable", props, {})
+    let [p] = useInterface<any>("Datatable", props, {})
+
+    let _props = useMemo(() => {
+        let np = { ...p }
+
+        if (typeof np.skeleton === 'number' || np.skeleton === true) {
+            const limit = np.perpages && np.perpages.length > 0 ? np.perpages[0] : 10
+            let length = np.skeleton === true ? limit : np.skeleton
+
+            if (!np.hideCheckbox) {
+                np.columns = [{
+                    label: '', field: "__checkbox", width: 34
+                }, ...np.columns]
+            }
+
+            if (np.rowAction) {
+                np.columns = [...np.columns, { label: "", field: "__actions", width: 34 }]
+            }
+
+            let columns = np.columns || []
+
+            np.rows = []
+            for (let i = 0; i < length; i++) {
+                let r: any = { id: i }
+                for (let col of columns) {
+                    r[col.field] = ""
+                }
+                np.rows.push(r)
+            }
+
+            np.renderRow = (r: any) => {
+                for (let col of columns) {
+                    r[col.field] = <Skeleton
+                        animation={"wave"}
+                        height={16}
+                        radius={.5}
+                        width={"100%"}
+                    />
+                }
+                return r
+            }
+            np.hideCheckbox = true
+            np.rowAction = undefined
+        }
+        return np
+    }, [p.skeleton])
+
     let {
         rows,
         tabs,
-        totalCount,
 
-        pagination: { perpages = [30, 50, 100] } = {},
+        pagination: { perpages = [30, 50, 100], total = 0 } = {},
         defaultState = {},
         onStateChange,
 
         fixedHeader,
-        disablePagination,
+        hidePagination,
         slotProps,
+
+
+        // skip props for ViewBox
+        skeleton,
+        rowAction,
+        disableRow,
+        renderRow,
+        filters,
+        hideCheckbox,
+        hideSearch,
+        columns,
+        compact,
+
+        ...viewBoxProps
     } = _props
 
     const [state, setState] = useState<DatatableState>({
@@ -50,10 +110,12 @@ const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDi
 
     return (
         <ViewBox
+            height="100%"
+            {...viewBoxProps}
             baseClass='datatable'
             ref={ref as any}
-            height="100%"
             sx={{
+                ...viewBoxProps?.sx,
                 '& thead': fixedHeader ? {
                     position: "sticky",
                     top: 0,
@@ -84,12 +146,18 @@ const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDi
                 p={1}
                 alignItems="flex-end"
             >
-                {!disablePagination && <TablePagination
+                {!hidePagination && <TablePagination
+                    disabled={_props.skeleton ? true : false}
                     {...slotProps?.pagination}
-                    total={totalCount || rows.length}
+                    total={total || rows.length}
                     page={state.pagination.page}
                     perpage={state.pagination.perpage}
                     perpages={perpages}
+                    slotProps={{
+                        select: {
+                            size: "small",
+                        }
+                    }}
                     onChange={(state: TablePaginationState) => {
                         update({ pagination: state })
                     }}

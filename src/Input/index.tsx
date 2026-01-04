@@ -144,12 +144,12 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
 
     const sizes: any = {
         small: {
-            height: 40,
+            height: 38,
             gap: .5,
             fontSize: 'button',
         },
         medium: {
-            height: 48,
+            height: 46,
             gap: 1,
             fontSize: "text"
         },
@@ -175,7 +175,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
 
     return (
         <Tag
-            width={fullWidth ? "100%" : undefined}
+            width={fullWidth ? "100%" : "auto"}
             {...rest}
             ref={ref}
             baseClass={'input-root'}
@@ -190,7 +190,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
             <Tag
                 {...slotProps?.rootContainer}
                 ref={refs?.rootContainer}
-                baseClass='root-container'
+                baseClass='input-root-container'
                 sxr={{
                     width: "100%",
                     display: "flex",

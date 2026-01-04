@@ -6,7 +6,7 @@ import DeleteIcon from '@xanui/icons/Delete'
 
 
 const rows = [
-    { name: "Najrul Ahmed", email: "najrul@gmail.com" },
+    { id: 1, name: "Najrul Ahmed", email: "najrul@gmail.com" },
     { id: 2, name: "Jubayer", email: "jubayer@gmail.com" },
     { id: 3, name: "Jhon Deo", email: "jhon@gmail.com" },
     { id: 4, name: "Saad Ahmed", email: "saad@gmail.com" },
@@ -17,26 +17,27 @@ const Tb = () => {
     return (
         <Stack gap={2}>
             <Datatable
-                // filters={{
-                //     Status: [
-                //         { label: "Active", value: "active" },
-                //         { label: "Deactive", value: "deactive" },
-                //     ],
-                //     Role: [
-                //         { label: "Admin", value: "admin" },
-                //         { label: "User", value: "user" },
-                //     ],
-                //     Source: [
-                //         { label: "Google", value: "google" },
-                //         { label: "Facebook", value: "facebook" },
-                //     ],
-                //     Category: [
-                //         { label: "A", value: "a" },
-                //         { label: "B", value: "b" },
-                //     ]
-                // }}
+                compact
+                // skeleton={30}
+                filters={{
+                    Status: [
+                        { label: "Active", value: "active" },
+                        { label: "Deactive", value: "deactive" },
+                    ],
+                    Role: [
+                        { label: "Admin", value: "admin" },
+                        { label: "User", value: "user" },
+                    ],
+                    Source: [
+                        { label: "Google", value: "google" },
+                        { label: "Facebook", value: "facebook" },
+                    ],
+                    Category: [
+                        { label: "A", value: "a" },
+                        { label: "B", value: "b" },
+                    ]
+                }}
                 onStateChange={state => {
-                    console.log(state);
 
                 }}
                 rows={rows as any}

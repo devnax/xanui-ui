@@ -10,15 +10,17 @@ import ArrowDropDown from '@xanui/icons/ArrowDropDown';
 import { ArrowDropUp } from '@xanui/icons';
 
 
-const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, state, update }: DatatablePropsWithState) => {
+const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, compact, skeleton, state, update }: DatatablePropsWithState) => {
     if (!columns.length) return <></>
     let checked = state.selectAll || !!state.selected.length
     const sortables = state.sortable || {}
+
     return (
         <TableHead position="relative">
             <TableRow bgcolor="default" borderBottom={1} >
                 {!hideCheckbox && <TableCell th width={40}>
                     <Checkbox
+                        size={compact ? "small" : "medium"}
                         checkIcon={state.selected.length && !state.selectAll ? <IntermidiatIcon /> : undefined}
                         checked={checked}
                         onChange={() => {
@@ -51,6 +53,7 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, s
                 {
                     columns.map(({ label, field: _f, sortable, ...rest }, idx) => <TableCell key={idx} th textAlign="left" {...rest}>
                         <Stack
+                            disabled={skeleton ? true : false}
                             flexRow
                             alignItems="center"
                             cursor={sortable ? "pointer" : "default"}
@@ -78,7 +81,7 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, s
                     </TableCell>)
                 }
                 {
-                    rowAction && <TableCell th width={30} />
+                    !!(rows.length && rowAction && rowAction((rows as any)[0])?.length) && <TableCell th width={30} />
                 }
             </TableRow>
         </TableHead>

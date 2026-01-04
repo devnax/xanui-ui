@@ -11,7 +11,7 @@ import { TagProps, Tag, useInterface, UseColorTemplateColor, UseColorTemplateTyp
 
 
 export type TablePaginationState = { page: number, perpage: number, from: number, to: number }
-export type TablePaginationProps = Omit<TagProps, "children"> & {
+export type TablePaginationProps = Omit<TagProps, "children" | "onChange"> & {
     page: number;
     total: number;
     perpage?: number;
@@ -22,7 +22,7 @@ export type TablePaginationProps = Omit<TagProps, "children"> & {
 
     slotProps?: {
         button?: Omit<IconButtonProps, "children" | "color" | "variant">;
-        select?: Omit<SelectProps, "value" | "onChange">;
+        select?: Omit<SelectProps, "value" | "onChange" | "children">;
     }
 }
 
@@ -33,6 +33,7 @@ const TablePagination = React.forwardRef(({ page, total, perpage, onChange, ...r
     perpages ??= [30, 50, 100]
     perpage = perpage || perpages[0] as number
     const isPerpage = perpages[0] && perpages.length >= 1
+
 
     const chunks = useMemo(() => {
         const chunks: any = [];
@@ -70,19 +71,9 @@ const TablePagination = React.forwardRef(({ page, total, perpage, onChange, ...r
                     <Text fontSize="button">PER PAGE</Text>
                     <Select
                         {...slotProps?.select}
-                        slotProps={{
-                            ...slotProps?.select?.slotProps,
-                            input: {
-                                ...slotProps?.select?.slotProps?.input,
-                                slotProps: {
-                                    container: {
-                                        minWidth: "auto"
-                                    }
-                                },
-                                width: perpage.toString().length * 10,
-                                size: "small",
-                            },
-                        }}
+                        width={(perpage.toString().length * 10) + 60}
+                        minWidth={"auto"}
+                        maxWidth={"auto"}
                         value={perpage}
                         onChange={(value: any) => {
                             onChange && onChange({ page: 1, perpage: value, from: 1, to: Math.min(value, total) })

@@ -54,13 +54,13 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
 
     const sizes: any = {
         small: {
-            height: 40,
+            height: 38,
             px: (startIcon || endIcon) ? 1 : 1.5,
             gap: .5,
             fontSize: 'button'
         },
         medium: {
-            height: 46,
+            height: 44,
             px: (startIcon || endIcon) ? 1.5 : 2,
             gap: 1,
             fontSize: 'button'

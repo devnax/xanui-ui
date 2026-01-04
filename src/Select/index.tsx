@@ -8,20 +8,13 @@ import Stack from '../Stack'
 import { OptionProps } from '../Option'
 import DownIcon from '@xanui/icons/KeyboardArrowDown';
 import UpIcon from '@xanui/icons/KeyboardArrowUp';
-import { UseColorTemplateColor, UseColorTemplateType, useInterface, useBreakpointPropsType, useMergeRefs } from '@xanui/core'
+import { useInterface, useMergeRefs } from '@xanui/core'
 
 
-export type SelectProps = {
+export type SelectProps = Omit<InputProps, "onChange" | "value" | "children" | "slotProps"> & {
     value?: string | number;
     onChange?: (value: string | number) => void;
     children: ReactElement<OptionProps> | ReactElement<OptionProps>[];
-    placeholder?: useBreakpointPropsType<string>;
-    color?: useBreakpointPropsType<UseColorTemplateColor>;
-    variant?: useBreakpointPropsType<UseColorTemplateType>;
-    fullWidth?: boolean;
-    name?: string;
-    error?: InputProps['error'];
-    helperText?: InputProps['helperText'];
 
     refs?: {
         input?: React.Ref<any>;
@@ -36,7 +29,7 @@ export type SelectProps = {
 }
 
 const Select = React.forwardRef(({ onChange, value, children, error, helperText, name, refs, ...props }: SelectProps, ref: React.Ref<any>) => {
-    let [{ slotProps, color, variant, fullWidth, placeholder }] = useInterface<any>("Select", props, {})
+    let [{ slotProps, color, variant, ...inputProps }] = useInterface<any>("Select", props, {})
     color ??= "brand"
     variant ??= "fill"
     const [target, setTarget] = useState<any>()
@@ -77,12 +70,11 @@ const Select = React.forwardRef(({ onChange, value, children, error, helperText,
                 userSelect="none"
                 startIcon={selectedProps.startIcon}
                 focused={!!target}
-                placeholder={placeholder}
-                fullWidth={fullWidth}
                 error={error}
                 helperText={helperText}
                 name={name}
                 {...slotProps?.input}
+                {...inputProps}
                 refs={{
                     input: refs?.input,
                     ...slotProps?.input?.refs
@@ -122,7 +114,7 @@ const Select = React.forwardRef(({ onChange, value, children, error, helperText,
                     ref={refs?.list}
                     {...slotProps?.list}
                     color={color}
-                    variant={variant}
+                    variant={variant === "outline" ? "fill" : variant}
                 >
                     {childs}
                 </List>
