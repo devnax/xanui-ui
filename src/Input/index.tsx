@@ -1,8 +1,9 @@
 "use client";
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { Tag, TagProps, TagComponentType, UseColorTemplateColor, useBreakpointPropsType, useInterface, useBreakpointProps, useMergeRefs } from '@xanui/core';
+import Label, { LabelProps } from '../Label';
 
-export type InputProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "size" | "color"> & {
+export type InputProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "size" | "color" | "label"> & {
     value?: string;
     type?: TagProps<'input'>['type'];
     name?: string;
@@ -10,7 +11,7 @@ export type InputProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "
     readOnly?: boolean;
     autoFocus?: boolean;
     autoComplete?: string;
-
+    label?: useBreakpointPropsType<string>;
 
     onFocus?: (e: React.FocusEvent<any>) => void;
     onBlur?: (e: React.FocusEvent<any>) => void;
@@ -36,6 +37,8 @@ export type InputProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
 
     refs?: {
+        inputRoot?: React.Ref<"div">;
+        label?: React.Ref<"label">;
         rootContainer?: React.Ref<"div">;
         startIcon?: React.Ref<ReactElement>;
         endIcon?: React.Ref<ReactElement>;
@@ -45,6 +48,8 @@ export type InputProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "
     };
 
     slotProps?: {
+        inputRoot?: Omit<TagProps<"div">, "children">;
+        label?: Omit<LabelProps, "children">;
         rootContainer?: Omit<TagProps<"div">, "children">;
         startIcon?: Omit<TagProps<'div'>, "children">;
         endIcon?: Omit<TagProps<'div'>, "children">;
@@ -60,7 +65,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
         endIcon,
         iconPlacement,
         color,
-
+        label,
         name,
         placeholder,
         type,
@@ -178,133 +183,141 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
             width={fullWidth ? "100%" : "auto"}
             {...rest}
             ref={ref}
-            baseClass={'input-root'}
-            classNames={{
-                'input-full-width': fullWidth || false,
-                'input-focused': _focus,
-                'input-error': error || false,
-                [`input-variant-${variant}`]: true,
-                [`input-size-${size}`]: true,
+            baseClass="input-wrapper"
+            sxr={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: .5,
             }}
         >
+            {!!label && <Label {...slotProps?.label} ref={refs?.label}>{label}</Label>}
             <Tag
-                {...slotProps?.rootContainer}
-                ref={refs?.rootContainer}
-                baseClass='input-root-container'
+                {...slotProps?.inputRoot}
+                ref={refs?.inputRoot}
+                baseClass={'input-root'}
                 sxr={{
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: iconPlacement === 'center' ? iconPlacement : `flex-${iconPlacement}`,
-                    flexWrap: "nowrap",
-                    transitionProperty: "border, box-shadow, background",
-                    bgcolor: error ? "danger.soft.primary" : variant === "fill" ? "background.secondary" : "background.primary",
-                    border: variant === "text" ? 0 : "1px solid",
-                    borderColor: borderColor,
-                    borderRadius: 1,
-                    px: 1,
-                    py: .5,
+                    overflow: "hidden",
                 }}
-                disabled={disabled || false}
-                {..._size}
-                height={multiline ? "auto" : _size.height}
-                minHeight={_size.height}
             >
-                {startIcon && <Tag
-                    {...slotProps?.startIcon}
-                    ref={refs?.startIcon}
-                    flex={"0 0 auto"}
-                    sxr={{
-                        height: "100%",
-                        alignItems: 'center',
-                        justifyContent: "center",
-                        display: "flex",
-                        color: error ? "danger.primary" : "text.secondary",
-                    }}
-                    baseClass="input-start-icon"
-                >{startIcon}</Tag>}
                 <Tag
-                    {...slotProps?.inputContainer}
-                    ref={refs?.inputContainer}
-                    baseClass='input-container'
-                    flex={1}
+                    {...slotProps?.rootContainer}
+                    ref={refs?.rootContainer}
+                    baseClass='input-root-container'
                     sxr={{
                         width: "100%",
                         display: "flex",
-                        alignItems: "center",
-                        flex: 1,
-                        minHeight: _size.height,
-                        "& textarea": {
-                            resize: "none"
-                        },
-                        "& input:-webkit-autofill,& input:-webkit-autofill:hover, & input:-webkit-autofill:focus,& input:-webkit-autofill:active": {
-                            "-webkit-text-fill-color": "text.primary",
-                            "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.background.secondary : theme.colors.background.primary} inset`,
-                            transition: "background-color 5000s ease-in-out 0s"
-                        } as any
+                        flexDirection: "row",
+                        alignItems: iconPlacement === 'center' ? iconPlacement : `flex-${iconPlacement}`,
+                        flexWrap: "nowrap",
+                        transitionProperty: "border, box-shadow, background",
+                        bgcolor: error ? "danger.soft.primary" : variant === "fill" ? "background.secondary" : "background.primary",
+                        border: variant === "text" ? 0 : "1px solid",
+                        borderColor: borderColor,
+                        borderRadius: 1,
+                        px: 1,
+                        py: .5,
                     }}
+                    disabled={disabled || false}
+                    {..._size}
+                    height={multiline ? "auto" : _size.height}
+                    minHeight={_size.height}
                 >
-                    <Tag
-                        {...slotProps?.input}
-                        ref={inputMergeRef}
-                        baseClass='input'
-                        component={multiline ? 'textarea' : 'input'}
-                        {...multiprops}
+                    {startIcon && <Tag
+                        {...slotProps?.startIcon}
+                        ref={refs?.startIcon}
+                        flex={"0 0 auto"}
                         sxr={{
-                            border: 0,
-                            outline: 0,
-                            bgcolor: "transparent",
-                            color: error ? "danger.primary" : "text.primary",
-                            fontSize: _size.fontSize,
-                            height: multiline ? "auto" : _size.height + "px!important",
+                            height: "100%",
+                            alignItems: 'center',
+                            justifyContent: "center",
+                            display: "flex",
+                            color: error ? "danger.primary" : "text.secondary",
+                        }}
+                        baseClass="input-start-icon"
+                    >{startIcon}</Tag>}
+                    <Tag
+                        {...slotProps?.inputContainer}
+                        ref={refs?.inputContainer}
+                        baseClass='input-container'
+                        flex={1}
+                        sxr={{
                             width: "100%",
-                            maxHeight: 200,
+                            display: "flex",
+                            alignItems: "center",
+                            flex: 1,
+                            minHeight: _size.height,
+                            "& textarea": {
+                                resize: "none"
+                            },
+                            "& input:-webkit-autofill,& input:-webkit-autofill:hover, & input:-webkit-autofill:focus,& input:-webkit-autofill:active": {
+                                "-webkit-text-fill-color": "text.primary",
+                                "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.background.secondary : theme.colors.background.primary} inset`,
+                                transition: "background-color 5000s ease-in-out 0s"
+                            } as any
                         }}
-                        value={value}
-                        onChange={onChange}
-                        onFocus={(e: any) => {
-                            focused ?? setFocused(true)
-                            onFocus && onFocus(e)
+                    >
+                        <Tag
+                            {...slotProps?.input}
+                            ref={inputMergeRef}
+                            baseClass='input'
+                            component={multiline ? 'textarea' : 'input'}
+                            {...multiprops}
+                            sxr={{
+                                border: 0,
+                                outline: 0,
+                                bgcolor: "transparent",
+                                color: error ? "danger.primary" : "text.primary",
+                                fontSize: _size.fontSize,
+                                height: multiline ? "auto" : _size.height + "px!important",
+                                width: "100%",
+                                maxHeight: 200,
+                            }}
+                            value={value}
+                            onChange={onChange}
+                            onFocus={(e: any) => {
+                                focused ?? setFocused(true)
+                                onFocus && onFocus(e)
+                            }}
+                            onBlur={(e: any) => {
+                                focused ?? setFocused(false)
+                                onBlur && onBlur(e)
+                            }}
+                            onKeyDown={onKeyDown}
+                            onKeyUp={onKeyUp}
+                            name={name}
+                            placeholder={placeholder}
+                            type={type}
+                            readOnly={readOnly}
+                            autoComplete={autoComplete}
+                        />
+                    </Tag>
+                    {endIcon && <Tag
+                        {...slotProps?.endIcon}
+                        ref={refs?.endIcon}
+                        flex={"0 0 auto"}
+                        sxr={{
+                            height: "100%",
+                            alignItems: 'center',
+                            justifyContent: "center",
+                            display: 'flex',
+                            color: error ? "danger.primary" : "text.secondary",
                         }}
-                        onBlur={(e: any) => {
-                            focused ?? setFocused(false)
-                            onBlur && onBlur(e)
-                        }}
-                        onKeyDown={onKeyDown}
-                        onKeyUp={onKeyUp}
-                        name={name}
-                        placeholder={placeholder}
-                        type={type}
-                        readOnly={readOnly}
-                        autoComplete={autoComplete}
-                    />
+                        baseClass="input-end-icon"
+                    >{endIcon}</Tag>}
                 </Tag>
-                {endIcon && <Tag
-                    {...slotProps?.endIcon}
-                    ref={refs?.endIcon}
-                    flex={"0 0 auto"}
+                {helperText && <Tag
+                    {...slotProps?.helperText}
+                    ref={refs?.helperText}
+                    baseClass="input-helper-text"
                     sxr={{
-                        height: "100%",
-                        alignItems: 'center',
-                        justifyContent: "center",
-                        display: 'flex',
-                        color: error ? "danger.primary" : "text.secondary",
+                        color: error ? "danger.primary" : "text.primary",
+                        fontSize: "small",
+                        lineHeight: "text",
+                        fontWeight: 'text',
+                        pl: .5,
                     }}
-                    baseClass="input-end-icon"
-                >{endIcon}</Tag>}
+                >{helperText}</Tag>}
             </Tag>
-            {helperText && <Tag
-                {...slotProps?.helperText}
-                ref={refs?.helperText}
-                baseClass="input-helper-text"
-                sxr={{
-                    color: error ? "danger.primary" : "text.primary",
-                    fontSize: "small",
-                    lineHeight: "text",
-                    fontWeight: 'text',
-                    pl: .5,
-                }}
-            >{helperText}</Tag>}
         </Tag>
     )
 })

@@ -186,6 +186,7 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
         <Portal {...slotProps?.portal}>
             <ClickOutside
                 onClickOutside={(e: MouseEvent) => {
+                    if (target?.contains(e.target as any)) return;
                     if (e.target !== target) {
                         onClickOutside && onClickOutside(e);
                     }

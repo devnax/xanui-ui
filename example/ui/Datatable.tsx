@@ -2,6 +2,7 @@ import React from 'react'
 import Section from '../Layout/Section'
 import Stack from '../../src/Stack'
 import Datatable from '../../src/Datatable'
+import DataFilter from '../../src/DataFilter'
 import DeleteIcon from '@xanui/icons/Delete'
 
 
@@ -16,6 +17,22 @@ const rows = [
 const Tb = () => {
     return (
         <Stack gap={2}>
+            <DataFilter
+                options={[
+                    {
+                        type: "multi-select", key: "status", label: "Status",
+                        options: [
+                            { label: "Active", value: "active" },
+                            { label: "Deactive", value: "deactive" },
+                            { label: "Suspend", value: "Suspend" },
+                            { label: "Pending", value: "Pending" },
+                        ]
+                    },
+                    { type: "multi-select", key: "role", label: "Role", options: [{ label: "Admin", value: "admin" }, { label: "User", value: "user" }] },
+                    { type: "multi-select", key: "source", label: "Source", options: [{ label: "Google", value: "google" }, { label: "Facebook", value: "facebook" }] },
+                    { type: "multi-select", key: "category", label: "Category", options: [{ label: "A", value: "a" }, { label: "B", value: "b" }] },
+                ]}
+            />
             <Datatable
                 compact
                 // skeleton={30}
