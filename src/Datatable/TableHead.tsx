@@ -77,7 +77,7 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
                                 }
                             }}
                         >
-                            <Text fontWeight={600} color="text.secondary">{label}</Text>
+                            <Text color="text.secondary">{label}</Text>
                             {sortable && <>
                                 {
                                     sortables[_f as any] === 'asc' ? <ArrowDropDown /> : <ArrowDropUp />
