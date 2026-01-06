@@ -7,7 +7,7 @@ import IntermidiatIcon from '@xanui/icons/IndeterminateCheckBox'
 import { DatatablePropsWithState } from './types';
 import Stack from '../Stack';
 import ArrowDropDown from '@xanui/icons/ArrowDropDown';
-import { ArrowDropUp } from '@xanui/icons';
+import ArrowDropUp from '@xanui/icons/ArrowDropUp';
 
 
 const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, compact, skeleton, state, update }: DatatablePropsWithState) => {
