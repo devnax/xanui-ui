@@ -38,6 +38,7 @@ const Tb = () => {
             /> */}
             <Datatable
                 compact
+                // hideCheckbox
                 // skeleton={30}
                 filters={[
                     {

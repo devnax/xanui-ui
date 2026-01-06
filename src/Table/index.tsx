@@ -98,6 +98,7 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
                     },
                     "& td, & th": {
                         p: _size,
+                        px: 1,
                         ...border[borderType],
                     },
                     "& tr:last-child td": {

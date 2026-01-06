@@ -8,6 +8,7 @@ import { DatatablePropsWithState } from './types';
 import Stack from '../Stack';
 import ArrowDropDown from '@xanui/icons/ArrowDropDown';
 import ArrowDropUp from '@xanui/icons/ArrowDropUp';
+import Text from '../Text';
 
 
 const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, compact, skeleton, state, update }: DatatablePropsWithState) => {
@@ -51,7 +52,12 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
                     />
                 </TableCell>}
                 {
-                    columns.map(({ label, field: _f, sortable, ...rest }, idx) => <TableCell key={idx} th textAlign="left" {...rest}>
+                    columns.map(({ label, field: _f, sortable, ...rest }, idx) => <TableCell
+                        key={idx}
+                        th
+                        textAlign="left"
+                        {...rest}
+                    >
                         <Stack
                             disabled={skeleton ? true : false}
                             flexRow
@@ -71,7 +77,7 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
                                 }
                             }}
                         >
-                            {label}
+                            <Text fontWeight={600} color="text.secondary">{label}</Text>
                             {sortable && <>
                                 {
                                     sortables[_f as any] === 'asc' ? <ArrowDropDown /> : <ArrowDropUp />
