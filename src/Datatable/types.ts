@@ -21,7 +21,7 @@ export type TabsProps = {
 
 
 
-export type DatatableProps = Omit<ViewBoxProps, "children"> & {
+export type DatatableProps = Omit<ViewBoxProps, "children" | "rows"> & {
    rows: DataTableDefaultRow[];
    columns: ColumnType[];
    tabs?: TabsProps[];

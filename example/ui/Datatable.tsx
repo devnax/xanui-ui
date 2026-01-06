@@ -59,7 +59,7 @@ const Tb = () => {
                 onStateChange={state => {
 
                 }}
-                rows={rows as any}
+                rows={rows}
                 columns={[
                     { label: "Name", field: "name", sortable: true },
                     { label: "Email", field: "email", sortable: true },
