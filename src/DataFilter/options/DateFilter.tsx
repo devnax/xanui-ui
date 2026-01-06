@@ -1,11 +1,8 @@
 "use client"
 
 import React from "react";
-import { DataFilterSelect } from "../types";
+import { DataFilterDate } from "../types";
 import Menu from "../../Menu";
-import List from "../../List";
-import ListItem from "../../ListItem";
-import Checkbox from "../../Checkbox";
 import IconButton from "../../IconButton";
 import Stack from "../../Stack";
 import Text from "../../Text";
@@ -13,17 +10,19 @@ import Close from "@xanui/icons/Close";
 import Add from "@xanui/icons/Add";
 import ClearAll from "@xanui/icons/ClearAll";
 import Chip from "../../Chip";
+import Calendar from "../../Calendar";
 
 
 type Props = {
-   option: DataFilterSelect;
+   option: DataFilterDate;
    value: string | null;
    onChange: (value: string | null) => void;
 }
 
-const SelectFilter = ({ option, onChange, value }: Props) => {
-   const ref: any = React.useRef(null)
+const DateFilter = ({ option, onChange, value }: Props) => {
    const [target, setTarget] = React.useState<HTMLElement | undefined>()
+   const isValue = value !== null && value !== undefined && value !== ""
+
    return (
       <Stack
          width={"100%"}
@@ -36,7 +35,7 @@ const SelectFilter = ({ option, onChange, value }: Props) => {
             alignItems="center"
             justifyContent={"space-between"}
             gap={0.5}
-            mb={value ? .5 : 0}
+            mb={isValue ? .5 : 0}
          >
             <Text>{option.label}</Text>
             <Stack
@@ -54,7 +53,7 @@ const SelectFilter = ({ option, onChange, value }: Props) => {
                   <Add />
                </IconButton>
                {
-                  !!value && <IconButton
+                  isValue && <IconButton
                      size="small"
                      variant="soft"
                      color={"danger"}
@@ -73,10 +72,10 @@ const SelectFilter = ({ option, onChange, value }: Props) => {
             flexWrap="wrap"
          >
             {
-               !!value && <Chip
+               isValue && <Chip
                   size="small"
                   color="default"
-                  label={value}
+                  label={new Date(value).toLocaleDateString("en-US")}
                   endIcon={<IconButton
                      size={16}
                      variant={"text"}
@@ -95,24 +94,16 @@ const SelectFilter = ({ option, onChange, value }: Props) => {
             onClickOutside={() => setTarget(undefined)}
             placement={"bottom-right"}
          >
-            <List width={ref?.current?.offsetWidth || 200} size="small">
-               {
-                  option.options.map((opt, index) => (
-                     <ListItem
-                        key={index}
-                        startIcon={<Checkbox checked={value === opt.value} />}
-                        onClick={() => {
-                           onChange(opt.value);
-                        }}
-                     >
-                        {opt.label}
-                     </ListItem>
-                  ))
-               }
-            </List>
+            <Calendar
+               value={value ? new Date(value) : null}
+               onChange={(date) => {
+                  onChange(date?.toISOString() || null);
+                  setTarget(undefined);
+               }}
+            />
          </Menu>
       </Stack>
    )
 }
 
-export default SelectFilter
+export default DateFilter

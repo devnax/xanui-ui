@@ -1,22 +1,22 @@
 "use client"
 
-import { DataFilterSelect } from "../types";
+import { DataFilterDate } from "../types";
 import IconButton from "../../IconButton";
 import Stack from "../../Stack";
 import Text from "../../Text";
 import Add from "@xanui/icons/Add";
 import ClearAll from "@xanui/icons/ClearAll";
-import InputNumber from "../../InputNumber";
+import CalenderInput from "../../CalendarInput";
+
 
 type Props = {
-   option: DataFilterSelect;
-   value: number | null;
-   onChange: (value: number | null) => void;
+   option: DataFilterDate;
+   value: [string, string] | null;
+   onChange: (value: [string, string] | null) => void;
 }
 
-const NumberFilter = ({ option, onChange, value }: Props) => {
-
-   const isValue = value !== null && value !== undefined;
+const DateRangeFilter = ({ option, onChange, value }: Props) => {
+   const isValue = value !== null && value !== undefined && value.length === 2
 
    return (
       <Stack
@@ -42,7 +42,8 @@ const NumberFilter = ({ option, onChange, value }: Props) => {
                   variant="soft"
                   color={"default"}
                   onClick={() => {
-                     onChange(0);
+                     const d = new Date();
+                     onChange([d.toISOString(), d.toISOString()]);
                   }}
                >
                   <Add />
@@ -67,18 +68,36 @@ const NumberFilter = ({ option, onChange, value }: Props) => {
             flexWrap="wrap"
          >
             {
-               isValue && <InputNumber
-                  variant={"outline"}
-                  value={value.toString()}
-                  onChange={(e: any) => {
-                     onChange(e.target.value);
-                  }}
-                  fullWidth
-               />
+               isValue && <>
+                  <Stack
+                     p={1}
+                     gap={1}
+                     width={"100%"}
+                  >
+                     <CalenderInput
+                        fullWidth
+                        variant={"outline"}
+                        value={value![0] ? new Date(value[0]) : null}
+                        onChange={(date) => {
+                           onChange([date ? date.toISOString() : "", value ? value[1] : ""])
+                        }}
+                     />
+
+                     <CalenderInput
+                        fullWidth
+                        variant={"outline"}
+                        value={value![1] ? new Date(value[1]) : null}
+                        onChange={(date) => {
+                           onChange([value ? value[0] : "", date ? date.toISOString() : ""])
+                        }}
+                     />
+                  </Stack>
+               </>
             }
          </Stack>
+
       </Stack>
    )
 }
 
-export default NumberFilter
+export default DateRangeFilter

@@ -2,17 +2,17 @@
 
 import React from "react";
 import { DataFilterSelect } from "../types";
-import Input from "../../Input";
 import Menu from "../../Menu";
 import List from "../../List";
 import ListItem from "../../ListItem";
 import Checkbox from "../../Checkbox";
-import Close from "@xanui/icons/Close";
 import IconButton from "../../IconButton";
 import Stack from "../../Stack";
 import Text from "../../Text";
-import { Add, Cancel, ClearAll, Icon } from "@xanui/icons";
+import Add from "@xanui/icons/Add";
+import ClearAll from "@xanui/icons/ClearAll";
 import Chip from "../../Chip";
+import Close from "@xanui/icons/Close";
 
 
 type Props = {
@@ -24,9 +24,10 @@ type Props = {
 const MultiSelectFilter = ({ option, onChange, value }: Props) => {
    const ref: any = React.useRef(null)
    const [target, setTarget] = React.useState<HTMLElement | undefined>()
+   const isValue = value && value.length > 0;
    return (
       <Stack
-         width={300}
+         width={"100%"}
          bgcolor="background.secondary"
          p={1}
          radius={1}
@@ -36,7 +37,7 @@ const MultiSelectFilter = ({ option, onChange, value }: Props) => {
             alignItems="center"
             justifyContent={"space-between"}
             gap={0.5}
-            mb={value.length ? .5 : 0}
+            mb={isValue ? .5 : 0}
          >
             <Text>{option.label}</Text>
             <Stack
@@ -54,7 +55,7 @@ const MultiSelectFilter = ({ option, onChange, value }: Props) => {
                   <Add />
                </IconButton>
                {
-                  !!value.length && <IconButton
+                  isValue && <IconButton
                      size="small"
                      variant="soft"
                      color={"danger"}
@@ -73,20 +74,23 @@ const MultiSelectFilter = ({ option, onChange, value }: Props) => {
             flexWrap="wrap"
          >
             {
-               !!value.length && value.map((val, index) => {
+               isValue && value.map((val, index) => {
                   return (
                      <Chip
                         key={index}
                         size="small"
                         color="default"
                         label={val}
-                     // endIcon={<IconButton
-                     //    size={16}
-                     //    variant={"text"}
-                     //    color="default"
-                     // >
-                     //    <Close />
-                     // </IconButton>}
+                        endIcon={<IconButton
+                           size={16}
+                           variant={"text"}
+                           color="default"
+                           onClick={() => {
+                              onChange(value.filter(v => v !== val));
+                           }}
+                        >
+                           <Close />
+                        </IconButton>}
                      />
                   )
                })
@@ -102,10 +106,10 @@ const MultiSelectFilter = ({ option, onChange, value }: Props) => {
                   option.options.map((opt, index) => (
                      <ListItem
                         key={index}
-                        startIcon={<Checkbox checked={value.includes(opt.value)} />}
+                        startIcon={<Checkbox checked={value?.includes(opt.value)} />}
                         onClick={() => {
-                           const has = value.includes(opt.value)
-                           onChange(has ? value.filter(v => v !== opt.value) : [...value, opt.value]);
+                           const has = value?.includes(opt.value)
+                           onChange(has ? value?.filter(v => v !== opt.value) : [...value || [], opt.value]);
                         }}
                      >
                         {opt.label}

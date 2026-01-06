@@ -38,7 +38,6 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
         size = 52
     }
 
-
     return (
         <Tag
             component='button'
@@ -60,7 +59,7 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
                 justifyContent: "center",
 
                 lineHeight: 1,
-                fontSize: Math.round((size / 3) * 2),
+                fontSize: "button",
 
                 bgcolor: "transparent",
 
@@ -70,13 +69,6 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
                     width: "1em",
                     height: "1em",
                     flexShrink: 0,
-                },
-
-                "& > *": {
-                    fontSize: Math.round((size / 3) * 2),
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
                 },
             }}
             hover={{

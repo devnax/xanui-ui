@@ -30,8 +30,8 @@ const CalenderInput = (props: CalenderInpurProps) => {
         <>
             <Input
                 readOnly
-                onClick={() => setTarget(target ? null : inputRef?.current)}
                 startIcon={<CalendarIcon />}
+                placeholder={placeholder}
                 {...inputProps}
                 endIcon={<>
                     {value && <Stack>
@@ -48,7 +48,12 @@ const CalenderInput = (props: CalenderInpurProps) => {
                     </Stack>}
                 </>}
                 cursor="pointer"
-                containerRef={inputRef}
+                ref={inputRef}
+                slotProps={{
+                    inputContainer: {
+                        onClick: () => setTarget(target ? null : inputRef?.current)
+                    }
+                }}
                 value={getInputValue ? getInputValue(value) : (value ? value.toLocaleDateString("en-US") : "")}
             />
             <Menu

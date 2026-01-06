@@ -40,9 +40,9 @@ const Drawer = ({ children, placement, size, slotProps, onClickOutside, ...layer
 
     let isSide = placement === 'left' || placement === 'right'
     let sizes: any = {
-        small: 200,
-        medium: 300,
-        large: 400
+        small: 220,
+        medium: 330,
+        large: 440
     }
 
     let _size = sizes[size as any] || size

@@ -19,7 +19,7 @@ export type CalendarProps = {
 }
 
 
-const ShowYears = ({ color, year, today, boxWidth, onClick }: any) => {
+const ShowYears = ({ color, year, today, onClick }: any) => {
     let years: any[] = []
     const selectedRef: any = useRef(null)
     for (let y = 1900; y < today.getFullYear() + 40; y++) {
@@ -27,9 +27,7 @@ const ShowYears = ({ color, year, today, boxWidth, onClick }: any) => {
         years.push(<Stack
             key={y}
             sx={{
-                width: (boxWidth - 12) / 3,
-                alignItems: "center",
-                justifyContent: "center",
+                width: 50,
                 p: .1
             }}
             className='calender-year-item'
@@ -86,13 +84,40 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
     const month = currentDate.getMonth()
     const daysInMonth = 32 - new Date(year, month, 32).getDate()
     const today = new Date();
-    const btnWidth = 32
+    const btnWidth = 36
     const boxWidth = btnWidth * 7
 
     const showCalendar = () => {
 
         let firstDay = (new Date(year, month)).getDay();
         let rows = []
+        let row = []
+
+        const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+        for (let i = 0; i < dayNames.length; i++) {
+            const k = dayNames[i];
+            row.push(<Stack
+                key={"dayname-" + i}
+                sx={{
+                    width: btnWidth,
+                    height: btnWidth,
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}
+            >
+                <IconButton
+                    variant={"text"}
+                    color="default"
+                    disabled
+                >
+                    {k}
+                </IconButton>
+            </Stack>)
+        }
+
+        rows.push(<Stack flexRow key={"header"} className='calender-day-row'>
+            {row}
+        </Stack>);
 
         let date = 1;
         for (let i = 0; i < 6; i++) {
@@ -100,12 +125,17 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
             for (let j = 0; j < 7; j++) {
                 if (i === 0 && j < firstDay) {
                     row.push(<Stack
-                        width={btnWidth}
-                        height={btnWidth}
                         alignItems="center"
                         justifyContent="center"
                         key={date + j + i}
+                        sx={{
+                            width: btnWidth,
+                            height: btnWidth,
+                            alignItems: "center",
+                            justifyContent: "center"
+                        }}
                     >
+
                     </Stack>)
                 } else if (date > daysInMonth) {
                     break;
@@ -116,8 +146,8 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                     let css: any = {}
                     if (isToday) {
                         css = {
-                            variant: "outline",
-                            color: color
+                            variant: "fill",
+                            color: "default"
                         }
                     }
 
@@ -173,7 +203,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
 
             months.push(<Stack
                 key={m}
-                width={(boxWidth - 12) / 2}
+                width={"50%"}
                 alignItems="center"
                 justifyContent="center"
                 p={.1}
@@ -236,27 +266,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
             break;
         default:
             view = (<>
-                <Stack flexRow className='calender-week-container'>
-                    {
-                        ['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, idx) => (
-                            <Stack
-                                key={day + idx}
-                                width={btnWidth}
-                                height={btnWidth}
-                                alignItems="center"
-                                justifyContent="center"
-                            >
-                                <Text
-                                    fontWeight={500}
-                                    fontSize="button"
-                                    color="text.secondary"
-                                >
-                                    {day}
-                                </Text>
-                            </Stack>
-                        ))
-                    }
-                </Stack>
+
                 {showCalendar()}
             </>
             )
@@ -269,7 +279,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
             maxHeight={308}
             width={250}
             radius={1}
-            bgcolor="background.primary"
+            bgcolor="background.secondary"
             startContent={
                 <Stack className='calender-header' flexRow alignItems="center" justifyContent="space-between" p={1}>
                     <Text

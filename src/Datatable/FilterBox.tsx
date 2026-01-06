@@ -2,11 +2,9 @@
 import Stack from '../Stack'
 import Tabs from '../Tabs'
 import Tab from '../Tab'
-import Select from '../Select'
-import Option from '../Option'
 import Input from '../Input'
 import IconSearch from '@xanui/icons/Search'
-import { DatatableFilter, DatatablePropsWithState } from './types';
+import { DatatablePropsWithState } from './types';
 import IconButton from '../IconButton';
 import FilterListOutlined from '@xanui/icons/FilterListOutlined';
 import Drawer from '../Drawer';
@@ -14,6 +12,7 @@ import Text from '../Text';
 import React from 'react';
 import CloseOutlined from '@xanui/icons/CloseOutlined';
 import ViewBox from '../ViewBox';
+import DataFilter from '../DataFilter';
 
 const FilterBox = (props: DatatablePropsWithState) => {
    let {
@@ -72,68 +71,54 @@ const FilterBox = (props: DatatablePropsWithState) => {
                   update({ search: e.target.value })
                }}
             />}
-            <Stack>
-               <IconButton
-                  color="default"
-                  variant={"text"}
-                  onClick={() => {
-                     setOpenFilter(true)
-                  }}
-               >
-                  <FilterListOutlined />
-               </IconButton>
-               <Drawer
-                  open={openFilter}
-                  onClickOutside={() => { }}
-                  placement={"right"}
-               >
-                  <ViewBox
-                     p={2}
-                     startContent={<Stack mb={2} flexRow justifyContent={"space-between"} alignItems="center">
-                        <Text fontWeight={600} fontSize="h6">Filters</Text>
-                        <IconButton
-                           size="small"
-                           color="default"
-                           variant="text"
-                           onClick={() => {
-                              setOpenFilter(false)
-                           }}
-                        >
-                           <CloseOutlined />
-                        </IconButton>
-                     </Stack>}
+            {
+               filters && <Stack>
+                  <IconButton
+                     color="default"
+                     variant={"text"}
+                     onClick={() => {
+                        setOpenFilter(true)
+                     }}
                   >
-                     <Stack
-                        gap={2}
+                     <FilterListOutlined />
+                  </IconButton>
+                  <Drawer
+                     open={openFilter}
+                     onClickOutside={() => { }}
+                     placement={"right"}
+                  >
+                     <ViewBox
+                        height="100%"
+                        p={1}
+                        startContent={<Stack mb={2} px={2} flexRow justifyContent={"space-between"} alignItems="center">
+                           <Text fontWeight={600} fontSize="h6">Filters</Text>
+                           <IconButton
+                              size="small"
+                              color="default"
+                              variant="text"
+                              onClick={() => {
+                                 setOpenFilter(false)
+                              }}
+                           >
+                              <CloseOutlined />
+                           </IconButton>
+                        </Stack>}
                      >
-                        {
-                           filters ? Object.keys(filters).map(name => {
-                              const items: DatatableFilter[] = (filters as any)[name]
-                              return (
-                                 <Select
-                                    key={name}
-                                    fullWidth
-                                    placeholder={name.charAt(0).toUpperCase() + name.slice(1)}
-                                    value={(state as any)[name] || ""}
-                                    onChange={(value) => {
-                                       update({ [name]: value } as any)
-                                    }}
-                                 >
-                                    {
-                                       items.map((item) => <Option key={name + item.value} value={item.value}>
-                                          {item.label}
-                                       </Option>)
-                                    }
-                                 </Select>
-                              )
-                           }) : <Text>No Filters Available</Text>
-                        }
-                     </Stack>
-
-                  </ViewBox>
-               </Drawer>
-            </Stack>
-
+                        <Stack
+                           gap={2}
+                        >
+                           <DataFilter
+                              options={filters}
+                              value={state.filters}
+                              onChange={(s) => {
+                                 update({ filters: s })
+                              }}
+                           />
+                        </Stack>
+                     </ViewBox>
+                  </Drawer>
+               </Stack>
+            }
          </Stack>
       </Stack>
    )

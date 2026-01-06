@@ -5,6 +5,7 @@ import { InputProps } from "../Input";
 import { TableProps } from "../Table";
 import { TablePaginationProps, TablePaginationState } from "../TablePagination";
 import { ViewBoxProps } from "../ViewBox";
+import { DataFilterProps } from "../DataFilter/types";
 
 
 export type ColumnType = (Omit<TableColumnProps, "children"> & { label: string, field?: string, sortable?: boolean })
@@ -17,10 +18,8 @@ export type TabsProps = {
    label: string;
    value?: string
 }
-export type DatatableFilter = {
-   label: string;
-   value: string | number
-}
+
+
 
 export type DatatableProps = Omit<ViewBoxProps, "children"> & {
    rows: DataTableDefaultRow[];
@@ -38,7 +37,7 @@ export type DatatableProps = Omit<ViewBoxProps, "children"> & {
    defaultState?: DatatableStatePartial;
    onStateChange?: (state: DatatableState) => void;
 
-   filters?: { [key: string]: DatatableFilter[] }
+   filters?: DataFilterProps['options']
    fixedHeader?: boolean;
    hidePagination?: boolean;
    hideSearch?: boolean;
@@ -60,7 +59,8 @@ export type DatatableState = {
    search: string;
    sortable: {
       [field: string]: 'asc' | 'desc'
-   }
+   },
+   filters: { [key: string]: any }
 }
 
 export type DatatableStatePartial = {
@@ -71,7 +71,8 @@ export type DatatableStatePartial = {
    search?: string;
    sortable?: {
       [field: string]: 'asc' | 'desc'
-   }
+   },
+   filters?: { [key: string]: any }
 }
 
 export type DatatablePropsWithState = DatatableProps & {

@@ -1,3 +1,4 @@
+import { TagProps } from "@xanui/core";
 
 export type DataFilterText = {
    type: "text";
@@ -7,6 +8,12 @@ export type DataFilterText = {
 
 export type DataFilterNumber = {
    type: "number";
+   key: string;
+   label: string;
+}
+
+export type DataFilterNumberRange = {
+   type: "number-range";
    key: string;
    label: string;
 }
@@ -25,13 +32,6 @@ export type DataFilterMultiSelect = {
    options: ({ label: string, value: string })[];
 }
 
-export type DataFilterRadio = {
-   type: "boolean";
-   key: string;
-   label: string;
-   options: ({ label: string, value: boolean })[];
-}
-
 export type DataFilterDate = {
    type: "date";
    key: string;
@@ -44,10 +44,13 @@ export type DataFilterDateRange = {
    label: string;
 }
 
-export type DataFilterOption = DataFilterText | DataFilterNumber | DataFilterSelect | DataFilterMultiSelect | DataFilterRadio | DataFilterDate | DataFilterDateRange;
+export type DataFilterOption = DataFilterText | DataFilterNumber | DataFilterNumberRange | DataFilterSelect | DataFilterMultiSelect | DataFilterDate | DataFilterDateRange;
 
-export type DataFilterProps = {
+export type DataFilterProps = Omit<TagProps, "children" | "value"> & {
    options: DataFilterOption[],
+   value?: { [key: string]: any };
+   onChange?: (state: { [key: string]: any }) => void;
    inline?: boolean;
-   compact?: boolean;
+
+
 }

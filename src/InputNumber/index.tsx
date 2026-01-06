@@ -6,15 +6,18 @@ import UnfoldMore from '@xanui/icons/UnfoldMore'
 export type InputNumberProps = InputProps
 
 const InputNumber = React.forwardRef((props: InputNumberProps, ref: React.Ref<any>) => {
-   const isNumeric = /^\d*$/.test(String(props.value));
+   const isNumeric = !isNaN(Number(props.value));
+
+   let p: any = {}
    if (!isNumeric) {
-      props.error = true;
-      props.helperText = "Value must be numeric";
+      p.error = true;
+      p.helperText = "Value must be numeric";
    }
 
    return (
       <Input
          {...props}
+         {...p}
          ref={ref}
          endIcon={<UnfoldMore />}
          onKeyDown={(e: any) => {

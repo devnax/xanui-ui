@@ -57,7 +57,6 @@ const Tb = (props: TableProps) => {
                     total={5000}
                     page={2}
                     onChange={(state) => {
-                        console.log(state);
 
                     }}
                 />

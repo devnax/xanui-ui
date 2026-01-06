@@ -10,13 +10,13 @@ import InputNumber from "../../InputNumber";
 
 type Props = {
    option: DataFilterSelect;
-   value: number | null;
-   onChange: (value: number | null) => void;
+   value: [number, number] | null;
+   onChange: (value: [number, number] | null) => void;
 }
 
-const NumberFilter = ({ option, onChange, value }: Props) => {
+const NumberRangeFilter = ({ option, onChange, value }: Props) => {
 
-   const isValue = value !== null && value !== undefined;
+   const isValue = value !== null && value !== undefined && Array.isArray(value) && value.length === 2;
 
    return (
       <Stack
@@ -42,7 +42,7 @@ const NumberFilter = ({ option, onChange, value }: Props) => {
                   variant="soft"
                   color={"default"}
                   onClick={() => {
-                     onChange(0);
+                     onChange([0, 0]);
                   }}
                >
                   <Add />
@@ -67,18 +67,38 @@ const NumberFilter = ({ option, onChange, value }: Props) => {
             flexWrap="wrap"
          >
             {
-               isValue && <InputNumber
-                  variant={"outline"}
-                  value={value.toString()}
-                  onChange={(e: any) => {
-                     onChange(e.target.value);
-                  }}
-                  fullWidth
-               />
+               isValue && <Stack
+                  direction="row"
+                  gap={0.5}
+                  flex={1}
+               >
+                  <InputNumber
+                     flex={1}
+                     variant={"outline"}
+                     size="small"
+                     placeholder="Min"
+                     value={value[0] as any ?? ''}
+                     onChange={(e) => {
+                        const val = e.target.value === '' ? 0 : Number(e.target.value);
+                        onChange([val, value ? value[1] : 0]);
+                     }}
+                  />
+                  <InputNumber
+                     variant={"outline"}
+                     flex={1}
+                     size="small"
+                     placeholder="Max"
+                     value={value[1] as any ?? undefined}
+                     onChange={(e) => {
+                        const val = e.target.value === '' ? 0 : Number(e.target.value);
+                        onChange([value ? value[0] : 0, val]);
+                     }}
+                  />
+               </Stack>
             }
          </Stack>
       </Stack>
    )
 }
 
-export default NumberFilter
+export default NumberRangeFilter

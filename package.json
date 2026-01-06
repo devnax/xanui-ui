@@ -13,7 +13,7 @@
       "release": "makepack release"
    },
    "dependencies": {
-      "@xanui/core": "^1.2.39",
+      "@xanui/core": "^1.2.40",
       "@xanui/icons": "^1.1.10",
       "pretty-class": "^1.0.8",
       "react-state-bucket": "^1.2.6"
@@ -30,11 +30,6 @@
    "keywords": [],
    "sideEffects": false,
    "exports": {
-      ".": {
-         "import": "./index.mjs",
-         "require": "./index.js",
-         "types": "./index.d.ts"
-      },
       "./*": {
          "import": "./*/index.mjs",
          "require": "./*/index.js",

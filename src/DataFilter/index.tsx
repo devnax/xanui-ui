@@ -1,194 +1,178 @@
 "use client"
 import Stack from '../Stack'
-import Button from '../Button'
-import AddOutlined from '@xanui/icons/AddOutlined'
-import Menu from '../Menu'
-import List from '../List'
-import ListItem from '../ListItem'
-import React from 'react'
 import { DataFilterProps } from './types'
 import SelectFilter from './options/SelectFilter'
 import MultiSelectFilter from './options/MultiSelectFilter'
-import Input from '../Input'
-import Text from '../Text'
-import ViewBox from '../ViewBox'
+import NumberFilter from './options/NumberFilter'
+import TextFilter from './options/TextFilter'
+import NumberRangeFilter from './options/NumberRangeFilter'
+import DateFilter from './options/DateFilter'
+import DateRangeFilter from './options/DateRangeFilter'
+import React from 'react'
+import { Tag } from '@xanui/core'
 
+export {
+   SelectFilter,
+   MultiSelectFilter,
+   NumberFilter,
+   TextFilter,
+   NumberRangeFilter,
+   DateFilter,
+   DateRangeFilter,
+}
 
-const DataFilter = ({ inline, options }: DataFilterProps) => {
-   const [target, setTarget] = React.useState<HTMLElement | undefined>()
-   const [state, setState] = React.useState<{ [key: string]: any }>({})
-   inline ??= true
+export * from './types'
+
+const DataFilter = ({ inline, options, onChange, value, ...props }: DataFilterProps, ref: React.Ref<HTMLDivElement>) => {
+   inline ??= false
+   value ??= {}
+   onChange ??= () => { }
+
    return (
-      <Stack
-         direction={inline ? "row" : "column"}
-         alignItems={'center'}
-         gap={1}
-         flexWrap={"wrap"}
-         p={2}
-         radius={1}
+      <Tag
+         {...props}
+         sxr={{
+            flexBox: true,
+            flexDirection: inline ? 'row' : 'column',
+            alignItems: inline ? 'center' : 'stretch',
+            flexWrap: inline ? 'wrap' : 'nowrap',
+            gap: 1,
+            p: 2,
+            radius: 1,
+         }}
+         baseClass='data-filter'
+         ref={ref}
       >
          {
             options.map((option, index) => {
                switch (option.type) {
+                  case "text":
+                     return (<Stack
+                        width={inline ? 300 : "100%"}
+                        key={index}
+                     >
+                        <TextFilter
+                           option={option as any}
+                           value={value[option.key] ?? null}
+                           onChange={(v) => {
+                              onChange({
+                                 ...value,
+                                 [option.key]: v
+                              })
+                           }}
+                        />
+                     </Stack>
+                     )
+                  case "number":
+                     return (<Stack
+                        width={inline ? 300 : "100%"}
+                        key={index}
+                     >
+                        <NumberFilter
+                           option={option as any}
+                           value={value[option.key] ?? null}
+                           onChange={(v) => {
+                              onChange({
+                                 ...value,
+                                 [option.key]: v
+                              })
+                           }}
+                        />
+                     </Stack>
+                     )
+                  case "number-range":
+                     return (<Stack
+                        width={inline ? 300 : "100%"}
+                        key={index}
+                     >
+                        <NumberRangeFilter
+                           option={option as any}
+                           value={value[option.key] ?? null}
+                           onChange={(v) => {
+                              onChange({
+                                 ...value,
+                                 [option.key]: v
+                              })
+                           }}
+                        />
+                     </Stack>
+                     )
                   case "select":
-                     return <SelectFilter
+                     return (<Stack
+                        width={inline ? 300 : "100%"}
                         key={index}
-                        option={option as any}
-                        value={state[option.key] || ''}
-                        onChange={(value) => {
-                           setState(prev => ({
-                              ...prev,
-                              [option.key]: value
-                           }))
-                        }}
-                     />
+                     >
+                        <SelectFilter
+                           option={option as any}
+                           value={value[option.key] ?? null}
+                           onChange={(v) => {
+                              onChange({
+                                 ...value,
+                                 [option.key]: v
+                              })
+                           }}
+                        />
+                     </Stack>
+                     )
                   case "multi-select":
-                     return <MultiSelectFilter
+                     return (<Stack
+                        width={inline ? 300 : "100%"}
                         key={index}
-                        option={option as any}
-                        value={state[option.key] || ''}
-                        onChange={(value) => {
-                           setState(prev => ({
-                              ...prev,
-                              [option.key]: value
-                           }))
-                        }}
-                     />
+                     >
+                        <MultiSelectFilter
+                           option={option as any}
+                           value={value[option.key] ?? []}
+                           onChange={(v) => {
+                              onChange({
+                                 ...value,
+                                 [option.key]: v
+                              })
+                           }}
+                        />
+                     </Stack>
+                     )
+                  case "date":
+                     return (<Stack
+                        width={inline ? 300 : "100%"}
+                        key={index}
+                     >
+                        <DateFilter
+                           option={option as any}
+                           value={value[option.key] ?? null}
+                           onChange={(v) => {
+                              onChange({
+                                 ...value,
+                                 [option.key]: v
+                              })
+                           }}
+                        />
+                     </Stack>
+                     )
+                  case "date-range":
+                     return (<Stack
+                        width={inline ? 300 : "100%"}
+                        key={index}
+                     >
+                        <DateRangeFilter
+                           option={option as any}
+                           value={value[option.key] ?? null}
+                           onChange={(v) => {
+                              onChange({
+                                 ...value,
+                                 [option.key]: v
+                              })
+                           }}
+                        />
+                     </Stack>
+                     )
                   default:
                      return null
 
                }
             })
          }
-
-         {
-            inline && <>
-               <Button
-                  size={"small"}
-                  variant="text"
-                  startIcon={<AddOutlined />}
-                  onClick={(e: any) => {
-                     setTarget(e.currentTarget)
-                  }}
-               >Add Filter</Button>
-               <Menu
-                  target={target}
-                  onClickOutside={() => setTarget(undefined)}
-                  placement={"bottom-right"}
-
-               >
-
-                  <ViewBox
-                     p={1}
-                     gap={1}
-                     sx={{
-                        minWidth: 300,
-                        maxHeight: 400,
-                        overflow: "auto",
-                     }}
-                     startContent={<Text>Filter</Text>}
-                     endContent={<Stack
-                        direction="row"
-                        gap={1}
-                     >
-                        <Button
-                           size="small"
-                           color="default"
-                           variant="text"
-                           onClick={() => {
-                              setTarget(undefined)
-                           }}
-                        >
-                           Cancel
-                        </Button>
-                        <Button
-                           size="small"
-                           onClick={() => {
-                              setTarget(undefined)
-                           }}
-                        >
-                           Apply
-                        </Button>
-                     </Stack>}
-                  >
-                     <Stack gap={1} p={1}>
-
-                        <Input
-                           placeholder='Age'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                        <Input
-                           placeholder='Role'
-                        />
-                     </Stack>
-                  </ViewBox>
-               </Menu>
-            </>
-         }
-      </Stack>
+      </Tag>
    )
 }
 
-export default DataFilter
+export default React.forwardRef(DataFilter);

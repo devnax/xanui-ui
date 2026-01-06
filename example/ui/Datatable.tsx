@@ -17,7 +17,7 @@ const rows = [
 const Tb = () => {
     return (
         <Stack gap={2}>
-            <DataFilter
+            {/* <DataFilter
                 options={[
                     {
                         type: "multi-select", key: "status", label: "Status",
@@ -28,32 +28,34 @@ const Tb = () => {
                             { label: "Pending", value: "Pending" },
                         ]
                     },
-                    { type: "multi-select", key: "role", label: "Role", options: [{ label: "Admin", value: "admin" }, { label: "User", value: "user" }] },
-                    { type: "multi-select", key: "source", label: "Source", options: [{ label: "Google", value: "google" }, { label: "Facebook", value: "facebook" }] },
-                    { type: "multi-select", key: "category", label: "Category", options: [{ label: "A", value: "a" }, { label: "B", value: "b" }] },
+                    { type: "select", key: "role", label: "Role", options: [{ label: "Admin", value: "admin" }, { label: "User", value: "user" }] },
+                    { type: "number", key: "source", label: "Source" },
+                    { type: "text", key: "text", label: "Text", },
+                    { type: "number-range", key: "number-range", label: "Number Range" },
+                    { type: "date", key: "date", label: "Date" },
+                    { type: "date-range", key: "date-range", label: "Date Range" },
                 ]}
-            />
+            /> */}
             <Datatable
                 compact
                 // skeleton={30}
-                filters={{
-                    Status: [
-                        { label: "Active", value: "active" },
-                        { label: "Deactive", value: "deactive" },
-                    ],
-                    Role: [
-                        { label: "Admin", value: "admin" },
-                        { label: "User", value: "user" },
-                    ],
-                    Source: [
-                        { label: "Google", value: "google" },
-                        { label: "Facebook", value: "facebook" },
-                    ],
-                    Category: [
-                        { label: "A", value: "a" },
-                        { label: "B", value: "b" },
-                    ]
-                }}
+                filters={[
+                    {
+                        type: "multi-select", key: "status", label: "Status",
+                        options: [
+                            { label: "Active", value: "active" },
+                            { label: "Deactive", value: "deactive" },
+                            { label: "Suspend", value: "Suspend" },
+                            { label: "Pending", value: "Pending" },
+                        ]
+                    },
+                    { type: "select", key: "role", label: "Role", options: [{ label: "Admin", value: "admin" }, { label: "User", value: "user" }] },
+                    { type: "number", key: "source", label: "Source" },
+                    { type: "text", key: "text", label: "Text", },
+                    { type: "number-range", key: "number-range", label: "Number Range" },
+                    { type: "date", key: "date", label: "Date" },
+                    { type: "date-range", key: "date-range", label: "Date Range" },
+                ]}
                 onStateChange={state => {
 
                 }}

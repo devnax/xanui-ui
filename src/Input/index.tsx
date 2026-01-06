@@ -40,9 +40,9 @@ export type InputProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "
         inputRoot?: React.Ref<"div">;
         label?: React.Ref<"label">;
         rootContainer?: React.Ref<"div">;
-        startIcon?: React.Ref<ReactElement>;
-        endIcon?: React.Ref<ReactElement>;
-        inputContainer?: React.Ref<"div">;
+        // startIcon?: React.Ref<ReactElement>;
+        // endIcon?: React.Ref<ReactElement>;
+        // inputContainer?: React.Ref<"div">;
         input?: React.Ref<'input' | 'textarea'>;
         helperText?: React.Ref<"div">;
     };
@@ -51,9 +51,9 @@ export type InputProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "
         inputRoot?: Omit<TagProps<"div">, "children">;
         label?: Omit<LabelProps, "children">;
         rootContainer?: Omit<TagProps<"div">, "children">;
-        startIcon?: Omit<TagProps<'div'>, "children">;
-        endIcon?: Omit<TagProps<'div'>, "children">;
-        inputContainer?: Omit<TagProps<"div">, "children">;
+        // startIcon?: Omit<TagProps<'div'>, "children">;
+        // endIcon?: Omit<TagProps<'div'>, "children">;
+        // inputContainer?: Omit<TagProps<"div">, "children">;
         helperText?: Omit<TagProps<"div">, "children">;
         input?: Partial<TagProps<T>>;
     }
@@ -196,6 +196,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                 ref={refs?.inputRoot}
                 baseClass={'input-root'}
                 sxr={{
+                    width: "100%",
                     overflow: "hidden",
                 }}
             >
@@ -215,14 +216,45 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         borderColor: borderColor,
                         borderRadius: 1,
                         px: 1,
-                        py: .5,
+                        // py: .5,
+                        ..._size,
+                        height: multiline ? "auto" : _size.height,
+                        minHeight: _size.height,
+                        "& input:-webkit-autofill,& input:-webkit-autofill:hover, & input:-webkit-autofill:focus,& input:-webkit-autofill:active": {
+                            "-webkit-text-fill-color": "text.primary",
+                            "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.background.secondary : theme.colors.background.primary} inset`,
+                            transition: "background-color 5000s ease-in-out 0s"
+                        } as any,
+                        "& textarea": {
+                            resize: "none"
+                        },
+
+                        // ...(!!startIcon && {
+                        //     "& :first-child": {
+                        //         height: "100%",
+                        //         alignItems: 'center',
+                        //         justifyContent: "center",
+                        //         display: "flex",
+                        //         color: error ? "danger.primary" : "text.secondary",
+                        //         flex: "0 0 auto",
+                        //     },
+                        // }),
+
+                        // ...(!!endIcon && {
+                        //     "& :last-child": {
+                        //         height: "100%",
+                        //         alignItems: 'center',
+                        //         justifyContent: "center",
+                        //         display: 'flex',
+                        //         color: error ? "danger.primary" : "text.secondary",
+                        //         flex: "0 0 auto",
+                        //     },
+                        // })
+
                     }}
                     disabled={disabled || false}
-                    {..._size}
-                    height={multiline ? "auto" : _size.height}
-                    minHeight={_size.height}
                 >
-                    {startIcon && <Tag
+                    {/* {startIcon && <Tag
                         {...slotProps?.startIcon}
                         ref={refs?.startIcon}
                         flex={"0 0 auto"}
@@ -234,8 +266,9 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                             color: error ? "danger.primary" : "text.secondary",
                         }}
                         baseClass="input-start-icon"
-                    >{startIcon}</Tag>}
-                    <Tag
+                    >{startIcon}</Tag>} */}
+                    {startIcon}
+                    {/* <Tag
                         {...slotProps?.inputContainer}
                         ref={refs?.inputContainer}
                         baseClass='input-container'
@@ -256,42 +289,43 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                             } as any
                         }}
                     >
-                        <Tag
-                            {...slotProps?.input}
-                            ref={inputMergeRef}
-                            baseClass='input'
-                            component={multiline ? 'textarea' : 'input'}
-                            {...multiprops}
-                            sxr={{
-                                border: 0,
-                                outline: 0,
-                                bgcolor: "transparent",
-                                color: error ? "danger.primary" : "text.primary",
-                                fontSize: _size.fontSize,
-                                height: multiline ? "auto" : _size.height + "px!important",
-                                width: "100%",
-                                maxHeight: 200,
-                            }}
-                            value={value}
-                            onChange={onChange}
-                            onFocus={(e: any) => {
-                                focused ?? setFocused(true)
-                                onFocus && onFocus(e)
-                            }}
-                            onBlur={(e: any) => {
-                                focused ?? setFocused(false)
-                                onBlur && onBlur(e)
-                            }}
-                            onKeyDown={onKeyDown}
-                            onKeyUp={onKeyUp}
-                            name={name}
-                            placeholder={placeholder}
-                            type={type}
-                            readOnly={readOnly}
-                            autoComplete={autoComplete}
-                        />
-                    </Tag>
-                    {endIcon && <Tag
+                        
+                    </Tag> */}
+                    <Tag
+                        {...slotProps?.input}
+                        ref={inputMergeRef}
+                        baseClass='input'
+                        component={multiline ? 'textarea' : 'input'}
+                        {...multiprops}
+                        sxr={{
+                            border: 0,
+                            outline: 0,
+                            bgcolor: "transparent",
+                            color: error ? "danger.primary" : "text.primary",
+                            fontSize: _size.fontSize,
+                            height: multiline ? "auto" : _size.height + "px!important",
+                            width: "100%",
+                            maxHeight: 200,
+                        }}
+                        value={value}
+                        onChange={onChange}
+                        onFocus={(e: any) => {
+                            focused ?? setFocused(true)
+                            onFocus && onFocus(e)
+                        }}
+                        onBlur={(e: any) => {
+                            focused ?? setFocused(false)
+                            onBlur && onBlur(e)
+                        }}
+                        onKeyDown={onKeyDown}
+                        onKeyUp={onKeyUp}
+                        name={name}
+                        placeholder={placeholder}
+                        type={type}
+                        readOnly={readOnly}
+                        autoComplete={autoComplete}
+                    />
+                    {/* {endIcon && <Tag
                         {...slotProps?.endIcon}
                         ref={refs?.endIcon}
                         flex={"0 0 auto"}
@@ -303,7 +337,8 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                             color: error ? "danger.primary" : "text.secondary",
                         }}
                         baseClass="input-end-icon"
-                    >{endIcon}</Tag>}
+                    >{endIcon}</Tag>} */}
+                    {endIcon}
                 </Tag>
                 {helperText && <Tag
                     {...slotProps?.helperText}
