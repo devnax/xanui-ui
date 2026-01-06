@@ -57,7 +57,7 @@ const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDi
             np.rowAction = undefined
         }
         return np
-    }, [p.skeleton])
+    }, [p.skeleton, props.columns, props.rowAction, p.hideCheckbox, p.rows])
 
     let {
         rows,
