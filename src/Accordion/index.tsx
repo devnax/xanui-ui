@@ -2,9 +2,12 @@
 import React, { ReactElement, useState } from 'react';
 import { Tag, TagProps, useInterface, UseColorTemplateColor, UseColorTemplateType, TagComponentType, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
 import ExpandIcon from "@xanui/icons/ExpandMore";
-import Collaps, { CollapsProps } from '../Collaps';
-import List, { ListProps } from '../List';
-import ListItem, { ListItemProps } from '../ListItem';
+import Collaps from '../Collaps';
+import List from '../List';
+import ListItem from '../ListItem';
+import type { CollapsProps } from '../Collaps';
+import type { ListProps } from '../List';
+import type { ListItemProps } from '../ListItem';
 
 export type AccordionProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "color"> & {
     expand?: boolean;

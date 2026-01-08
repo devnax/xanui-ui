@@ -1,6 +1,6 @@
-# XanUI UI Library
+# Xanui Library
 
-XanUI is a React design-system toolkit powered by `@xanui/core`. It combines low-level primitives (e.g., `Box`, `Stack`, `Layer`) with application-ready components (e.g., `Accordion`, `Modal`, `Datatable`, `Toast`) so product teams can build polished surfaces quickly while keeping full control over styling tokens.
+Xanui is a React design-system toolkit powered by `@xanui/core`. It combines low-level primitives (e.g., `Box`, `Stack`, `Layer`) with application-ready components (e.g., `Accordion`, `Modal`, `Datatable`, `Toast`) so product teams can build polished surfaces quickly while keeping full control over styling tokens.
 
 ## Highlights
 
@@ -17,7 +17,7 @@ npm install @xanui/ui
 
 ```
 
-Required peer packages (`react`, `react-dom`, `@xanui/core`, `@xanui/icons`) should already exist in your project; otherwise, install them alongside XanUI.
+Required peer packages (`react`, `react-dom`, `@xanui/core`, `@xanui/icons`) should already exist in your project; otherwise, install them alongside Xanui.
 
 ## Quick Start
 
@@ -31,7 +31,7 @@ export default function App() {
     <ThemeProvider theme="light">
       <Box p={3} gap={2} display="flex" flexDirection="column">
         <h1>Welcome</h1>
-        <Button color="brand" onClick={() => alert('Hello from XanUI!')}>
+        <Button color="brand" onClick={() => alert('Hello from Xanui!')}>
           Get Started
         </Button>
       </Box>
