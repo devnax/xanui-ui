@@ -66,11 +66,7 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
                             userSelect={"none"}
                             onClick={() => {
                                 if (sortable) {
-                                    if (sortables[_f as any] === 'desc') {
-                                        delete sortables[_f as any]
-                                    } else {
-                                        sortables[_f as any] = 'desc'
-                                    }
+                                    sortables[_f as any] = sortables[_f as any] === 'desc' ? 'asc' : 'desc'
                                     update({
                                         sortable: sortables
                                     })
