@@ -66,7 +66,7 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
                             userSelect={"none"}
                             onClick={() => {
                                 if (sortable) {
-                                    if (sortables[_f as any] === 'asc') {
+                                    if (sortables[_f as any] === 'desc') {
                                         delete sortables[_f as any]
                                     } else {
                                         sortables[_f as any] = 'desc'
@@ -80,7 +80,7 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
                             <Text color="text.secondary">{label}</Text>
                             {sortable && <>
                                 {
-                                    (sortables[_f as any] === 'asc' || sortables[_f as any] === undefined) ? <ArrowDropDown /> : <ArrowDropUp />
+                                    sortables[_f as any] === 'desc' ? <ArrowDropUp /> : <ArrowDropDown />
                                 }
                             </>}
                         </Stack>
