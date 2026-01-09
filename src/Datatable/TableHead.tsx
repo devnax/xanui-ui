@@ -14,7 +14,7 @@ import Text from '../Text';
 const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, compact, skeleton, state, update }: DatatablePropsWithState) => {
     if (!columns.length) return <></>
     let checked = state.selectAll || !!state.selected.length
-    const sortables = state.sortable || {}
+    let sortables = state.sortable || {}
 
     return (
         <TableHead position="relative">
@@ -65,14 +65,14 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
                             cursor={sortable ? "pointer" : "default"}
                             userSelect={"none"}
                             onClick={() => {
-
                                 if (sortable) {
-                                    let newSort: any = sortables[_f as any] === 'asc' ? 'desc' : 'asc'
+                                    if (sortables[_f as any] === 'asc') {
+                                        delete sortables[_f as any]
+                                    } else {
+                                        sortables[_f as any] = 'desc'
+                                    }
                                     update({
-                                        sortable: {
-                                            ...sortables,
-                                            [_f as any]: newSort
-                                        }
+                                        sortable: sortables
                                     })
                                 }
                             }}
@@ -80,7 +80,7 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
                             <Text color="text.secondary">{label}</Text>
                             {sortable && <>
                                 {
-                                    sortables[_f as any] === 'asc' ? <ArrowDropDown /> : <ArrowDropUp />
+                                    (sortables[_f as any] === 'asc' || sortables[_f as any] === undefined) ? <ArrowDropDown /> : <ArrowDropUp />
                                 }
                             </>}
                         </Stack>
