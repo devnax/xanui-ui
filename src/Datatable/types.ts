@@ -7,25 +7,22 @@ import { TablePaginationProps, TablePaginationState } from "../TablePagination";
 import { ViewBoxProps } from "../ViewBox";
 import { DataFilterProps } from "../DataFilter/types";
 
-
-export type ColumnType = (Omit<TableColumnProps, "children"> & { label: string, field?: string, sortable?: boolean })
+export type DatatableColumnType = (Omit<TableColumnProps, "children"> & { label: string, field?: string, sortable?: boolean })
 export type DataTableDefaultRow = { id?: number, [key: string | number]: any }
-export type RowActionType = Omit<IconButtonProps, "children"> & {
+export type DatatableRowActionType = Omit<IconButtonProps, "children"> & {
    label: string;
    icon: ReactElement;
 }
-export type TabsProps = {
+export type DatatableTabsProps = {
    label: string;
    value?: string
 }
 
-
-
 export type DatatableProps = Omit<ViewBoxProps, "children" | "rows" | "onChange"> & {
    rows: DataTableDefaultRow[];
-   columns: ColumnType[];
-   tabs?: TabsProps[];
-   rowAction?: (props: { row: DataTableDefaultRow | null, state: DatatableState }) => RowActionType[];
+   columns: DatatableColumnType[];
+   tabs?: DatatableTabsProps[];
+   rowAction?: (props: { row: DataTableDefaultRow | null, state: DatatableState }) => DatatableRowActionType[];
    renderRow?: (row: DataTableDefaultRow, state: DatatableState) => DataTableDefaultRow;
    disableRow?: (row: DataTableDefaultRow, state: DatatableState) => boolean | void;
 

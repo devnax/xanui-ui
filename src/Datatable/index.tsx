@@ -10,6 +10,7 @@ import Stack from '../Stack'
 import { DatatableProps, DatatableState } from './types';
 import Skeleton from '../Skeleton';
 
+export type * from './types';
 
 const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDivElement>) => {
     let [p] = useInterface<any>("Datatable", props, {})
