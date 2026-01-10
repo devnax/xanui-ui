@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import ViewBox from '../ViewBox'
 import { Tag, useInterface } from '@xanui/core';
 import SelectedBox from './SelectedBox'
@@ -64,8 +64,8 @@ const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDi
         tabs,
 
         pagination: { perpages = [30, 50, 100], total = 0 } = {},
-        defaultState = {},
-        onStateChange,
+        state: userState = {},
+        onChange,
 
         fixedHeader,
         hidePagination,
@@ -86,28 +86,24 @@ const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDi
         ...viewBoxProps
     } = _props
 
-    const [state, setState] = useState<DatatableState>({
-        selected: defaultState?.selected || [],
-        selectAll: defaultState?.selectAll || false,
+    const state = {
+        selected: userState?.selected || [],
+        selectAll: userState?.selectAll || false,
         pagination: {
-            page: defaultState?.page || 1,
+            page: userState?.page || 1,
             perpage: perpages && perpages.length > 0 ? perpages[0] : 10,
-            from: defaultState?.from || 1,
-            to: defaultState?.to || (perpages && perpages.length > 0 ? perpages[0] : 10),
+            from: userState?.from || 1,
+            to: userState?.to || (perpages && perpages.length > 0 ? perpages[0] : 10),
         },
-        tab: tabs ? (defaultState?.tab || tabs[0].value || tabs[0].label.toLowerCase()) : "",
-        search: defaultState?.search || "",
-        sortable: defaultState?.sortable || {},
-        filters: defaultState?.filter || {}
-    })
+        tab: tabs ? (userState?.tab || tabs[0].value || tabs[0].label.toLowerCase()) : "",
+        search: userState?.search || "",
+        sortable: userState?.sortable || {},
+        filters: userState?.filter || {}
+    }
 
-    const update = (s: Partial<DatatableState>) => setState(o => ({ ...o, ...s }))
-
-    useEffect(() => {
-        if (onStateChange) {
-            onStateChange(state)
-        }
-    }, [state])
+    const update = (s: Partial<DatatableState>) => {
+        onChange({ ...state, ...s })
+    }
 
     return (
         <ViewBox

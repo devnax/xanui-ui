@@ -15,6 +15,7 @@ const rows = [
 ]
 
 const Tb = () => {
+    const [state, setState] = React.useState({})
     return (
         <Stack gap={2}>
             {/* <DataFilter
@@ -40,6 +41,12 @@ const Tb = () => {
                 compact
                 // hideCheckbox
                 // skeleton={30}
+                state={state}
+                onChange={state => {
+                    console.log("State Changed: ", state)
+                    setState(state)
+                }}
+
                 filters={[
                     {
                         type: "multi-select", key: "status", label: "Status",
@@ -57,9 +64,7 @@ const Tb = () => {
                     { type: "date", key: "date", label: "Date" },
                     { type: "date-range", key: "date-range", label: "Date Range" },
                 ]}
-                onStateChange={state => {
 
-                }}
                 rows={rows}
                 columns={[
                     { label: "Name", field: "name", sortable: true },

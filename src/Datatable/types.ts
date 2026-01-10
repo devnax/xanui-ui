@@ -21,7 +21,7 @@ export type TabsProps = {
 
 
 
-export type DatatableProps = Omit<ViewBoxProps, "children" | "rows"> & {
+export type DatatableProps = Omit<ViewBoxProps, "children" | "rows" | "onChange"> & {
    rows: DataTableDefaultRow[];
    columns: ColumnType[];
    tabs?: TabsProps[];
@@ -34,8 +34,8 @@ export type DatatableProps = Omit<ViewBoxProps, "children" | "rows"> & {
       perpages?: number[];
    };
 
-   defaultState?: DatatableStatePartial;
-   onStateChange?: (state: DatatableState) => void;
+   state?: DatatableStatePartial;
+   onChange?: (state: DatatableState) => void;
 
    filters?: DataFilterProps['options']
    fixedHeader?: boolean;
