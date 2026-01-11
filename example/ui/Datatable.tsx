@@ -43,7 +43,7 @@ const Tb = () => {
                 // skeleton={30}
                 state={state}
                 onChange={state => {
-                    console.log("State Changed: ", state)
+                    // console.log("State Changed: ", state)
                     setState(state)
                 }}
 

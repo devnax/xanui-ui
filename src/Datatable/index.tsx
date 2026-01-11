@@ -87,6 +87,7 @@ const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDi
         ...viewBoxProps
     } = _props
 
+
     const state = {
         selected: userState?.selected || [],
         selectAll: userState?.selectAll || false,
@@ -99,7 +100,7 @@ const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDi
         tab: tabs ? (userState?.tab || tabs[0].value || tabs[0].label.toLowerCase()) : "",
         search: userState?.search || "",
         sortable: userState?.sortable || {},
-        filters: userState?.filter || {}
+        filters: userState?.filters || {}
     }
 
     const update = (s: Partial<DatatableState>) => {
