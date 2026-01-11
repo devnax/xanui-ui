@@ -229,27 +229,27 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                             resize: "none"
                         },
 
-                        // ...(!!startIcon && {
-                        //     "& :first-child": {
-                        //         height: "100%",
-                        //         alignItems: 'center',
-                        //         justifyContent: "center",
-                        //         display: "flex",
-                        //         color: error ? "danger.primary" : "text.secondary",
-                        //         flex: "0 0 auto",
-                        //     },
-                        // }),
+                        ...(!!startIcon && {
+                            "& :first-child": {
+                                height: "100%",
+                                alignItems: 'center',
+                                justifyContent: "center",
+                                display: "flex",
+                                color: error ? "danger.primary" : "text.secondary",
+                                flex: "0 0 auto",
+                            },
+                        }),
 
-                        // ...(!!endIcon && {
-                        //     "& :last-child": {
-                        //         height: "100%",
-                        //         alignItems: 'center',
-                        //         justifyContent: "center",
-                        //         display: 'flex',
-                        //         color: error ? "danger.primary" : "text.secondary",
-                        //         flex: "0 0 auto",
-                        //     },
-                        // })
+                        ...(!!endIcon && {
+                            "& :last-child": {
+                                height: "100%",
+                                alignItems: 'center',
+                                justifyContent: "center",
+                                display: 'flex',
+                                color: error ? "danger.primary" : "text.secondary",
+                                flex: "0 0 auto",
+                            },
+                        })
 
                     }}
                     disabled={disabled || false}

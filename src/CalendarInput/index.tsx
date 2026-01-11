@@ -49,11 +49,7 @@ const CalenderInput = (props: CalenderInpurProps) => {
                 </>}
                 cursor="pointer"
                 ref={inputRef}
-                slotProps={{
-                    inputContainer: {
-                        onClick: () => setTarget(target ? null : inputRef?.current)
-                    }
-                }}
+                onFocus={() => setTarget(target ? null : inputRef?.current)}
                 value={getInputValue ? getInputValue(value) : (value ? value.toLocaleDateString("en-US") : "")}
             />
             <Menu
