@@ -6,10 +6,8 @@ import Checkbox from '../Checkbox'
 import IntermidiatIcon from '@xanui/icons/IndeterminateCheckBox'
 import { DatatablePropsWithState } from './types';
 import Stack from '../Stack';
-import ArrowDropDown from '@xanui/icons/ArrowDropDown';
-import ArrowDropUp from '@xanui/icons/ArrowDropUp';
 import Text from '../Text';
-
+import SwitchRight from '@xanui/icons/SwitchRight';
 
 const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, compact, skeleton, state, update }: DatatablePropsWithState) => {
     if (!columns.length) return <></>
@@ -64,20 +62,33 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
                             alignItems="center"
                             cursor={sortable ? "pointer" : "default"}
                             userSelect={"none"}
+                            gap={.5}
                             onClick={() => {
                                 if (sortable) {
-                                    sortables[_f as any] = sortables[_f as any] === 'desc' ? 'asc' : 'desc'
+                                    let v = sortables[_f as any]
+                                    if (!v) {
+                                        sortables[_f as any] = 'asc'
+                                    } else if (v === 'asc') {
+                                        sortables[_f as any] = 'desc'
+                                    } else {
+                                        delete sortables[_f as any]
+                                    }
                                     update({
                                         sortable: sortables
                                     })
                                 }
                             }}
                         >
-                            <Text color="text.secondary">{label}</Text>
+                            <Text color="text.secondary" fontWeight={600}>{label}</Text>
                             {sortable && <>
-                                {
-                                    sortables[_f as any] === 'desc' ? <ArrowDropUp /> : <ArrowDropDown />
-                                }
+                                <SwitchRight
+                                    opacity={sortables[_f as any] ? 1 : .3}
+                                    color={sortables[_f as any] ? 'brand' : 'text.secondary'}
+                                    sx={{
+                                        fontSize: 23,
+                                        transform: sortables[_f as any] === 'desc' ? 'rotate(-90deg)' : 'rotate(90deg)',
+                                    }}
+                                />
                             </>}
                         </Stack>
                     </TableCell>)
