@@ -28,7 +28,7 @@ const TableArea = (props: DatatablePropsWithState) => {
          >
             {
                rows?.map((row: any, idx) => {
-                  let _row = renderRow ? renderRow({ ...row }, state) : row
+                  let _row = renderRow ? renderRow(structuredClone(row), state) : row
                   return <Row
                      key={`dt-row-${row.id}-${idx}`}
                      rawRow={row}

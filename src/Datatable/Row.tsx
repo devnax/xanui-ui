@@ -86,7 +86,7 @@ const Row = ({ rows, rawRow, row, rowAction, disableRow, hideCheckbox, columns, 
                             }
                         }}
                     >
-                        {rowAction({ row, state }).map(({ label, icon, onClick }) => {
+                        {rowAction({ row: rawRow, state }).map(({ label, icon, onClick }) => {
                             return (
                                 <ListItem
                                     key={label}

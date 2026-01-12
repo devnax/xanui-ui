@@ -4,6 +4,7 @@ import Stack from '../../src/Stack'
 import Datatable from '../../src/Datatable'
 import DataFilter from '../../src/DataFilter'
 import DeleteIcon from '@xanui/icons/Delete'
+import Button from '../../src/Button'
 
 
 const rows = [
@@ -16,8 +17,12 @@ const rows = [
 
 const Tb = () => {
     const [state, setState] = React.useState({})
+    const [count, setCount] = React.useState(5);
     return (
         <Stack gap={2}>
+            <Button onClick={() => {
+                setCount(count + 5)
+            }}>Load More Data</Button>
             {/* <DataFilter
                 options={[
                     {
@@ -71,7 +76,7 @@ const Tb = () => {
                     { label: "Email", field: "email", sortable: true },
                 ]}
                 tabs={[
-                    { label: "All" },
+                    { label: `All ${count}` },
                     { label: "Actives" },
                     { label: "Deactives" }
                 ]}
