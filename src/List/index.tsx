@@ -5,9 +5,7 @@ import { ListContext } from './ListContext';
 
 export type ListProps<T extends TagComponentType = "ul"> = Omit<TagProps<T>, 'color' | "size"> & {
     color?: useBreakpointPropsType<UseColorTemplateColor>;
-    variant?: useBreakpointPropsType<UseColorTemplateType>;
-    hoverColor?: useBreakpointPropsType<UseColorTemplateColor>;
-    hoverVariant?: useBreakpointPropsType<UseColorTemplateType>;
+    variant?: Omit<useBreakpointPropsType<UseColorTemplateType>, "outline">;
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
 }
 
@@ -24,22 +22,12 @@ const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, ..
 
     color = p.color ?? "brand"
     variant = p.variant ?? "fill"
-    hoverColor = p.hoverColor ?? "default"
-    hoverVariant = p.hoverVariant ?? "soft"
     size = p.size ?? "medium"
 
     const template = useColorTemplate(color, variant)
-    const hoverTemplate = useColorTemplate(hoverColor, hoverVariant)
+    const defaultTemplate = useColorTemplate("default", "text")
+    const hoverTemplate = useColorTemplate('default', "soft")
 
-    let sxOutline: any = {}
-    if (hoverVariant == 'outline' || variant === 'outline') {
-        sxOutline = {
-            "& .list-item": {
-                border: "1px solid",
-                borderColor: "transparent"
-            }
-        }
-    }
 
     return (
         <ListContext.Provider value={{ size }}>
@@ -51,7 +39,6 @@ const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, ..
                     listStyle: "none",
                     p: 0,
                     m: 0,
-                    ...sxOutline,
                     "& .list-item-icon": {
                         color: "text.secondary"
                     },
@@ -60,6 +47,20 @@ const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, ..
                     },
                     "& .list-item-subtitle": {
                         color: "text.secondary"
+                    },
+
+                    "& .xui-list-item": {
+                        ...defaultTemplate.primary,
+                        "& .list-item-icon": {
+                            color: defaultTemplate.primary.color
+                        },
+                        "& .list-item-text": {
+                            color: defaultTemplate.primary.color
+                        },
+                        "& .list-item-subtitle": {
+                            color: hoverColor === 'default' ? "text.secondary" : defaultTemplate.primary.color
+                        },
+
                     },
                     "& .xui-list-item:not(.list-item-selected):hover": {
                         ...hoverTemplate.primary,
@@ -70,7 +71,7 @@ const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, ..
                             color: hoverTemplate.primary.color
                         },
                         "& .list-item-subtitle": {
-                            color: hoverColor === 'default' ? "text.secondary" : hoverTemplate.primary.color
+                            color: hoverTemplate.primary.color
                         },
                     },
                     "& .xui-list-item.list-item-selected": {
@@ -84,6 +85,7 @@ const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, ..
                         "& .list-item-subtitle": {
                             color: template.primary.color
                         },
+                        border: "0"
                     },
                     ...(sx || {} as any)
                 }}
