@@ -3,11 +3,13 @@ import Accordion from '../../src/Accordion'
 import Stack from '../../src/Stack'
 import ExpandIcon from "@xanui/icons/Settings";
 import Section from '../Layout/Section'
+import Text from '../../src/Text';
 const Accordions = () => {
     const [expand, setExpand] = React.useState(1)
 
     return (
         <Stack>
+
             <Section title="Basic">
                 <Stack border={"1px solid"} borderColor='divider' radius={1} overflow="hidden" maxWidth={600}>
                     <Accordion

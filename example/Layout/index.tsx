@@ -9,7 +9,7 @@ import List from '../../src/List'
 import ListItem from '../../src/ListItem'
 import menu from './menus'
 import CheckIcon from '@xanui/icons/CheckCircle'
-import { AppRoot, createThemeSwitcher, css, Tag, ThemeProvider, useTagProps, useTheme } from '@xanui/core';
+import { AppRoot, createThemeSwitcher } from '@xanui/core';
 
 
 const useThemeSwitcher = createThemeSwitcher("light", { store: "local" })
@@ -45,7 +45,6 @@ const Layout = () => {
 
     return (
         <AppRoot theme={themeSwitcher.name} >
-
             <Stack height="100vh" flexRow bgcolor="background.primary">
                 <ViewBox
                     width={250}
