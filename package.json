@@ -1,6 +1,6 @@
 {
    "name": "@xanui/ui",
-   "version": "1.1.52",
+   "version": "1.1.53",
    "description": "Xanui - A React Component Library",
    "private": false,
    "type": "module",
@@ -10,7 +10,7 @@
       "release": "makepack release"
    },
    "dependencies": {
-      "@xanui/core": "^1.2.39",
+      "@xanui/core": "^1.2.42",
       "@xanui/icons": "^1.1.12",
       "pretty-class": "^1.0.8",
       "react-state-bucket": "^1.2.6"
@@ -18,7 +18,6 @@
    "devDependencies": {
       "@types/react": "^19.1.8",
       "@types/react-dom": "^19.1.6",
-      "@xanui/ui": "^1.1.40",
       "makepack": "^1.7.27",
       "react": "^19.1.0",
       "react-dom": "^19.1.0",

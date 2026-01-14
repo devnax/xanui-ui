@@ -1,7 +1,7 @@
 "use client";
 
 import { createRoot } from "react-dom/client";
-import { appRootElement, UseColorTemplateColor, UseColorTemplateType, Transition, useBreakpointPropsType } from "@xanui/core";
+import { useAppRootElement, UseColorTemplateColor, UseColorTemplateType, Transition, useBreakpointPropsType } from "@xanui/core";
 import React, { ReactElement } from "react";
 import Alert, { AlertProps } from "../Alert";
 import Scrollbar from "../Scrollbar";
@@ -121,10 +121,10 @@ const Toast = (props?: string | UseToastProps) => {
     const wrapperContainerClassName = `xui-toast-container-${placement}`
     const wrapperClassName = `xui-toast-list-${placement}`
     let wrapperEle = document.querySelector(`.${wrapperContainerClassName}`) as HTMLElement
+    const appRoot = useAppRootElement()
     if (!wrapperEle) {
         wrapperEle = document.createElement('div')
         wrapperEle.className = wrapperContainerClassName
-        const appRoot = appRootElement()
         appRoot.appendChild(wrapperEle)
 
         const wrapperRoot = createRoot(wrapperEle);
@@ -165,7 +165,7 @@ const Toast = (props?: string | UseToastProps) => {
                 if (wrapper.children.length === 0) {
                     const container = document.querySelector(`.${wrapperContainerClassName}`) as HTMLElement
                     if (container) {
-                        appRootElement().removeChild(container);
+                        appRoot.removeChild(container);
                     }
                 }
             }}
