@@ -4,6 +4,9 @@ import { Tag, TagComponentType, TagProps, useInterface } from '@xanui/core';
 import React, { ReactNode, UIEvent, useImperativeHandle, useRef } from 'react'
 
 export type ScrollbarProps<T extends TagComponentType = "div"> = TagProps<T> & {
+    thumbSize?: number;
+    thumbColor?: TagProps['color'];
+    trackColor?: TagProps['color'];
     children?: ReactNode;
     onScrollEnd?: (e: UIEvent<HTMLDivElement>) => void;
 }
@@ -14,7 +17,7 @@ export type ScrollbarHandle = {
     scrollToTop: () => void;
 };
 
-const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ children, ...rest }: ScrollbarProps<T>, ref: React.Ref<ScrollbarHandle>) => {
+const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ children, thumbSize, thumbColor, trackColor, ...rest }: ScrollbarProps<T>, ref: React.Ref<ScrollbarHandle>) => {
     let [{ onScroll, onScrollEnd, ...props }] = useInterface<any>("Scrollbar", rest, {})
     const innerRef = useRef<HTMLDivElement>(null);
 
@@ -55,6 +58,33 @@ const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ childr
         }
     }
 
+    let sxr: any = {}
+
+    if (thumbSize) {
+        sxr['&::-webkit-scrollbar'] = {
+            width: thumbSize,
+            height: thumbSize,
+        }
+    }
+    if (thumbColor) {
+        sxr['&::-webkit-scrollbar-thumb'] = {
+            backgroundColor: thumbColor,
+            borderRadius: "6px",
+            opacity: 0.6,
+        }
+        sxr['&::-webkit-scrollbar-thumb:hover'] = {
+            backgroundColor: thumbColor,
+            opacity: 0.0,
+        }
+    }
+
+    if (trackColor) {
+        sxr['&::-webkit-scrollbar-track'] = {
+            backgroundColor: trackColor,
+            borderRadius: "6px",
+        }
+    }
+
     return (
         <Tag
             {...props}
@@ -64,6 +94,7 @@ const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ childr
                 height: "100%",
                 width: "100%",
                 overflow: "auto",
+                ...sxr,
             }}
         >
             {children}
