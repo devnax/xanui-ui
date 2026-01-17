@@ -3,7 +3,6 @@ import Stack from '../../src/Stack'
 import Button from '../../src/Button'
 import Toast from '../../src/Toast'
 import Section from '../Layout/Section'
-import useToast from '../../useToast'
 
 const Toasts = () => {
     const [open, setOpen] = React.useState(false)
@@ -30,15 +29,15 @@ const Toasts = () => {
                         content: "This is another toast message",
                         closeable: true,
                         color: "info",
-                        placement: "top-center"
+                        // placement: "top-center"
                     })
-                    Toast({
-                        title: "New Toast",
-                        content: "This is another toast message",
-                        closeable: true,
-                        color: "warning",
-                        placement: "bottom-left"
-                    })
+                    // Toast({
+                    //     title: "New Toast",
+                    //     content: "This is another toast message",
+                    //     closeable: true,
+                    //     color: "warning",
+                    //     placement: "bottom-left"
+                    // })
                 }}>Toggle</Button>
                 {/* <Button onClick={() => toast.show()}>Open</Button> */}
             </Section>

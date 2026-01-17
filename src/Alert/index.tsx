@@ -120,7 +120,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            p: isRow ? 1 : 0,
+                            p: isRow ? .5 : 0,
                             "& svg": {
                                 color: template.primary.color
                             }
@@ -136,7 +136,6 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                         flexDirection: "column",
                         flex: 1,
                         color: template.primary.color,
-                        py: 1,
                         textAlign: isRow ? "left" : "center",
                         gap: isRow ? 0 : 1
                     }}
@@ -144,11 +143,10 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                     {title && <>
                         {
                             isValidElement(title) ? <Tag className="alert-title">{title}</Tag> : <Text
-                                className="alert-title"
+                                className="alert-titles"
                                 variant="text"
                                 sx={{
-                                    font: "text",
-                                    fontWeight: "bold!important",
+                                    fontWeight: 500,
                                     color: template.primary.color
                                 }}
                             >{title}</Text>

@@ -38,6 +38,7 @@ import Transition from "../ui/Transition"
 import ViewBox from "../ui/ViewBox"
 import ThemeProvider from "../ui/ThemeProvider"
 import Skeleton from "../ui/Skeleton"
+import ContextMenu from "../ui/ContextMenu"
 
 export default [
     { "done": true, "label": "Skeleton", "render": Skeleton },
@@ -51,6 +52,7 @@ export default [
     { "done": true, "label": "CalendarInput", "render": CalendarInput },
     { "done": true, "label": "Checkbox & Radio", "render": Checkbox },
     { "done": true, "label": "Chip", "render": Chip },
+    { "done": true, "label": "ContextMenu", "render": ContextMenu },
     { "done": true, "label": "Progress", "render": Progress },
     { "done": true, "label": "ClickOutside", "render": ClickOutside },
     { "done": true, "label": "Collaps", "render": Collaps },

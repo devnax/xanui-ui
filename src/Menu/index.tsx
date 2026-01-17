@@ -23,7 +23,16 @@ export type MenuProps = {
     target?: HTMLElement;
     placement?: useBreakpointPropsType<PlacementTypes>;
     zIndex?: number;
+
+    variant?: TransitionProps['variant'];
+    duration?: TransitionProps['duration'];
+    onOpen?: TransitionProps['onOpen'];
+    onOpened?: TransitionProps['onOpened'];
+    onClose?: TransitionProps['onClose'];
+    onClosed?: TransitionProps['onClosed'];
+
     onClickOutside?: (e: MouseEvent) => void;
+
     slotProps?: {
         transition?: Omit<TransitionProps, "open">;
         portal?: Omit<PortalProps, "children">;
@@ -139,7 +148,7 @@ const placeMenu = (placement: PlacementTypes, menu: HTMLElement, target: HTMLEle
 };
 
 const Menu = ({ children, target, ...props }: MenuProps) => {
-    let [{ onClickOutside, placement, zIndex, slotProps }] = useInterface<any>("Menu", props, {});
+    let [{ onClickOutside, variant, duration, onOpen, onOpened, onClose, onClosed, placement, zIndex, slotProps }] = useInterface<any>("Menu", props, {});
     const _p: any = {};
     if (placement) _p.placement = placement;
     const p: any = useBreakpointProps(_p);
@@ -195,14 +204,17 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
                 sx={{ position: "fixed", zIndex: 1500 + (zIndex || 0) }}
             >
                 <Transition
-                    duration={200}
+                    duration={duration ?? 200}
                     easing="fast"
-                    variant="grow"
+                    variant={variant ?? "grow"}
                     {...slotProps?.transition}
                     open={isOpen}
+                    onOpen={onOpen}
+                    onOpened={onOpened}
+                    onClose={onClose}
                     onClosed={() => {
                         setClosed(true);
-                        slotProps?.transition?.onClosed?.();
+                        onClosed && onClosed()
                     }}
                 >
                     <Tag

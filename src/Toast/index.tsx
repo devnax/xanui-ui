@@ -1,7 +1,6 @@
 "use client";
 
-import { createRoot } from "react-dom/client";
-import { useAppRootElement, UseColorTemplateColor, UseColorTemplateType, Transition, useBreakpointPropsType } from "@xanui/core";
+import { UseColorTemplateColor, UseColorTemplateType, Transition, useBreakpointPropsType, Renderar } from "@xanui/core";
 import React, { ReactElement } from "react";
 import Alert, { AlertProps } from "../Alert";
 import Scrollbar from "../Scrollbar";
@@ -16,6 +15,9 @@ export type UseToastProps = {
     icon?: useBreakpointPropsType<"info" | "warning" | "success" | "error" | false | ReactElement>;
     placement?: PlacementType;
     closeable?: useBreakpointPropsType<boolean>;
+    autoColose?: boolean;
+    autoColoseDelay?: number;
+    pauseOnHover?: boolean;
 }
 
 
@@ -74,7 +76,17 @@ const formatPacement = (placement: PlacementType) => {
 const ToastView = (props: UseToastProps & { onClosed: () => void }) => {
     const [open, setOpen] = React.useState(true)
     const [timer, setTimer] = React.useState<any>(null)
-    const { placement = "bottom-right", content, closeable, onClosed, ...rest } = props || {}
+    const {
+        placement = "bottom-right",
+        content,
+        closeable,
+        onClosed,
+        autoColose = true,
+        pauseOnHover = true,
+        autoColoseDelay = 6000,
+        ...rest
+    } = props || {}
+
     const { transition } = formatPacement(placement)
 
     return (<Transition
@@ -84,94 +96,107 @@ const ToastView = (props: UseToastProps & { onClosed: () => void }) => {
             onClosed()
         }}
         onOpened={() => {
-            setTimer(setTimeout(() => {
-                setOpen(false)
-            }, 6000))
+            if (autoColose) {
+                setTimer(setTimeout(() => {
+                    setOpen(false)
+                }, autoColoseDelay))
+            }
         }}
     >
         <Alert
-            shadow={2}
             variant="fill"
             color="brand"
             {...rest as any}
             mode="item"
             mb={1}
             onMouseEnter={() => {
-                clearTimeout(timer)
+                (autoColose && pauseOnHover) && clearTimeout(timer)
             }}
             onMouseLeave={() => {
-                setTimer(setTimeout(() => {
-                    setOpen(false)
-                }, 6000))
+                if (autoColose && pauseOnHover) {
+                    setTimer(setTimeout(() => {
+                        setOpen(false)
+                    }, autoColoseDelay))
+                }
             }}
-            onClose={closeable ? () => {
-                setOpen(false)
-            } : undefined}
+            onClose={closeable ? () => setOpen(false) : undefined}
         >{content}</Alert>
     </Transition>)
 }
 
-const Toast = (props?: string | UseToastProps) => {
-    if (typeof props === "string") {
-        props = { content: props }
+const State: Record<PlacementType, UseToastProps[]> = {
+    // "top-left": [],
+    // "top-center": [],
+    // "top-right": [],
+    // "bottom-left": [],
+    // "bottom-center": [],
+    // "bottom-right": []
+} as any
+
+const RenderToasts = () => {
+    let views = []
+
+    for (let placement in State) {
+        const items = (State as any)[placement]
+        const { sx } = formatPacement(placement as any)
+        if (!items.length) continue;
+        views.push(
+            <Scrollbar
+                key={`toast-render-${placement}`}
+                overflow="hidden"
+                p={1}
+                sx={{
+                    position: "fixed",
+                    zIndex: 99999999,
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    flexDirection: "column",
+                    width: 280,
+                    height: "auto",
+                    maxHeight: "100vh",
+                    ...sx
+                }}
+            >
+
+                {items.map((itemprops: UseToastProps, index: number) => {
+                    return (
+                        <ToastView
+                            key={`toast-view-${index}`}
+                            {...itemprops}
+                            onClosed={() => {
+                                let _items = items.splice(index, 1)
+                                if (!_items.length) {
+                                    delete (State as any)[placement]
+                                } else {
+                                    (State as any)[placement] = _items
+                                }
+                                if (!Object.keys(State).length) {
+                                    Renderar.unrender(RenderToasts)
+                                }
+                            }}
+                        />
+                    )
+                })}
+            </Scrollbar >
+        )
     }
-    let { placement = "bottom-right", content, closeable, ...rest } = props || {}
-    const { sx } = formatPacement(placement)
 
-    const wrapperContainerClassName = `xui-toast-container-${placement}`
-    const wrapperClassName = `xui-toast-list-${placement}`
-    let wrapperEle = document.querySelector(`.${wrapperContainerClassName}`) as HTMLElement
-    const appRoot = useAppRootElement()
-    if (!wrapperEle) {
-        wrapperEle = document.createElement('div')
-        wrapperEle.className = wrapperContainerClassName
-        appRoot.appendChild(wrapperEle)
+    return views
+}
 
-        const wrapperRoot = createRoot(wrapperEle);
-        wrapperRoot.render(<Scrollbar
-            p={1}
-            overflow="hidden"
-            className={wrapperClassName}
-            sx={{
-                position: "fixed",
-                zIndex: 99999999,
-                display: "flex",
-                justifyContent: "flex-end",
-                flexDirection: "column",
-                width: 320,
-                height: "auto",
-                maxHeight: "100vh",
-                ...sx
-            }}
-        >
+const Toast = (props?: UseToastProps['content'] | UseToastProps) => {
+    props = React.isValidElement(props) ? { content: props } : props
+    let { placement = "bottom-right" } = (props || {}) as UseToastProps
 
-        </Scrollbar>);
+    if (Object.keys(State).length) {
+        if (!State[placement]) State[placement] = []
+        State[placement].push(props as any)
+        Renderar.updateProps(RenderToasts, {})
+    } else {
+        if (!State[placement]) State[placement] = []
+        State[placement].push(props as any)
+        Renderar.render(RenderToasts)
     }
-
-    setTimeout(() => {
-        const wrapper = document.querySelector(`.${wrapperClassName}`) as HTMLElement;
-        const div = document.createElement('div');
-        wrapper.appendChild(div);
-        const root = createRoot(div);
-
-        root.render(<ToastView
-            placement={placement}
-            content={content}
-            closeable={closeable}
-            {...rest}
-            onClosed={() => {
-                root.unmount();
-                wrapper.removeChild(div);
-                if (wrapper.children.length === 0) {
-                    const container = document.querySelector(`.${wrapperContainerClassName}`) as HTMLElement
-                    if (container) {
-                        appRoot.removeChild(container);
-                    }
-                }
-            }}
-        />);
-    }, 5);
-
 }
 
 export default Toast;
