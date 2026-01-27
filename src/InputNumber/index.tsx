@@ -14,7 +14,8 @@ const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>((props,
    const mergeRef = useMergeRefs(inputRef, ref)
    useEffect(() => {
       if (inputRef.current && props?.onChange) {
-         inputRef.current.value = _val.includes(".") ? parseFloat(_val) : parseInt(_val)
+         let valstr = String(_val)
+         inputRef.current.value = valstr.includes(".") ? parseFloat(_val) : parseInt(_val)
          const syntheticEvent = {
             target: inputRef.current,
             currentTarget: inputRef.current,
