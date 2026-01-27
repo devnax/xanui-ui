@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Stack from '../../src/Stack'
 import Input from '../../src/Input'
 import IconButton from '../../src/IconButton'
+import InputNumber from '../../src/InputNumber'
 import Autocomplete from '../../src/Autocomplete'
 import SendIcon from '@xanui/icons/Send'
 import SearchIcon from '@xanui/icons/Search'
@@ -12,6 +13,7 @@ const Inputs = () => {
     const [v, setV] = useState('')
     const ref = useRef<any>(null);
     const [value, setValue] = useState()
+    const [num, setNum] = useState()
 
     return (
         <Stack gap={2} width={400}>
@@ -60,6 +62,17 @@ const Inputs = () => {
                     onChange={(val) => setValue(val)}
                     renderOption={(option, props) => <ListItem {...props}>{option.label}</ListItem>}
                 />
+            </Section>
+            <Section title="Basic" gap={2}>
+                <InputNumber
+                    ref={ref}
+                    endIcon={<SendIcon />}
+                    placeholder='Write a message...'
+                    name="email"
+                    value={num}
+                    onChange={e => setNum(e.target.value)}
+                />
+
             </Section>
             <Section title="Basic" gap={2}>
                 <Input
