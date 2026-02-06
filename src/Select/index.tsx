@@ -115,7 +115,7 @@ const Select = React.forwardRef(({ onChange, value, children, error, helperText,
                     {...slotProps?.list}
                     color={color}
                     variant={variant === "outline" ? "fill" : variant}
-                    maxHeight={window.innerHeight - 50}
+                    maxHeight={typeof window === "undefined" ? "auto" : window?.innerHeight - 50}
                     overflow={"auto"}
                 >
                     {childs}
