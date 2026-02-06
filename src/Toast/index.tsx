@@ -164,11 +164,11 @@ const RenderToasts = () => {
                             key={`toast-view-${index}`}
                             {...itemprops}
                             onClosed={() => {
-                                let _items = items.splice(index, 1)
-                                if (!_items.length) {
+                                items.splice(index, 1)
+                                if (!items.length) {
                                     delete (State as any)[placement]
                                 } else {
-                                    (State as any)[placement] = _items
+                                    (State as any)[placement] = items
                                 }
                                 if (!Object.keys(State).length) {
                                     Renderar.unrender(RenderToasts)
@@ -187,14 +187,12 @@ const RenderToasts = () => {
 const Toast = (props?: UseToastProps['content'] | UseToastProps) => {
     props = React.isValidElement(props) ? { content: props } : props
     let { placement = "bottom-right" } = (props || {}) as UseToastProps
-
-    if (Object.keys(State).length) {
-        if (!State[placement]) State[placement] = []
-        State[placement].push(props as any)
+    const length = Object.keys(State).length
+    if (!State[placement]) State[placement] = []
+    State[placement].push(props as any)
+    if (length) {
         Renderar.updateProps(RenderToasts, {})
     } else {
-        if (!State[placement]) State[placement] = []
-        State[placement].push(props as any)
         Renderar.render(RenderToasts)
     }
 }
