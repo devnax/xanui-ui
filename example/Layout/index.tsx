@@ -10,6 +10,7 @@ import ListItem from '../../src/ListItem'
 import menu from './menus'
 import CheckIcon from '@xanui/icons/CheckCircle'
 import { AppRoot, createThemeSwitcher } from '@xanui/core';
+import { AuthProvider } from './AuthProvider';
 
 
 const useThemeSwitcher = createThemeSwitcher("light", { store: "local" })
@@ -44,37 +45,39 @@ const Layout = () => {
     }, [])
 
     return (
-        <AppRoot theme={themeSwitcher.name} >
-            <Stack height="100vh" flexRow bgcolor="background.primary">
-                <ViewBox
-                    width={250}
-                    height="100%"
-                    bgcolor="background.secondary"
-                    endContent={<ThemeBox />}
-                >
-                    <Text p={1} variant='text' fontWeight={600} mb={2} color="text.primary">Components</Text>
-                    <List p={1} variant="fill" >
-                        {
-                            menu.map((m, idx) => <ListItem
-                                key={m.label}
-                                // id={`menu-${idx}`}
-                                onClick={() => {
-                                    localStorage.setItem("currentMenuIndex", idx.toString())
-                                    dispatch(Math.random())
-                                }}
-                                selected={currentMenuIndex === idx}
-                                endIcon={<CheckIcon color={m.done ? "success" : "success.soft"} fontSize={20} />}
-                            >
-                                {m.label}
-                            </ListItem>)
-                        }
-                    </List>
-                </ViewBox>
-                <Stack flex={1} height="100%" p={2} overflow="auto">
-                    <Render />
+        <AuthProvider value={{ auth: "nax" }}>
+            <AppRoot theme={themeSwitcher.name} >
+                <Stack height="100vh" flexRow bgcolor="background.primary">
+                    <ViewBox
+                        width={250}
+                        height="100%"
+                        bgcolor="background.secondary"
+                        endContent={<ThemeBox />}
+                    >
+                        <Text p={1} variant='text' fontWeight={600} mb={2} color="text.primary">Components</Text>
+                        <List p={1} variant="fill" >
+                            {
+                                menu.map((m, idx) => <ListItem
+                                    key={m.label}
+                                    // id={`menu-${idx}`}
+                                    onClick={() => {
+                                        localStorage.setItem("currentMenuIndex", idx.toString())
+                                        dispatch(Math.random())
+                                    }}
+                                    selected={currentMenuIndex === idx}
+                                    endIcon={<CheckIcon color={m.done ? "success" : "success.soft"} fontSize={20} />}
+                                >
+                                    {m.label}
+                                </ListItem>)
+                            }
+                        </List>
+                    </ViewBox>
+                    <Stack flex={1} height="100%" p={2} overflow="auto">
+                        <Render />
+                    </Stack>
                 </Stack>
-            </Stack>
-        </AppRoot>
+            </AppRoot>
+        </AuthProvider>
     );
 };
 

@@ -1,55 +1,85 @@
 "use client";
-import { ReactNode, useEffect, useRef } from "react";
-import useModal, { UseModalProps } from "../useModal";
-import { Renderar, Tag } from "@xanui/core";
+import { ReactNode } from "react";
+// import useModal, { UseModalProps } from "../useModal";
+import { Renderar, Tag, TagProps } from "@xanui/core";
+import Layer, { ActionLayerChildren, LayerProps } from "../Layer";
 
-export type ModalProps = UseModalProps & {
+export type ModalProps = Omit<LayerProps, "slotProps"> & {
    children: ReactNode;
-   open: boolean;
+   size?: "xs" | "sm" | "md" | "lg" | "xl" | "full" | number;
+   slotProps?: {
+      layer?: LayerProps['slotProps'];
+      root?: Omit<TagProps<'div'>, "children">
+   }
 }
 
-const Modal = ({ children, open, ...props }: ModalProps) => {
-   const ref = useRef<HTMLDivElement>(null);
 
-   const modal = useModal(<>{children}</>, {
+const Modal = (props: ModalProps) => {
+   let sizes: any = {
+      xs: 420,
+      sm: 760,
+      md: 990,
+      lg: 1120,
+      xl: 1300,
+      full: "100%"
+   }
+   let { children, onOpen, size, slotProps, ...layerProps } = props || {}
+   size = size ?? "xs"
+   slotProps = slotProps || {} as any
+   const root: any = slotProps?.root || {}
+
+   return (
+      <Layer
+         {...layerProps}
+         slotProps={{
+            ...slotProps?.layer,
+            clickOutside: {
+               maxWidth: sizes[size as any] || size,
+               width: "100%",
+               ...slotProps?.layer?.clickOutside,
+            },
+            root: {
+               display: "flex",
+               alignItems: 'center',
+               justifyContent: "center",
+               ...slotProps?.layer?.root,
+            }
+         }}
+      >
+         <Tag
+            {...root}
+            sxr={{
+               maxWidth: sizes[size as any] || size,
+               width: "100%",
+               radius: 2,
+               bgcolor: "background.primary",
+               shadow: 15,
+               ...root?.sx
+            }}
+            baseClass='modal'
+         >
+            {children}
+         </Tag>
+      </Layer>
+   )
+}
+
+Modal.open = (Children: ActionLayerChildren, props?: Omit<ModalProps, 'children' | "open">) => {
+   const InstanceModal = ({ children, ...props }: ModalProps) => <Modal {...props} >{children}</Modal>;
+   const m = Renderar.render(InstanceModal as any, {
+      open: true,
+      children: typeof Children === "function" ? <Children
+         open={() => m.updateProps({ open: true })}
+         close={() => m.updateProps({ open: false })}
+      /> : Children,
       ...props,
       onClickOutside: () => {
          if (props?.onClickOutside) {
             props.onClickOutside()
+         } else {
+            m.updateProps({ open: false })
          }
       },
-      slotProps: {
-         layer: {
-            portal: {
-               container: ref?.current || undefined
-            }
-         }
-      }
-   })
-
-   useEffect(() => {
-      if (open) {
-         modal.open()
-      } else {
-         modal.close()
-      }
-   }, [open])
-   return <Tag ref={ref}></Tag>
-}
-
-const ActionModal = ({ children, ...props }: ModalProps) => {
-   return (
-      <Modal {...props}>
-         {children}
-      </Modal>
-   )
-}
-
-Modal.open = (children: ModalProps['children'], props?: Omit<ModalProps, 'children' | "open">) => {
-   const m = Renderar.render(ActionModal as any, {
-      open: true,
-      ...props,
-      children,
       onClosed: () => {
          m.unrender()
          if (props?.onClosed) {
@@ -68,8 +98,5 @@ Modal.open = (children: ModalProps['children'], props?: Omit<ModalProps, 'childr
    }
 };
 
-Modal.close = () => {
-   Renderar.unrender(ActionModal as any)
-}
 
 export default Modal;

@@ -1,5 +1,5 @@
 "use client";
-import { Tag, TagProps, useBreakpointProps, useColorTemplate, useInterface, useBreakpointPropsType, Renderar, UseColorTemplateType, UseColorTemplateColor } from "@xanui/core"
+import { Tag, TagProps, useBreakpointProps, useColorTemplate, useInterface, useBreakpointPropsType, Renderar, UseColorTemplateType, UseColorTemplateColor, UseTransitionVariantTypes } from "@xanui/core"
 import React, { isValidElement, ReactElement, useEffect, useRef } from "react"
 import Text from "../Text"
 import InfoIcon from '@xanui/icons/Info';
@@ -8,8 +8,31 @@ import SuccessIcon from '@xanui/icons/CheckCircle';
 import ErrorIcon from '@xanui/icons/Cancel';
 import IconClose from '@xanui/icons/Close';
 import IconButton from "../IconButton";
-import useAlert, { UseAlerProps } from "../useAlert";
+import { ModalProps } from "../Modal";
+import { ButtonProps } from "../Button";
+// import useAlert, { UseAlerProps } from "../useAlert";
 
+// export type UseAlerProps = Omit<AlertProps, 'children' | 'onClose' | 'variant' | "size"> & {
+//     content: string | UseAlertContent,
+//     size?: "small" | "medium" | "large" | number;
+//     closeButton?: boolean;
+//     clickOutsideToClose?: boolean;
+//     okButtonText?: string;
+//     cancelButtonText?: string;
+//     hideOkButton?: boolean;
+//     hideCancelButton?: boolean;
+//     buttonPlacement?: "start" | "end" | "between" | "full";
+//     variant?: "text" | "fill"
+//     onConfirm?: () => Promise<void> | void;
+//     onCancel?: () => Promise<void> | void;
+//     transition?: UseTransitionVariantTypes;
+//     blurMode?: UseModalProps['blurMode'];
+//     slotProps?: {
+//         modal?: UseModalProps;
+//         okButton?: Omit<ButtonProps, "children">;
+//         closeButton?: Omit<ButtonProps, "children">;
+//     }
+// }
 
 export type AlertProps = Omit<TagProps<"div">, "content" | "title" | "direction"> & {
     title?: useBreakpointPropsType<string | ReactElement>;
@@ -18,6 +41,26 @@ export type AlertProps = Omit<TagProps<"div">, "content" | "title" | "direction"
     color?: useBreakpointPropsType<UseColorTemplateColor>;
     icon?: useBreakpointPropsType<"info" | "warning" | "success" | "error" | false | ReactElement>;
     onClose?: React.DOMAttributes<"button">['onClick'];
+
+
+    content: string,
+    size?: "small" | "medium" | "large" | number;
+    closeButton?: boolean;
+    clickOutsideToClose?: boolean;
+    okButtonText?: string;
+    cancelButtonText?: string;
+    hideOkButton?: boolean;
+    hideCancelButton?: boolean;
+    buttonPlacement?: "start" | "end" | "between" | "full";
+    onConfirm?: () => Promise<void> | void;
+    onCancel?: () => Promise<void> | void;
+    transition?: UseTransitionVariantTypes;
+    blurMode?: ModalProps['blurMode'];
+    slotProps?: {
+        modal?: ModalProps;
+        okButton?: Omit<ButtonProps, "children">;
+        closeButton?: Omit<ButtonProps, "children">;
+    }
 }
 
 export type AlertMesssageType = string | ReactElement | AlertProps
@@ -165,7 +208,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
     )
 }
 
-const ActionAlert = (props: UseAlerProps) => {
+const ActionAlert = (props: AlerProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const alert = useAlert({
         ...props,
@@ -197,7 +240,7 @@ const ActionAlert = (props: UseAlerProps) => {
     return <Tag ref={ref}></Tag>
 }
 
-Alert.confirm = (props: UseAlerProps) => {
+Alert.confirm = (props: AlerProps) => {
     const a = Renderar.render(ActionAlert as any, {
         open: true,
         ...props,

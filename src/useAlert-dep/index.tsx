@@ -5,6 +5,8 @@ import Button, { ButtonProps } from "../Button";
 import useModal, { UseModalProps } from "../useModal";
 import Alert, { AlertProps } from "../Alert";
 import React from "react";
+
+
 export type UseAlertContentProps = {
     open: () => void;
     close: () => void;

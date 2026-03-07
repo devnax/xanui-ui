@@ -25,6 +25,12 @@ export type LayerProps = {
     }
 }
 
+export type ActionLayerFunctionChildreProps = {
+    open: Function,
+    close: Function
+}
+export type ActionLayerChildren = ReactNode | ((props: ActionLayerFunctionChildreProps) => ReactNode)
+
 const Layer = ({ children, open, ...props }: LayerProps) => {
     let [{
         onClickOutside,
@@ -117,14 +123,17 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
     )
 }
 
-
-Layer.open = (children: LayerProps['children'], props?: Partial<Omit<LayerProps, 'children'>>) => {
-    const l = Renderar.render(Layer as any, {
-        open: true,
+Layer.open = (Children: ActionLayerChildren, props?: Partial<Omit<LayerProps, 'children'>>) => {
+    const InstanceLayer = ({ children, ...props }: LayerProps) => <Layer {...props} >{children}</Layer>;
+    const l = Renderar.render(InstanceLayer as any, {
         ...props,
-        children,
+        open: true,
+        children: typeof Children === "function" ? <Children
+            open={() => l.updateProps({ open: true })}
+            close={() => l.updateProps({ open: false })}
+        /> : Children,
         onClosed: () => {
-            Renderar.unrender(Layer as any)
+            Renderar.unrender(InstanceLayer as any)
             if (props?.onClosed) {
                 props.onClosed()
             }
@@ -139,7 +148,5 @@ Layer.open = (children: LayerProps['children'], props?: Partial<Omit<LayerProps,
         },
     }
 }
-Layer.close = () => {
-    Renderar.unrender(Layer as any)
-}
+
 export default Layer

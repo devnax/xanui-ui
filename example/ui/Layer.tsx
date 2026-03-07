@@ -5,7 +5,7 @@ import Layer from '../../src/Layer'
 import List from '../../src/List'
 import ListItem from '../../src/ListItem'
 import ClickOutside from '../../src/ClickOutside'
-import useLayer from '../../src/useLayer'
+import { AuthForm } from '../Layout/AuthProvider'
 
 const Layers = () => {
     const [open, setOpen] = useState<any>(false)
@@ -32,27 +32,7 @@ const Layers = () => {
         </ClickOutside>
     </Stack>
 
-    const layer = useLayer(<Stack
-        height="100%"
-        alignItems="center"
-        justifyContent="center"
-    >
-        <ClickOutside onClickOutside={() => layer.close()}>
-            <Stack gap={2}>
-                <Button
-                    onClick={(e) => {
-                        layer.close()
-                    }}
-                >Close</Button>
-                <List radius={1} width={180} variant="fill" bgcolor="background.primary" shadow={5}>
-                    <ListItem >Home</ListItem>
-                    <ListItem >About</ListItem>
-                    <ListItem >Services</ListItem>
-                    <ListItem >Contact</ListItem>
-                </List>
-            </Stack>
-        </ClickOutside>
-    </Stack>)
+
 
     return (
         <div>
@@ -63,30 +43,31 @@ const Layers = () => {
             >
                 <Button
                     onClick={(e) => {
-                        layer.open()
+                        setOpen(true)
                     }}
                 >Open</Button>
                 <Button
                     onClick={(e) => {
-                        const l = Layer.open(<Stack
-                            height="100%"
-                            alignItems="center"
-                            justifyContent="center"
-                        >
-                            <Stack gap={2}>
-                                <Button
-                                    onClick={(e) => {
-                                        l.close()
-                                    }}
-                                >Close</Button>
-                                <List radius={1} width={180} variant="fill" bgcolor="background.primary" shadow={5}>
-                                    <ListItem >Home</ListItem>
-                                    <ListItem >About</ListItem>
-                                    <ListItem >Services</ListItem>
-                                    <ListItem >Contact</ListItem>
-                                </List>
-                            </Stack>
-                        </Stack>)
+                        const l = Layer.open(<AuthForm />)
+                        // const l = Layer.open(<Stack
+                        //     height="100%"
+                        //     alignItems="center"
+                        //     justifyContent="center"
+                        // >
+                        //     <Stack gap={2}>
+                        //         <Button
+                        //             onClick={(e) => {
+                        //                 l.close()
+                        //             }}
+                        //         >Close</Button>
+                        //         <List radius={1} width={180} variant="fill" bgcolor="background.primary" shadow={5}>
+                        //             <ListItem >Home</ListItem>
+                        //             <ListItem >About</ListItem>
+                        //             <ListItem >Services</ListItem>
+                        //             <ListItem >Contact</ListItem>
+                        //         </List>
+                        //     </Stack>
+                        // </Stack>)
                     }}
                 >Action Layer</Button>
                 <Layer
