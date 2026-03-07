@@ -1,6 +1,6 @@
 "use client";
 import { Tag, TagProps, useBreakpointProps, useColorTemplate, useInterface, useBreakpointPropsType, Renderar, UseColorTemplateType, UseColorTemplateColor, UseTransitionVariantTypes } from "@xanui/core"
-import React, { isValidElement, ReactElement, useEffect, useRef } from "react"
+import React, { isValidElement, ReactElement } from "react"
 import Text from "../Text"
 import InfoIcon from '@xanui/icons/Info';
 import WarningIcon from '@xanui/icons/Warning';
@@ -8,31 +8,8 @@ import SuccessIcon from '@xanui/icons/CheckCircle';
 import ErrorIcon from '@xanui/icons/Cancel';
 import IconClose from '@xanui/icons/Close';
 import IconButton from "../IconButton";
-import { ModalProps } from "../Modal";
-import { ButtonProps } from "../Button";
-// import useAlert, { UseAlerProps } from "../useAlert";
-
-// export type UseAlerProps = Omit<AlertProps, 'children' | 'onClose' | 'variant' | "size"> & {
-//     content: string | UseAlertContent,
-//     size?: "small" | "medium" | "large" | number;
-//     closeButton?: boolean;
-//     clickOutsideToClose?: boolean;
-//     okButtonText?: string;
-//     cancelButtonText?: string;
-//     hideOkButton?: boolean;
-//     hideCancelButton?: boolean;
-//     buttonPlacement?: "start" | "end" | "between" | "full";
-//     variant?: "text" | "fill"
-//     onConfirm?: () => Promise<void> | void;
-//     onCancel?: () => Promise<void> | void;
-//     transition?: UseTransitionVariantTypes;
-//     blurMode?: UseModalProps['blurMode'];
-//     slotProps?: {
-//         modal?: UseModalProps;
-//         okButton?: Omit<ButtonProps, "children">;
-//         closeButton?: Omit<ButtonProps, "children">;
-//     }
-// }
+import Modal, { ModalProps } from "../Modal";
+import Button, { ButtonProps } from "../Button";
 
 export type AlertProps = Omit<TagProps<"div">, "content" | "title" | "direction"> & {
     title?: useBreakpointPropsType<string | ReactElement>;
@@ -41,26 +18,6 @@ export type AlertProps = Omit<TagProps<"div">, "content" | "title" | "direction"
     color?: useBreakpointPropsType<UseColorTemplateColor>;
     icon?: useBreakpointPropsType<"info" | "warning" | "success" | "error" | false | ReactElement>;
     onClose?: React.DOMAttributes<"button">['onClick'];
-
-
-    content: string,
-    size?: "small" | "medium" | "large" | number;
-    closeButton?: boolean;
-    clickOutsideToClose?: boolean;
-    okButtonText?: string;
-    cancelButtonText?: string;
-    hideOkButton?: boolean;
-    hideCancelButton?: boolean;
-    buttonPlacement?: "start" | "end" | "between" | "full";
-    onConfirm?: () => Promise<void> | void;
-    onCancel?: () => Promise<void> | void;
-    transition?: UseTransitionVariantTypes;
-    blurMode?: ModalProps['blurMode'];
-    slotProps?: {
-        modal?: ModalProps;
-        okButton?: Omit<ButtonProps, "children">;
-        closeButton?: Omit<ButtonProps, "children">;
-    }
 }
 
 export type AlertMesssageType = string | ReactElement | AlertProps
@@ -208,48 +165,195 @@ const Alert = ({ children, ...rest }: AlertProps) => {
     )
 }
 
-const ActionAlert = (props: AlerProps) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const alert = useAlert({
-        ...props,
-        slotProps: {
-            ...props.slotProps,
-            modal: {
-                ...props.slotProps?.modal,
-                slotProps: {
-                    ...props.slotProps?.modal?.slotProps,
-                    layer: {
-                        ...props.slotProps?.modal?.slotProps?.layer,
-                        portal: {
-                            ...props.slotProps?.modal?.slotProps?.layer?.portal,
-                            container: ref.current || undefined
-                        }
-                    }
-                }
-            }
-        }
-    })
-
-    useEffect(() => {
-        if (props.open) {
-            alert.open()
-        } else {
-            alert.close()
-        }
-    }, [props.open])
-    return <Tag ref={ref}></Tag>
+export type ConfirmAlertProps = Omit<AlertProps, 'children' | 'onClose' | 'variant' | "size"> & {
+    open: boolean;
+    loading: boolean;
+    content: string | ReactElement,
+    size?: "small" | "medium" | "large" | number;
+    closeButton?: boolean;
+    clickOutsideToClose?: boolean;
+    okButtonText?: string;
+    cancelButtonText?: string;
+    hideOkButton?: boolean;
+    hideCancelButton?: boolean;
+    buttonPlacement?: "start" | "end" | "between" | "full";
+    variant?: "text" | "fill"
+    onConfirm?: () => Promise<void> | void;
+    onCancel?: () => Promise<void> | void;
+    transition?: UseTransitionVariantTypes;
+    blurMode?: ModalProps['blurMode'];
+    slotProps?: {
+        modal?: Omit<ModalProps, 'open' | "children">;
+        okButton?: Omit<ButtonProps, "children">;
+        closeButton?: Omit<ButtonProps, "children">;
+    }
 }
 
-Alert.confirm = (props: AlerProps) => {
-    const a = Renderar.render(ActionAlert as any, {
-        open: true,
+
+const ConfirmAlert = (props: ConfirmAlertProps) => {
+    let {
+        open,
+        loading,
+        content,
+        size,
+        color,
+        direction,
+        variant,
+        closeButton,
+        clickOutsideToClose,
+        okButtonText,
+        cancelButtonText,
+        hideOkButton,
+        hideCancelButton,
+        buttonPlacement,
+        onConfirm,
+        onCancel,
+        transition,
+        blurMode,
+        slotProps,
+        ...rest
+    } = props
+
+    hideOkButton ??= false
+    hideCancelButton ??= false
+
+    size ??= "small"
+    color ??= 'default'
+    variant ??= "text"
+    direction ??= "column"
+    buttonPlacement ??= "end"
+    let sx: any = {};
+
+    switch (buttonPlacement) {
+        case "start":
+            sx.justifyContent = 'flex-start'
+            break;
+        case "end":
+            sx.justifyContent = 'flex-end'
+            break;
+        case "between":
+            sx.justifyContent = 'space-between'
+            break;
+        case "full":
+            sx = {
+                "& button": {
+                    flex: 1
+                }
+            }
+            break;
+    }
+
+    let sizes: any = {
+        small: 320,
+        medium: 400,
+        large: 600
+    }
+
+    let okcolor = color
+    let closecolor = color
+    if (color === 'default') {
+        okcolor = 'brand'
+        closecolor = 'default'
+        variant = 'text'
+    } else {
+        if (variant === 'fill') {
+            okcolor = 'default'
+            closecolor = 'default'
+        } else {
+            okcolor = color
+            closecolor = 'default'
+        }
+    }
+
+    return (<Modal
+        open={open}
+        {...slotProps?.modal}
+        size={sizes[size] || size}
+        blur={40}
+        blurMode={blurMode || "transparent"}
+        transition={transition || "zoom"}
+        onClickOutside={async () => {
+            if (clickOutsideToClose && !loading) {
+                onCancel && await onCancel()
+            }
+        }}
+    >
+        <Alert
+            direction={direction}
+            sx={{
+                px: 2,
+                py: 1,
+                pt: direction === 'row' ? 1 : 2
+            }}
+            color={color}
+            variant={variant}
+            onClose={closeButton ? close : undefined}
+            {...rest}
+        >
+            {content}
+            <Tag
+                sxr={{
+                    display: "flex",
+                    gap: 1,
+                    pt: 4,
+                    flexDirection: "row",
+                    ...sx,
+                }}
+            >
+                {!hideCancelButton && <Button
+                    disabled={loading}
+                    color={closecolor}
+                    variant="fill"
+                    {...slotProps?.closeButton}
+                    onClick={async () => {
+                        onCancel && await onCancel()
+                    }}
+                >{cancelButtonText || "Close"}</Button>}
+                <Button
+                    loading={loading}
+                    color={okcolor}
+                    variant="fill"
+                    {...slotProps?.okButton}
+
+                    onClick={async () => {
+                        onConfirm && await onConfirm()
+                    }}
+                >{okButtonText || "OK"}</Button>
+            </Tag>
+        </Alert>
+    </Modal>)
+}
+
+
+Alert.confirm = ({ onConfirm, onCancel, ...props }: Omit<ConfirmAlertProps, "open" | "loading">) => {
+    const confirm = Renderar.render(ConfirmAlert as any, {
         ...props,
+        open: true,
+        loading: false,
+        onConfirm: async () => {
+            if (onConfirm) {
+                confirm.updateProps({ loading: true })
+                if (onConfirm) await onConfirm()
+                confirm.updateProps({ open: false, loading: false })
+            } else {
+                confirm.updateProps({ open: false })
+            }
+        },
+        onCancel: async () => {
+            if (onCancel) {
+                confirm.updateProps({ loading: true })
+                await onCancel()
+                confirm.updateProps({ open: false, loading: false })
+            } else {
+                confirm.updateProps({ open: false })
+            }
+        },
         slotProps: {
             ...props.slotProps,
             modal: {
                 ...props.slotProps?.modal,
                 onClosed: () => {
-                    a.unrender()
+                    confirm.unrender()
                     if (props?.slotProps?.modal?.onClosed) {
                         props.slotProps?.modal?.onClosed()
                     }
@@ -257,15 +361,6 @@ Alert.confirm = (props: AlerProps) => {
             }
         },
     })
-
-    return {
-        open: () => {
-            a.updateProps({ open: true })
-        },
-        close: () => {
-            a.updateProps({ open: false })
-        },
-    }
 }
 
 export default Alert

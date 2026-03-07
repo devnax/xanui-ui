@@ -1,5 +1,5 @@
 import Accordion from "../ui/Accordion"
-// import Alert from "../ui/Alert"
+import Alert from "../ui/Alert"
 import Avatar from "../ui/Avatar"
 import Badge from "../ui/Badge"
 import Button from "../ui/Button"
@@ -43,7 +43,7 @@ import ContextMenu from "../ui/ContextMenu"
 export default [
     { "done": true, "label": "Skeleton", "render": Skeleton },
     { "done": true, "label": "Accordion", "render": Accordion },
-    // { "done": true, "label": "Alert", "render": Alert },
+    { "done": true, "label": "Alert", "render": Alert },
     { "done": true, "label": "Avatar", "render": Avatar },
     { "done": true, "label": "Badge", "render": Badge },
     { "done": true, "label": "Button", "render": Button },

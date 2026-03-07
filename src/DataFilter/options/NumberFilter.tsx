@@ -69,7 +69,7 @@ const NumberFilter = ({ option, onChange, value }: Props) => {
             {
                isValue && <InputNumber
                   variant={"outline"}
-                  value={value.toString()}
+                  value={value.toString() as any}
                   onChange={(e: any) => {
                      onChange(e.target.value);
                   }}
