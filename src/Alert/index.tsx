@@ -137,7 +137,8 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                         flex: 1,
                         color: template.primary.color,
                         textAlign: isRow ? "left" : "center",
-                        gap: isRow ? 0 : 1
+                        gap: isRow ? 0 : 1,
+                        width: "100%"
                     }}
                 >
                     {title && <>
