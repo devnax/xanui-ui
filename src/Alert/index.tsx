@@ -327,7 +327,8 @@ const ConfirmAlert = (props: ConfirmAlertProps) => {
 
 
 Alert.confirm = ({ onConfirm, onCancel, ...props }: Omit<ConfirmAlertProps, "open" | "loading">) => {
-    const confirm = Renderar.render(ConfirmAlert as any, {
+    const Inst = (_props: any) => <ConfirmAlert {..._props} />
+    const confirm = Renderar.render(Inst as any, {
         ...props,
         open: true,
         loading: false,
