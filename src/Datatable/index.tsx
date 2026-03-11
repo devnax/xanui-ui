@@ -87,16 +87,9 @@ const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDi
         ...viewBoxProps
     } = _props
 
-    let perpage = 10
+    const userperpage = userState?.pagination?.perpage
+    let perpage = userperpage && perpages.includes(userperpage) ? userperpage : perpages[0]
     let page = userState?.pagination?.page ?? 1
-    if (perpages?.length) {
-        const userperpage = userState?.pagination?.perpage
-        if (userperpage && perpages.includes(userperpage)) {
-            perpage = userperpage
-        } else {
-            perpage = perpages?.length ? perpages[0] : 10
-        }
-    }
     const state = {
         selected: userState?.selected ?? [],
         selectAll: userState?.selectAll ?? false,
