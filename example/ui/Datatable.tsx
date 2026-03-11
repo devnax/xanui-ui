@@ -16,7 +16,13 @@ const rows = [
 ]
 
 const Tb = () => {
-    const [state, setState] = React.useState({})
+    const [state, setState] = React.useState({
+        pagination: {
+            page: 1,
+            perpage: 50,
+            from: 0
+        }
+    })
     const [count, setCount] = React.useState(5);
     return (
         <Stack gap={2}>

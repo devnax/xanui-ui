@@ -87,20 +87,29 @@ const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDi
         ...viewBoxProps
     } = _props
 
-
+    let perpage = 10
+    let page = userState?.pagination?.page ?? 1
+    if (perpages?.length) {
+        const userperpage = userState?.pagination?.perpage
+        if (userperpage && perpages.includes(userperpage)) {
+            perpage = userperpage
+        } else {
+            perpage = perpages?.length ? perpages[0] : 10
+        }
+    }
     const state = {
-        selected: userState?.selected || [],
-        selectAll: userState?.selectAll || false,
+        selected: userState?.selected ?? [],
+        selectAll: userState?.selectAll ?? false,
         pagination: {
-            page: userState?.page || 1,
-            perpage: perpages && perpages.length > 0 ? perpages[0] : 10,
-            from: userState?.from || 1,
-            to: userState?.to || (perpages && perpages.length > 0 ? perpages[0] : 10),
+            page,
+            perpage,
+            from: page ? (perpage * (page - 1)) + 1 : 1,
+            to: page ? perpage * page : perpage,
         },
-        tab: tabs ? (userState?.tab || tabs[0].value || tabs[0].label.toLowerCase()) : "",
-        search: userState?.search || "",
-        sortable: userState?.sortable || {},
-        filters: userState?.filters || {}
+        tab: tabs ? (userState?.tab ?? tabs[0].value ?? tabs[0].label.toLowerCase()) : "",
+        search: userState?.search ?? "",
+        sortable: userState?.sortable ?? {},
+        filters: userState?.filters ?? {}
     }
 
     const update = (s: Partial<DatatableState>) => {
