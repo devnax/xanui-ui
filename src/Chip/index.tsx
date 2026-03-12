@@ -12,11 +12,15 @@ export type ChipProps<T extends TagComponentType = 'div'> = Omit<TagProps<T>, "c
     variant?: useBreakpointPropsType<UseColorTemplateType>;
     corner?: useBreakpointPropsType<UseCornerTypes>;
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
+
+    slotProps?: {
+        label?: Omit<TagProps<"div">, "children">
+    }
 }
 
 
 const Chip = React.forwardRef(<T extends TagComponentType = 'div'>(props: ChipProps<T>, ref: React.Ref<any>) => {
-    let [{ label, variant, startIcon, endIcon, color, corner, size, ...rest }] = useInterface<any>("Chip", props, {})
+    let [{ label, variant, startIcon, endIcon, color, corner, size, slotProps, ...rest }] = useInterface<any>("Chip", props, {})
     const _p: any = {}
     if (label) _p.label = label
     if (startIcon) _p.startIcon = startIcon
@@ -25,6 +29,7 @@ const Chip = React.forwardRef(<T extends TagComponentType = 'div'>(props: ChipPr
     if (variant) _p.variant = variant
     if (corner) _p.corner = corner
     if (size) _p.size = size
+    if (slotProps) _p.slotProps = slotProps
     const p: any = useBreakpointProps(_p)
 
     label = p.label
@@ -34,6 +39,7 @@ const Chip = React.forwardRef(<T extends TagComponentType = 'div'>(props: ChipPr
     variant = p.variant || "fill"
     corner = p.corner || "circle"
     size = p.size || "medium"
+    slotProps = p.slotProps
     rest.sx = (rest as any).sx || {};
 
     const cornerCss = useCorner(corner)
@@ -85,9 +91,12 @@ const Chip = React.forwardRef(<T extends TagComponentType = 'div'>(props: ChipPr
         >
             {startIcon}
             <Tag
+                {...slotProps?.label}
+                baseClass='chip-label'
                 sxr={{
                     alignItems: "center",
-                    flexBox: true
+                    flexBox: true,
+                    color: template.primary.color + "!important"
                 }}
             >{label}</Tag>
             {endIcon}

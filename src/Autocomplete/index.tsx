@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import Input from '../Input'
 import Menu from '../Menu'
 import List from '../List';
@@ -53,15 +53,17 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
    const [inputValue, setInputValue] = React.useState("")
    const [timer, setTimer] = React.useState<any>(null)
    const [loading, setLoading] = React.useState(false)
+   const [focused, setFocused] = React.useState(false)
    const [open, setOpen] = React.useState(false)
    const menuRef = React.useRef<any>(null)
 
    getLabel ??= (option: any) => option.toString();
    multiple ??= false;
 
-   let startIcons = [
-      inputProps.startIcon
-   ]
+   let startIcons = []
+   if (inputProps.startIcon) {
+      startIcons.push(inputProps.startIcon)
+   }
 
    if (!!value && multiple && Array.isArray(value)) {
       value.map((v: any, index: number) => {
@@ -88,29 +90,57 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
       })
    }
 
-   let endIcons = [
-      inputProps.endIcon
-   ]
-
+   let endIcons = []
+   if (inputProps.endIcon) {
+      endIcons.push(inputProps.endIcon)
+   }
    if (loading) {
       endIcons.push(<CircleProgress
          key="auto-complete-loading-icon"
          size="small"
       />)
    } else if (!!value && !multiple) {
-      endIcons.push(<IconButton
+      endIcons.unshift(<IconButton
          key="auto-complete-clear-button"
          variant={"text"}
          color="default"
          onClick={(e) => {
             e.stopPropagation();
-            onChange && onChange(undefined)
+            onChange && onChange(null)
             setInputValue("")
          }}
       >
          <Close />
       </IconButton>)
    }
+
+   const loadOptions = async () => {
+      setLoading(true)
+      let results = []
+      if (typeof options === 'function') {
+         results = await options(inputValue)
+      } else {
+         results = options.filter(option => getLabel!(option).toLowerCase().includes(inputValue.toLowerCase()))
+      }
+      if (!multiple && inputValue) {
+         const find = results.find(option => getLabel!(option).toLowerCase() == inputValue.toLowerCase())
+         onChange && onChange(find || null)
+      }
+      setOptions(results)
+      setOpen(true)
+      setLoading(false)
+   }
+
+   useEffect(() => {
+      if (focused) {
+         clearTimeout(timer)
+         setTimer(setTimeout(() => {
+            loadOptions()
+         }, 300))
+      } else {
+         setOpen(false)
+      }
+   }, [focused, inputValue])
 
 
    return (
@@ -124,14 +154,15 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
                   ...(multiple ? { height: "auto", gap: .5 } : {})
                },
                input: {
-                  width: multiple ? 'auto' : '100%',
+                  width: multiple ? 'initial' : '100%',
                   flex: 1,
                   minWidth: 20,
                }
             }}
-            startIcon={startIcons}
+            startIcon={startIcons.length ? startIcons : undefined}
             endIcon={endIcons}
             value={inputValue}
+            onFocus={() => setFocused(true)}
             onKeyDown={(e) => {
                if (inputProps?.onKeyDown) {
                   inputProps.onKeyDown(e)
@@ -145,32 +176,13 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
             onChange={(e) => {
                const value = e.target.value;
                setInputValue(value)
-               if (!value) {
-                  setOptions([])
-                  setOpen(false)
-                  return;
-               }
-               setOpen(true)
 
-               clearTimeout(timer)
-               setTimer(setTimeout(async () => {
-                  if (typeof options === 'function') {
-                     setLoading(true)
-                     const result = await options(value)
-                     setOptions(result)
-                     setLoading(false)
-                  } else {
-                     const filtered = options.filter(option => getLabel!(option).toLowerCase().includes(value.toLowerCase()))
-                     setOptions(filtered)
-                  }
-               }, 300))
             }}
          />
          <Menu
             target={open ? menuRef.current : null}
             onClickOutside={() => {
-               setOptions([])
-               setInputValue("")
+               setFocused(false)
             }}
             slotProps={{
                content: { minWidth: menuRef.current ? menuRef.current.offsetWidth : 'auto' }
@@ -193,6 +205,7 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
                            }
                            onChange && onChange(newValue)
                         } else {
+                           setFocused(false)
                            onChange && onChange(option)
                            setOpen(false)
                            setInputValue(getLabel!(option))
@@ -202,6 +215,7 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
                   })}</div> : <ListItem
                      key={index}
                      onClick={() => {
+
                         if (multiple) {
                            let newValue = Array.isArray(value) ? [...value] : []
                            const has = newValue.find((v: any) => getLabel!(v) === getLabel!(option))
@@ -212,6 +226,7 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
                            }
                            onChange && onChange(newValue)
                         } else {
+                           setFocused(false)
                            onChange && onChange(option)
                            setOpen(false)
                            setInputValue(getLabel!(option))

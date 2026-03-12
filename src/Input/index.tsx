@@ -230,7 +230,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         },
 
                         ...(!!startIcon && {
-                            "& :first-child": {
+                            "& :first-child:not(.xui-input)": {
                                 height: "100%",
                                 alignItems: 'center',
                                 justifyContent: "center",
@@ -241,7 +241,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         }),
 
                         ...(!!endIcon && {
-                            "& :last-child": {
+                            "& :last-child:not(.xui-input)": {
                                 height: "100%",
                                 alignItems: 'center',
                                 justifyContent: "center",
@@ -254,43 +254,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                     }}
                     disabled={disabled || false}
                 >
-                    {/* {startIcon && <Tag
-                        {...slotProps?.startIcon}
-                        ref={refs?.startIcon}
-                        flex={"0 0 auto"}
-                        sxr={{
-                            height: "100%",
-                            alignItems: 'center',
-                            justifyContent: "center",
-                            display: "flex",
-                            color: error ? "danger.primary" : "text.secondary",
-                        }}
-                        baseClass="input-start-icon"
-                    >{startIcon}</Tag>} */}
                     {startIcon}
-                    {/* <Tag
-                        {...slotProps?.inputContainer}
-                        ref={refs?.inputContainer}
-                        baseClass='input-container'
-                        flex={1}
-                        sxr={{
-                            width: "100%",
-                            display: "flex",
-                            alignItems: "center",
-                            flex: 1,
-                            minHeight: _size.height,
-                            "& textarea": {
-                                resize: "none"
-                            },
-                            "& input:-webkit-autofill,& input:-webkit-autofill:hover, & input:-webkit-autofill:focus,& input:-webkit-autofill:active": {
-                                "-webkit-text-fill-color": "text.primary",
-                                "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.background.secondary : theme.colors.background.primary} inset`,
-                                transition: "background-color 5000s ease-in-out 0s"
-                            } as any
-                        }}
-                    >
-                        
-                    </Tag> */}
                     <Tag
                         {...slotProps?.input}
                         ref={inputMergeRef}
@@ -325,19 +289,6 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         readOnly={readOnly}
                         autoComplete={autoComplete}
                     />
-                    {/* {endIcon && <Tag
-                        {...slotProps?.endIcon}
-                        ref={refs?.endIcon}
-                        flex={"0 0 auto"}
-                        sxr={{
-                            height: "100%",
-                            alignItems: 'center',
-                            justifyContent: "center",
-                            display: 'flex',
-                            color: error ? "danger.primary" : "text.secondary",
-                        }}
-                        baseClass="input-end-icon"
-                    >{endIcon}</Tag>} */}
                     {endIcon}
                 </Tag>
                 {helperText && <Tag

@@ -19,6 +19,7 @@ const Inputs = () => {
         <Stack gap={2} width={400}>
             <Section title="Autocomplete" gap={2}>
                 <Autocomplete
+                    placeholder='Select option'
                     options={async (text: string) => {
                         return new Promise((resolve) => {
                             setTimeout(() => {
@@ -52,14 +53,17 @@ const Inputs = () => {
                                     opts = opts.filter(o => o.label.toLowerCase().includes(text.toLowerCase()))
                                 }
                                 resolve(opts)
-                            }, 1000)
+                            }, 10)
                         })
 
                     }}
-                    multiple
                     getLabel={(option) => option.label}
                     value={value}
-                    onChange={(val) => setValue(val)}
+                    onChange={(val) => {
+                        console.log(val);
+
+                        setValue(val)
+                    }}
                     renderOption={(option, props) => <ListItem {...props}>{option.label}</ListItem>}
                 />
             </Section>
