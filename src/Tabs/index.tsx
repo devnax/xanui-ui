@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, ReactElement, useMemo, cloneElement, useState, Children, useRef } from 'react'
 import { TabProps } from '../Tab'
 import { Tag, TagProps, useBreakpointProps, UseColorTemplateColor, useInterface, useBreakpointPropsType, Transition } from '@xanui/core'

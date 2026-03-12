@@ -1,3 +1,4 @@
+"use client"
 import { Renderar, Tag, TagComponentType } from "@xanui/core"
 import { useEffect, useRef, useState } from "react"
 import Menu, { MenuProps } from "../Menu"

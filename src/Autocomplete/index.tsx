@@ -1,3 +1,4 @@
+"use client"
 import React, { ReactElement, useEffect } from 'react'
 import Input from '../Input'
 import Menu from '../Menu'

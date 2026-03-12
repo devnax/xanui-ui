@@ -1,5 +1,4 @@
 "use client";
-
 import { UseColorTemplateColor, UseColorTemplateType, Transition, useBreakpointPropsType, Renderar } from "@xanui/core";
 import React, { ReactElement } from "react";
 import Alert, { AlertProps } from "../Alert";

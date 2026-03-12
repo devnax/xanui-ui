@@ -1,4 +1,4 @@
-
+"use client"
 export type UseCornerTypes = "square" | "rounded" | "circle"
 const useCorner = (type?: UseCornerTypes): object => {
     switch (type) {

@@ -1,4 +1,4 @@
-
+"use client"
 import React from 'react'
 import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, UseColorTemplateType, UseColorTemplateColor, useBreakpointProps, useBreakpointPropsType } from '@xanui/core'
 import { ListContext } from './ListContext';
