@@ -124,6 +124,7 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
 
    const loadOptions = async () => {
       setLoading(true)
+      setOpen(false)
       let results = []
       if (typeof options === 'function') {
          results = await options(inputValue)
@@ -184,7 +185,6 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
             onChange={(e) => {
                const value = e.target.value;
                setInputValue(value)
-
             }}
          />
          <Menu
