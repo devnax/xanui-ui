@@ -1,6 +1,6 @@
 {
    "name": "@xanui/ui",
-   "version": "1.2.4",
+   "version": "1.2.5",
    "description": "Xanui - A React Component Library",
    "private": false,
    "type": "module",

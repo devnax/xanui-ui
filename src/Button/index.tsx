@@ -24,7 +24,7 @@ export type ButtonProps<T extends TagComponentType = 'button'> = Omit<TagProps<T
 
 
 const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ children, skeleton, ...rest }: ButtonProps<T>, ref: React.Ref<any>) => {
-    let [{ variant, startIcon, endIcon, color, corner, size, loading, direction, slotProps, ..._props }] = useInterface<any>('Button', rest, {
+    let [{ variant, startIcon, endIcon, color, corner, size, loading, direction, slotProps, disabled, ..._props }] = useInterface<any>('Button', rest, {
         variant: "fill",
         color: "brand",
         corner: "rounded",
@@ -126,7 +126,7 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
                 ...template.secondary,
                 ...((_props as any)?.hover || {})
             }}
-            disabled={loading ?? _props.disabled ?? false}
+            disabled={disabled ?? loading ?? false}
             ref={ref}
         >
             {loading && <Tag
