@@ -11,7 +11,7 @@ const Lists = () => {
     return (
         <Stack>
             <Section title="List">
-                <List width={200}>
+                <List width={200} color="default"  >
                     <ListItem
                         startIcon={<HomeIcon />}
                         endIcon={<InfoIcon />}
@@ -19,6 +19,7 @@ const Lists = () => {
                         selected
                     >Home</ListItem>
                     <ListItem
+                        color="red"
                         startIcon={<HomeIcon />}
                         endIcon={<InfoIcon />}
                         subtitle="Administration"

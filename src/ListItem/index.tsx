@@ -1,7 +1,7 @@
 "use client"
 import React, { ReactElement } from 'react'
-import { Tag, TagProps, TagComponentType, useInterface, useBreakpointProps, useBreakpointPropsType } from '@xanui/core'
-import Text from '../Text';
+import { Tag, TagProps, TagComponentType, useInterface, useBreakpointProps, useBreakpointPropsType, useColorTemplate } from '@xanui/core'
+import Text, { TextProps } from '../Text';
 import { useListContext } from '../List/ListContext';
 
 
@@ -11,22 +11,31 @@ export type ListItemProps<T extends TagComponentType = "li"> = TagProps<T> & {
     startIcon?: useBreakpointPropsType<ReactElement>;
     endIcon?: useBreakpointPropsType<ReactElement>;
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
+
+    slotProps?: {
+        content: Omit<TextProps, "children">;
+        startIcon: Omit<TagProps, "children">;
+        endIcon: Omit<TagProps, "children">;
+        subtititle: Omit<TextProps, "children">;
+    }
 }
 
-const ListItem = React.forwardRef(<T extends TagComponentType = "li">({ children, startIcon, endIcon, subtitle, size, ...rest }: ListItemProps<T>, ref: React.Ref<any>) => {
+const ListItem = React.forwardRef(<T extends TagComponentType = "li">({ children, startIcon, endIcon, subtitle, slotProps, ...rest }: ListItemProps<T>, ref: React.Ref<any>) => {
     let [{ selected, ...props }] = useInterface<any>("ListItem", rest, {})
     const _p: any = {}
     if (subtitle) _p.subtitle = subtitle
     if (startIcon) _p.startIcon = startIcon
     if (endIcon) _p.endIcon = endIcon
-    if (size) _p.size = size
     const p: any = useBreakpointProps(_p)
-    const ctx = useListContext()
+    const listProps = useListContext()
+    const template = useColorTemplate(listProps.color, listProps.variant)
+    const defaultTemplate = useColorTemplate("default", "text")
+    const hoverTemplate = useColorTemplate('default', "soft")
 
     subtitle = p.subtitle
     startIcon = p.startIcon
     endIcon = p.endIcon
-    size = p.size ?? ctx?.size ?? "medium"
+    const size = listProps?.size
 
     let sizes: any = {
         small: {
@@ -49,9 +58,30 @@ const ListItem = React.forwardRef(<T extends TagComponentType = "li">({ children
         }
     }
 
+    const hoversx = {
+        ...hoverTemplate.primary,
+        "& .list-item-icon": {
+            color: hoverTemplate.primary.color
+        },
+        "& .list-item-text": {
+            color: hoverTemplate.primary.color
+        },
+        "& .list-item-subtitle": {
+            color: hoverTemplate.primary.color
+        }
+    }
+
+    let sx = {
+        item: selected ? template.primary : defaultTemplate.primary,
+        text: {
+            color: selected ? template.primary.color : defaultTemplate.primary.color
+        }
+    }
+
     return (
         <Tag
             component='li'
+            {...listProps?.listItem}
             {...props}
             sxr={{
                 alignItems: "center",
@@ -62,35 +92,57 @@ const ListItem = React.forwardRef(<T extends TagComponentType = "li">({ children
                 lineHeight: 1.4,
                 whiteSpace: "nowrap",
                 flexShrink: "0",
-                ...sizes[size as any]
+                ...sx.item,
+                ...sizes[size as any],
+                border: 0,
+                "&:hover:not(.list-item-selected)": hoversx
             }}
             baseClass='list-item'
             classNames={[{ "list-item-selected": selected as boolean }, ...(props.classNames || [])]}
             ref={ref}
         >
-            {startIcon && <Tag mr={1} component="span" display="inline-block" className='list-item-icon'>{startIcon as any}</Tag>}
+            {startIcon && <Tag
+                {...slotProps?.startIcon}
+                component="span"
+                baseClass='list-item-icon'
+                sxr={{
+                    ...sx.text,
+                    mr: 1,
+                    display: "inline-block"
+                }}
+            >{startIcon as any}</Tag>}
             <Tag flex={1}>
                 <Text
+                    {...slotProps?.content}
                     variant="text"
                     className='list-item-text'
                     component={typeof children === "string" || typeof children === "number" ? "p" : "div"}
+                    sx={sx.text}
                 >
                     {children}
                 </Text>
                 {
                     subtitle && <Text
+                        {...slotProps?.subtititle}
                         variant="text"
                         fontSize="button"
                         className='list-item-subtitle'
                         component={typeof subtitle === "string" || typeof subtitle === "number" ? "p" : "div"}
+                        sx={sx.text}
                     >{subtitle as any}</Text>
                 }
             </Tag>
-            {endIcon && <Tag ml={1} component="span" display="inline-block" className='list-item-icon'>{endIcon as any}</Tag>}
+            {endIcon && <Tag
+                {...slotProps?.endIcon}
+                component="span"
+                baseClass='list-item-icon'
+                sxr={{
+                    ml: 1,
+                    display: "inline-block"
+                }}
+            >{endIcon as any}</Tag>}
         </Tag>
     )
 })
-
-ListItem.displayName = "ListItem"
 
 export default ListItem

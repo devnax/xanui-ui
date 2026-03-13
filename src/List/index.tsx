@@ -1,16 +1,20 @@
 "use client"
 import React from 'react'
-import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, UseColorTemplateType, UseColorTemplateColor, useBreakpointProps, useBreakpointPropsType } from '@xanui/core'
+import { Tag, TagProps, TagComponentType, useInterface, UseColorTemplateType, UseColorTemplateColor, useBreakpointProps, useBreakpointPropsType } from '@xanui/core'
 import { ListContext } from './ListContext';
+import { ListItemProps } from '../ListItem';
 
 export type ListProps<T extends TagComponentType = "ul"> = Omit<TagProps<T>, 'color' | "size"> & {
     color?: useBreakpointPropsType<UseColorTemplateColor>;
     variant?: Omit<useBreakpointPropsType<UseColorTemplateType>, "outline">;
     size?: useBreakpointPropsType<"small" | "medium" | "large">;
+    slotProps?: {
+        listItem?: Omit<ListItemProps, "children">
+    }
 }
 
 
-const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, ...rest }: ListProps<T>, ref: React.Ref<any>) => {
+const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, slotProps, ...rest }: ListProps<T>, ref: React.Ref<any>) => {
     let [{ sx, color, variant, hoverColor, hoverVariant, size, ...props }] = useInterface<any>("List", rest, {})
     const _p: any = {}
     if (color) _p.color = color
@@ -24,13 +28,8 @@ const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, ..
     variant = p.variant ?? "fill"
     size = p.size ?? "medium"
 
-    const template = useColorTemplate(color, variant)
-    const defaultTemplate = useColorTemplate("default", "text")
-    const hoverTemplate = useColorTemplate('default', "soft")
-
-
     return (
-        <ListContext.Provider value={{ size }}>
+        <ListContext.Provider value={{ color, variant, size, listItem: slotProps?.listItem }}>
             <Tag
                 component='ul'
                 {...props}
@@ -39,54 +38,6 @@ const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, ..
                     listStyle: "none",
                     p: 0,
                     m: 0,
-                    "& .list-item-icon": {
-                        color: "text.secondary"
-                    },
-                    "& .list-item-text": {
-                        color: "text.primary"
-                    },
-                    "& .list-item-subtitle": {
-                        color: "text.secondary"
-                    },
-
-                    "& .xui-list-item": {
-                        ...defaultTemplate.primary,
-                        "& .list-item-icon": {
-                            color: defaultTemplate.primary.color
-                        },
-                        "& .list-item-text": {
-                            color: defaultTemplate.primary.color
-                        },
-                        "& .list-item-subtitle": {
-                            color: hoverColor === 'default' ? "text.secondary" : defaultTemplate.primary.color
-                        },
-
-                    },
-                    "& .xui-list-item:not(.list-item-selected):hover": {
-                        ...hoverTemplate.primary,
-                        "& .list-item-icon": {
-                            color: hoverTemplate.primary.color
-                        },
-                        "& .list-item-text": {
-                            color: hoverTemplate.primary.color
-                        },
-                        "& .list-item-subtitle": {
-                            color: hoverTemplate.primary.color
-                        },
-                    },
-                    "& .xui-list-item.list-item-selected": {
-                        ...template.primary,
-                        "& .list-item-icon": {
-                            color: template.primary.color
-                        },
-                        "& .list-item-text": {
-                            color: template.primary.color
-                        },
-                        "& .list-item-subtitle": {
-                            color: template.primary.color
-                        },
-                        border: "0"
-                    },
                     ...(sx || {} as any)
                 }}
                 ref={ref}
