@@ -58,7 +58,7 @@ const Inputs = () => {
 
                     }}
                     getLabel={(option) => option.label}
-                    value={value}
+                    value={{ label: 'Apple' }}
                     onChange={(val) => {
                         setValue(val)
                     }}

@@ -220,7 +220,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         ..._size,
                         height: multiline ? "auto" : _size.height,
                         minHeight: _size.height,
-                        "& input:-webkit-autofill,& input:-webkit-autofill:hover, & input:-webkit-autofill:focus,& input:-webkit-autofill:active": {
+                        "& > input:-webkit-autofill,& > input:-webkit-autofill:hover, & > input:-webkit-autofill:focus,& > input:-webkit-autofill:active": {
                             "-webkit-text-fill-color": "text.primary",
                             "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.background.secondary : theme.colors.background.primary} inset`,
                             transition: "background-color 5000s ease-in-out 0s"
@@ -230,7 +230,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         },
 
                         ...(!!startIcon && {
-                            "& :first-child:not(.xui-input)": {
+                            "& > :first-child:not(.xui-input)": {
                                 height: "100%",
                                 alignItems: 'center',
                                 justifyContent: "center",
@@ -241,7 +241,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         }),
 
                         ...(!!endIcon && {
-                            "& :last-child:not(.xui-input)": {
+                            "& > :last-child:not(.xui-input)": {
                                 height: "100%",
                                 alignItems: 'center',
                                 justifyContent: "center",

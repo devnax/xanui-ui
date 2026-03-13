@@ -60,7 +60,9 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
    const menuRef = React.useRef<any>(null)
 
    useEffect(() => {
-      setInputValue(value ? getLabel(value) : "")
+      if (!inputValue) {
+         setInputValue(value ? getLabel(value) : "")
+      }
    }, [value])
 
    getLabel ??= (option: any) => option.toString();
