@@ -20,6 +20,7 @@ export type AutocompleteProps = {
    renderOption?: (option: any, props: any) => ReactElement<ListItemProps>
 
    // input props customization
+   disabled?: boolean;
    name?: string;
    placeholder?: string;
    readOnly?: boolean;
@@ -51,12 +52,16 @@ export type AutocompleteProps = {
 
 const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multiple, ...inputProps }: AutocompleteProps) => {
    const [_options, setOptions] = React.useState<any[]>()
-   const [inputValue, setInputValue] = React.useState("")
+   const [inputValue, setInputValue] = React.useState(value ? getLabel(value) : "")
    const [timer, setTimer] = React.useState<any>(null)
    const [loading, setLoading] = React.useState(false)
    const [focused, setFocused] = React.useState(false)
    const [open, setOpen] = React.useState(false)
    const menuRef = React.useRef<any>(null)
+
+   useEffect(() => {
+      setInputValue(value ? getLabel(value) : "")
+   }, [value])
 
    getLabel ??= (option: any) => option.toString();
    multiple ??= false;
@@ -121,10 +126,10 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
       if (typeof options === 'function') {
          results = await options(inputValue)
       } else {
-         results = options.filter(option => getLabel!(option).toLowerCase().includes(inputValue.toLowerCase()))
+         results = options.filter(option => getLabel!(option).toString().toLowerCase().includes(inputValue.toLowerCase()))
       }
       if (!multiple && inputValue) {
-         const find = results.find(option => getLabel!(option).toLowerCase() == inputValue.toLowerCase())
+         const find = results.find(option => getLabel!(option).toString().toLowerCase() === inputValue.toLowerCase())
          onChange && onChange(find || null)
       }
       setOptions(results)
