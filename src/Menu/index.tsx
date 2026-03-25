@@ -86,6 +86,15 @@ const getTransformOrigin = (placement: PlacementTypes) => {
     }
 };
 
+const clampToViewport = (menu: HTMLElement, top: number, left: number) => {
+    const { width, height } = menu.getBoundingClientRect();
+
+    const clampedTop = Math.max(0, Math.min(top, window.innerHeight - height));
+    const clampedLeft = Math.max(0, Math.min(left, window.innerWidth - width));
+
+    return { top: clampedTop, left: clampedLeft };
+};
+
 // Compute coordinates for each placement
 const computePosition = (
     placement: PlacementTypes,
@@ -131,21 +140,55 @@ const isOffScreen = (menu: HTMLElement) => {
 };
 
 // Try to place menu and fallback if off-screen
-const placeMenu = (placement: PlacementTypes, menu: HTMLElement, target: HTMLElement) => {
-    let pos = computePosition(placement, menu, target);
-    menu.style.top = pos.top + "px";
-    menu.style.left = pos.left + "px";
+// const placeMenu = (placement: PlacementTypes, menu: HTMLElement, target: HTMLElement) => {
+//     let pos = computePosition(placement, menu, target);
+//     menu.style.top = pos.top + "px";
+//     menu.style.left = pos.left + "px";
 
+//     if (isOffScreen(menu)) {
+//         for (const p of placements) {
+//             const fallbackPos = computePosition(p, menu, target);
+//             menu.style.top = fallbackPos.top + "px";
+//             menu.style.left = fallbackPos.left + "px";
+//             if (!isOffScreen(menu)) return p;
+//         }
+//     }
+//     return placement;
+// };
+
+const placeMenu = (
+    placement: PlacementTypes,
+    menu: HTMLElement,
+    target: HTMLElement
+) => {
+    let finalPlacement = placement;
+
+    let pos = computePosition(placement, menu, target);
+    let clamped = clampToViewport(menu, pos.top, pos.left);
+
+    menu.style.top = clamped.top + "px";
+    menu.style.left = clamped.left + "px";
+
+    // Try better placements
     if (isOffScreen(menu)) {
         for (const p of placements) {
             const fallbackPos = computePosition(p, menu, target);
-            menu.style.top = fallbackPos.top + "px";
-            menu.style.left = fallbackPos.left + "px";
-            if (!isOffScreen(menu)) return p;
+            const fallbackClamped = clampToViewport(menu, fallbackPos.top, fallbackPos.left);
+
+            menu.style.top = fallbackClamped.top + "px";
+            menu.style.left = fallbackClamped.left + "px";
+
+            if (!isOffScreen(menu)) {
+                finalPlacement = p;
+                break;
+            }
         }
     }
-    return placement;
+
+    return finalPlacement;
 };
+
+
 
 const Menu = ({ children, target, ...props }: MenuProps) => {
     let [{ onClickOutside, variant, duration, onOpen, onOpened, onClose, onClosed, placement, zIndex, slotProps }] = useInterface<any>("Menu", props, {});
@@ -187,7 +230,6 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
         }
         return
     }, [closed, target, placement]);
-
 
     if (closed) return null;
 

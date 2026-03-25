@@ -9,19 +9,19 @@ import List from '../../src/List'
 import ListItem from '../../src/ListItem'
 import menu from './menus'
 import CheckIcon from '@xanui/icons/CheckCircle'
-import { AppRoot, createThemeSwitcher } from '@xanui/core';
+import { AppRoot, createTheme, useTheme } from '@xanui/core';
 import { AuthProvider } from './AuthProvider';
 
-
-const useThemeSwitcher = createThemeSwitcher("light", { store: "local" })
+const lightTheme = createTheme("light", {})
+const darkTheme = createTheme("dark", {}, 'dark')
 
 const ThemeBox = () => {
-    const theme = useThemeSwitcher()
+    const theme = useTheme()
     return (
         <Stack>
             <IconButton
                 onClick={() => {
-                    theme.change(theme.name === 'light' ? 'dark' : 'light')
+                    theme.change(theme.name === 'light' ? darkTheme : lightTheme)
                 }}
             >
                 {theme.name === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
@@ -35,7 +35,7 @@ const Layout = () => {
     const currentMenuIndex = parseInt(localStorage.getItem("currentMenuIndex") || "0")
     const currentMenu = menu[currentMenuIndex]
     const Render: any = currentMenu?.render || (() => <></>)
-    const themeSwitcher = useThemeSwitcher()
+    const [theme, setTheme] = React.useState(darkTheme)
 
     React.useEffect(() => {
         const ele = document.getElementById(`menu-${currentMenuIndex}`)
@@ -46,7 +46,10 @@ const Layout = () => {
 
     return (
         <AuthProvider value={{ auth: "nax" }}>
-            <AppRoot theme={themeSwitcher.name} >
+            <AppRoot
+                theme={theme}
+                onThemeChange={t => setTheme(t)}
+            >
                 <Stack height="100vh" flexRow bgcolor="background.primary">
                     <ViewBox
                         width={250}

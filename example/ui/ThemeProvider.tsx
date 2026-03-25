@@ -3,14 +3,11 @@ import Stack from '../../src/Stack'
 import Lists from './List'
 import Accodiond from './Accordion'
 import Section from '../Layout/Section'
-import { ThemeProvider } from '@xanui/core'
-const E = () => {
-    return (
-        <div>
+import { createTheme, ThemeProvider } from '@xanui/core'
 
-        </div>
-    )
-}
+const lightTheme = createTheme("light", {})
+const darkTheme = createTheme("dark", {}, 'dark')
+
 const ThemeProviders = () => {
     return (
         <Stack
@@ -27,22 +24,22 @@ const ThemeProviders = () => {
             >
                 <Section title="Light Theme">
                     <ThemeProvider
-                        theme="light"
+                        theme={lightTheme}
                         p={1}
                         radius={1}
                     >
                         <Lists />
                     </ThemeProvider>
                 </Section>
-                {/* <Section title="Dark Theme">
+                <Section title="Dark Theme">
                     <ThemeProvider
-                        theme="dark"
+                        theme={darkTheme}
                         p={1}
                         radius={1}
                     >
                         <Lists />
                     </ThemeProvider>
-                </Section> */}
+                </Section>
             </Section>
             {/* 
             <Section

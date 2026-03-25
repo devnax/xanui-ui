@@ -26,7 +26,7 @@ const Portal = ({ children, appendTo, container }: PortalProps) => {
     }, [])
 
     return ReactDOM.createPortal(
-        <ThemeProvider theme={theme.name}>
+        <ThemeProvider theme={theme}>
             {children}
         </ThemeProvider>,
         c,

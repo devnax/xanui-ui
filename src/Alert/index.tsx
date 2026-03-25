@@ -1,5 +1,5 @@
 "use client";
-import { Tag, TagProps, useBreakpointProps, useColorTemplate, useInterface, useBreakpointPropsType, Renderar, UseColorTemplateType, UseColorTemplateColor, UseTransitionVariantTypes } from "@xanui/core"
+import { Tag, TagProps, useBreakpointProps, useColorTemplate, useInterface, useBreakpointPropsType, Renderar, UseColorTemplateType, UseColorTemplateColor, TransitionVariantTypes } from "@xanui/core"
 import React, { isValidElement, ReactElement } from "react"
 import Text from "../Text"
 import InfoIcon from '@xanui/icons/Info';
@@ -181,7 +181,7 @@ export type ConfirmAlertProps = Omit<AlertProps, 'children' | 'onClose' | 'varia
     variant?: "text" | "fill"
     onConfirm?: () => Promise<void> | void;
     onCancel?: () => Promise<void> | void;
-    transition?: UseTransitionVariantTypes;
+    transition?: TransitionVariantTypes;
     blurMode?: ModalProps['blurMode'];
     slotProps?: {
         modal?: Omit<ModalProps, 'open' | "children">;
