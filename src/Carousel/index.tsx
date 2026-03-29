@@ -1,7 +1,7 @@
 import Box from '../Box';
 import Button from '../Button';
 import Stack from '../Stack';
-import { Children, ReactNode, useRef, useState } from 'react'
+import { Children, ReactNode, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 
 type AnimateOptions = {
@@ -53,19 +53,27 @@ export type Props = {
     slidesToShow?: number
 }
 
-const Carousel = ({ children, slidesToShow = 3 }: Props) => {
+const Carousel = ({ children, slidesToShow = 4 }: Props) => {
 
     const childs = Children.toArray(children)
     const [page, setPage] = useState(0)
-    const [animating, setAnimating] = useState(false)
-    const currentIndexes = infinityChunk(page, slidesToShow, childs.length)
-    const prevIndexes = infinityChunk(page - 1, slidesToShow, childs.length)
-    const nextIndexes = infinityChunk(page + 1, slidesToShow, childs.length)
-    const activeIndex = currentIndexes[currentIndexes.length - 1]
     const track = useRef<HTMLElement>(null)
+    const pages = useMemo(() => {
+        const pages: any = []
+        let i = 0
+        while (true) {
+            const page = infinityChunk(i, slidesToShow, childs.length)
+            i++;
+            if (pages.length && pages[0].toString() === page.toString()) {
+                break
+            }
+            pages.push(page)
+        }
+        pages.push(infinityChunk(pages.length, slidesToShow, childs.length))
+        return pages as number[][]
+    }, [childs.length, slidesToShow])
+    console.log(childs.length, pages);
 
-    const [view, setView] = useState(slidesToShow)
-    const translate = (view * 100) / slidesToShow;
 
     return (
         <Box
@@ -82,54 +90,25 @@ const Carousel = ({ children, slidesToShow = 3 }: Props) => {
                 ref={track}
                 sx={{
                     display: "flex",
-                    transition: animating
-                        ? "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)"
-                        : "none",
-                    transform: `translate3d(-${translate}%, 0, 0)`,
                     willChange: "transform"
                 }}
             >
                 {
-                    prevIndexes.map(i => {
-                        return (
-                            <Box
-                                key={`p${i}`}
-                                width={`${100 / slidesToShow}%`}
-                                flexShrink={0}
-                                p={1}
-                            >
-                                {childs[i]}
-                            </Box>
-                        )
-                    })
-                }
-                {
-                    currentIndexes.map(i => {
-                        return (
-                            <Box
-                                key={`c${i}`}
-                                width={`${100 / slidesToShow}%`}
-                                flexShrink={0}
-                                p={1}
-                            >
-                                {childs[i]}
-                            </Box>
-                        )
-                    })
-                }
-                {
-                    nextIndexes.map(i => {
-                        return (
-                            <Box
-                                key={`n${i}`}
-                                width={`${100 / slidesToShow}%`}
-                                flexShrink={0}
-                                p={1}
-                            >
-                                {childs[i]}
-                            </Box>
-                        )
-                    })
+                    pages.map(((items) => {
+                        return items.map((i, idx) => {
+                            return (
+                                <Box
+                                    key={`n${idx}${i}`}
+                                    width={`${100 / slidesToShow}%`}
+                                    flexShrink={0}
+                                    p={1}
+                                    data-index={i}
+                                >
+                                    {childs[i]}
+                                </Box>
+                            )
+                        })
+                    }))
                 }
             </Stack>
             <Stack
@@ -139,29 +118,53 @@ const Carousel = ({ children, slidesToShow = 3 }: Props) => {
             >
                 <Button
                     onClick={() => {
-                        if (animating) return
-                        setAnimating(true)
-                        setView(0)
-                        if (track.current) {
-                            track.current.ontransitionend = () => {
-                                setAnimating(false)
-                                setView(slidesToShow)
-                                setPage(page - 1)
-                            }
+                        const ele = track.current as HTMLElement
+                        if (page <= 0) {
+                            const nextpage = pages.length - 1
+                            setPage(nextpage)
+                            ele.style.transform = `translate3d(-${nextpage * 100}%, 0, 0)`
+                            ele.style.transition = `none`
+
+                            requestAnimationFrame(() => {
+                                const _nextpage = nextpage - 1
+                                const translate = (_nextpage * 100)
+                                setPage(_nextpage)
+                                ele.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
+                                ele.style.transform = `translate3d(-${translate}%, 0, 0)`
+                            })
+                        } else {
+
+                            const nextpage = page - 1
+                            const translate = (nextpage * 100)
+                            setPage(nextpage)
+                            ele.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
+                            ele.style.transform = `translate3d(-${translate}%, 0, 0)`
                         }
                     }}
                 >Prev</Button>
                 <Button
                     onClick={() => {
                         const ele = track.current as HTMLElement
-                        ele.ontransitionend = () => {
-                            setAnimating(false)
-                            setView(slidesToShow)
-                            setPage(page + 1)
+                        if (page >= pages.length - 1) {
+                            setPage(0)
+                            ele.style.transform = `translate3d(-${0 * 100}%, 0, 0)`
+                            ele.style.transition = `none`
+                            requestAnimationFrame(() => {
+                                const nextpage = 1
+                                const translate = (nextpage * 100)
+                                setPage(nextpage)
+                                ele.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
+                                ele.style.transform = `translate3d(-${translate}%, 0, 0)`
+                            })
+                        } else {
+
+                            const nextpage = page + 1
+                            const translate = (nextpage * 100)
+                            setPage(nextpage)
+                            ele.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
+                            ele.style.transform = `translate3d(-${translate}%, 0, 0)`
                         }
 
-                        setAnimating(true)
-                        setView(slidesToShow * 2)
                     }}
                 >Next</Button>
             </Stack>
