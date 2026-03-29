@@ -9,16 +9,17 @@ type AnimateOptions = {
     to: number;
     duration: number;
     onUpdate: Function
+    onDone: Function
 }
-const animate = ({ from, to, duration = 400, onUpdate, onDone }) => {
+
+const animate = ({ from, to, duration = 400, onUpdate, onDone }: AnimateOptions) => {
     const start = performance.now();
 
-    const frame = (now) => {
+    const frame = (now: number) => {
         const progress = Math.min((now - start) / duration, 1);
 
         // ease-out cubic (same feel as your bezier)
         const eased = 1 - Math.pow(1 - progress, 3);
-
         const value = from + (to - from) * eased;
 
         onUpdate(value);
@@ -152,16 +153,15 @@ const Carousel = ({ children, slidesToShow = 3 }: Props) => {
                 >Prev</Button>
                 <Button
                     onClick={() => {
-                        if (animating) return
+                        const ele = track.current as HTMLElement
+                        ele.ontransitionend = () => {
+                            setAnimating(false)
+                            setView(slidesToShow)
+                            setPage(page + 1)
+                        }
+
                         setAnimating(true)
                         setView(slidesToShow * 2)
-                        if (track.current) {
-                            track.current.ontransitionend = () => {
-                                setAnimating(false)
-                                setView(slidesToShow)
-                                setPage(page + 1)
-                            }
-                        }
                     }}
                 >Next</Button>
             </Stack>

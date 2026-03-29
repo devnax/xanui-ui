@@ -61,12 +61,114 @@ const dummyImages = [
 ];
 
 
+import { useEffect } from "react"
+
+function CarouselC() {
+    const containerRef = useRef(null)
+    const slidesRef = useRef([])
+
+    const state = useRef({
+        current: 0,
+        target: 0,
+        velocity: 0,
+        slideWidth: 0,
+        totalWidth: 0,
+        slidesToShow: 3,
+    })
+
+    const slides = ["A", "B", "C", "D", "E", "F"]
+
+    // setup
+    useEffect(() => {
+        const container = containerRef.current
+        const slideWidth = container.offsetWidth / state.current.slidesToShow
+
+        state.current.slideWidth = slideWidth
+        state.current.totalWidth = slideWidth * slides.length
+
+        animate()
+    }, [])
+
+    // animation loop (like Embla)
+    const animate = () => {
+        const s = state.current
+
+        // smooth physics
+        s.current += (s.target - s.current) * 0.1
+
+        slidesRef.current.forEach((slide, i) => {
+            let x = i * s.slideWidth - s.current
+
+            // 🔁 infinite loop reposition
+            if (x < -s.totalWidth / 2) x += s.totalWidth
+            if (x > s.totalWidth / 2) x -= s.totalWidth
+
+            slide.style.transform = `translate3d(${x}px,0,0)`
+        })
+
+        // requestAnimationFrame(animate)
+    }
+
+
+    // controls
+    const next = () => {
+        state.current.target += state.current.slideWidth
+    }
+
+    const prev = () => {
+        state.current.target -= state.current.slideWidth
+    }
+
+    return (
+        <div style={{ width: "600px", margin: "50px auto" }}>
+            <div
+                ref={containerRef}
+                style={{
+                    overflow: "hidden",
+                    position: "relative",
+                    height: "150px",
+                    border: "1px solid #ccc",
+                }}
+            >
+                {slides.map((item, i) => (
+                    <div
+                        key={i}
+                        ref={(el) => (slidesRef.current[i] = el)}
+                        style={{
+                            position: "absolute",
+                            width: `${100 / state.current.slidesToShow}%`,
+                            height: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "#eee",
+                            border: "1px solid #ddd",
+                            willChange: "transform",
+                            color: "#333",
+                        }}
+                    >
+                        {item}
+                    </div>
+                ))}
+            </div>
+
+            <div style={{ marginTop: 20 }}>
+                <button onClick={prev}>Prev</button>
+                <button onClick={next} style={{ marginLeft: 10 }}>
+                    Next
+                </button>
+            </div>
+        </div>
+    )
+}
+
 
 const Carousels = () => {
     const ref = useRef<any>(null)
     return (
         <Stack
         >
+            <CarouselC />
             <Section
                 title="Basic"
                 flexRow
@@ -77,7 +179,6 @@ const Carousels = () => {
                         dummyImages.map((img, i) => (
                             <Box
                                 key={img.id}
-                                height={300}
                                 width={"100%"}
                                 overflow={"hidden"}
                                 radius={2}
@@ -92,7 +193,7 @@ const Carousels = () => {
                 </Carousel>
 
             </Section>
-            <Button
+            {/* <Button
                 onClick={() => {
                     ref.current?.next()
                 }}
@@ -101,7 +202,7 @@ const Carousels = () => {
                 onClick={() => {
                     ref.current?.prev()
                 }}
-            >prev</Button>
+            >prev</Button> */}
         </Stack>
     )
 }

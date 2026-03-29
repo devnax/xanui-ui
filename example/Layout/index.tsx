@@ -51,7 +51,7 @@ const Layout = () => {
                 onThemeChange={t => setTheme(t)}
             >
                 <Stack height="100vh" flexRow bgcolor="background.primary">
-                    <ViewBox
+                    {/* <ViewBox
                         width={250}
                         height="100%"
                         bgcolor="background.secondary"
@@ -74,7 +74,7 @@ const Layout = () => {
                                 </ListItem>)
                             }
                         </List>
-                    </ViewBox>
+                    </ViewBox> */}
                     <Stack flex={1} height="100%" p={2} overflow="auto">
                         <Render />
                     </Stack>
