@@ -13,13 +13,13 @@ export type LayerProps = {
     blur?: useBreakpointPropsType<number>
     blurMode?: useBreakpointPropsType<"blur" | "transparent">
     onClickOutside?: () => void;
-    onOpen?: Function;
-    onOpened?: Function;
-    onClose?: Function;
-    onClosed?: Function;
+    onEnter?: TransitionProps["onEnter"];
+    onEntered?: TransitionProps['onEntered'];
+    onExit?: TransitionProps['onExit'];
+    onExited?: TransitionProps['onExited'];
     slotProps?: {
         root?: Omit<TagProps<"div">, "children">;
-        transition?: Omit<TransitionProps, "children" | "open" | "variant" | "onClose" | "onClosed" | "onOpen" | "onOpened">;
+        transition?: Omit<TransitionProps, "children" | "open" | "variant" | "onExit" | "onExited" | "onEnter" | "onEntered">;
         content?: Omit<TagProps<"div">, "children">;
         clickOutside?: Omit<ClickOutsideProps, "children" | "onClickOutside">;
     }
@@ -39,10 +39,10 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
         zIndex,
         blur,
         blurMode,
-        onOpen,
-        onOpened,
-        onClose,
-        onClosed,
+        onEnter,
+        onEntered,
+        onExit,
+        onExited,
         slotProps
     }] = useInterface<any>("Layer", props, {})
 
@@ -54,17 +54,17 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
     blur = p.blur
     blurMode = p.blurMode
 
-    const [closed, setClosed] = useState(!open)
+    const [exited, setExited] = useState(!open)
     placement = placement || "bottom-left"
     const blurCss = blur ? useBlurCss(blur, blurMode) : {}
 
     useEffect(() => {
-        if (closed && open) {
-            setClosed(false)
+        if (exited && open) {
+            setExited(false)
         }
     }, [open])
 
-    if (closed) return <></>
+    if (exited) return <></>
     let duration = slotProps?.transition?.duration || 300
     let delay = slotProps?.transition?.delay || 0
 
@@ -75,12 +75,12 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
         variant={transition || "zoomOver"}
         {...slotProps?.transition}
         open={open}
-        onOpen={onOpen}
-        onOpened={onOpened}
-        onClose={onClose}
-        onClosed={() => {
-            setClosed(true)
-            onClosed && onClosed()
+        onEnter={onEnter}
+        onEntered={onEntered}
+        onExit={onExit}
+        onExited={() => {
+            setExited(true)
+            onExited && onExited()
         }}
     >
         {children}
@@ -132,10 +132,10 @@ Layer.open = (Children: ActionLayerChildren, props?: Partial<Omit<LayerProps, 'c
             open={() => l.updateProps({ open: true })}
             close={() => l.updateProps({ open: false })}
         /> : Children,
-        onClosed: () => {
+        onExited: () => {
             Renderar.unrender(InstanceLayer as any)
-            if (props?.onClosed) {
-                props.onClosed()
+            if (props?.onExited) {
+                props.onExited()
             }
         }
     })

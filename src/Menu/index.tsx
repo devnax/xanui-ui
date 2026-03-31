@@ -26,10 +26,10 @@ export type MenuProps = {
 
     variant?: TransitionProps['variant'];
     duration?: TransitionProps['duration'];
-    onOpen?: TransitionProps['onOpen'];
-    onOpened?: TransitionProps['onOpened'];
-    onClose?: TransitionProps['onClose'];
-    onClosed?: TransitionProps['onClosed'];
+    onEnter?: TransitionProps['onEnter'];
+    onEntered?: TransitionProps['onEntered'];
+    onExit?: TransitionProps['onExit'];
+    onExited?: TransitionProps['onExited'];
 
     onClickOutside?: (e: MouseEvent) => void;
 
@@ -191,7 +191,7 @@ const placeMenu = (
 
 
 const Menu = ({ children, target, ...props }: MenuProps) => {
-    let [{ onClickOutside, variant, duration, onOpen, onOpened, onClose, onClosed, placement, zIndex, slotProps }] = useInterface<any>("Menu", props, {});
+    let [{ onClickOutside, variant, duration, onEnter, onEntered, onExit, onExited, placement, zIndex, slotProps }] = useInterface<any>("Menu", props, {});
     const _p: any = {};
     if (placement) _p.placement = placement;
     const p: any = useBreakpointProps(_p);
@@ -251,12 +251,12 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
                     variant={variant ?? "grow"}
                     {...slotProps?.transition}
                     open={isOpen}
-                    onOpen={onOpen}
-                    onOpened={onOpened}
-                    onClose={onClose}
-                    onClosed={() => {
+                    onEnter={onEnter}
+                    onEntered={onEntered}
+                    onExit={onExit}
+                    onExited={() => {
                         setClosed(true);
-                        onClosed && onClosed()
+                        onExited && onExited()
                     }}
                 >
                     <Tag

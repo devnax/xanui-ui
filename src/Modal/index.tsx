@@ -23,7 +23,7 @@ const Modal = (props: ModalProps) => {
       xl: 1300,
       full: "100%"
    }
-   let { children, onOpen, size, slotProps, ...layerProps } = props || {}
+   let { children, onEnter, size, slotProps, ...layerProps } = props || {}
    size = size ?? "xs"
    slotProps = slotProps || {} as any
    const root: any = slotProps?.root || {}
@@ -80,10 +80,10 @@ Modal.open = (Children: ActionLayerChildren, props?: Omit<ModalProps, 'children'
             m.updateProps({ open: false })
          }
       },
-      onClosed: () => {
+      onExited: () => {
          m.unrender()
-         if (props?.onClosed) {
-            props.onClosed()
+         if (props?.onExited) {
+            props.onExited()
          }
       }
    })

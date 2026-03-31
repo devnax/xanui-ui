@@ -14,10 +14,10 @@ const Collaps = React.forwardRef(<T extends TagComponentType = "div">({ children
         delay,
         onStart,
         onFinish,
-        onOpen,
-        onOpened,
-        onClose,
-        onClosed,
+        onEnter,
+        onEntered,
+        onExit,
+        onExited,
         ...rest
     }] = useInterface<any>("Collaps", props, {})
 
@@ -33,12 +33,12 @@ const Collaps = React.forwardRef(<T extends TagComponentType = "div">({ children
                 delay,
                 onStart,
                 onFinish,
-                onOpen,
-                onOpened,
-                onClose,
-                onClosed
+                onEnter,
+                onEntered,
+                onExit,
+                onExited
             }}
-            disableInitialTransition
+            initialTransition={false}
             variant="collapseVertical"
             open={open}
         >

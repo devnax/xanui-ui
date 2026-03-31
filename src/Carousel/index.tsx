@@ -4,36 +4,6 @@ import Stack from '../Stack';
 import { Children, ReactNode, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 
-type AnimateOptions = {
-    from: number;
-    to: number;
-    duration: number;
-    onUpdate: Function
-    onDone: Function
-}
-
-const animate = ({ from, to, duration = 400, onUpdate, onDone }: AnimateOptions) => {
-    const start = performance.now();
-
-    const frame = (now: number) => {
-        const progress = Math.min((now - start) / duration, 1);
-
-        // ease-out cubic (same feel as your bezier)
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const value = from + (to - from) * eased;
-
-        onUpdate(value);
-
-        if (progress < 1) {
-            requestAnimationFrame(frame);
-        } else {
-            onDone?.();
-        }
-    };
-
-    requestAnimationFrame(frame);
-};
-
 const infinityChunk = (page: number, perpage: number, total: number) => {
     if (total <= 0 || perpage <= 0) return [];
 

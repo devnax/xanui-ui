@@ -72,14 +72,14 @@ const formatPacement = (placement: PlacementType) => {
     return { sx, transition }
 }
 
-const ToastView = (props: UseToastProps & { onClosed: () => void }) => {
+const ToastView = (props: UseToastProps & { onExited: () => void }) => {
     const [open, setOpen] = React.useState(true)
     const [timer, setTimer] = React.useState<any>(null)
     const {
         placement = "bottom-right",
         content,
         closeable,
-        onClosed,
+        onExited,
         autoColose = true,
         pauseOnHover = true,
         autoColoseDelay = 6000,
@@ -91,10 +91,10 @@ const ToastView = (props: UseToastProps & { onClosed: () => void }) => {
     return (<Transition
         open={open}
         variant={transition}
-        onClosed={() => {
-            onClosed()
+        onExited={() => {
+            onExited()
         }}
-        onOpened={() => {
+        onEntered={() => {
             if (autoColose) {
                 setTimer(setTimeout(() => {
                     setOpen(false)
@@ -162,7 +162,7 @@ const RenderToasts = () => {
                         <ToastView
                             key={`toast-view-${index}`}
                             {...itemprops}
-                            onClosed={() => {
+                            onExited={() => {
                                 items.splice(index, 1)
                                 if (!items.length) {
                                     delete (State as any)[placement]
