@@ -48,32 +48,49 @@ const infinityChunk = (page: number, perpage: number, total: number) => {
     return result;
 };
 
+const infinityChunks = (
+    page: number,
+    slidesToShow: number,
+    slidesToScroll: number,
+    total: number
+) => {
+    if (total <= 0 || slidesToShow <= 0 || slidesToScroll <= 0) return [];
+
+    const result: number[] = [];
+
+    let start = (page * slidesToScroll) % total;
+    if (start < 0) start += total;
+
+    for (let i = 0; i < slidesToShow; i++) {
+        result.push((start + i) % total);
+    }
+
+    return result;
+};
+
 export type Props = {
     children: ReactNode;
     slidesToShow?: number
+    slidesToScroll?: number
 }
 
-const Carousel = ({ children, slidesToShow = 4 }: Props) => {
+const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 4 }: Props) => {
 
     const childs = Children.toArray(children)
+    const total = childs.length
+    const [index, setIndex] = useState(0)
     const [page, setPage] = useState(0)
     const track = useRef<HTMLElement>(null)
-    const pages = useMemo(() => {
-        const pages: any = []
-        let i = 0
-        while (true) {
-            const page = infinityChunk(i, slidesToShow, childs.length)
-            i++;
-            if (pages.length && pages[0].toString() === page.toString()) {
-                break
-            }
-            pages.push(page)
-        }
-        pages.push(infinityChunk(pages.length, slidesToShow, childs.length))
-        return pages as number[][]
-    }, [childs.length, slidesToShow])
-    console.log(childs.length, pages);
 
+    const goto = (index: number) => {
+        const slideWidth = 100 / slidesToShow
+        const translate = slideWidth * index
+
+        const el = track.current as HTMLElement
+
+        el.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
+        el.style.transform = `translate3d(-${translate}%, 0, 0)`
+    }
 
     return (
         <Box
@@ -94,20 +111,18 @@ const Carousel = ({ children, slidesToShow = 4 }: Props) => {
                 }}
             >
                 {
-                    pages.map(((items) => {
-                        return items.map((i, idx) => {
-                            return (
-                                <Box
-                                    key={`n${idx}${i}`}
-                                    width={`${100 / slidesToShow}%`}
-                                    flexShrink={0}
-                                    p={1}
-                                    data-index={i}
-                                >
-                                    {childs[i]}
-                                </Box>
-                            )
-                        })
+                    childs.map(((child, i) => {
+                        return (
+                            <Box
+                                key={`n${i}`}
+                                width={`${100 / slidesToShow}%`}
+                                flexShrink={0}
+                                p={1}
+                                data-index={i}
+                            >
+                                {child}
+                            </Box>
+                        )
                     }))
                 }
             </Stack>
@@ -118,53 +133,40 @@ const Carousel = ({ children, slidesToShow = 4 }: Props) => {
             >
                 <Button
                     onClick={() => {
-                        const ele = track.current as HTMLElement
-                        if (page <= 0) {
-                            const nextpage = pages.length - 1
-                            setPage(nextpage)
-                            ele.style.transform = `translate3d(-${nextpage * 100}%, 0, 0)`
-                            ele.style.transition = `none`
+                        const nextPage = page - 1
 
-                            requestAnimationFrame(() => {
-                                const _nextpage = nextpage - 1
-                                const translate = (_nextpage * 100)
-                                setPage(_nextpage)
-                                ele.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
-                                ele.style.transform = `translate3d(-${translate}%, 0, 0)`
-                            })
-                        } else {
-
-                            const nextpage = page - 1
-                            const translate = (nextpage * 100)
-                            setPage(nextpage)
-                            ele.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
-                            ele.style.transform = `translate3d(-${translate}%, 0, 0)`
-                        }
+                        const c = infinityChunks(nextPage, slidesToShow, slidesToScroll, total)
+                        setPage(nextPage)
+                        console.log(c);
                     }}
                 >Prev</Button>
                 <Button
                     onClick={() => {
-                        const ele = track.current as HTMLElement
-                        if (page >= pages.length - 1) {
-                            setPage(0)
-                            ele.style.transform = `translate3d(-${0 * 100}%, 0, 0)`
-                            ele.style.transition = `none`
-                            requestAnimationFrame(() => {
-                                const nextpage = 1
-                                const translate = (nextpage * 100)
-                                setPage(nextpage)
-                                ele.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
-                                ele.style.transform = `translate3d(-${translate}%, 0, 0)`
-                            })
-                        } else {
+                        const nextPage = page + 1
 
-                            const nextpage = page + 1
-                            const translate = (nextpage * 100)
-                            setPage(nextpage)
-                            ele.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
-                            ele.style.transform = `translate3d(-${translate}%, 0, 0)`
+                        const c = infinityChunks(nextPage, slidesToShow, slidesToScroll, total)
+                        setPage(nextPage)
+                        console.log(c);
+
+                        return
+                        const nextIndexes = infinityChunk(nextPage, slidesToScroll, total)
+                        const nextIndex = (nextIndexes.length + slidesToShow) - slidesToScroll
+                        setIndex(nextIndex)
+                        console.log(nextIndexes);
+
+
+                        if (nextIndex + slidesToShow >= total) {
+                            console.log(nextIndex);
+
                         }
 
+
+                        const ele = track.current as HTMLElement
+                        const slideWidth = 100 / slidesToShow;
+                        const translate = nextIndex * slideWidth;
+
+                        ele.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
+                        ele.style.transform = `translate3d(-${translate}%, 0, 0)`
                     }}
                 >Next</Button>
             </Stack>

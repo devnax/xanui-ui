@@ -21,8 +21,8 @@ const dummyImages = [
         url: "https://picsum.photos/id/1018/600/400",
     },
     {
-        id: 1018,
-        url: "https://picsum.photos/id/1018/600/400",
+        id: 1020,
+        url: "https://picsum.photos/id/1020/600/400",
     },
     {
         id: 1025,
@@ -84,17 +84,18 @@ const Carousels = () => {
                         ))
                     }
                 </Carousel>
-                <Button
-                    onClick={() => {
-                        const last = childs[childs.length - 1]
-                        setChilds(p => [...p, {
-                            id: last.id + 1,
-                            url: `https://picsum.photos/id/${last.id + 1}/600/400`,
 
-                        }])
-                    }}
-                >Add</Button>
             </Section>
+            <Button
+                onClick={() => {
+                    const last = childs[childs.length - 1]
+                    setChilds(p => [...p, {
+                        id: last.id + 1,
+                        url: `https://picsum.photos/id/${last.id + 1}/600/400`,
+
+                    }])
+                }}
+            >Add</Button>
             {/* <Button
                 onClick={() => {
                     ref.current?.next()
