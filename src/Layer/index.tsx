@@ -4,6 +4,7 @@ import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType, useInterface
 import useBlurCss from '../useBlurCss';
 import { Renderar } from "@xanui/core";
 import ClickOutside, { ClickOutsideProps } from '../ClickOutside';
+// import Transition from '../Transition';
 
 export type LayerProps = {
     open: boolean;
@@ -64,7 +65,7 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
         }
     }, [open])
 
-    if (exited) return <></>
+    // if (exited) return <></>
     let duration = slotProps?.transition?.duration || 300
     let delay = slotProps?.transition?.delay || 0
 
@@ -93,6 +94,7 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
             easing="smooth"
             variant={"fade"}
             open={open}
+            exitOnUnmount
         >
             <Tag
                 baseClass="layer"

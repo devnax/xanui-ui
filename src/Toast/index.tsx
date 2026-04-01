@@ -1,6 +1,6 @@
 "use client";
 import { UseColorTemplateColor, UseColorTemplateType, Transition, useBreakpointPropsType, Renderar } from "@xanui/core";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import Alert, { AlertProps } from "../Alert";
 import Scrollbar from "../Scrollbar";
 
@@ -72,7 +72,7 @@ const formatPacement = (placement: PlacementType) => {
     return { sx, transition }
 }
 
-const ToastView = (props: UseToastProps & { onExited: () => void }) => {
+const ToastView = (props: UseToastProps & { tid: string, onExited: (tid: string) => void }) => {
     const [open, setOpen] = React.useState(true)
     const [timer, setTimer] = React.useState<any>(null)
     const {
@@ -83,6 +83,7 @@ const ToastView = (props: UseToastProps & { onExited: () => void }) => {
         autoColose = true,
         pauseOnHover = true,
         autoColoseDelay = 6000,
+        tid,
         ...rest
     } = props || {}
 
@@ -92,7 +93,7 @@ const ToastView = (props: UseToastProps & { onExited: () => void }) => {
         open={open}
         variant={transition}
         onExited={() => {
-            onExited()
+            onExited(tid)
         }}
         onEntered={() => {
             if (autoColose) {
@@ -106,7 +107,7 @@ const ToastView = (props: UseToastProps & { onExited: () => void }) => {
             variant="fill"
             color="brand"
             {...rest as any}
-            mode="item"
+            direction={"row"}
             mb={1}
             onMouseEnter={() => {
                 (autoColose && pauseOnHover) && clearTimeout(timer)
@@ -134,6 +135,7 @@ const State: Record<PlacementType, UseToastProps[]> = {
 
 const RenderToasts = () => {
     let views = []
+    const [, dispatch] = useState(0)
 
     for (let placement in State) {
         const items = (State as any)[placement]
@@ -150,28 +152,25 @@ const RenderToasts = () => {
                     display: "flex",
                     justifyContent: "flex-end",
                     flexDirection: "column",
-                    width: 280,
+                    width: 300,
                     height: "auto",
                     maxHeight: "100vh",
                     ...sx
                 }}
             >
 
-                {items.map((itemprops: UseToastProps, index: number) => {
+                {items.map((itemprops: UseToastProps & { tid: string }) => {
                     return (
                         <ToastView
-                            key={`toast-view-${index}`}
+                            key={`toast-view-${itemprops.tid}`}
                             {...itemprops}
-                            onExited={() => {
-                                items.splice(index, 1)
-                                if (!items.length) {
-                                    delete (State as any)[placement]
-                                } else {
-                                    (State as any)[placement] = items
-                                }
-                                if (!Object.keys(State).length) {
-                                    Renderar.unrender(RenderToasts)
-                                }
+                            onExited={(tid) => {
+                                (State as any)[placement] = (State as any)[placement].filter((item: any) => item.tid !== tid)
+
+                                if (!(State as any)[placement]?.length) delete (State as any)[placement]
+                                if (!Object.keys(State).length) Renderar.unrender(RenderToasts)
+
+                                dispatch(Math.random())
                             }}
                         />
                     )
@@ -187,7 +186,8 @@ const Toast = (props?: UseToastProps['content'] | UseToastProps) => {
     props = React.isValidElement(props) ? { content: props } : props
     let { placement = "bottom-right" } = (props || {}) as UseToastProps
     const length = Object.keys(State).length
-    if (!State[placement]) State[placement] = []
+    if (!State[placement]) State[placement] = [];
+    (props as any).tid = Math.random().toString(32);
     State[placement].push(props as any)
     if (length) {
         Renderar.updateProps(RenderToasts, {})

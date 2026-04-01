@@ -6,9 +6,10 @@ import List from '../../src/List'
 import ListItem from '../../src/ListItem'
 import ClickOutside from '../../src/ClickOutside'
 import { AuthForm } from '../Layout/AuthProvider'
+import Transition from '../../src/Transition'
 
 const Layers = () => {
-    const [open, setOpen] = useState<any>(false)
+    const [open, setOpen] = useState<any>(true)
 
     let layerContent = <Stack
         height="100%"
@@ -36,6 +37,9 @@ const Layers = () => {
 
     return (
         <div>
+            {/* <Transition variant="zoom" open={open} exitOnUnmount>
+                <div>Nice</div>
+            </Transition> */}
             <Stack
                 pt={40}
                 alignItems="center"

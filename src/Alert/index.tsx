@@ -354,10 +354,10 @@ Alert.confirm = ({ onConfirm, onCancel, ...props }: Omit<ConfirmAlertProps, "ope
             ...props.slotProps,
             modal: {
                 ...props.slotProps?.modal,
-                onClosed: () => {
+                onExited: () => {
                     confirm.unrender()
-                    if (props?.slotProps?.modal?.onClosed) {
-                        props.slotProps?.modal?.onClosed()
+                    if (props?.slotProps?.modal?.onExited) {
+                        props.slotProps?.modal?.onExited()
                     }
                 },
             }

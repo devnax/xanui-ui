@@ -9,7 +9,7 @@ import List from '../../src/List'
 import ListItem from '../../src/ListItem'
 import menu from './menus'
 import CheckIcon from '@xanui/icons/CheckCircle'
-import { AppRoot, createTheme, useTheme } from '@xanui/core';
+import { AppRoot, createTheme, Transition, useTheme } from '@xanui/core';
 import { AuthProvider } from './AuthProvider';
 
 const lightTheme = createTheme("light", {})
@@ -30,12 +30,51 @@ const ThemeBox = () => {
     )
 }
 
+// const Detector = () => {
+//     const lorem = 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex non perspiciatis ipsam quis vel impedit, adipisci eligendi id eaque deleniti autem culpa nostrum quo optio fuga sint eum? Delectus, libero?'
+//     const [content, setContent] = React.useState(lorem)
+//     const ref = React.useRef<HTMLElement>(null)
+
+//     React.useEffect(() => {
+//         const el = ref.current as HTMLElement
+//         const rect = el.getBoundingClientRect()
+//         console.log(rect);
+
+//         const observer = new ResizeObserver((entries) => {
+
+//             for (const entry of entries) {
+//                 const { width, height } = entry.contentRect;
+
+//                 console.log(entry.contentRect);
+
+//                 // your logic here
+//             }
+//         });
+
+//         observer.observe(el);
+//     }, [])
+
+//     return (
+//         <div>
+//             <div ref={ref}>
+//                 {content}
+//             </div>
+//             <button
+//                 onClick={() => {
+//                     setContent(content + lorem)
+//                 }}
+//             >Add</button>
+//         </div>
+//     )
+// }
+
 const Layout = () => {
     const [, dispatch] = React.useState(0)
     const currentMenuIndex = parseInt(localStorage.getItem("currentMenuIndex") || "0")
     const currentMenu = menu[currentMenuIndex]
     const Render: any = currentMenu?.render || (() => <></>)
     const [theme, setTheme] = React.useState(darkTheme)
+
 
     React.useEffect(() => {
         const ele = document.getElementById(`menu-${currentMenuIndex}`)
@@ -76,6 +115,17 @@ const Layout = () => {
                         </List>
                     </ViewBox>
                     <Stack flex={1} height="100%" p={2} overflow="auto">
+                        {/* <Transition
+                            variant="zoom"
+                            open={true}
+                            duration={2000}
+                            initialTransition
+                            exitOnUnmount
+                        >
+                            <div>
+                                Nice
+                            </div>
+                        </Transition> */}
                         <Render />
                     </Stack>
                 </Stack>

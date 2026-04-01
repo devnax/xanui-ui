@@ -24,7 +24,7 @@ const Alerts = () => {
                         },
                         slotProps: {
                             modal: {
-                                onClosed: () => {
+                                onExited: () => {
                                     console.log("Action Alert closed")
                                 }
                             }
