@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Menu, { MenuProps } from "../Menu"
 
 
-const useContextMenu = ({ children, onClosed, onClickOutside, ...props }: MenuProps) => {
+const useContextMenu = ({ children, onExited, onClickOutside, ...props }: MenuProps) => {
 
    const Comp = ({ x, y }: any) => {
       const ref = useRef(null)

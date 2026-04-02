@@ -1,19 +1,45 @@
 "use client";
-import React from 'react'
-import { TagComponentType, useInterface } from '@xanui/core';
+import React, { useEffect, useRef } from 'react'
+import { TagComponentType, useInterface, useMergeRefs } from '@xanui/core';
 import Button, { ButtonProps } from '../Button';
+import { useTabs } from '../Tabs/context';
+import { TabsProps } from '../Tabs/types';
 
 export type TabProps<T extends TagComponentType = "button"> = ButtonProps<T> & {
     value?: string | number
 }
 
-const Tab = React.forwardRef(<T extends TagComponentType = "div">({ children, ...props }: TabProps<T>, ref: React.Ref<any>) => {
+const Tab = React.forwardRef(<T extends TagComponentType = "div">({ children, value, ...props }: TabProps<T>, ref: React.Ref<any>) => {
     let [_props] = useInterface<any>("Tab", props, {})
+    const container = useTabs() as TabsProps
+    if (!container) throw new Error("Tabs component must be used within a <Tabs>.");
+    const btnRef = useRef<HTMLElement>(null)
+    const mergeRef = useMergeRefs(ref, btnRef)
+
+    useEffect(() => {
+        if (value === container.value) {
+            const e = {
+                type: "click",
+                target: btnRef.current,
+                currentTarget: btnRef.current,
+                preventDefault: () => { },
+                stopPropagation: () => { },
+            };
+
+            (container as any).onChange(value, e)
+        }
+    }, [container.variant, container.color])
+    const isSelected = value === container.value
     return (
         <Button
             {..._props}
+            color={container.variant === "text" && isSelected ? container.color : "default"}
+            variant={"text"}
+            onClick={(e) => {
+                (container as any).onChange(value, e)
+            }}
             classNames={["tab", ...(_props?.classNames || [])]}
-            ref={ref}
+            ref={mergeRef}
         >
             {children}
         </Button>

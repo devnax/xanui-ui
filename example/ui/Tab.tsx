@@ -7,30 +7,61 @@ import Tab from '../../src/Tab'
 import Checkbox from '../../src/Checkbox'
 import HomeIcon from '@xanui/icons/Home'
 import Text from '../../src/Text'
+import AddShoppingCart from '@xanui/icons/AddShoppingCart'
+import Receipt from '@xanui/icons/Receipt'
+import People from '@xanui/icons/People'
 
 const TabItem = ({ color, variant, verticle }: any) => {
+    const [val, setVal] = useState<string>("Services")
+    color ??= "brand"
+    variant ??= "end-line"
+    return (
+        <Stack gap={3} direction="row" alignItems='center'>
+            <Tabs
+                variant={variant}
+                color={color}
+                radius={1}
+                overflow="hidden"
+                bgcolor="background.secondary"
+                p={1}
+                value={val}
+                onChange={(v: any) => {
+                    setVal(v)
+                }}
+            >
+                <Tab value="home" startIcon={<HomeIcon />}></Tab>
+                <Tab value="about">About, Naxrul Ahmed</Tab>
+                <Tab value="Services">Services for your matches</Tab>
+                <Tab value="contact">Contact Us</Tab>
+                <Tab value="Blogs">Blogs</Tab>
+            </Tabs>
+        </Stack>
+    )
+}
+
+const MobileTab = ({ color, variant, verticle }: any) => {
     const [val, setVal] = useState<string>("home")
     color ??= "brand"
     variant ??= "end-line"
     return (
         <Stack gap={3} direction="row" alignItems='center'>
             <Tabs
-                verticle={verticle}
                 variant={variant}
                 color={color}
                 radius={1}
                 overflow="hidden"
                 bgcolor="background.secondary"
+                p={1}
                 value={val}
+                width={400}
                 onChange={(v: any) => {
                     setVal(v)
                 }}
             >
-                <Tab value="home" startIcon={<HomeIcon />}>Home</Tab>
-                <Tab value="about">About, Naxrul Ahmed</Tab>
-                <Tab value="Services">Services for your matches</Tab>
-                {/* <Tab value="contact">Contact Us</Tab>
-                <Tab value="Blogs">Blogs</Tab> */}
+                <Tab flex={1} value="home" startIcon={<HomeIcon />}></Tab>
+                <Tab flex={1} value="cart" startIcon={<AddShoppingCart />}></Tab>
+                <Tab flex={1} value="order" startIcon={<Receipt />}></Tab>
+                <Tab flex={1} value="profile" startIcon={<People />}></Tab>
             </Tabs>
         </Stack>
     )
@@ -74,7 +105,12 @@ const TabView = () => {
                     <Option value="text">text</Option>
                 </Select>
             </Stack>
-            <TabItem color={color} variant={variant} verticle={verticle} />
+            <Stack
+                gap={3}
+            >
+                <TabItem color={color} variant={variant} verticle={verticle} />
+                <MobileTab color={color} variant={variant} verticle={verticle} />
+            </Stack>
         </Stack>
     )
 }

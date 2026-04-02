@@ -1,253 +1,140 @@
 "use client";
-import React, { useEffect, ReactElement, useMemo, cloneElement, useState, Children, useRef } from 'react'
-import { TabProps } from '../Tab'
-import { Tag, TagProps, useBreakpointProps, UseColorTemplateColor, useInterface, useBreakpointPropsType, Transition } from '@xanui/core'
-import { ButtonProps } from '../Button'
+import React, { useRef } from 'react'
+import { animate, Tag, useBreakpointProps, useInterface } from '@xanui/core'
+import { TabContext } from './context';
+import { TabsProps } from './types';
 
-
-type ValueType = string | number
-export type TabsProps = Omit<TagProps, 'onChange'> & {
-    children: ReactElement<TabProps> | ReactElement<TabProps>[];
-    value?: ValueType;
-    onChange?: (value: ValueType) => void;
-    variant?: useBreakpointPropsType<"start-line" | "end-line" | "fill" | "outline" | "text" | "soft">;
-    color?: useBreakpointPropsType<UseColorTemplateColor>;
-    verticle?: useBreakpointPropsType<boolean>;
-    disableTransition?: useBreakpointPropsType<boolean>;
-    indicatorSize?: useBreakpointPropsType<number>;
-
-    slotProps?: {
-        content?: Omit<TagProps, "children">;
-        button?: Omit<ButtonProps, "children" | "color" | "variant" | "classNames">;
-    }
-}
-
-const getRect = (ele: HTMLElement, parent: HTMLElement) => {
-    const _rect: any = {};
-    const parentRect = parent.getBoundingClientRect();
-    const childRect = ele.getBoundingClientRect();
-    _rect.top = childRect.top - parentRect.top;
-    _rect.right = childRect.right - parentRect.right;
-    _rect.bottom = childRect.bottom - parentRect.bottom;
-    _rect.left = childRect.left - parentRect.left;
-    _rect.width = childRect.width;
-    _rect.height = childRect.height;
-    return _rect
-}
+export type { TabsProps }
 
 const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProps, ref: any) => {
-    let [{ verticle, color, variant, indicatorSize, disableTransition, slotProps, ...rest }] = useInterface<any>("Tabs", props, {})
+    let [{ color, variant, indicatorSize, disableTransition, slotProps, ...rest }] = useInterface<any>("Tabs", props, {})
     const _p: any = {}
     if (variant) _p.variant = variant
     if (color) _p.color = color
-    if (verticle) _p.verticle = verticle
     if (disableTransition) _p.disableTransition = disableTransition
     if (indicatorSize) _p.indicatorSize = indicatorSize
     const p: any = useBreakpointProps(_p)
 
     variant = p.variant ?? "end-line"
     color = p.color ?? "brand"
-    verticle = p.verticle
     disableTransition = p.disableTransition
     indicatorSize = p.indicatorSize ?? 3
 
-    ref = ref || useRef(null)
-    const containerRef: any = useRef(null)
-    const [trans, setTrans] = useState<any>()
+    const indicatorRef = useRef<HTMLElement>(null)
+    const indicatorState = useRef({
+        left: 0,
+        width: 0
+    })
 
-    const { childs, selectedIndex } = useMemo(() => {
-        let info: any = {
-            childs: null,
-            selectedIndex: 0
-        }
-        info.childs = Children.map(children, (child: any, idx: number) => {
-            let selected = child.props.value === value
-            if (selected) {
-                info.selectedIndex = idx
+
+    let indicatorProps: any = {}
+    switch (variant) {
+        case "outline":
+            indicatorProps = {
+                top: 0,
+                border: "1px solid",
+                borderColor: color,
+                bgcolor: "transparent"
             }
-
-            let btnProps: any = {}
-            if (variant === 'fill' && selected) {
-                btnProps = {
-                    sx: {
-                        bgcolor: "transparent!importnat",
-                        color: "#FFFFFF!important"
-                    }
-                }
-            } else if (variant === 'soft' && selected) {
-                btnProps = {
-                    sx: {
-                        bgcolor: "transparent!importnat",
-                    }
-                }
+            break;
+        case "soft":
+            indicatorProps = {
+                top: 0,
+                bgcolor: `${color}.soft.primary`
             }
-
-            // delete child.props.value
-            return cloneElement(child, {
-                corner: "square",
-                value: undefined,
-                onClick: () => {
-                    onChange && onChange(child.props.value)
-                },
-                ...slotProps?.button,
-                ...btnProps,
-                color: selected ? color : "default",
-                variant: "text",
-                classNames: [child.props.classNames, { "tab-selected": selected }],
-            })
-        })
-        return info
-    }, [children, onChange, value, variant, color, verticle])
-
-    useEffect(() => {
-        let con = containerRef.current
-        const conChilds = con.children
-        if (conChilds && conChilds[selectedIndex]) {
-            const selectedTab = con.querySelector(".tab-selected") || conChilds[0]
-            const prevRect = getRect(selectedTab, con)
-            const rect = getRect(conChilds[selectedIndex], con)
-
-            let anim: any = () => ({})
-            if (verticle) {
-                let v: any = {
-                    from: {
-                        top: prevRect?.top || 0,
-                        height: prevRect?.height || 0,
-                    },
-                    to: {
-                        top: rect?.top || 0,
-                        height: rect?.height || 0,
-                    }
-                }
-
-                if (["fill", "soft", "outline"].includes(variant)) {
-                    v.from.width = prevRect?.width
-                    v.to.width = rect?.width
-                }
-                anim = () => v
-            } else {
-                let v: any = {
-                    from: {
-                        left: prevRect?.left || 0,
-                        width: prevRect?.width || 0,
-                    },
-                    to: {
-                        left: rect?.left || 0,
-                        width: rect?.width || 0,
-                    },
-                }
-
-                if (["fill", "soft", "outline"].includes(variant)) {
-                    v.from.height = prevRect?.height || 0
-                    v.to.height = rect?.height || 0
-                }
-                anim = () => v
+            break;
+        case "text":
+            indicatorProps = {
+                display: "none"
             }
-            setTrans(() => anim)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedIndex, variant, color, verticle])
+            break;
+    }
 
-    let indicatorProps: any = useMemo(() => {
-        let _indicatorProps: any = {}
-        switch (variant) {
-            case "start-line":
-                if (verticle) {
-                    _indicatorProps = {
-                        left: 0,
-                        width: indicatorSize
-                    }
-                } else {
-                    _indicatorProps = {
-                        top: 0,
-                        height: indicatorSize
-                    }
-                }
-                break;
-            case "end-line":
-                if (verticle) {
-                    _indicatorProps = {
-                        right: 0,
-                        width: indicatorSize
-                    }
-                } else {
-                    _indicatorProps = {
-                        bottom: 0,
-                        height: indicatorSize
-                    }
-                }
-                break;
-            case "fill":
-                _indicatorProps = {
-                    top: 0,
-                    bgcolor: color
-                }
-                break;
-            case "outline":
-                _indicatorProps = {
-                    top: 0,
-                    border: "1px solid",
-                    borderColor: color,
-                    bgcolor: "transparent"
-                }
-                break;
-            case "soft":
-                _indicatorProps = {
-                    top: 0,
-                    bgcolor: `${color}.soft.primary`
-                }
-                break;
-            case "text":
-                _indicatorProps = {
-                    display: "none"
-                }
-                break;
-        }
-        return _indicatorProps
-    }, [selectedIndex, variant, color, verticle])
 
     return (
-        <Tag
-            {...rest}
-            baseClass='tabs'
-            ref={ref}
-            sxr={{
-                position: "relative",
-                zIndex: 1,
-                display: "inline-block"
+        <TabContext.Provider
+            value={{
+                value,
+                variant,
+                color,
+                disableTransition,
+                indicatorSize,
+                onChange: (v, e) => {
+                    onChange!(v, e)
+
+                    if (variant === 'text') return
+                    const indicator = indicatorRef.current;
+                    if (!indicator) return;
+
+                    const target = e.currentTarget as HTMLElement;
+
+                    switch (variant) {
+                        case "start-line":
+                            indicator.style.removeProperty("bottom")
+                            indicator.style.top = `${target.offsetTop}px`
+                            indicator.style.height = `${indicatorSize}px`
+                            break;
+                        case "end-line":
+                            indicator.style.removeProperty("top")
+                            indicator.style.bottom = `${target.offsetTop}px`
+                            indicator.style.height = `${indicatorSize}px`
+                            break;
+                        case "fill":
+                        case "outline":
+                        case "soft":
+                            indicator.style.height = `${target.offsetHeight}px`
+                            indicator.style.top = `${target.offsetTop}px`
+                            break;
+                    }
+
+                    animate({
+                        from: {
+                            left: indicatorState.current.left ?? 0,
+                            width: indicatorState.current.width ?? 0,
+                        },
+                        to: {
+                            left: target.offsetLeft,
+                            width: target.clientWidth,
+                        },
+                        duration: 180,
+                        easing: (t) => 1 - Math.pow(1 - t, 3),
+                        onUpdate: ({ left, width }) => {
+                            indicatorState.current.left = left;
+                            indicatorState.current.width = width;
+
+                            indicator.style.left = `${left}px`;
+                            indicator.style.width = `${width}px`;
+                        },
+                    });
+                },
             }}
         >
             <Tag
-                {...slotProps?.content}
-                baseClass='tabs-content'
+                {...rest}
+                baseClass='tabs'
                 sxr={{
-                    display: verticle ? "flex" : "inline-flex",
-                    flexDirection: verticle ? "column" : "row",
+                    position: "relative",
+                    zIndex: 1,
+                    display: "flex",
+                    flexDirection: "row",
                 }}
-                ref={containerRef}
+                ref={ref}
             >
-                {childs}
-            </Tag>
-            <Transition
-                open={!!trans}
-                variant={trans}
-                duration={trans ? (disableTransition ? 0 : 250) : 0}
-                easing="smooth"
-            >
+                {children}
                 <Tag
+                    ref={indicatorRef}
                     baseClass='tabs-indicator'
-                    // className={classname}
                     sxr={{
+                        radius: 1,
                         position: "absolute",
                         zIndex: -1,
-                        cursor: "pointer",
-                        bgcolor: color
+                        bgcolor: color,
+                        height: 2,
+                        ...indicatorProps
                     }}
-                    {...indicatorProps}
-                >
-                </Tag>
-            </Transition>
-        </Tag>
+                />
+            </Tag>
+        </TabContext.Provider>
     )
 })
 

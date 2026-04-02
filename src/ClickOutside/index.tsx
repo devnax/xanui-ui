@@ -1,5 +1,5 @@
 "use client";
-import { Tag, TagComponentType, TagProps } from '@xanui/core';
+import { Tag, TagComponentType, TagProps, useMergeRefs } from '@xanui/core';
 import React, { useEffect, useRef } from 'react';
 
 export type ClickOutsideProps<T extends TagComponentType = "div"> = TagProps<T> & {
@@ -7,23 +7,16 @@ export type ClickOutsideProps<T extends TagComponentType = "div"> = TagProps<T> 
     children: React.ReactElement
 };
 
-const ClickOutside = React.forwardRef(<T extends TagComponentType = "div">({ children, onClickOutside, ...props }: ClickOutsideProps<T>, forwardedRef: any) => {
+const ClickOutside = React.forwardRef(<T extends TagComponentType = "div">({ children, onClickOutside, ...props }: ClickOutsideProps<T>, ref: any) => {
 
     const innerRef = useRef<HTMLElement | null>(null);
-
-    // merge refs
-    const setRefs = (el: HTMLElement) => {
-        innerRef.current = el;
-        if (typeof forwardedRef === "function") {
-            forwardedRef(el);
-        } else if (forwardedRef) {
-            forwardedRef.current = el;
-        }
-    };
+    const mergeRef = useMergeRefs(ref, innerRef)
 
     useEffect(() => {
         const handler = (e: MouseEvent) => {
+
             if (!innerRef.current) return;
+
             if (!innerRef.current.contains(e.target as Node)) {
                 onClickOutside(e);
             }
@@ -39,7 +32,7 @@ const ClickOutside = React.forwardRef(<T extends TagComponentType = "div">({ chi
             display="inline-block"
             {...props}
             baseClass='click-outside'
-            ref={setRefs}
+            ref={mergeRef}
         >
             {children}
         </Tag>

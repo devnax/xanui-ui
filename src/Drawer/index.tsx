@@ -52,6 +52,7 @@ const Drawer = ({ children, placement, size, slotProps, onClickOutside, ...layer
             {...layerProps}
             {...slotProps?.layer}
             transition={getVariant(placement)}
+
         >
             <Tag
                 {...slotProps?.root}
@@ -91,7 +92,7 @@ Drawer.open = (children: DrawerProps["children"], props?: Omit<DrawerProps, "chi
         open: true,
         ...props,
         children,
-        onClosed: () => {
+        onExited: () => {
             d.unrender()
         },
         onClickOutside: () => {

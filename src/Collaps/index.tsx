@@ -43,6 +43,7 @@ const Collaps = React.forwardRef(<T extends TagComponentType = "div">({ children
             open={open}
         >
             <Tag
+                overflow={"hidden"}
                 {...rest}
                 baseClass='collaps'
                 ref={ref}
