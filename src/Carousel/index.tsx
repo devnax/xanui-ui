@@ -1,41 +1,39 @@
+import { animate } from '@xanui/core';
 import Box from '../Box';
 import Button from '../Button';
 import Stack from '../Stack';
-import { Children, ReactNode, useLayoutEffect, useMemo, useRef, useState } from 'react'
-
-
-const infinityChunk = (page: number, perpage: number, total: number) => {
-    if (total <= 0 || perpage <= 0) return [];
-
-    const result: number[] = [];
-    let start = (page * perpage) % total;
-    if (start < 0) start += total;
-
-    for (let i = 0; i < perpage; i++) {
-        result.push((start + i) % total);
-    }
-
-    return result;
-};
-
-const infinityChunks = (
+import { Children, ReactNode, useRef, useState } from 'react'
+const infinityChunkByScroll = (
     page: number,
     slidesToShow: number,
     slidesToScroll: number,
     total: number
 ) => {
-    if (total <= 0 || slidesToShow <= 0 || slidesToScroll <= 0) return [];
-
-    const result: number[] = [];
-
-    let start = (page * slidesToScroll) % total;
-    if (start < 0) start += total;
-
-    for (let i = 0; i < slidesToShow; i++) {
-        result.push((start + i) % total);
+    if (total <= 0 || slidesToShow <= 0 || slidesToScroll <= 0) {
+        return { current: [], old: [], new: [] };
     }
 
-    return result;
+    const getChunk = (p: number) => {
+        let start = (p * slidesToScroll) % total;
+        if (start < 0) start += total;
+
+        const arr: number[] = [];
+        for (let i = 0; i < slidesToShow; i++) {
+            arr.push((start + i) % total);
+        }
+        return arr;
+    };
+
+    const current = getChunk(page);
+    const prev = getChunk(page - 1);
+
+    // entering items
+    const newItems = current.filter(i => !prev.includes(i)) as number[]
+
+    // remaining items (not new)
+    const oldItems = current.filter(i => !newItems.includes(i)) as number[]
+
+    return { current, old: oldItems, new: newItems };
 };
 
 export type Props = {
@@ -44,22 +42,134 @@ export type Props = {
     slidesToScroll?: number
 }
 
-const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 4 }: Props) => {
+const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 1 }: Props) => {
 
     const childs = Children.toArray(children)
+    const childsRefs = useRef<(HTMLDivElement | null)[]>([]);
     const total = childs.length
-    const [index, setIndex] = useState(0)
+    const [index, setIndex] = useState(slidesToShow)
     const [page, setPage] = useState(0)
     const track = useRef<HTMLElement>(null)
 
-    const goto = (index: number) => {
-        const slideWidth = 100 / slidesToShow
-        const translate = slideWidth * index
 
-        const el = track.current as HTMLElement
+    const state = useRef({ x: 0 })
+    const animating = useRef(() => { })
 
-        el.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
-        el.style.transform = `translate3d(-${translate}%, 0, 0)`
+    const prev = () => {
+
+    }
+
+    const bps = useRef<any>([])
+    const next = () => {
+        const trackEle = track.current as HTMLElement
+        const nextPage = page + 1
+        const chunk = infinityChunkByScroll(nextPage, slidesToShow, slidesToScroll, total)
+        setPage(nextPage)
+
+        const oldLastitem = chunk.old[chunk.old.length - 1]
+        const newFirstItem = chunk.new[0]
+        const itemWidth = 100 / slidesToShow
+        const to = (nextPage * slidesToScroll) * itemWidth
+
+        if (oldLastitem > newFirstItem) {
+            // move new slide to last
+            const item = childsRefs.current[newFirstItem] as HTMLElement
+            const to = (total * itemWidth * slidesToShow) + (newFirstItem * itemWidth)
+            item.style.transform = `translateX(${to}%)`
+        } else {
+        }
+
+        console.log(oldLastitem, newFirstItem);
+
+
+        animating.current()
+        animating.current = animate({
+            duration: 1000,
+            from: {
+                x: state.current.x
+            },
+            to: {
+                x: to
+            },
+            onUpdate: ({ x }) => {
+                state.current.x = x
+
+                trackEle.style.transform = `translateX(-${x}%)`
+            },
+            breakpoints: {
+                x: bps.current
+            },
+            onDone: () => {
+                bps.current = []
+            }
+        })
+
+        return
+
+
+        // const nextIndex = index + slidesToScroll
+        // setIndex(nextIndex)
+
+        // 
+
+
+        // bps.current.push({
+        //     value: state.current.x + .1,
+        //     callback: () => {
+        //         // console.log("itemIndex", index);
+        //         const currentRect = childsRefs.current[index]?.getBoundingClientRect()
+        //         const nextRect = childsRefs.current[index + 1]?.getBoundingClientRect()
+        //         if (!nextRect) {
+        //             console.log("yes");
+
+        //         }
+
+        //     }
+        // })
+
+
+        // for (let i = 1; i <= slidesToScroll; i++) {
+        //     const itemIndex = index + i
+        //     const _to = (itemIndex - slidesToShow) * itemWidth
+        //     bps.current.push({
+        //         value: _to,
+        //         callback: () => {
+        //             // console.log("itemIndex", itemIndex);
+        //             const currentRect = childsRefs.current[itemIndex]?.getBoundingClientRect()
+        //             const nextRect = childsRefs.current[itemIndex + 1]?.getBoundingClientRect()
+        //             if (!nextRect?.left) {
+        //                 console.log("yes inner");
+
+        //             }
+
+        //         }
+        //     })
+        // }
+
+
+
+        // animating.current()
+        // animating.current = animate({
+        //     duration: 2000,
+        //     from: {
+        //         x: state.current.x
+        //     },
+        //     to: {
+        //         x: to
+        //     },
+        //     onUpdate: ({ x }) => {
+        //         state.current.x = x
+
+        //         trackEle.style.transform = `translateX(-${x}%)`
+        //     },
+        //     breakpoints: {
+        //         x: bps.current
+        //     },
+        //     onDone: () => {
+        //         bps.current = []
+        //     }
+        // })
+
     }
 
     return (
@@ -85,6 +195,7 @@ const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 4 }: Props) => 
                         return (
                             <Box
                                 key={`n${i}`}
+                                ref={(el) => (childsRefs.current[i] = el)}
                                 width={`${100 / slidesToShow}%`}
                                 flexShrink={0}
                                 p={1}
@@ -103,40 +214,12 @@ const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 4 }: Props) => 
             >
                 <Button
                     onClick={() => {
-                        const nextPage = page - 1
-
-                        const c = infinityChunks(nextPage, slidesToShow, slidesToScroll, total)
-                        setPage(nextPage)
-                        console.log(c);
+                        prev()
                     }}
                 >Prev</Button>
                 <Button
                     onClick={() => {
-                        const nextPage = page + 1
-
-                        const c = infinityChunks(nextPage, slidesToShow, slidesToScroll, total)
-                        setPage(nextPage)
-                        console.log(c);
-
-                        return
-                        const nextIndexes = infinityChunk(nextPage, slidesToScroll, total)
-                        const nextIndex = (nextIndexes.length + slidesToShow) - slidesToScroll
-                        setIndex(nextIndex)
-                        console.log(nextIndexes);
-
-
-                        if (nextIndex + slidesToShow >= total) {
-                            console.log(nextIndex);
-
-                        }
-
-
-                        const ele = track.current as HTMLElement
-                        const slideWidth = 100 / slidesToShow;
-                        const translate = nextIndex * slideWidth;
-
-                        ele.style.transition = `transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)`
-                        ele.style.transform = `translate3d(-${translate}%, 0, 0)`
+                        next()
                     }}
                 >Next</Button>
             </Stack>
