@@ -73,7 +73,6 @@ const Carousel = ({ children, slidesToShow = 4, slidesToScroll = 1 }: Props) => 
         pages.push(infinityChunk(pages.length, slidesToShow, childs.length))
         return pages as number[][]
     }, [childs.length, slidesToShow])
-    console.log(childs.length, pages);
 
 
     return (
