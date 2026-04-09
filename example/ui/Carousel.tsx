@@ -54,10 +54,10 @@ const dummyImages = [
         id: 1051,
         url: "https://picsum.photos/id/1051/600/400",
     },
-    {
-        id: 1052,
-        url: "https://picsum.photos/id/1052/600/400",
-    },
+    // {
+    //     id: 1052,
+    //     url: "https://picsum.photos/id/1052/600/400",
+    // },
 ];
 
 

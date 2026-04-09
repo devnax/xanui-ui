@@ -43,59 +43,51 @@ export type Props = {
     slidesToScroll?: number
 }
 
-const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 3 }: Props) => {
+const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 2 }: Props) => {
     const childs = Children.toArray(children)
     const total = childs.length
-    const [page, setPage] = useState(0)
+    const [index, setIndex] = useState(0)
     const track = useRef<HTMLElement>(null)
     const animating = useRef(() => { })
+    const state = useRef({ x: 0 })
 
-    const next = () => {
-        setPage(p => p + 1)
+    const goto = (_index: number) => {
+
+        if (_index < 0) _index = 0;
+        if (_index >= total) {
+            _index = (_index % total)
+        }
+        console.log(_index);
+
+        setIndex(_index);
+
         const trackEle = track.current!;
         const itemWidth = 100 / slidesToShow
-        trackEle.style.transform = `translateX(-${0}%)`
-
+        const translate = itemWidth * _index
+        trackEle.style.transform = `translateX(-${translate}%)`
         animating.current();
         animating.current = animate({
             duration: 300,
-            from: { x: 0 },
-            to: { x: itemWidth * slidesToScroll },
+            from: { x: state.current.x },
+            to: { x: translate },
             onUpdate: ({ x }) => {
-                trackEle.style.transform = `translateX(-${x}%)`
-            },
-        });
-    };
-
-    const prev = () => {
-        setPage(p => p - 1)
-        const trackEle = track.current!;
-        const itemWidth = 100 / slidesToShow
-        trackEle.style.transform = `translateX(-${66}%)`
-
-        animating.current();
-        animating.current = animate({
-            duration: 300,
-            from: { x: itemWidth * slidesToScroll },
-            to: { x: 0 },
-            onUpdate: ({ x }) => {
+                state.current.x = x
                 trackEle.style.transform = `translateX(-${x}%)`
             },
         });
     }
 
-    const slides = useMemo(() => {
-        return [
-            infinityChunkByScroll(page - 1, slidesToShow, slidesToScroll, total).current,
-            infinityChunkByScroll(page, slidesToShow, slidesToScroll, total).new,
-            infinityChunkByScroll(page + 1, slidesToShow, slidesToScroll, total).new,
-        ]
-    }, [page, slidesToShow, slidesToScroll, total])
+    const next = () => {
+        goto(index + slidesToScroll);
+    };
+
+    const prev = () => {
+        goto(index - slidesToScroll);
+    }
+
 
     useLayoutEffect(() => {
-        const trackEle = track.current!;
-        const itemWidth = 100 / slidesToShow
-        trackEle.style.transform = `translateX(-${itemWidth * slidesToScroll}%)`
+        goto(0)
     }, [])
 
     const startX = useRef(0);
@@ -144,18 +136,16 @@ const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 3 }: Props) => 
                 onTouchEnd={(e: any) => handleEnd(e.changedTouches[0].clientX)}
             >
                 {
-                    slides.map(((items) => {
-                        return items.map((index) => (
-                            <Box
-                                // key={`${index}`}
-                                width={`${100 / slidesToShow}%`}
-                                flexShrink={0}
-                                p={1}
-                            >
-                                {childs[index]}
-                            </Box>
-                        ))
-                    }))
+                    childs.map((child, index) => (
+                        <Box
+                            key={`${index}`}
+                            width={`${100 / slidesToShow}%`}
+                            flexShrink={0}
+                            p={1}
+                        >
+                            {child}
+                        </Box>
+                    ))
                 }
             </Stack>
             <Stack
