@@ -50,19 +50,36 @@ const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 2 }: Props) => 
     const track = useRef<HTMLElement>(null)
     const animating = useRef(() => { })
     const state = useRef({ x: 0 })
+    const childRefs = useRef<(HTMLDivElement | null)[]>([])
 
     const goto = (_index: number) => {
 
-        if (_index < 0) _index = 0;
-        if (_index >= total) {
-            _index = (_index % total)
+        if (_index + slidesToScroll > total) {
+            // transform last slidesToShow items to first
+            let count = 3;
+            for (let i = total - slidesToShow; i < total; i++) {
+                const child = childRefs.current[i];
+                const rect = child?.getBoundingClientRect()
+                const itemWidth = rect?.width
+
+                console.log((i + count) * itemWidth);
+                count--;
+
+                if (child) {
+                    const translate = ``
+                }
+            }
+            _index = 0
         }
-        console.log(_index);
+
+        if (_index < 0) _index = total - slidesToShow;
+        if (_index + slidesToShow >= total) {
+            _index = total - slidesToShow
+        }
 
         setIndex(_index);
-
-        const trackEle = track.current!;
         const itemWidth = 100 / slidesToShow
+        const trackEle = track.current!;
         const translate = itemWidth * _index
         trackEle.style.transform = `translateX(-${translate}%)`
         animating.current();
@@ -142,6 +159,7 @@ const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 2 }: Props) => 
                             width={`${100 / slidesToShow}%`}
                             flexShrink={0}
                             p={1}
+                            ref={n => childRefs.current[index] = n}
                         >
                             {child}
                         </Box>
