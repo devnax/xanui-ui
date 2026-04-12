@@ -1,90 +1,125 @@
-import { animate } from '@xanui/core';
+import { animate, Transition, TransitionProps } from '@xanui/core';
 import Box from '../Box';
 import Button from '../Button';
 import Stack from '../Stack';
-import { Children, ReactNode, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { Children, forwardRef, ReactNode, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { Tag, TagProps, TagComponentType, useInterface, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 
-const infinityChunkByScroll = (
-    page: number,
-    slidesToShow: number,
-    slidesToScroll: number,
-    total: number
-) => {
-    if (total <= 0 || slidesToShow <= 0 || slidesToScroll <= 0) {
-        return { current: [], new: [] };
-    }
-
-    const getChunk = (p: number) => {
-        let start = (p * slidesToScroll) % total;
-        if (start < 0) start += total;
-
-        const arr: number[] = [];
-        for (let i = 0; i < slidesToShow; i++) {
-            arr.push((start + i) % total);
-        }
-        return arr;
-    };
-
-    const current = getChunk(page);
-    const prev = getChunk(page - 1);
-
-    // entering items
-    const newItems = current.filter(i => !prev.includes(i)) as number[]
-
-    // remaining items (not new)
-    //  const oldItems = current.filter(i => !newItems.includes(i)) as number[]
-
-    return { current, new: newItems };
+export type CarouselRef = {
+    next: () => void;
+    prev: () => void;
+    goTo: (index: number) => void;
+    getIndex: () => number;
 };
 
-export type Props = {
-    children: ReactNode;
-    slidesToShow?: number
-    slidesToScroll?: number
+export type CarouselProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "children" | "onChange"> & {
+    children: React.ReactNode
+    slidesToShow?: useBreakpointPropsType<number>;
+    slidesToScroll?: useBreakpointPropsType<number>;
+    infinite?: useBreakpointPropsType<boolean>;
+    autoplay?: useBreakpointPropsType<boolean>;
+    autoplayInterval?: useBreakpointPropsType<number>;
+    loop?: useBreakpointPropsType<boolean>;
+    duration?: useBreakpointPropsType<number>;
+    delay?: useBreakpointPropsType<number>;
+    transition?: useBreakpointPropsType<TransitionProps["variant"]>;
+    easing?: useBreakpointPropsType<TransitionProps["easing"]>;
+
+    onChange?: (index: number, indexes: number[]) => void;
+    onNext?: (index: number, indexes: number[]) => void;
+    onPrev?: (index: number, indexes: number[]) => void;
 }
 
-const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 2 }: Props) => {
+const Carousel = forwardRef(<T extends TagComponentType = "div">({ children, ...rest }: CarouselProps<T>, ref: React.Ref<CarouselRef>) => {
+    const [index, setIndex] = useState(0)
     const childs = Children.toArray(children)
     const total = childs.length
-    const [index, setIndex] = useState(0)
     const track = useRef<HTMLElement>(null)
     const animating = useRef(() => { })
     const state = useRef({ x: 0 })
     const childRefs = useRef<(HTMLDivElement | null)[]>([])
 
-    const goto = (_index: number) => {
+    let [{
+        slidesToShow,
+        slidesToScroll,
+        loop,
+        autoplay,
+        autoplayInterval,
+        duration,
+        delay,
+        transition,
+        easing,
 
-        if (_index + slidesToScroll > total) {
-            // transform last slidesToShow items to first
-            let count = 3;
-            for (let i = total - slidesToShow; i < total; i++) {
-                const child = childRefs.current[i];
-                const rect = child?.getBoundingClientRect()
-                const itemWidth = rect?.width
+        onChange,
+        onBeforeChange,
+        onNext,
+        onBeforeNext,
+        onPrev,
+        onBeforePrev,
 
-                console.log((i + count) * itemWidth);
-                count--;
+        ...props
+    }] = useInterface<any>("Carousel", rest, {})
 
-                if (child) {
-                    const translate = ``
-                }
-            }
-            _index = 0
-        }
+    const _p: any = {}
+    if (slidesToShow) _p.slidesToShow = slidesToShow
+    if (slidesToScroll) _p.slidesToScroll = slidesToScroll
+    if (loop) _p.loop = loop
+    if (autoplay) _p.autoplay = autoplay
+    if (autoplayInterval) _p.autoplayInterval = autoplayInterval
+    if (duration) _p.duration = duration
+    if (delay) _p.delay = delay
+    if (transition) _p.transition = transition
+    if (easing) _p.easing = easing
 
-        if (_index < 0) _index = total - slidesToShow;
-        if (_index + slidesToShow >= total) {
-            _index = total - slidesToShow
-        }
+
+    const p: any = useBreakpointProps(_p)
+
+    slidesToShow = p.slidesToShow ?? 2
+    slidesToScroll = p.slidesToScroll ?? 1
+    loop = p.loop ?? false
+    autoplay = p.autoplay ?? false
+    autoplayInterval = p.autoplayInterval ?? 3000
+    duration = p.duration ?? 300
+    delay = p.delay ?? 0
+    transition = p.transition ?? "zoom"
+    easing = p.easing ?? "easeInOutQuad"
+
+    if (slidesToShow > total) {
+        slidesToShow = total
+    }
+    if (slidesToScroll > total) {
+        slidesToScroll = total
+    }
+    if (slidesToShow <= 0) {
+        slidesToShow = 1
+    }
+    if (slidesToScroll <= 0) {
+        slidesToScroll = 1
+    }
+    if (slidesToScroll > slidesToShow) {
+        slidesToScroll = slidesToShow
+    }
+
+    const goTo = (_index: number) => {
+        if (_index === index) return;
+        if (_index < 0 || _index > total - slidesToShow) return;
 
         setIndex(_index);
+
+        const indexes = []
+        for (let i = 0; i < slidesToShow; i++) {
+            indexes.push(_index + i)
+        }
+        onChange && onChange(_index, indexes)
+
         const itemWidth = 100 / slidesToShow
         const trackEle = track.current!;
         const translate = itemWidth * _index
         trackEle.style.transform = `translateX(-${translate}%)`
         animating.current();
         animating.current = animate({
-            duration: 300,
+            duration: duration,
+            delay: delay,
             from: { x: state.current.x },
             to: { x: translate },
             onUpdate: ({ x }) => {
@@ -95,17 +130,85 @@ const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 2 }: Props) => 
     }
 
     const next = () => {
-        goto(index + slidesToScroll);
+        let _index = index
+        if (loop) {
+            if (_index >= total - slidesToShow) {
+                _index = 0
+            } else if (index + slidesToScroll > total - slidesToShow) {
+                _index = total - slidesToShow
+            } else {
+                _index = index + slidesToScroll
+            }
+        } else {
+            if (_index >= total - slidesToShow) {
+                _index = total - slidesToShow
+            } else if (index + slidesToScroll > total - slidesToShow) {
+                _index = total - slidesToShow
+            } else {
+                _index = index + slidesToScroll
+            }
+        }
+        const indexes = []
+        for (let i = 0; i < slidesToShow; i++) {
+            indexes.push(_index + i)
+        }
+        onNext && onNext(_index, indexes)
+        goTo(_index)
     };
 
     const prev = () => {
-        goto(index - slidesToScroll);
+        let _index = index
+        if (loop) {
+            if (_index <= 0) {
+                _index = total - slidesToShow
+            } else if (index - slidesToScroll < 0) {
+                _index = 0
+            } else {
+                _index = index - slidesToScroll
+            }
+        } else {
+            if (_index <= 0) {
+                _index = 0
+            } else if (index - slidesToScroll < 0) {
+                _index = 0
+            } else {
+                _index = index - slidesToScroll
+            }
+        }
+
+        const indexes = []
+        for (let i = 0; i < slidesToShow; i++) {
+            indexes.push(_index + i)
+        }
+        onPrev && onPrev(_index, indexes)
+        goTo(_index)
     }
 
+    const indexes = useMemo(() => {
+        const idx = []
+        for (let i = 0; i < slidesToShow; i++) {
+            idx.push(index + i)
+        }
+        return idx
+    }, [index, slidesToShow])
+
+    useImperativeHandle(ref, () => ({
+        next,
+        prev,
+        goTo,
+        getIndex: () => index,
+    }));
 
     useLayoutEffect(() => {
-        goto(0)
+        goTo(0)
     }, [])
+
+    // autoplay
+    useEffect(() => {
+        if (!autoplay) return;
+        const id = setInterval(next, autoplayInterval);
+        return () => clearInterval(id);
+    }, [index, autoplay]);
 
     const startX = useRef(0);
     const isDragging = useRef(false);
@@ -124,8 +227,11 @@ const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 2 }: Props) => 
     };
 
     return (
-        <Box
-            sx={{
+        <Tag
+            {...props}
+            baseClass='carousel'
+            ref={ref}
+            sxr={{
                 width: "100%",
                 overflow: "hidden",
                 cursor: "grab",
@@ -133,14 +239,14 @@ const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 2 }: Props) => 
                 position: "relative",
             }}
         >
-            <Stack
-                flexRow
+            <Tag
+                baseClass='carousel-track'
                 ref={track}
-                sx={{
+                sxr={{
                     display: "flex",
-                    willChange: "transform"
+                    willChange: "transform",
+                    flexDirection: "row",
                 }}
-
                 onPointerDown={(e: any) => {
                     e.preventDefault()
                     handleStart(e.clientX)
@@ -154,18 +260,31 @@ const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 2 }: Props) => 
             >
                 {
                     childs.map((child, index) => (
-                        <Box
-                            key={`${index}`}
-                            width={`${100 / slidesToShow}%`}
-                            flexShrink={0}
-                            p={1}
-                            ref={n => childRefs.current[index] = n}
+                        <Transition
+                            key={index}
+                            open={indexes.includes(index)}
+                            variant={transition}
+                            easing={easing}
+                            duration={duration}
+                            delay={delay}
                         >
-                            {child}
-                        </Box>
+                            <Tag
+                                key={`${index}`}
+                                baseClass='carousel-item'
+                                ref={n => childRefs.current[index] = n}
+                                sxr={{
+                                    p: 1,
+                                    userSelect: "none",
+                                    flexShrink: 0,
+                                    width: `${100 / slidesToShow}%`,
+                                }}
+                            >
+                                {child}
+                            </Tag>
+                        </Transition>
                     ))
                 }
-            </Stack>
+            </Tag>
             <Stack
                 flexRow
                 gap={2}
@@ -182,8 +301,8 @@ const Carousel = ({ children, slidesToShow = 3, slidesToScroll = 2 }: Props) => 
                     }}
                 >Next</Button>
             </Stack>
-        </Box>
+        </Tag>
     )
-}
+})
 
 export default Carousel
