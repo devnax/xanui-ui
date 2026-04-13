@@ -27,7 +27,7 @@ export type AccordionProps<T extends TagComponentType = "div"> = Omit<TagProps<T
     slotProps?: {
         header?: Omit<ListProps, "children" | "color" | "variant" | "hoverColor" | "hoverVariant" | "className">;
         headerContent?: Omit<ListItemProps, "children" | "subtitle" | "selected" | "startIcon" | "endIcon" | "onClick" | "className">
-        collaps?: Omit<CollapsProps, "children" | "in">;
+        collaps?: Omit<CollapsProps, "children" | "open">;
         content?: Omit<TagProps, "children">;
         expandIconContainer?: Omit<TagProps<"div">, 'children' | 'className'>;
     }

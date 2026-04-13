@@ -2,7 +2,7 @@
 import { ReactNode, useEffect, useState, useRef } from "react";
 import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType, useInterface, TransitionProps, Transition } from "@xanui/core";
 import Portal, { PortalProps } from "../Portal";
-import ClickOutside from "../ClickOutside";
+import ClickOutside, { ClickOutsideProps } from "../ClickOutside";
 
 export type PlacementTypes =
     | "top"
@@ -37,6 +37,7 @@ export type MenuProps = {
         transition?: Omit<TransitionProps, "open">;
         portal?: Omit<PortalProps, "children">;
         content?: Omit<TagProps<"div">, "children">;
+        clickOutSide?: Omit<ClickOutsideProps, "children">
     };
 };
 
@@ -139,23 +140,6 @@ const isOffScreen = (menu: HTMLElement) => {
     return x < 0 || y < 0 || x + width > window.innerWidth || y + height > window.innerHeight;
 };
 
-// Try to place menu and fallback if off-screen
-// const placeMenu = (placement: PlacementTypes, menu: HTMLElement, target: HTMLElement) => {
-//     let pos = computePosition(placement, menu, target);
-//     menu.style.top = pos.top + "px";
-//     menu.style.left = pos.left + "px";
-
-//     if (isOffScreen(menu)) {
-//         for (const p of placements) {
-//             const fallbackPos = computePosition(p, menu, target);
-//             menu.style.top = fallbackPos.top + "px";
-//             menu.style.left = fallbackPos.left + "px";
-//             if (!isOffScreen(menu)) return p;
-//         }
-//     }
-//     return placement;
-// };
-
 const placeMenu = (
     placement: PlacementTypes,
     menu: HTMLElement,
@@ -236,6 +220,7 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
     return (
         <Portal {...slotProps?.portal}>
             <ClickOutside
+                {...slotProps?.clickOutSide}
                 onClickOutside={(e: MouseEvent) => {
                     if (target?.contains(e.target as any)) return;
                     if (e.target !== target) {
@@ -243,7 +228,11 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
                     }
                 }}
                 ref={menuRef}
-                sx={{ position: "fixed", zIndex: 1500 + (zIndex || 0) }}
+                sx={{
+                    position: "fixed",
+                    zIndex: 1500 + (zIndex || 0),
+                    ...slotProps?.clickOutSide?.sx
+                }}
             >
                 <Transition
                     duration={duration ?? 200}
