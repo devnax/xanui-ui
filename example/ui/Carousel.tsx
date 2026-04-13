@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import Stack from '../../src/Stack'
 import Box from '../../src/Box'
-import Carousel from '../../src/Carousel'
+import Carousel, { CarouselRef } from '../../src/Carousel'
 import Button from '../../src/Button'
 import Image from '../../src/Image'
 import Section from '../Layout/Section'
@@ -57,10 +57,9 @@ const dummyImages = [
 
 
 const Carousels = () => {
-    const ref = useRef<any>(null)
+    const ref = useRef<CarouselRef>(null)
     const [childs, setChilds] = useState(dummyImages)
-    const [index, setIndex] = useState<number[]>([0, 1, 2])
-    console.log(index);
+    const [index, setIndex] = useState<number[]>([0])
 
     return (
         <Stack
@@ -72,8 +71,9 @@ const Carousels = () => {
                 gap={2}
             >
                 <Carousel
-                    duration={800}
-                    autoplay
+                    ref={ref}
+                    duration={500}
+                    // autoplay
                     onChange={(idx, indexes) => {
                         setIndex(indexes)
                     }}
@@ -95,8 +95,49 @@ const Carousels = () => {
                         ))
                     }
                 </Carousel>
-
             </Section>
+            <Stack
+                flexRow
+                gap={1}
+                p={1}
+            >
+                {
+                    childs.map((img, i) => (
+                        <Box
+                            key={img.id}
+                            width={50}
+                            radius={1}
+                            overflow={"hidden"}
+                            border={index.includes(i) ? "2px solid" : "1px solid"}
+                            borderColor={index.includes(i) ? "primary" : "background.secondary"}
+                            onClick={() => {
+                                ref.current?.goTo(i)
+                            }}
+                        >
+                            <Image
+                                src={img.url}
+                                alt={""}
+                            />
+                        </Box>
+                    ))
+                }
+            </Stack>
+            <Stack
+                flexRow
+                gap={2}
+                p={1}
+            >
+                <Button
+                    onClick={() => {
+                        ref.current?.prev()
+                    }}
+                >Prev</Button>
+                <Button
+                    onClick={() => {
+                        ref.current?.next()
+                    }}
+                >Next</Button>
+            </Stack>
             <Button
                 onClick={() => {
                     const last = childs[childs.length - 1]

@@ -1,8 +1,6 @@
+"use client"
 import { animate, Transition, TransitionProps } from '@xanui/core';
-import Box from '../Box';
-import Button from '../Button';
-import Stack from '../Stack';
-import { Children, forwardRef, ReactNode, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { Children, forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Tag, TagProps, TagComponentType, useInterface, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
 
 export type CarouselRef = {
@@ -12,7 +10,7 @@ export type CarouselRef = {
     getIndex: () => number;
 };
 
-export type CarouselProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "children" | "onChange"> & {
+export type CarouselProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "children" | "onChange" | "transition"> & {
     children: React.ReactNode
     slidesToShow?: useBreakpointPropsType<number>;
     slidesToScroll?: useBreakpointPropsType<number>;
@@ -21,7 +19,6 @@ export type CarouselProps<T extends TagComponentType = "div"> = Omit<TagProps<T>
     autoplayInterval?: useBreakpointPropsType<number>;
     loop?: useBreakpointPropsType<boolean>;
     duration?: useBreakpointPropsType<number>;
-    delay?: useBreakpointPropsType<number>;
     transition?: useBreakpointPropsType<TransitionProps["variant"]>;
     easing?: useBreakpointPropsType<TransitionProps["easing"]>;
 
@@ -37,7 +34,7 @@ const Carousel = forwardRef(<T extends TagComponentType = "div">({ children, ...
     const track = useRef<HTMLElement>(null)
     const animating = useRef(() => { })
     const state = useRef({ x: 0 })
-    const childRefs = useRef<(HTMLDivElement | null)[]>([])
+    const autoplayRef = useRef<any | null>(null)
 
     let [{
         slidesToShow,
@@ -46,7 +43,6 @@ const Carousel = forwardRef(<T extends TagComponentType = "div">({ children, ...
         autoplay,
         autoplayInterval,
         duration,
-        delay,
         transition,
         easing,
 
@@ -67,22 +63,20 @@ const Carousel = forwardRef(<T extends TagComponentType = "div">({ children, ...
     if (autoplay) _p.autoplay = autoplay
     if (autoplayInterval) _p.autoplayInterval = autoplayInterval
     if (duration) _p.duration = duration
-    if (delay) _p.delay = delay
     if (transition) _p.transition = transition
     if (easing) _p.easing = easing
 
 
     const p: any = useBreakpointProps(_p)
 
-    slidesToShow = p.slidesToShow ?? 2
+    slidesToShow = p.slidesToShow ?? 1
     slidesToScroll = p.slidesToScroll ?? 1
-    loop = p.loop ?? false
     autoplay = p.autoplay ?? false
     autoplayInterval = p.autoplayInterval ?? 3000
-    duration = p.duration ?? 300
-    delay = p.delay ?? 0
-    transition = p.transition ?? "zoom"
-    easing = p.easing ?? "easeInOutQuad"
+    loop = p.loop ?? (autoplay ? true : false)
+    duration = p.duration ?? 500
+    transition = p.transition ?? undefined
+    easing = p.easing ?? undefined
 
     if (slidesToShow > total) {
         slidesToShow = total
@@ -115,11 +109,9 @@ const Carousel = forwardRef(<T extends TagComponentType = "div">({ children, ...
         const itemWidth = 100 / slidesToShow
         const trackEle = track.current!;
         const translate = itemWidth * _index
-        trackEle.style.transform = `translateX(-${translate}%)`
         animating.current();
         animating.current = animate({
             duration: duration,
-            delay: delay,
             from: { x: state.current.x },
             to: { x: translate },
             onUpdate: ({ x }) => {
@@ -154,7 +146,7 @@ const Carousel = forwardRef(<T extends TagComponentType = "div">({ children, ...
         }
         onNext && onNext(_index, indexes)
         goTo(_index)
-    };
+    }
 
     const prev = () => {
         let _index = index
@@ -184,6 +176,24 @@ const Carousel = forwardRef(<T extends TagComponentType = "div">({ children, ...
         goTo(_index)
     }
 
+    const stopAutoplay = () => {
+        if (autoplayRef.current) {
+            clearTimeout(autoplayRef.current);
+            autoplayRef.current = null;
+        }
+    }
+
+    const startAutoplay = () => {
+        stopAutoplay();
+        autoplayRef.current = setTimeout(next, autoplayInterval);
+    }
+
+    useEffect(() => {
+        if (!autoplay) return;
+        startAutoplay();
+        return () => stopAutoplay();
+    }, [index, autoplay]);
+
     const indexes = useMemo(() => {
         const idx = []
         for (let i = 0; i < slidesToShow; i++) {
@@ -202,13 +212,6 @@ const Carousel = forwardRef(<T extends TagComponentType = "div">({ children, ...
     useLayoutEffect(() => {
         goTo(0)
     }, [])
-
-    // autoplay
-    useEffect(() => {
-        if (!autoplay) return;
-        const id = setInterval(next, autoplayInterval);
-        return () => clearInterval(id);
-    }, [index, autoplay]);
 
     const startX = useRef(0);
     const isDragging = useRef(false);
@@ -257,21 +260,27 @@ const Carousel = forwardRef(<T extends TagComponentType = "div">({ children, ...
                     handleStart(e.touches[0].clientX)
                 }}
                 onTouchEnd={(e: any) => handleEnd(e.changedTouches[0].clientX)}
+
+                onMouseEnter={() => {
+                    stopAutoplay()
+                }}
+                onMouseLeave={() => {
+                    if (autoplay) startAutoplay()
+                }}
             >
                 {
                     childs.map((child, index) => (
-                        <Transition
+                        transition ? <Transition
                             key={index}
                             open={indexes.includes(index)}
                             variant={transition}
                             easing={easing}
                             duration={duration}
-                            delay={delay}
+                            initialTransition={false}
                         >
                             <Tag
                                 key={`${index}`}
                                 baseClass='carousel-item'
-                                ref={n => childRefs.current[index] = n}
                                 sxr={{
                                     p: 1,
                                     userSelect: "none",
@@ -281,26 +290,21 @@ const Carousel = forwardRef(<T extends TagComponentType = "div">({ children, ...
                             >
                                 {child}
                             </Tag>
-                        </Transition>
+                        </Transition> : <Tag
+                            key={`${index}`}
+                            baseClass='carousel-item'
+                            sxr={{
+                                p: 1,
+                                userSelect: "none",
+                                flexShrink: 0,
+                                width: `${100 / slidesToShow}%`,
+                            }}
+                        >
+                            {child}
+                        </Tag>
                     ))
                 }
             </Tag>
-            <Stack
-                flexRow
-                gap={2}
-                p={1}
-            >
-                <Button
-                    onClick={() => {
-                        prev()
-                    }}
-                >Prev</Button>
-                <Button
-                    onClick={() => {
-                        next()
-                    }}
-                >Next</Button>
-            </Stack>
         </Tag>
     )
 })
