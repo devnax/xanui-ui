@@ -8,16 +8,23 @@ import SendIcon from '@xanui/icons/Send'
 import SearchIcon from '@xanui/icons/Search'
 import Section from '../Layout/Section'
 import ListItem from '../../src/ListItem'
+import RangeSlider from '../../src/RangeSlider'
 
 const Inputs = () => {
     const [v, setV] = useState('')
     const ref = useRef<any>(null);
     const [value, setValue] = useState()
     const [num, setNum] = useState()
+    const [range_value, setRangeValue] = useState([20, 80, 90]);
 
     return (
         <Stack gap={2} width={400}>
 
+            <Section title="Range Slider" gap={2} >
+                <RangeSlider value={range_value} onChange={(v) => {
+                    setRangeValue(v)
+                }} />
+            </Section>
             <Section title="Autocomplete" gap={2}>
                 <Autocomplete
                     placeholder='Select option'

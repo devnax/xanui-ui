@@ -6,6 +6,7 @@ import Button from "../ui/Button"
 import ButtonGroup from "../ui/ButtonGroup"
 import Calendar from "../ui/Calendar"
 import CalendarInput from "../ui/CalendarInput"
+import Card from "../ui/Card"
 import Carousel from "../ui/Carousel"
 import Checkbox from "../ui/Checkbox"
 import Chip from "../ui/Chip"
@@ -51,6 +52,7 @@ export default [
     { "done": true, "label": "ButtonGroup", "render": ButtonGroup },
     { "done": true, "label": "Calendar", "render": Calendar },
     { "done": true, "label": "CalendarInput", "render": CalendarInput },
+    { "done": true, "label": "Card", "render": Card },
     { "done": true, "label": "Carousel", "render": Carousel },
     { "done": true, "label": "Checkbox & Radio", "render": Checkbox },
     { "done": true, "label": "Chip", "render": Chip },

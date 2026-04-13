@@ -117,6 +117,9 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
                 overflow: "hidden",
                 userSelect: "none",
                 fontWeight: 500,
+                "&:active": {
+                    transform: variant !== "text" ? "scale(0.98)" : undefined
+                },
                 ..._size,
                 ...cornerCss,
                 ...template.primary,
