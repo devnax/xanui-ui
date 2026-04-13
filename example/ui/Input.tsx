@@ -9,6 +9,7 @@ import SearchIcon from '@xanui/icons/Search'
 import Section from '../Layout/Section'
 import ListItem from '../../src/ListItem'
 import RangeSlider from '../../src/RangeSlider'
+import Home from '@xanui/icons/Home'
 
 const Inputs = () => {
     const [v, setV] = useState('')
@@ -20,10 +21,24 @@ const Inputs = () => {
     return (
         <Stack gap={2} width={400}>
 
-            <Section title="Range Slider" gap={2} >
-                <RangeSlider value={range_value} onChange={(v) => {
-                    setRangeValue(v)
-                }} />
+            <Section title="Range Slider" gap={2} p={2}>
+                <RangeSlider
+                    color={"warning"}
+                    value={range_value}
+                    onChange={(v) => {
+                        setRangeValue(v)
+                    }}
+                    thumbContent={({ value }) => {
+
+                        return (
+                            <Stack
+                                transform={`translate(-50%, -25px)`}
+                            >
+                                {parseInt(value)}%
+                            </Stack>
+                        )
+                    }}
+                />
             </Section>
             <Section title="Autocomplete" gap={2}>
                 <Autocomplete

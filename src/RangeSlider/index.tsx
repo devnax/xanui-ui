@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import {
    Tag,
    useBreakpointProps,
@@ -19,13 +19,16 @@ export type RangeSliderProps = {
    defaultValue?: RangeSliderValue;
    onChange?: (value: RangeSliderValue) => void;
    disabled?: boolean;
+   thumbContent?: (props: { value: number }) => ReactElement
+   size?: "xs" | "sm" | "md" | "lg" | "xl"
+   thumbSize?: number;
 };
 
 const RangeSlider = (props: RangeSliderProps) => {
    const { value, defaultValue, onChange, disabled, ...rest } = props;
 
    // interface system
-   let [{ color, min = 0, max = 100, step = 1 }] = useInterface<any>(
+   let [{ color, min = 0, max = 100, step = 1, thumbContent, thumbSize = 16, size = "sm" }] = useInterface<any>(
       "RangeSlider",
       rest,
       {}
@@ -33,8 +36,44 @@ const RangeSlider = (props: RangeSliderProps) => {
 
    const bp: any = useBreakpointProps({
       color,
+      size
    });
-   color = bp.color;
+   color = bp.color ?? "brand"
+   size = bp.size;
+
+   const sizesSX: any = {
+      xs: {
+         track: 2,
+         thumb: 8
+      },
+      sm: {
+         track: 4,
+         thumb: 14
+      },
+      md: {
+         track: 8,
+         thumb: 18
+      },
+      lg: {
+         track: 12,
+         thumb: 24
+      },
+      xl: {
+         track: 16,
+         thumb: 32
+      }
+   }
+
+   const _size = sizesSX[size]
+
+
+   if (thumbSize) {
+      _size.thumb = thumbSize
+   }
+
+   if (disabled) {
+      color = "divider"
+   }
 
    const isControlled = value !== undefined;
 
@@ -107,6 +146,8 @@ const RangeSlider = (props: RangeSliderProps) => {
    const startPercent = ((startValue - min) / (max - min)) * 100;
    const endPercent = ((endValue - min) / (max - min)) * 100;
 
+
+
    return (
       <Tag
          ref={containerRef}
@@ -134,12 +175,9 @@ const RangeSlider = (props: RangeSliderProps) => {
          sxr={{
             position: "relative",
             width: "100%",
-            height: 24,
             display: "flex",
             alignItems: "center",
-            ...(disabled
-               ? { opacity: 0.5, cursor: "not-allowed" }
-               : { cursor: "initial" }),
+            ...(disabled ? { cursor: "not-allowed" } : {}),
          }}
       >
          {/* Track */}
@@ -147,19 +185,18 @@ const RangeSlider = (props: RangeSliderProps) => {
             sxr={{
                position: "absolute",
                width: "100%",
-               height: 4,
-               bgcolor: "background.secondary",
-               radius: 2,
+               height: _size.track,
+               bgcolor: "divider",
+               radius: `${_size.track}px`,
             }}
          />
 
-         {/* Filled */}
          <Tag
             sxr={{
                position: "absolute",
-               height: 4,
-               bgcolor: color || "brand.primary",
-               radius: 2,
+               height: _size.track,
+               bgcolor: color,
+               radius: `${_size.track}px`,
                left: `${startPercent}%`,
                width: `${endPercent - startPercent}%`,
             }}
@@ -167,18 +204,15 @@ const RangeSlider = (props: RangeSliderProps) => {
 
          {internalValue.map((v, i) => {
             const percent = ((v - min) / (max - min)) * 100;
-
             return (
                <Tag
                   key={i}
                   sxr={{
                      position: "absolute",
-                     width: 16,
-                     height: 16,
-                     bgcolor: "background.primary",
-                     radius: 1,
-                     border: "2px solid",
-                     borderColor: color || "brand.primary",
+                     width: _size.thumb,
+                     height: _size.thumb,
+                     radius: `${_size.thumb}px`,
+                     bgcolor: color,
                      left: `${percent}%`,
                      transform: "translateX(-50%)",
                      cursor: disabled ? "not-allowed" : "initial",
@@ -189,7 +223,9 @@ const RangeSlider = (props: RangeSliderProps) => {
                      isDownRef.current = true;
                      activeHandleRef.current = i;
                   }}
-               />
+               >
+                  {thumbContent ? thumbContent({ value: percent }) : ""}
+               </Tag>
             );
          })}
       </Tag>
