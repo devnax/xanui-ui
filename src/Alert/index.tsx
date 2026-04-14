@@ -155,7 +155,9 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                     </>}
                     <Tag
                         sxr={{
-                            font: "button",
+                            fontSize: "button",
+                            fontWeight: "button",
+                            lineHeight: "button"
                         }}
                     >
                         {children}

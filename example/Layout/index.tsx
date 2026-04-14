@@ -12,8 +12,6 @@ import CheckIcon from '@xanui/icons/CheckCircle'
 import { AppRoot, createTheme, Transition, useTheme } from '@xanui/core';
 import { AuthProvider } from './AuthProvider';
 
-const lightTheme = createTheme("light", {})
-const darkTheme = createTheme("dark", {}, 'dark')
 
 const ThemeBox = () => {
     const theme = useTheme()
@@ -21,7 +19,7 @@ const ThemeBox = () => {
         <Stack>
             <IconButton
                 onClick={() => {
-                    theme.change(theme.name === 'light' ? darkTheme : lightTheme)
+                    theme.change(theme.name === 'default-light' ? { mode: "dark" } : {})
                 }}
             >
                 {theme.name === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
@@ -73,7 +71,7 @@ const Layout = () => {
     const currentMenuIndex = parseInt(localStorage.getItem("currentMenuIndex") || "0")
     const currentMenu = menu[currentMenuIndex]
     const Render: any = currentMenu?.render || (() => <></>)
-    const [theme, setTheme] = React.useState(darkTheme)
+    const [theme, setTheme] = React.useState({ mode: "dark" })
 
 
     React.useEffect(() => {
@@ -90,7 +88,7 @@ const Layout = () => {
                 onThemeChange={t => setTheme(t)}
             >
                 <Stack height="100vh" flexRow bgcolor="background.primary">
-                    {/* <ViewBox
+                    <ViewBox
                         width={250}
                         height="100%"
                         bgcolor="background.secondary"
@@ -113,19 +111,8 @@ const Layout = () => {
                                 </ListItem>)
                             }
                         </List>
-                    </ViewBox> */}
+                    </ViewBox>
                     <Stack flex={1} height="100%" p={2} overflow="auto">
-                        {/* <Transition
-                            variant="zoom"
-                            open={true}
-                            duration={2000}
-                            initialTransition
-                            exitOnUnmount
-                        >
-                            <div>
-                                Nice
-                            </div>
-                        </Transition> */}
                         <Render />
                     </Stack>
                 </Stack>

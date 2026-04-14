@@ -1,31 +1,10 @@
 "use client";
-import React, { ReactElement, useState } from 'react';
+import React from 'react';
 import { Tag, TagProps, TagComponentType } from '@xanui/core';
 
-export type ImageProps<T extends TagComponentType = "img"> = TagProps<T> & {
-    errorView?: ReactElement
-}
+export type ImageProps<T extends TagComponentType = "img"> = Omit<TagProps<T>, "children">
 
-const Image = React.forwardRef(<T extends TagComponentType = "img">({ children, src, alt, errorView, ...rest }: ImageProps<T>, ref: any) => {
-    const [faild, setFaild] = useState<boolean>()
-
-    if (faild === false) {
-        let t = errorView || alt?.charAt(0).toUpperCase() || children
-        return (
-            <Tag
-                src={src}
-                {...rest as any}
-                sxr={{
-                    display: "inline-flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-                component="div"
-                baseClass='image'
-                ref={ref}
-            >{t}</Tag>
-        )
-    }
+const Image = React.forwardRef(<T extends TagComponentType = "img">({ src, alt, ...rest }: ImageProps<T>, ref: any) => {
     return (
         <Tag
             objectFit="cover"
@@ -34,10 +13,6 @@ const Image = React.forwardRef(<T extends TagComponentType = "img">({ children, 
             alt={alt}
             src={src}
             baseClass='image'
-            onError={(e) => {
-                setFaild(false)
-                rest.onError && rest.onError(e as any)
-            }}
             ref={ref}
         />
     )
