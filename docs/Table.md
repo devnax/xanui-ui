@@ -43,7 +43,7 @@ export default function BasicTable() {
 | Name         | Type                                        | Default     | Description                                               |
 | ------------ | ------------------------------------------- | ----------- | --------------------------------------------------------- |
 | `size`       | `'small' \| 'medium' \| 'large' \| number`  | `'medium'`  | Controls padding and font sizing for cells.               |
-| `color`      | `UseColorTemplateColor`                     | `'default'` | Applies theme colors to header/footer regions.            |
+| `color`      | `UseColorTemplateColor`                     | `'surface'` | Applies theme colors to header/footer regions.            |
 | `variant`    | `UseColorTemplateType` (except `'outline'`) | `'fill'`    | Determines how the color template is used.                |
 | `borderType` | `'box' \| 'line' \| 'none'`                 | `'line'`    | Chooses between full grid borders, row dividers, or none. |
 | `evenColor`  | `boolean`                                   | `false`     | Adds zebra striping to even rows.                         |
@@ -68,8 +68,8 @@ export default function ZebraTable() {
 }
 ```
 
-### Branded header table
-Combine `color` and `variant` to brand table headers and hover states.
+### primaryed header table
+Combine `color` and `variant` to primary table headers and hover states.
 
 ```tsx
 import Table from '@xanui/ui/Table';

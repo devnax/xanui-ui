@@ -6,7 +6,6 @@ import IconButton from '../../src/IconButton'
 import Button from '../../src/Button'
 import UserIcon from '@xanui/icons/People'
 import Section from '../Layout/Section'
-import { CameraAlt } from '@xanui/icons'
 
 const Badges = () => {
     const [visible, setVisible] = React.useState(true);
@@ -29,7 +28,7 @@ const Badges = () => {
                 </Box>
                 <Box>
                     {/* <Badge>
-                        <IconButton variant='soft'>
+                        <IconButton variant='ghost'>
                             <UserIcon />
                         </IconButton>
                     </Badge> */}
@@ -40,12 +39,12 @@ const Badges = () => {
                     // disableTransition
                     placement={"left-bottom"}
                     content={<IconButton
-                        color="default"
+                        color="surface"
                     >
                         <CameraAlt />
                     </IconButton>}
                 >
-                    <Stack width={120} height={120} bgcolor="background.primary" border="1px dashed" borderColor="divider" radius={10}></Stack>
+                    <Stack width={120} height={120} bgcolor="surface.main" border="1px dashed" borderColor='surface.divider' radius={10}></Stack>
                 </Badge>
                 <Badge
                     visible={visible}
@@ -53,18 +52,18 @@ const Badges = () => {
                     disableTransition
                     placement={"right-bottom"}
                     content={<IconButton
-                        color="default"
+                        color="surface"
                     >
                         <CameraAlt />
                     </IconButton>}
                 >
-                    <Stack width={120} height={120} bgcolor="background.primary" border="1px dashed" borderColor="divider" radius={10}></Stack>
+                    <Stack width={120} height={120} bgcolor="surface.main" border="1px dashed" borderColor='surface.divider' radius={10}></Stack>
                 </Badge>
                 <Badge
                     disableTransition
                     content={2200}
                 >
-                    <Stack width={120} height={120} bgcolor="background.primary" border="1px dashed" borderColor="divider" ></Stack>
+                    <Stack width={120} height={120} bgcolor="surface.main" border="1px dashed" borderColor='surface.divider' ></Stack>
                 </Badge> */}
             </Section>
         </Stack>

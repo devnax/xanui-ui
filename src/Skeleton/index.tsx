@@ -13,12 +13,12 @@ const Skeleton = React.forwardRef(<T extends TagComponentType = "div">({ childre
 
    if (loading) {
       animation ??= 'pulse'
-      color ??= "default"
+      color ??= 'surface'
       let sxr: any = {}
       switch (animation) {
          case 'pulse':
             sxr = {
-               bgcolor: "divider.primary",
+               bgcolor: "surface.light",
                width: "100%",
                animation: 'skpulse 1.5s infinite',
                "@keyframes skpulse": {
@@ -35,7 +35,7 @@ const Skeleton = React.forwardRef(<T extends TagComponentType = "div">({ childre
             sxr = {
                position: 'relative',
                overflow: 'hidden',
-               bgcolor: "divider.primary",
+               bgcolor: "surface.dark",
                "&::after": {
                   content: '""',
                   position: 'absolute',

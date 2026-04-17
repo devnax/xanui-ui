@@ -23,7 +23,7 @@ const Layers = () => {
                         setOpen(false)
                     }}
                 >Close</Button>
-                <List radius={1} width={180} variant="fill" bgcolor="background.primary" shadow={5}>
+                <List radius={1} width={180} variant="fill" bgcolor="surface.main" shadow={5}>
                     <ListItem >Home</ListItem>
                     <ListItem >About</ListItem>
                     <ListItem >Services</ListItem>
@@ -64,7 +64,7 @@ const Layers = () => {
                         //                 l.close()
                         //             }}
                         //         >Close</Button>
-                        //         <List radius={1} width={180} variant="fill" bgcolor="background.primary" shadow={5}>
+                        //         <List radius={1} width={180} variant="fill" bgcolor="surface.main" shadow={5}>
                         //             <ListItem >Home</ListItem>
                         //             <ListItem >About</ListItem>
                         //             <ListItem >Services</ListItem>

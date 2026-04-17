@@ -4,7 +4,7 @@
 
 ## Basic Example
 
-Simple icon button with the brand fill style.
+Simple icon button with the primary fill style.
 
 ```tsx
 import IconButton from '@xanui/ui/IconButton';
@@ -21,13 +21,13 @@ export default function BasicIconButton() {
 
 ## Props
 
-| Name       | Type                                       | Default    | Description                                   |
-| ---------- | ------------------------------------------ | ---------- | --------------------------------------------- |
-| `size`     | `number \| 'small' \| 'medium' \| 'large'` | `'medium'` | Sets the button's width/height (square).      |
-| `color`    | `UseColorTemplateColor`                    | `'brand'`  | Palette token for the background/border.      |
-| `variant`  | `UseColorTemplateType`                     | `'fill'`   | Visual style such as fill, outline, or text.  |
-| `corner`   | `'square' \| 'rounded' \| 'circle'`        | `'circle'` | Border radius preset; circle produces a pill. |
-| `children` | `ReactNode`                                | —          | Usually a single icon element.                |
+| Name       | Type                                       | Default     | Description                                   |
+| ---------- | ------------------------------------------ | ----------- | --------------------------------------------- |
+| `size`     | `number \| 'small' \| 'medium' \| 'large'` | `'medium'`  | Sets the button's width/height (square).      |
+| `color`    | `UseColorTemplateColor`                    | `'primary'` | Palette token for the background/border.      |
+| `variant`  | `UseColorTemplateType`                     | `'fill'`    | Visual style such as fill, outline, or text.  |
+| `corner`   | `'square' \| 'rounded' \| 'circle'`        | `'circle'`  | Border radius preset; circle produces a pill. |
+| `children` | `ReactNode`                                | —           | Usually a single icon element.                |
 
 ## Usage Examples
 
@@ -40,7 +40,7 @@ import SettingsIcon from '@xanui/icons/Settings';
 
 export default function GhostIconButton() {
     return (
-        <IconButton variant="text" color="default" size="small">
+        <IconButton variant="text" color="surface" size="small">
             <SettingsIcon />
         </IconButton>
     );

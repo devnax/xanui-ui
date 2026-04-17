@@ -71,7 +71,7 @@ const Layout = () => {
     const currentMenuIndex = parseInt(localStorage.getItem("currentMenuIndex") || "0")
     const currentMenu = menu[currentMenuIndex]
     const Render: any = currentMenu?.render || (() => <></>)
-    const [theme, setTheme] = React.useState({ mode: "dark" })
+    const [theme, setTheme] = React.useState<any>({ mode: "dark" })
 
 
     React.useEffect(() => {
@@ -87,14 +87,14 @@ const Layout = () => {
                 theme={theme}
                 onThemeChange={t => setTheme(t)}
             >
-                <Stack height="100vh" flexRow bgcolor="background.primary">
+                <Stack height="100vh" flexRow bgcolor="surface.main">
                     <ViewBox
                         width={250}
                         height="100%"
-                        bgcolor="background.secondary"
+                        bgcolor="surface.light"
                         endContent={<ThemeBox />}
                     >
-                        <Text p={1} variant='text' fontWeight={600} mb={2} color="text.primary">Components</Text>
+                        <Text p={1} variant='text' fontWeight={600} mb={2} color="surface.contrast">Components</Text>
                         <List p={1} variant="fill" >
                             {
                                 menu.map((m, idx) => <ListItem
@@ -105,7 +105,7 @@ const Layout = () => {
                                         dispatch(Math.random())
                                     }}
                                     selected={currentMenuIndex === idx}
-                                    endIcon={<CheckIcon color={m.done ? "success" : "success.soft"} fontSize={20} />}
+                                    endIcon={<CheckIcon color={m.done ? "success" : "success.ghost"} fontSize={20} />}
                                 >
                                     {m.label}
                                 </ListItem>)

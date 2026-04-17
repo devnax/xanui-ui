@@ -24,7 +24,7 @@ const List = React.forwardRef(<T extends TagComponentType = "ul">({ children, sl
     if (size) _p.size = size
     const p: any = useBreakpointProps(_p)
 
-    color = p.color ?? "brand"
+    color = p.color ?? "primary"
     variant = p.variant ?? "fill"
     size = p.size ?? "medium"
 

@@ -28,7 +28,7 @@ export default function SaveButton() {
 | ----------- | ------------------------------------------------------------------------------------------------- | ---------------- | ----------------------------------------------------- |
 | `title`     | `string \| ReactElement`                                                                          | —                | Heading rendered inside the toast alert.              |
 | `content`   | `ReactNode`                                                                                       | —                | Body copy or JSX.                                     |
-| `color`     | `UseColorTemplateColor`                                                                           | `'brand'`        | Color palette applied to the alert.                   |
+| `color`     | `UseColorTemplateColor`                                                                           | `'primary'`      | Color palette applied to the alert.                   |
 | `variant`   | `UseColorTemplateType`                                                                            | `'fill'`         | Alert variant (fill, outline, alpha, etc.).           |
 | `icon`      | `'info' \| 'warning' \| 'success' \| 'error' \| false \| ReactElement`                            | `'info'`         | Icon displayed at the start of the alert.             |
 | `placement` | `'top-left' \| 'top-center' \| 'top-right' \| 'bottom-left' \| 'bottom-center' \| 'bottom-right'` | `'bottom-right'` | Screen corner where the toast stack appears.          |

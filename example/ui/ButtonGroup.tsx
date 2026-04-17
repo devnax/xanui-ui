@@ -11,7 +11,7 @@ const ButtonGroups = () => {
         <Stack>
             <Section title="Basic" gap={2} direction="row">
                 <ButtonGroup
-                    color='default'
+                    color='surface'
                     size="small"
                 >
                     <Button>1</Button>
@@ -19,8 +19,8 @@ const ButtonGroups = () => {
                     <Button>3</Button>
                 </ButtonGroup>
                 <ButtonGroup
-                    color='default'
-                    variant='soft'
+                    color='surface'
+                    variant='ghost'
                     size="small"
                 >
                     <Button>1</Button>
@@ -42,7 +42,7 @@ const ButtonGroups = () => {
                 </div>
                 <ButtonGroup
                     color='danger'
-                    variant='soft'
+                    variant='ghost'
                     size="medium"
                 >
                     <Button><PrevIcon /></Button>
@@ -52,7 +52,7 @@ const ButtonGroups = () => {
                 </ButtonGroup>
                 <ButtonGroup
                     color='warning'
-                    variant='soft'
+                    variant='ghost'
                     size="large"
                 >
                     <Button>1</Button>

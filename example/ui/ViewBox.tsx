@@ -8,19 +8,19 @@ const Viewboxes = () => {
         <Stack gap={2}>
             <ViewBox
                 border="1px solid"
-                borderColor='divider'
+                borderColor='surface.divider'
                 borderRadius={1}
                 overflow="hidden"
                 height={300}
                 horizental
                 startContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     width={60}
                 >
 
                 </Stack>}
                 endContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     width={60}
                 >
 
@@ -31,18 +31,18 @@ const Viewboxes = () => {
             </ViewBox>
             <ViewBox
                 border="1px solid"
-                borderColor='divider'
+                borderColor='surface.divider'
                 borderRadius={1}
                 overflow="hidden"
                 height={300}
                 startContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 
                 </Stack>}
                 endContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 
@@ -53,18 +53,18 @@ const Viewboxes = () => {
             </ViewBox>
             <ViewBox
                 border="1px solid"
-                borderColor='divider'
+                borderColor='surface.divider'
                 borderRadius={1}
                 overflow="hidden"
                 height={300}
                 startContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 
                 </Stack>}
                 endContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 
@@ -75,18 +75,18 @@ const Viewboxes = () => {
             </ViewBox>
             <ViewBox
                 border="1px solid"
-                borderColor='divider'
+                borderColor='surface.divider'
                 borderRadius={1}
                 overflow="hidden"
                 height={300}
                 startContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 
                 </Stack>}
                 endContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 
@@ -97,18 +97,18 @@ const Viewboxes = () => {
             </ViewBox>
             <ViewBox
                 border="1px solid"
-                borderColor='divider'
+                borderColor='surface.divider'
                 borderRadius={1}
                 overflow="hidden"
                 height={300}
                 startContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 
                 </Stack>}
                 endContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 
@@ -119,18 +119,18 @@ const Viewboxes = () => {
             </ViewBox>
             <ViewBox
                 border="1px solid"
-                borderColor='divider'
+                borderColor='surface.divider'
                 borderRadius={1}
                 overflow="hidden"
                 height={300}
                 startContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 
                 </Stack>}
                 endContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 
@@ -141,18 +141,18 @@ const Viewboxes = () => {
             </ViewBox>
             <ViewBox
                 border="1px solid"
-                borderColor='divider'
+                borderColor='surface.divider'
                 borderRadius={1}
                 overflow="hidden"
                 height={300}
                 startContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 
                 </Stack>}
                 endContent={<Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={60}
                 >
 

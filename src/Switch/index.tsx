@@ -6,7 +6,7 @@ import { Tag, TagProps, useBreakpointProps, UseColorTemplateColor, useInterface,
 export type SwitchProps = Omit<TagProps<"input">, "color" | "size" | "component" | "type" | "checked"> & {
     checked?: boolean;
     size?: useBreakpointPropsType<number | "small" | "medium" | "large">;
-    color?: useBreakpointPropsType<Omit<UseColorTemplateColor, "default">>;
+    color?: useBreakpointPropsType<Omit<UseColorTemplateColor, 'surface'>>;
     disabled?: useBreakpointPropsType<boolean>;
     trackSize?: useBreakpointPropsType<number>;
     icon?: useBreakpointPropsType<ReactElement>;
@@ -26,7 +26,7 @@ const Switch = React.forwardRef((props: SwitchProps, ref?: React.Ref<any>) => {
     if (icon) _p.icon = icon
     const p: any = useBreakpointProps(_p)
     size = p.size ?? "medium"
-    color = p.color ?? "brand"
+    color = p.color ?? "primary"
     disabled = p.disabled
     trackSize = p.trackSize
     icon = p.icon
@@ -73,7 +73,7 @@ const Switch = React.forwardRef((props: SwitchProps, ref?: React.Ref<any>) => {
                     position: 'absolute',
                     top: "50%",
                     transform: "translateY(-50%)",
-                    bgcolor: checked ? color : "divider",
+                    bgcolor: checked ? color : 'surface.divider',
 
                 }}
             >

@@ -9,7 +9,7 @@ type Props = StackProps & {
 const Section = ({ title, children, ...rest }: Props) => {
     return (
         <Stack gap={1} mb={3} >
-            <Text fontWeight={600} color="text.secondary">{title}</Text>
+            <Text fontWeight={600} color="surface.muted">{title}</Text>
             <Stack  {...rest} >
                 {children}
             </Stack>

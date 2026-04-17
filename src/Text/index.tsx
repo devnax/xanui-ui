@@ -21,7 +21,7 @@ const Text = React.forwardRef(<T extends TagComponentType = "p">({ children, var
                 fontSize: variant,
                 lineHeight: variant,
                 fontWeight: variant,
-                color: "text.primary",
+                color: "surface.contrast",
             }}
             baseClass='text'
             ref={ref}

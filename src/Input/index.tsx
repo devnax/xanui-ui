@@ -29,7 +29,7 @@ export type InputProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "
     endIcon?: useBreakpointPropsType<ReactElement>;
     iconPlacement?: useBreakpointPropsType<"start" | "center" | "end">;
     focused?: boolean;
-    color?: useBreakpointPropsType<Omit<UseColorTemplateColor, "default">>;
+    color?: useBreakpointPropsType<Omit<UseColorTemplateColor, 'surface'>>;
     variant?: useBreakpointPropsType<"fill" | "outline" | "text">;
     error?: boolean;
     helperText?: useBreakpointPropsType<string>;
@@ -109,7 +109,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
     startIcon = p.startIcon
     endIcon = p.endIcon
     iconPlacement = p.iconPlacement
-    color = p.color ?? "brand"
+    color = p.color ?? "primary"
     variant = p.variant ?? "fill"
     helperText = p.helperText
     size = p.size ?? 'medium'
@@ -166,8 +166,8 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
     }
 
     const _size = sizes[size]
-    let borderColor = _focus ? color : (variant === "fill" ? "transparent" : "divider")
-    borderColor = error ? "danger.primary" : borderColor
+    let borderColor = _focus ? color : (variant === "fill" ? "transparent" : 'surface.divider')
+    borderColor = error ? "danger.main" : borderColor
     let multiprops: any = {}
     if (multiline) {
         multiprops = {
@@ -211,7 +211,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         alignItems: iconPlacement === 'center' ? iconPlacement : `flex-${iconPlacement}`,
                         flexWrap: "nowrap",
                         transitionProperty: "border, box-shadow, background",
-                        bgcolor: error ? "danger.soft.primary" : variant === "fill" ? "background.secondary" : "background.primary",
+                        bgcolor: error ? "danger.ghost" : variant === "fill" ? "surface.light" : "surface.main",
                         border: variant === "text" ? 0 : "1px solid",
                         borderColor: borderColor,
                         borderRadius: 1,
@@ -221,8 +221,8 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         height: multiline ? "auto" : _size.height,
                         minHeight: _size.height,
                         "& > input:-webkit-autofill,& > input:-webkit-autofill:hover, & > input:-webkit-autofill:focus,& > input:-webkit-autofill:active": {
-                            "-webkit-text-fill-color": "text.primary",
-                            "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.background.secondary : theme.colors.background.primary} inset`,
+                            "-webkit-text-fill-color": "surface.contrast",
+                            "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.surface.light : theme.colors.surface.main} inset`,
                             transition: "background-color 5000s ease-in-out 0s"
                         } as any,
                         "& textarea": {
@@ -235,7 +235,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                                 alignItems: 'center',
                                 justifyContent: "center",
                                 display: "flex",
-                                color: error ? "danger.primary" : "text.secondary",
+                                color: error ? "danger.main" : "surface.muted",
                                 flex: "0 0 auto",
                             },
                         }),
@@ -246,7 +246,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                                 alignItems: 'center',
                                 justifyContent: "center",
                                 display: 'flex',
-                                color: error ? "danger.primary" : "text.secondary",
+                                color: error ? "danger.main" : "surface.muted",
                                 flex: "0 0 auto",
                             },
                         })
@@ -265,7 +265,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                             border: 0,
                             outline: 0,
                             bgcolor: "transparent",
-                            color: error ? "danger.primary" : "text.primary",
+                            color: error ? "danger.main" : "surface.contrast",
                             fontSize: _size.fontSize,
                             height: multiline ? "auto" : _size.height + "px!important",
                             width: "100%",
@@ -296,7 +296,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                     ref={refs?.helperText}
                     baseClass="input-helper-text"
                     sxr={{
-                        color: error ? "danger.primary" : "text.primary",
+                        color: error ? "danger.main" : "surface.contrast",
                         fontSize: "small",
                         lineHeight: "text",
                         fontWeight: 'text',

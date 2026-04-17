@@ -27,7 +27,7 @@ export type TablePaginationProps = Omit<TagProps, "children" | "onChange"> & {
 
 const TablePagination = React.forwardRef(({ page, total, perpage, onChange, ...rest }: TablePaginationProps, ref: React.Ref<any>) => {
     let [{ perpages, color, variant, slotProps, ...props }] = useInterface<any>("TablePagination", rest, {})
-    color ??= "default"
+    color ??= 'surface'
     variant ??= "fill"
     perpages ??= [30, 50, 100]
     perpage = perpage || perpages[0] as number
@@ -91,7 +91,7 @@ const TablePagination = React.forwardRef(({ page, total, perpage, onChange, ...r
                 }}
             >
                 <Text fontSize="button">{current?.from}-{current.to}</Text>
-                <Text color="text.secondary">of</Text>
+                <Text color="surface.muted">of</Text>
                 <Text fontSize="button">{total}</Text>
             </Tag>
             <Tag baseClass='table-pagination-navigation' flexBox flexRow gap={.4} >

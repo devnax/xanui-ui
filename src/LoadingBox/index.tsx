@@ -18,7 +18,7 @@ const LoadingBox = React.forwardRef(<T extends TagComponentType = "div">({ child
     const _p: any = {}
     if (color) _p.color = color
     const p: any = useBreakpointProps(_p)
-    color = p.color ?? "brand"
+    color = p.color ?? "primary"
 
     return (
         <Tag
@@ -47,7 +47,7 @@ const LoadingBox = React.forwardRef(<T extends TagComponentType = "div">({ child
                 }}
             >
                 <CircleProgress
-                    color="brand"
+                    color="primary"
                     hideTrack
                     {...slotProps?.CircleProgress}
                 />

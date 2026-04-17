@@ -24,7 +24,7 @@ const LineProgress = React.forwardRef(({ children, ...props }: LineProgressProps
     const p: any = useBreakpointProps(_p)
 
     thumbSize = p.thumbSize ?? 4
-    color = p.color ?? "brand"
+    color = p.color ?? "primary"
     value = p.value
     hideTrack = p.hideTrack
     speed = p.speed
@@ -42,7 +42,7 @@ const LineProgress = React.forwardRef(({ children, ...props }: LineProgressProps
                 height: thumbSize,
                 position: "relative",
                 overflow: "hidden",
-                bgcolor: hideTrack ? "transparent" : (color === 'default' ? `text.primary` : `${color}.soft.primary`),
+                bgcolor: hideTrack ? "transparent" : (color === 'surface' ? `surface.contrast` : `${color}.ghost`),
                 radius: 2,
             }}
             ref={ref}
@@ -51,7 +51,7 @@ const LineProgress = React.forwardRef(({ children, ...props }: LineProgressProps
                 component="span"
                 baseClass="line-progress-thumb"
                 sxr={{
-                    bgcolor: color === 'default' ? `divider` : `${color}`,
+                    bgcolor: color === 'surface' ? `divider` : `${color}`,
                     width: isVal ? `${value}%` : "50%",
                     height: thumbSize,
                     position: "absolute",

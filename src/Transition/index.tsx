@@ -42,7 +42,7 @@ function Transition({ children, ...options }: TransitionProps) {
 
     } = options
 
-    easing ??= "default"
+    easing ??= 'surface'
 
     const variantCb = variants[variant]
     const ref = useRef<HTMLElement>(null)

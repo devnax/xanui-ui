@@ -16,15 +16,15 @@ export default function BasicChip() {
 
 ## Props
 
-| Name                    | Type                             | Default    | Description                                  |
-| ----------------------- | -------------------------------- | ---------- | -------------------------------------------- |
-| `label`                 | `string \| ReactElement`         | —          | Mandatory content displayed inside the chip. |
-| `startIcon` / `endIcon` | `ReactElement`                   | —          | Optional icons that flank the label.         |
-| `color`                 | `UseColorTemplateColor`          | `'brand'`  | Palette token used with the chosen variant.  |
-| `variant`               | `UseColorTemplateType`           | `'fill'`   | Visual style (fill, outline, alpha, etc.).   |
-| `corner`                | `UseCornerTypes`                 | `'circle'` | Border radius preset, e.g., pill or rounded. |
-| `size`                  | `'small' \| 'medium' \| 'large'` | `'medium'` | Sets height, padding, and font sizing.       |
-| `component`             | `TagComponentType`               | `'div'`    | Change the rendered element for semantics.   |
+| Name                    | Type                             | Default     | Description                                  |
+| ----------------------- | -------------------------------- | ----------- | -------------------------------------------- |
+| `label`                 | `string \| ReactElement`         | —           | Mandatory content displayed inside the chip. |
+| `startIcon` / `endIcon` | `ReactElement`                   | —           | Optional icons that flank the label.         |
+| `color`                 | `UseColorTemplateColor`          | `'primary'` | Palette token used with the chosen variant.  |
+| `variant`               | `UseColorTemplateType`           | `'fill'`    | Visual style (fill, outline, alpha, etc.).   |
+| `corner`                | `UseCornerTypes`                 | `'circle'`  | Border radius preset, e.g., pill or rounded. |
+| `size`                  | `'small' \| 'medium' \| 'large'` | `'medium'`  | Sets height, padding, and font sizing.       |
+| `component`             | `TagComponentType`               | `'div'`     | Change the rendered element for semantics.   |
 
 ## Usage Examples
 
@@ -58,7 +58,7 @@ export default function ResponsiveChips() {
 		<div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
 			<Chip label="Draft" color="warning" size={sizes} />
 			<Chip label="Published" color="success" size={sizes} />
-			<Chip label="Archived" color="default" size={sizes} />
+			<Chip label="Archived" color="surface" size={sizes} />
 		</div>
 	);
 }

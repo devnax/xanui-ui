@@ -1,12 +1,11 @@
 "use client"
 import { useMemo } from "react"
-import { alpha } from "@xanui/core";
 
 let _d: CSSStyleDeclaration;
 
 const useBlurCss = (blur: number, mode?: "transparent" | "blur") => {
    return useMemo(() => {
-      let transparent = { bgcolor: alpha("#000000", blur / 100) }
+      let transparent = { bgcolor: "surface.ghost" }
       if (typeof window === 'undefined' || mode === 'transparent') {
          return transparent
       }

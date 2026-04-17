@@ -31,7 +31,7 @@ export default function App() {
     <ThemeProvider theme="light">
       <Box p={3} gap={2} display="flex" flexDirection="column">
         <h1>Welcome</h1>
-        <Button color="brand" onClick={() => alert('Hello from Xanui!')}>
+        <Button color="primary" onClick={() => alert('Hello from Xanui!')}>
           Get Started
         </Button>
       </Box>

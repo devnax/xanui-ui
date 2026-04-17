@@ -24,7 +24,7 @@ const ChipBox = ({ color }) => {
             <Chip
                 size='large'
                 color={color}
-                variant='soft'
+                variant='ghost'
                 label='Panding'
             />
             <Chip
@@ -40,8 +40,8 @@ const Chips = () => {
     const [value, setValue] = useState("A")
     return (
         <Stack gap={3}>
-            <ChipBox color="default" />
-            <ChipBox color="brand" />
+            <ChipBox color="surface" />
+            <ChipBox color="primary" />
             <ChipBox color="accent" />
             <ChipBox color="success" />
             <ChipBox color="warning" />
@@ -62,7 +62,7 @@ const Chips = () => {
                 />
                 <Chip
                     size="large"
-                    variant='soft'
+                    variant='ghost'
                     label='This is a chip box'
                     startIcon={<IconButton variant='fill' size={22}><CloseIcon /></IconButton>}
                     endIcon={<IconButton variant='fill' size={22}><CloseIcon /></IconButton>}

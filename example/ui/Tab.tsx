@@ -13,7 +13,7 @@ import People from '@xanui/icons/People'
 
 const TabItem = ({ color, variant, verticle }: any) => {
     const [val, setVal] = useState<string>("Services")
-    color ??= "brand"
+    color ??= "primary"
     variant ??= "end-line"
     return (
         <Stack gap={3} direction="row" alignItems='center'>
@@ -22,7 +22,7 @@ const TabItem = ({ color, variant, verticle }: any) => {
                 color={color}
                 radius={1}
                 overflow="hidden"
-                bgcolor="background.secondary"
+                bgcolor="surface.light"
                 p={1}
                 value={val}
                 onChange={(v: any) => {
@@ -41,7 +41,7 @@ const TabItem = ({ color, variant, verticle }: any) => {
 
 const MobileTab = ({ color, variant, verticle }: any) => {
     const [val, setVal] = useState<string>("home")
-    color ??= "brand"
+    color ??= "primary"
     variant ??= "end-line"
     return (
         <Stack gap={3} direction="row" alignItems='center'>
@@ -50,7 +50,7 @@ const MobileTab = ({ color, variant, verticle }: any) => {
                 color={color}
                 radius={1}
                 overflow="hidden"
-                bgcolor="background.secondary"
+                bgcolor="surface.light"
                 p={1}
                 value={val}
                 width={400}
@@ -69,7 +69,7 @@ const MobileTab = ({ color, variant, verticle }: any) => {
 
 
 const TabView = () => {
-    const [color, setColor] = useState("brand")
+    const [color, setColor] = useState("primary")
     const [variant, setVariant] = useState("start-line")
     const [verticle, setVerticle] = useState(false)
     return (
@@ -89,7 +89,7 @@ const TabView = () => {
                     <Text>Verticle?</Text>
                 </Stack>
                 <Select value={color} onChange={(v: any) => setColor(v)}>
-                    <Option value="brand">brand</Option>
+                    <Option value="primary">primary</Option>
                     <Option value="accent">accent</Option>
                     <Option value="info">info</Option>
                     <Option value="success">success</Option>
@@ -100,7 +100,7 @@ const TabView = () => {
                     <Option value="start-line">start-line</Option>
                     <Option value="end-line">end-line</Option>
                     <Option value="fill">fill</Option>
-                    <Option value="soft">soft</Option>
+                    <Option value="ghost">ghost</Option>
                     <Option value="outline">outline</Option>
                     <Option value="text">text</Option>
                 </Select>

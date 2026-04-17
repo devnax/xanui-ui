@@ -11,7 +11,7 @@ import Button from '@xanui/ui/Button';
 
 export default function BasicButton() {
     return (
-        <Button color="brand" variant="fill">
+        <Button color="primary" variant="fill">
             Save changes
         </Button>
     );
@@ -23,7 +23,7 @@ export default function BasicButton() {
 | Name                    | Type                             | Default     | Description                                                                      |
 | ----------------------- | -------------------------------- | ----------- | -------------------------------------------------------------------------------- |
 | `startIcon` / `endIcon` | `ReactElement`                   | —           | Optional icons rendered before/after the button label; accept responsive values. |
-| `color`                 | `UseColorTemplateColor`          | `'brand'`   | Palette token controlling background, border, and text.                          |
+| `color`                 | `UseColorTemplateColor`          | `'primary'` | Palette token controlling background, border, and text.                          |
 | `variant`               | `UseColorTemplateType`           | `'fill'`    | Selects visual treatment (fill, outline, text, etc.).                            |
 | `corner`                | `UseCornerTypes`                 | `'rounded'` | Border radius preset plugged into the `useCorner` utility.                       |
 | `size`                  | `'small' \| 'medium' \| 'large'` | `'medium'`  | Determines height, horizontal padding, and spacing.                              |
@@ -35,7 +35,7 @@ export default function BasicButton() {
 ## Usage Examples
 
 ### Loading state with custom spinner
-Combine `loading` with `slotProps.loading` to match brand guidelines while keeping the button disabled.
+Combine `loading` with `slotProps.loading` to match primary guidelines while keeping the button disabled.
 
 ```tsx
 import Button from '@xanui/ui/Button';

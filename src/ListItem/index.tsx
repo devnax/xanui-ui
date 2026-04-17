@@ -29,8 +29,8 @@ const ListItem = React.forwardRef(<T extends TagComponentType = "li">({ children
     const p: any = useBreakpointProps(_p)
     const listProps = useListContext()
     const template = useColorTemplate(listProps.color, listProps.variant)
-    const defaultTemplate = useColorTemplate("default", "text")
-    const hoverTemplate = useColorTemplate('default', "soft")
+    const defaultTemplate = useColorTemplate("surface", "text")
+    const hoverTemplate = useColorTemplate('surface', "ghost")
 
     subtitle = p.subtitle
     startIcon = p.startIcon
@@ -59,22 +59,22 @@ const ListItem = React.forwardRef(<T extends TagComponentType = "li">({ children
     }
 
     const hoversx = {
-        ...hoverTemplate.primary,
+        ...hoverTemplate.main,
         "& .list-item-icon": {
-            color: hoverTemplate.primary.color
+            color: hoverTemplate.main.color
         },
         "& .list-item-text": {
-            color: hoverTemplate.primary.color
+            color: hoverTemplate.main.color
         },
         "& .list-item-subtitle": {
-            color: hoverTemplate.primary.color
+            color: hoverTemplate.main.color
         }
     }
 
     let sx = {
-        item: selected ? template.primary : defaultTemplate.primary,
+        item: selected ? template.main : defaultTemplate.main,
         text: {
-            color: selected ? template.primary.color : defaultTemplate.primary.color
+            color: selected ? template.main.color : defaultTemplate.main.color
         }
     }
 

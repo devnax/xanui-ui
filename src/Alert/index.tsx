@@ -35,7 +35,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
     }] = useInterface<any>("Alert", rest, {
         variant: "fill"
     })
-    color ??= "default"
+    color ??= 'surface'
     direction ??= "row"
 
     const _p: any = {}
@@ -60,7 +60,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
 
     let iconsx = {
         fontSize: isRow ? 22 : 40,
-        color: color === 'default' ? "text.primary" : template.primary.color
+        color: color === 'surface' ? "surface.contrast" : template.main.color
     }
 
     const icons: any = {
@@ -86,7 +86,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                 display: 'flex',
                 ..._props?.sx
             }}
-            {...template.primary}
+            {...template.main}
         >
             {
                 onClose && <IconButton
@@ -122,7 +122,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                             justifyContent: "center",
                             p: isRow ? .5 : 0,
                             "& svg": {
-                                color: template.primary.color
+                                color: template.main.color
                             }
                         }}
                     >
@@ -135,7 +135,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                         display: "flex",
                         flexDirection: "column",
                         flex: 1,
-                        color: template.primary.color,
+                        color: template.main.color,
                         textAlign: isRow ? "left" : "center",
                         gap: isRow ? 0 : 1,
                         width: "100%"
@@ -148,7 +148,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
                                 variant="text"
                                 sx={{
                                     fontWeight: 500,
-                                    color: template.primary.color
+                                    color: template.main.color
                                 }}
                             >{title}</Text>
                         }
@@ -221,7 +221,7 @@ const ConfirmAlert = (props: ConfirmAlertProps) => {
     hideCancelButton ??= false
 
     size ??= "small"
-    color ??= 'default'
+    color ??= 'surface'
     variant ??= "text"
     direction ??= "column"
     buttonPlacement ??= "end"
@@ -254,17 +254,17 @@ const ConfirmAlert = (props: ConfirmAlertProps) => {
 
     let okcolor = color
     let closecolor = color
-    if (color === 'default') {
-        okcolor = 'brand'
-        closecolor = 'default'
+    if (color === 'surface') {
+        okcolor = 'primary'
+        closecolor = 'surface'
         variant = 'text'
     } else {
         if (variant === 'fill') {
-            okcolor = 'default'
-            closecolor = 'default'
+            okcolor = 'surface'
+            closecolor = 'surface'
         } else {
             okcolor = color
-            closecolor = 'default'
+            closecolor = 'surface'
         }
     }
 

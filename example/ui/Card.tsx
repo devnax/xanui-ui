@@ -25,14 +25,14 @@ const Cards = () => {
                         </Text>
                      </Link>
 
-                     <Text variant="text" color="text.secondary" lineHeight={1.3}>
+                     <Text variant="text" color="surface.muted" lineHeight={1.3}>
                         This is a description of the electronic gadget. It has many features and is very useful for daily tasks.
                      </Text>
                      <Stack flexRow gap={1} mt={1}>
                         <Text variant="text" color="primary">
                            $199.99
                         </Text>
-                        <Text variant="text" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
+                        <Text variant="text" color="surface.muted" sx={{ textDecoration: 'line-through' }}>
                            $249.99
                         </Text>
                      </Stack>
@@ -58,14 +58,14 @@ const Cards = () => {
                      <Text variant="h6">
                         Electronic Gadget
                      </Text>
-                     <Text variant="text" color="text.secondary" lineHeight={1.3}>
+                     <Text variant="text" color="surface.muted" lineHeight={1.3}>
                         This is a description of the electronic gadget. It has many features and is very useful for daily tasks.
                      </Text>
                      <Stack flexRow gap={1} mt={1}>
                         <Text variant="text" color="primary">
                            $199.99
                         </Text>
-                        <Text variant="text" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
+                        <Text variant="text" color="surface.muted" sx={{ textDecoration: 'line-through' }}>
                            $249.99
                         </Text>
                      </Stack>
@@ -91,14 +91,14 @@ const Cards = () => {
                      <Text variant="h6">
                         Electronic Gadget
                      </Text>
-                     <Text variant="text" color="text.secondary" lineHeight={1.3}>
+                     <Text variant="text" color="surface.muted" lineHeight={1.3}>
                         This is a description of the electronic gadget. It has many features and is very useful for daily tasks.
                      </Text>
                      <Stack flexRow gap={1} mt={1}>
                         <Text variant="text" color="primary">
                            $199.99
                         </Text>
-                        <Text variant="text" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
+                        <Text variant="text" color="surface.muted" sx={{ textDecoration: 'line-through' }}>
                            $249.99
                         </Text>
                      </Stack>
@@ -124,14 +124,14 @@ const Cards = () => {
                      <Text variant="h6">
                         Electronic Gadget
                      </Text>
-                     <Text variant="text" color="text.secondary" lineHeight={1.3}>
+                     <Text variant="text" color="surface.muted" lineHeight={1.3}>
                         This is a description of the electronic gadget. It has many features and is very useful for daily tasks.
                      </Text>
                      <Stack flexRow gap={1} mt={1}>
                         <Text variant="text" color="primary">
                            $199.99
                         </Text>
-                        <Text variant="text" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
+                        <Text variant="text" color="surface.muted" sx={{ textDecoration: 'line-through' }}>
                            $249.99
                         </Text>
                      </Stack>

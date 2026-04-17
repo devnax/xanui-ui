@@ -62,7 +62,7 @@ export default [
     { "done": true, "label": "Collaps", "render": Collaps },
     { "done": false, "label": "Container", "render": Container },
     { "done": false, "label": "Datatable", "render": Datatable },
-    { "done": false, "label": "Divider", "render": Divider },
+    { "done": false, "label": 'surface.divider', "render": Divider },
     { "done": false, "label": "Drawer", "render": Drawer },
     { "done": false, "label": "Form", "render": Form },
     { "done": false, "label": "Grid", "render": Grid },

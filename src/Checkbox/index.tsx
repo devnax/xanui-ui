@@ -34,7 +34,7 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<any>) =
     const [c, set] = useState(false)
     checked ??= c
     size ??= "medium"
-    color ??= "brand"
+    color ??= "primary"
 
     onChange = onChange || (() => set(!c));
     if (indeterminate) {
@@ -65,7 +65,7 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<any>) =
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: checked ? color : "text.secondary",
+                    color: checked ? color : "surface.muted",
                     cursor: "pointer",
                     disabled: disabled,
                     "& svg": {

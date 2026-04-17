@@ -73,6 +73,7 @@ const Carousels = () => {
                 <Carousel
                     ref={ref}
                     duration={500}
+                    slidesToShow={3}
                     // autoplay
                     onChange={(idx, indexes) => {
                         setIndex(indexes)
@@ -85,7 +86,7 @@ const Carousels = () => {
                                 width={"100%"}
                                 overflow={"hidden"}
                                 radius={2}
-                                bgcolor="background.secondary"
+                                bgcolor="surface.light"
                             >
                                 <Image
                                     src={img.url}
@@ -109,7 +110,7 @@ const Carousels = () => {
                             radius={1}
                             overflow={"hidden"}
                             border={index.includes(i) ? "2px solid" : "1px solid"}
-                            borderColor={index.includes(i) ? "primary" : "background.secondary"}
+                            borderColor={index.includes(i) ? "primary" : "surface.light"}
                             onClick={() => {
                                 ref.current?.goTo(i)
                             }}

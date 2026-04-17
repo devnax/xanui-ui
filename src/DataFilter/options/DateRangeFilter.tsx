@@ -21,7 +21,7 @@ const DateRangeFilter = ({ option, onChange, value }: Props) => {
    return (
       <Stack
          width={"100%"}
-         bgcolor="background.secondary"
+         bgcolor="surface.light"
          p={1}
          radius={1}
       >
@@ -39,8 +39,8 @@ const DateRangeFilter = ({ option, onChange, value }: Props) => {
             >
                <IconButton
                   size="small"
-                  variant="soft"
-                  color={"default"}
+                  variant="ghost"
+                  color={'surface'}
                   onClick={() => {
                      const d = new Date();
                      onChange([d.toISOString(), d.toISOString()]);
@@ -51,7 +51,7 @@ const DateRangeFilter = ({ option, onChange, value }: Props) => {
                {
                   isValue && <IconButton
                      size="small"
-                     variant="soft"
+                     variant="ghost"
                      color={"danger"}
                      onClick={() => {
                         onChange(null);

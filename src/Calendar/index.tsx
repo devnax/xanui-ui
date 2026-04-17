@@ -33,7 +33,7 @@ const ShowYears = ({ color, year, today, onClick }: any) => {
             className='calender-year-item'
         >
             <Button
-                color={selected ? color : "default"}
+                color={selected ? color : 'surface'}
                 className='calender-year-button'
                 size='small'
                 corner="circle"
@@ -74,7 +74,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
     if (VMode) _p.VMode = VMode
     if (color) _p.color = color
     const p: any = useBreakpointProps(_p)
-    color = p.color || "brand"
+    color = p.color || "primary"
 
     let [viewMode, setViewMode] = useState<any>(p.VMode || "day");
     let [selectedDate, setSelectedDate] = useState(new Date());
@@ -107,7 +107,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
             >
                 <IconButton
                     variant={"text"}
-                    color="default"
+                    color="surface"
                     disabled
                 >
                     {k}
@@ -147,7 +147,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                     if (isToday) {
                         css = {
                             variant: "fill",
-                            color: "default"
+                            color: "surface"
                         }
                     }
 
@@ -171,7 +171,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         <IconButton
                             className='calender-day-button'
                             variant={isSelected ? "fill" : "text"}
-                            color={isToday ? color : "default"}
+                            color={isToday ? color : "surface"}
                             {...css}
                             data-value={date}
                             onClick={(e: any) => {
@@ -210,7 +210,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                 className='calender-months-item'
             >
                 <Button
-                    color={selected ? color : "default"}
+                    color={selected ? color : 'surface'}
                     className='calender-month-button'
                     size='small'
                     corner="circle"
@@ -222,7 +222,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         onButtonClick && onButtonClick("month", v)
                     }}
                     sx={{
-                        color: selected ? "brand.text" : "text.primary"
+                        color: selected ? "primary.contrast" : "surface.contrast"
                     }}
                 >
                     {monthNames[m]}
@@ -279,7 +279,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
             maxHeight={308}
             width={250}
             radius={1}
-            bgcolor="background.secondary"
+            bgcolor="surface.light"
             startContent={
                 <Stack className='calender-header' flexRow alignItems="center" justifyContent="space-between" p={1}>
                     <Text
@@ -291,7 +291,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         {currentDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long' })}
                     </Text>
                     <IconButton
-                        color="default"
+                        color="surface"
                         variant='text'
                         size={28}
                         onClick={() => {
@@ -302,7 +302,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         <ResetIcon fontSize={20} />
                     </IconButton>
                     <IconButton
-                        color="default"
+                        color="surface"
                         variant='text'
                         size={28}
                         onClick={() => {
@@ -312,7 +312,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         <IconKeyboardArrowLeft />
                     </IconButton>
                     <IconButton
-                        color="default"
+                        color="surface"
                         variant='text'
                         size={28}
                         onClick={() => {

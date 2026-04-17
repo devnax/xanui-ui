@@ -24,16 +24,16 @@ export default function BasicTabs() {
 
 ## Props
 
-| Name                    | Type                     | Default   | Description                                                                |
-| ----------------------- | ------------------------ | --------- | -------------------------------------------------------------------------- |
-| `value`                 | `string \| number`       | —         | Identifier reported to `Tabs` when clicked.                                |
-| `selected`              | `boolean`                | `false`   | Highlights the tab without relying on `Tabs`. Useful for standalone usage. |
-| `disabled`              | `boolean`                | `false`   | Prevents focus and click interactions.                                     |
-| `variant`               | `ButtonProps['variant']` | `'text'`  | Visual style inherited from `Button`.                                      |
-| `color`                 | `UseColorTemplateColor`  | `'brand'` | Accent color for borders and text.                                         |
-| `startIcon` / `endIcon` | `ReactElement`           | —         | Icons rendered beside the label.                                           |
-| `children`              | `ReactNode`              | —         | Tab label contents.                                                        |
-| `...rest`               | `ButtonProps`            | —         | Any button attribute (size, spacing, etc.).                                |
+| Name                    | Type                     | Default     | Description                                                                |
+| ----------------------- | ------------------------ | ----------- | -------------------------------------------------------------------------- |
+| `value`                 | `string \| number`       | —           | Identifier reported to `Tabs` when clicked.                                |
+| `selected`              | `boolean`                | `false`     | Highlights the tab without relying on `Tabs`. Useful for standalone usage. |
+| `disabled`              | `boolean`                | `false`     | Prevents focus and click interactions.                                     |
+| `variant`               | `ButtonProps['variant']` | `'text'`    | Visual style inherited from `Button`.                                      |
+| `color`                 | `UseColorTemplateColor`  | `'primary'` | Accent color for borders and text.                                         |
+| `startIcon` / `endIcon` | `ReactElement`           | —           | Icons rendered beside the label.                                           |
+| `children`              | `ReactNode`              | —           | Tab label contents.                                                        |
+| `...rest`               | `ButtonProps`            | —           | Any button attribute (size, spacing, etc.).                                |
 
 ## Usage Examples
 

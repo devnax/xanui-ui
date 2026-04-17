@@ -25,9 +25,9 @@ export default function BasicList() {
 
 | Name           | Type                    | Default     | Description                                           |
 | -------------- | ----------------------- | ----------- | ----------------------------------------------------- |
-| `color`        | `UseColorTemplateColor` | `'brand'`   | Color palette applied to selected list items.         |
+| `color`        | `UseColorTemplateColor` | `'primary'` | Color palette applied to selected list items.         |
 | `variant`      | `UseColorTemplateType`  | `'fill'`    | Visual style for selected rows (fill, outline, etc.). |
-| `hoverColor`   | `UseColorTemplateColor` | `'default'` | Palette token used on hover states.                   |
+| `hoverColor`   | `UseColorTemplateColor` | `'surface'` | Palette token used on hover states.                   |
 | `hoverVariant` | `UseColorTemplateType`  | `'alpha'`   | How hovered rows are tinted.                          |
 | `component`    | `TagComponentType`      | `'ul'`      | Underlying element for the list.                      |
 
@@ -42,7 +42,7 @@ import ListItem from '@xanui/ui/ListItem';
 
 export default function OutlineMenu() {
     return (
-        <List variant="outline" hoverVariant="outline" hoverColor="brand">
+        <List variant="outline" hoverVariant="outline" hovercolor="primary">
             <ListItem>Profile</ListItem>
             <ListItem>Billing</ListItem>
             <ListItem>Security</ListItem>
@@ -59,7 +59,7 @@ import List from '@xanui/ui/List';
 
 export default function ResponsiveList({ scheme }: { scheme: 'light' | 'dark' }) {
     return (
-        <List color={scheme === 'dark' ? 'default' : 'brand'}>
+        <List color={scheme === 'dark' ? 'surface' : 'primary'}>
             {/* ListItem children */}
         </List>
     );

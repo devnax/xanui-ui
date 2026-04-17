@@ -38,7 +38,7 @@ const RangeSlider = (props: RangeSliderProps) => {
       color,
       size
    });
-   color = bp.color ?? "brand"
+   color = bp.color ?? "primary"
    size = bp.size;
 
    const sizesSX: any = {
@@ -72,7 +72,7 @@ const RangeSlider = (props: RangeSliderProps) => {
    }
 
    if (disabled) {
-      color = "divider"
+      color = 'surface.divider'
    }
 
    const isControlled = value !== undefined;
@@ -186,7 +186,7 @@ const RangeSlider = (props: RangeSliderProps) => {
                position: "absolute",
                width: "100%",
                height: _size.track,
-               bgcolor: "divider",
+               bgcolor: 'surface.divider',
                radius: `${_size.track}px`,
             }}
          />

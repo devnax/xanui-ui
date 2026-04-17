@@ -34,7 +34,7 @@ const Modals = () => {
                                     direction="row"
                                     gap={2}
                                 >
-                                    <Button color="default" onClick={() => m.close()}>Cancel</Button>
+                                    <Button color="surface" onClick={() => m.close()}>Cancel</Button>
                                     <Button onClick={() => m.close()}>Apply</Button>
                                 </Stack>
                             </Stack>)
@@ -53,7 +53,7 @@ const Modals = () => {
                         direction="row"
                         gap={2}
                     >
-                        <Button color="default" onClick={() => setOpen(false)}>Cancel</Button>
+                        <Button color="surface" onClick={() => setOpen(false)}>Cancel</Button>
                         <Button onClick={() => setOpen(false)}>Apply</Button>
                     </Stack>
                 </Stack>

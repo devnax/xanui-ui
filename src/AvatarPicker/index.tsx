@@ -73,7 +73,7 @@ const AvatarPicker = React.forwardRef(<T extends TagComponentType = "div">({ val
             placement={value ? "right-top" : "right-bottom"}
             content={<Tag>
                <IconButton
-                  color={value ? "danger" : 'default'}
+                  color={value ? "danger" : 'surface'}
                   cursor={"pointer"}
                   size={value ? 20 : "small"}
                   onClick={(be: any) => {
@@ -115,8 +115,8 @@ const AvatarPicker = React.forwardRef(<T extends TagComponentType = "div">({ val
                size={avatarSize}
                src={preview || defaultPreview}
                border={target ? '1px solid' : 0}
-               borderColor={target ? "danger.primary" : "transparent"}
-               bgcolor={target ? "danger.soft.primary" : bgcolor}
+               borderColor={target ? "danger.main" : "transparent"}
+               bgcolor={target ? "danger.ghost" : bgcolor}
             />
             <Menu
                {...slotProps?.menu}
@@ -130,8 +130,8 @@ const AvatarPicker = React.forwardRef(<T extends TagComponentType = "div">({ val
                }}
             >
                <Text
-                  bgcolor="danger.primary"
-                  color="danger.text"
+                  bgcolor="danger.main"
+                  color="danger.contrast"
                   fontSize={"small"}
                   p={1}
                   px={2}

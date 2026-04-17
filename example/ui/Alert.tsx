@@ -46,7 +46,7 @@ const Alerts = () => {
             </Alert>
             <Alert
                 title="Information"
-                variant='soft'
+                variant="ghost"
                 color="danger"
                 onClose={() => { }}
             >
@@ -65,7 +65,7 @@ const Alerts = () => {
             </Alert>
             <Alert
                 title="Information"
-                color="brand"
+                color="primary"
             >
                 Your proccess has been success. now you can enjoy
             </Alert>

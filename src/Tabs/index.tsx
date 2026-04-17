@@ -16,7 +16,7 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
     const p: any = useBreakpointProps(_p)
 
     variant = p.variant ?? "end-line"
-    color = p.color ?? "brand"
+    color = p.color ?? "primary"
     disableTransition = p.disableTransition
     indicatorSize = p.indicatorSize ?? 3
 
@@ -37,10 +37,10 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                 bgcolor: "transparent"
             }
             break;
-        case "soft":
+        case "ghost":
             indicatorProps = {
                 top: 0,
-                bgcolor: `${color}.soft.primary`
+                bgcolor: `${color}.ghost`
             }
             break;
         case "text":
@@ -81,7 +81,7 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                             break;
                         case "fill":
                         case "outline":
-                        case "soft":
+                        case "ghost":
                             indicator.style.height = `${target.offsetHeight}px`
                             indicator.style.top = `${target.offsetTop}px`
                             break;

@@ -23,7 +23,7 @@ export default function BasicPaper() {
 | ------------ | ------------------ | ----------- | ---------------------------------------------------------------------- |
 | `component`  | `TagComponentType` | `'div'`     | Underlying element rendered by the paper surface.                      |
 | `sx` / `sxr` | `CSSObject`        | —           | Custom styles merged with the default background, radius, and padding. |
-| `baseClass`  | `string`           | `'default'` | CSS hook applied to the root element.                                  |
+| `baseClass`  | `string`           | `'surface'` | CSS hook applied to the root element.                                  |
 | `children`   | `ReactNode`        | —           | Content displayed inside the surface.                                  |
 | `...rest`    | `TagProps`         | —           | Any other system or native HTML props (spacing, flex, events, etc.).   |
 
@@ -57,7 +57,7 @@ export default function InsetPaper() {
     return (
         <Paper
             component="section"
-            bgcolor="background.primary"
+            bgcolor="surface.main"
             shadow={2}
             border="1px solid"
             borderColor="border.main"

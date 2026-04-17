@@ -24,10 +24,10 @@ const Card = React.forwardRef(<T extends TagComponentType = "div">({ children, .
       },
       outlined: {
          border: '1px solid',
-         borderColor: 'divider',
+         borderColor: 'surface.divider',
       },
       filled: {
-         bgcolor: 'background.secondary',
+         bgcolor: 'surface.light',
       },
    }
 

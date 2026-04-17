@@ -27,7 +27,7 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
     variant = p.variant
     corner = p.corner ?? "circle"
 
-    let template = useColorTemplate(color || "brand", variant || "fill")
+    let template = useColorTemplate(color || "primary", variant || "fill")
     const cornerCss = useCorner(corner)
 
     if (size === 'small') {
@@ -44,7 +44,7 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
             ref={ref}
             {...cornerCss}
             {..._props}
-            {...template.primary}
+            {...template.main}
             baseClass='icon-button'
             sxr={{
                 border: 0,
@@ -62,6 +62,9 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
                 fontSize: "button",
 
                 bgcolor: "transparent",
+                "&:active": {
+                    transform: variant !== "text" ? "scale(0.97)" : undefined
+                },
 
                 "& svg": {
                     fontSize: Math.round((size / 3) * 1.8),
@@ -72,7 +75,7 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
                 },
             }}
             hover={{
-                ...template.secondary,
+                ...template.hover,
                 ...((_props as any)?.hover || {})
             }}
         >
@@ -80,5 +83,5 @@ const IconButton = React.forwardRef(<T extends TagComponentType = 'button'>({ ch
         </Tag>
     )
 })
-// const IconButton = forwardRef(_IconButton) as unknown as typeof _IconButton
+
 export default IconButton

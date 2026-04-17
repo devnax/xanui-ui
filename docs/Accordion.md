@@ -20,19 +20,19 @@ export default function BasicAccordion() {
 
 ## Props
 
-| Name                          | Type                                                               | Default           | Description                                                                   |
-| ----------------------------- | ------------------------------------------------------------------ | ----------------- | ----------------------------------------------------------------------------- |
-| `title`                       | `string \| ReactElement`                                           | —                 | Main label rendered in the header; accepts responsive values.                 |
-| `subtitle`                    | `string \| ReactElement`                                           | —                 | Secondary text displayed under the title.                                     |
-| `expand`                      | `boolean`                                                          | uncontrolled      | Controls the open state when provided.                                        |
-| `onClick`                     | `() => void`                                                       | internal toggle   | Called when the header is clicked; combine with `expand` for controlled mode. |
-| `startIcon` / `endIcon`       | `ReactElement`                                                     | —                 | Decorative icons placed before or after the header content.                   |
-| `expandIcon`                  | `ReactElement`                                                     | chevron           | Custom indicator shown near the header.                                       |
-| `expandIconPlacement`         | `'start' \| 'end'`                                                 | `'end'`           | Where to render the expand icon relative to the header.                       |
-| `expandAction`                | `'header' \| 'icon'`                                               | `'header'`        | Whether toggling occurs on the full header or just the icon.                  |
-| `color` / `variant`           | `UseColorTemplateColor` / `UseColorTemplateType`                   | `brand` / `alpha` | Visual styling tokens for the header.                                         |
-| `hoverColor` / `hoverVariant` | `UseColorTemplateColor` / `UseColorTemplateType`                   | inherit           | Hover palette overrides.                                                      |
-| `slotProps`                   | `{ header, headerContent, collaps, content, expandIconContainer }` | —                 | Fine-grained overrides for internal subcomponents.                            |
+| Name                          | Type                                                               | Default             | Description                                                                   |
+| ----------------------------- | ------------------------------------------------------------------ | ------------------- | ----------------------------------------------------------------------------- |
+| `title`                       | `string \| ReactElement`                                           | —                   | Main label rendered in the header; accepts responsive values.                 |
+| `subtitle`                    | `string \| ReactElement`                                           | —                   | Secondary text displayed under the title.                                     |
+| `expand`                      | `boolean`                                                          | uncontrolled        | Controls the open state when provided.                                        |
+| `onClick`                     | `() => void`                                                       | internal toggle     | Called when the header is clicked; combine with `expand` for controlled mode. |
+| `startIcon` / `endIcon`       | `ReactElement`                                                     | —                   | Decorative icons placed before or after the header content.                   |
+| `expandIcon`                  | `ReactElement`                                                     | chevron             | Custom indicator shown near the header.                                       |
+| `expandIconPlacement`         | `'start' \| 'end'`                                                 | `'end'`             | Where to render the expand icon relative to the header.                       |
+| `expandAction`                | `'header' \| 'icon'`                                               | `'header'`          | Whether toggling occurs on the full header or just the icon.                  |
+| `color` / `variant`           | `UseColorTemplateColor` / `UseColorTemplateType`                   | `primary` / `alpha` | Visual styling tokens for the header.                                         |
+| `hoverColor` / `hoverVariant` | `UseColorTemplateColor` / `UseColorTemplateType`                   | inherit             | Hover palette overrides.                                                      |
+| `slotProps`                   | `{ header, headerContent, collaps, content, expandIconContainer }` | —                   | Fine-grained overrides for internal subcomponents.                            |
 
 ## Usage Examples
 

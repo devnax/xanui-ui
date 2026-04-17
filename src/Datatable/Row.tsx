@@ -18,7 +18,7 @@ type Props = DatatablePropsWithState & {
 
 const Row = ({ rows, rawRow, row, rowAction, disableRow, hideCheckbox, columns, compact, state, update }: Props) => {
     const selected = row.id ? state.selected.includes(row?.id) : false
-    let selectedColor = selected ? "primary.soft" : "transparent"
+    let selectedColor = selected ? "primary.ghost" : "transparent"
     const [target, setTarget] = useState<any>()
     const isDisable = (disableRow ? disableRow(rawRow, state) : false) || false
 
@@ -64,18 +64,18 @@ const Row = ({ rows, rawRow, row, rowAction, disableRow, hideCheckbox, columns, 
                     )
                 })
             }
-            {!!(rows.length && rowAction && rowAction((rows as any)[0])?.length) && <TableCell width={30} bgcolor={selectedColor} borderColor="divider">
+            {!!(rows.length && rowAction && rowAction((rows as any)[0])?.length) && <TableCell width={30} bgcolor={selectedColor} borderColor="surface.divider">
                 <IconButton
                     disabled={isDisable || selected}
                     onClick={(e: any) => setTarget(e.currentTarget)}
                     variant="text"
-                    color="default"
+                    color="surface"
                 >
                     <ActionIcon />
                 </IconButton>
                 <Menu target={target} placement="bottom-right" onClickOutside={() => setTarget(null)}>
                     <List
-                        bgcolor="background.primary"
+                        bgcolor="surface.main"
                         minWidth={160}
                         sx={{
                             '& > li': {

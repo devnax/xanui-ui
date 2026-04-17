@@ -9,7 +9,7 @@ import LoadingBox from '@xanui/ui/LoadingBox';
 
 export default function BasicLoadingBox() {
   return (
-    <LoadingBox loading sxr={{ width: 240, height: 120, border: '1px solid', borderColor: 'divider' }}>
+    <LoadingBox loading sxr={{ width: 240, height: 120, border: '1px solid', borderColor: 'surface.divider' }}>
       Content loads here
     </LoadingBox>
   );
@@ -18,12 +18,12 @@ export default function BasicLoadingBox() {
 
 ## Props
 
-| Name                       | Type                    | Default   | Description                                                            |
-| -------------------------- | ----------------------- | --------- | ---------------------------------------------------------------------- |
-| `loading`                  | `boolean`               | `false`   | When true, shows the overlay and disables the child content.           |
-| `color`                    | `UseColorTemplateColor` | `'brand'` | Color passed to the spinner.                                           |
-| `slotProps.CircleProgress` | `CircleProgressProps`   | —         | Customize the internal `CircleProgress` instance (size, speed, etc.).  |
-| `children`                 | `ReactNode`             | —         | The underlying content that should remain visible beneath the overlay. |
+| Name                       | Type                    | Default     | Description                                                            |
+| -------------------------- | ----------------------- | ----------- | ---------------------------------------------------------------------- |
+| `loading`                  | `boolean`               | `false`     | When true, shows the overlay and disables the child content.           |
+| `color`                    | `UseColorTemplateColor` | `'primary'` | Color passed to the spinner.                                           |
+| `slotProps.CircleProgress` | `CircleProgressProps`   | —           | Customize the internal `CircleProgress` instance (size, speed, etc.).  |
+| `children`                 | `ReactNode`             | —           | The underlying content that should remain visible beneath the overlay. |
 
 ## Usage Examples
 
@@ -51,7 +51,7 @@ export default function AsyncCard() {
 ```
 
 ### Custom spinner size and color
-Pass spinner props via `slotProps.CircleProgress` to match your brand.
+Pass spinner props via `slotProps.CircleProgress` to match your primary.
 
 ```tsx
 import LoadingBox from '@xanui/ui/LoadingBox';

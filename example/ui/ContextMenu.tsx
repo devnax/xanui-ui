@@ -15,8 +15,8 @@ const Accordions = () => {
     return (
         <Stack
             height={200}
-            bgcolor={"brand.primary"}
-            color="brand.text"
+            bgcolor={"primary.main"}
+            color="primary.contrast"
             radius={2}
             p={2}
             alignItems={"center"}

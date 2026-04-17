@@ -15,7 +15,7 @@ const SelectedBox = (props: DatatablePropsWithState) => {
 
    return (
       <Stack
-         bgcolor="background.secondary"
+         bgcolor="surface.light"
          direction="row"
          alignItems="center"
          justifyContent="space-between"
@@ -35,8 +35,8 @@ const SelectedBox = (props: DatatablePropsWithState) => {
                return (
                   <IconButton
                      key={label}
-                     variant="soft"
-                     color="brand"
+                     variant="ghost"
+                     color="primary"
                      {...bprops}
                   >
                      {icon}

@@ -16,7 +16,7 @@ const Divider = React.forwardRef(<T extends TagComponentType = "div">({ children
     if (size) _p.size = size
     const p: any = useBreakpointProps(_p)
     direction = p.direction ?? "horizental"
-    color = p.color ?? "default"
+    color = p.color ?? 'surface'
     size = p.size ?? 1
 
     let isHori = direction === 'horizental'
@@ -24,11 +24,11 @@ const Divider = React.forwardRef(<T extends TagComponentType = "div">({ children
     return (
         <Tag
             {...rest}
-            baseClass='divider'
+            baseClass='surface.divider'
             sxr={{
                 width: isHori ? "100%" : size,
                 height: isHori ? size : "100%",
-                bgcolor: color === 'default' ? `background.secondary` : `${color}.secondary`,
+                bgcolor: color === 'surface' ? `surface.light` : `${color}.light`,
             }}
             ref={ref}
         >{children}</Tag>

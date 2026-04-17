@@ -23,18 +23,18 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
     const p: any = useBreakpointProps(_p)
     evenColor = p.evenColor
     size = p.size ?? "medium"
-    color = p.color ?? 'default'
+    color = p.color ?? 'surface'
     variant = p.variant ?? "fill"
     borderType = p.borderType ?? "line"
 
     const main = useColorTemplate(color, variant)
-    const soft = useColorTemplate(color, "soft")
+    const ghost = useColorTemplate(color, "ghost")
 
     let sx: any = {}
     if (evenColor) {
         sx = {
             "& tbody tr:nth-child(even)": {
-                bgcolor: soft.primary.bgcolor
+                bgcolor: ghost.main.bgcolor
             }
         }
     }
@@ -68,11 +68,11 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
     let border: any = {
         line: {
             borderBottom: "1px solid",
-            borderColor: "divider",
+            borderColor: "surface.divider",
         },
         box: {
             border: "1px solid",
-            borderColor: "divider",
+            borderColor: "surface.divider",
         },
         none: {}
     }
@@ -87,13 +87,13 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
                 {...rest}
                 baseClass='table'
                 sxr={{
-                    color: "text.primary",
+                    color: "surface.contrast",
                     fontSize: size === "small" ? "text" : "text",
                     width: "100%",
                     "& thead, & tfoot": {
-                        bgcolor: main.primary.bgcolor,
+                        bgcolor: main.main.bgcolor,
                         "& th": {
-                            color: main.primary.color
+                            color: main.main.color
                         }
                     },
                     "& td, & th": {
@@ -108,7 +108,7 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
                         borderTop: 0
                     },
                     "& tbody tr:hover": {
-                        bgcolor: soft.primary.bgcolor
+                        bgcolor: ghost.main.bgcolor
                     },
                     ...sx,
                     ...((rest as any).sx || {})

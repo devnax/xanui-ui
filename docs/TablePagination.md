@@ -29,7 +29,7 @@ export default function BasicPagination() {
 | `page`             | `number`                                | —               | Current 1-based page index.                                               |
 | `total`            | `number`                                | —               | Total number of rows in the dataset.                                      |
 | `perpages`         | `number[]`                              | `[30, 50, 100]` | Available page-size options; first item seeds the initial per-page value. |
-| `color`            | `UseColorTemplateColor`                 | `'default'`     | Color for navigation buttons.                                             |
+| `color`            | `UseColorTemplateColor`                 | `'surface'`     | Color for navigation buttons.                                             |
 | `variant`          | `UseColorTemplateType`                  | `'fill'`        | Button variant for navigation controls.                                   |
 | `onChange`         | `({ page, perpage, from, to }) => void` | —               | Fired when page or per-page changes.                                      |
 | `slotProps.button` | `IconButtonProps`                       | —               | Props merged into the prev/next buttons.                                  |
@@ -50,7 +50,7 @@ export default function FixedSizePager({ page, onChange }: { page: number; onCha
 ```
 
 ### Custom button styling
-Leverage `slotProps.button` to match brand guidelines.
+Leverage `slotProps.button` to match primary guidelines.
 
 ```tsx
 import TablePagination from '@xanui/ui/TablePagination';

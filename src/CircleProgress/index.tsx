@@ -31,7 +31,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
     if (speed) _p.speed = speed
     const p: any = useBreakpointProps(_p)
 
-    color = p.color ?? "brand"
+    color = p.color ?? "primary"
     trackColor = p.trackColor
     thumbColor = p.thumbColor
     size = p.size ?? "medium"
@@ -40,20 +40,20 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
     value = p.value
     hideTrack = p.hideTrack
     showPercentage = p.showPercentage
-    speed = p.speed ?? 1.3
+    speed = p.speed ?? 1.5
 
-    if (trackColor === 'default') {
-        trackColor = "divider"
+    if (trackColor === 'surface') {
+        trackColor = "surface.ghost"
     }
 
-    if (thumbColor === 'default') {
-        thumbColor = "divider.secondary"
+    if (thumbColor === 'surface') {
+        thumbColor = "surface.contrast"
     }
 
 
     let sizes: any = {
         small: 24,
-        medium: 32,
+        medium: 34,
         large: 44
     }
     if (typeof size === 'string' && sizes[size]) {
@@ -70,7 +70,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
     if (showPercentage && !children) {
         children = <Tag
             sxr={{
-                color: color === 'default' ? "text.primary" : `${color}.primary`,
+                color: color === 'surface' ? "surface.contrast" : `${color}.main`,
                 fontSize: size / 4
             }}
         >{value}%</Tag>
@@ -99,10 +99,9 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
                         }
                     },
                     "& circle.circle-progress-thumb": {
-
                         strokeDasharray: circumference,
                         strokeDashoffset: percent,
-                        stroke: thumbColor || (color === 'default' ? `divider` : `${color}.primary`),
+                        stroke: thumbColor || (color === 'surface' ? `surface.contrast` : `${color}.main`),
                         fill: "none",
                         strokeWidth: thumbSize,
                         strokeLinecap: "round",
@@ -115,7 +114,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
                     },
                     "& circle.circle-progress-track": {
                         fill: "none",
-                        stroke: trackColor || (color === 'default' ? `text.primary` : `${color}.soft.secondary`),
+                        stroke: trackColor || (color === 'surface' ? `surface.ghost` : `${color}.ghost`),
                         strokeWidth: trackSize ?? thumbSize,
                     }
                 },

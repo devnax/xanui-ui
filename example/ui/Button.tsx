@@ -25,12 +25,10 @@ const Buttons = () => {
         >
             <Section title="Icon Button" gap={2}>
                 <Button
-                    disabled
-                    skeleton
                     startIcon={<UserIcon />}
                     endIcon={<InfoIcon />}
-                    color="brand"
-                    loading={bucket.get('loading')}
+                    color="surface"
+                    // loading={bucket.get('loading')}
                     onClick={() => bucket.set('loading', !bucket.get('loading'))}
                 >
                     Buttons
@@ -44,7 +42,7 @@ const Buttons = () => {
             </Section>
             <Section title="Icon Button" gap={2}>
                 <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-                    <IconButton color="default">
+                    <IconButton color="surface">
                         <UnarchiveIcon />
                     </IconButton>
                     <IconButton >
@@ -73,7 +71,7 @@ const Buttons = () => {
                     <IconButton color="accent" variant="outline">
                         <IconClose />
                     </IconButton>
-                    <IconButton color="success" variant="soft">
+                    <IconButton color="success" variant="ghost">
                         <IconClose />
                     </IconButton>
                     <IconButton color="info" variant="text">
@@ -97,8 +95,8 @@ const Buttons = () => {
             </Section>
             <Section title="Colors">
                 <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-                    <Button color="default" loading>Button</Button>
-                    <Button startIcon={<InfoIcon />} color="brand" loading>Button</Button>
+                    <Button color="surface" loading>Button</Button>
+                    <Button startIcon={<InfoIcon />} color="primary" loading>Button</Button>
                     <Button startIcon={<InfoIcon />} color="info" direction="row">Button</Button>
                     <Button color="accent" loading endIcon={<HomeIcon />} direction="row">Button</Button>
                     <Button color="warning">Button</Button>
@@ -108,16 +106,16 @@ const Buttons = () => {
             </Section>
             <Section title="Variants">
                 <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-                    <Button color="brand" variant="fill">Button</Button>
-                    <Button color="brand" variant="outline">Outline</Button>
-                    <Button color="brand" variant="text">Button</Button>
+                    <Button color="primary" variant="fill">Button</Button>
+                    <Button color="primary" variant="outline">Outline</Button>
+                    <Button color="primary" variant="text">Button</Button>
                 </Stack>
             </Section>
             <Section title="Sizes">
                 <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-                    <Button startIcon={<InfoIcon fontSize={20} />} color="brand" size="small">Button</Button>
-                    <Button color="brand" size="medium">Button</Button>
-                    <Button color="brand" size="large">Button</Button>
+                    <Button startIcon={<InfoIcon fontSize={20} />} color="primary" size="small">Button</Button>
+                    <Button color="primary" size="medium">Button</Button>
+                    <Button color="primary" size="large">Button</Button>
                 </Stack>
             </Section>
         </Container>

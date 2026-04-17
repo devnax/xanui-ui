@@ -26,7 +26,7 @@ export type ButtonProps<T extends TagComponentType = 'button'> = Omit<TagProps<T
 const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ children, skeleton, ...rest }: ButtonProps<T>, ref: React.Ref<any>) => {
     let [{ variant, startIcon, endIcon, color, corner, size, loading, direction, slotProps, disabled, ..._props }] = useInterface<any>('Button', rest, {
         variant: "fill",
-        color: "brand",
+        color: "primary",
         corner: "rounded",
         size: "medium"
     })
@@ -122,11 +122,11 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
                 },
                 ..._size,
                 ...cornerCss,
-                ...template.primary,
+                ...template.main,
 
             }}
             hover={{
-                ...template.secondary,
+                ...template.hover,
                 ...((_props as any)?.hover || {})
             }}
             disabled={disabled ?? loading ?? false}
@@ -148,7 +148,7 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
             >
                 <CircleProgress
                     {...slotProps?.loading}
-                    color={color === 'default' ? `brand` : "default"}
+                    color={color === 'surface' ? `primary` : 'surface'}
                     size={progressSizes[size]}
                     className='button-loading-progress'
                 />

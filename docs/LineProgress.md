@@ -10,7 +10,7 @@ Show determinate progress with a thicker track for emphasis.
 import LineProgress from '@xanui/ui/LineProgress';
 
 export default function BasicLineProgress() {
-  return <LineProgress value={45} color="brand" thumbSize={6} />;
+  return <LineProgress value={45} color="primary" thumbSize={6} />;
 }
 ```
 
@@ -18,7 +18,7 @@ export default function BasicLineProgress() {
 | Name      | Type                  | Default   | Description                                                                                                |
 | --------- | --------------------- | --------- | ---------------------------------------------------------------------------------------------------------- |
 | value     | number (0-100)        | undefined | Current progress percent. If omitted, indeterminate mode is used. Values >100 are clamped.                 |
-| color     | UseColorTemplateColor | 'brand'   | Semantic color used for the thumb and track (alpha background). 'default' uses divider / background tones. |
+| color     | UseColorTemplateColor | 'primary' | Semantic color used for the thumb and track (alpha background). 'surface' uses divider / background tones. |
 | thumbSize | number                | 4         | Height (thickness) of the progress bar in pixels.                                                          |
 | hideTrack | boolean               | false     | If true, hides the track background making only the moving thumb visible.                                  |
 | speed     | number (seconds)      | 1         | Duration of one full indeterminate animation cycle (only applies when `value` is undefined).               |
@@ -33,7 +33,7 @@ Use when total duration is unknown; omit `value` to activate the animated sweep.
 import LineProgress from '@xanui/ui/LineProgress';
 
 export default function IndeterminateLineProgress() {
-  return <LineProgress color="brand" speed={1.4} />;
+  return <LineProgress color="primary" speed={1.4} />;
 }
 ```
 
@@ -58,8 +58,8 @@ Indicates a failure recovery operation.
 ```
 Description: Using `color="danger"` visually communicates an error-related process (e.g. retry progress).
 
-### Brand Colored Indeterminate (Slow)
+### primary Colored Indeterminate (Slow)
 ```tsx
-<LineProgress color="brand" speed={2} />
+<LineProgress color="primary" speed={2} />
 ```
 Description: A longer `speed` slows the indeterminate sweep for lengthy operations.

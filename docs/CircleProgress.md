@@ -22,7 +22,7 @@ export default function BasicCircleProgress() {
 | `size`           | `number \| 'small' \| 'medium' \| 'large'` | `'medium'`  | Outer diameter of the progress indicator.                              |
 | `thumbSize`      | `number`                                   | `4`         | Stroke width of the active progress arc.                               |
 | `trackSize`      | `number`                                   | `thumbSize` | Stroke width of the background track.                                  |
-| `color`          | `UseColorTemplateColor`                    | `'brand'`   | Accent color for the thumb arc.                                        |
+| `color`          | `UseColorTemplateColor`                    | `'primary'` | Accent color for the thumb arc.                                        |
 | `trackColor`     | `UseColorTemplateColor`                    | derived     | Color token used for the background circle.                            |
 | `thumbColor`     | `UseColorTemplateColor`                    | derived     | Override the actual stroke color.                                      |
 | `hideTrack`      | `boolean`                                  | `false`     | Removes the background circle, leaving only the animated arc.          |
@@ -44,7 +44,7 @@ export default function ContrastCircleProgress() {
 			value={45}
 			size={80}
 			color="warning"
-			trackColor="background.secondary"
+			trackColor="surface.light"
 			thumbColor="warning"
 		/>
 	);

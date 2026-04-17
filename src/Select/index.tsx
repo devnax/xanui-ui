@@ -29,7 +29,7 @@ export type SelectProps = Omit<InputProps, "onChange" | "value" | "children" | "
 
 const Select = React.forwardRef(({ onChange, value, children, error, helperText, name, refs, ...props }: SelectProps, ref: React.Ref<any>) => {
     let [{ slotProps, color, variant, ...inputProps }] = useInterface<any>("Select", props, {})
-    color ??= "brand"
+    color ??= "primary"
     variant ??= "fill"
     const [target, setTarget] = useState<any>()
     const conRef = useRef(null)
@@ -61,7 +61,7 @@ const Select = React.forwardRef(({ onChange, value, children, error, helperText,
             <Input
                 ref={mergeRefs}
                 color={color}
-                variant={variant === "soft" ? "fill" : variant}
+                variant={variant === "ghost" ? "fill" : variant}
                 endIcon={<Stack flexDirection="row" component="span" > {(target ? <UpIcon /> : <DownIcon />)}</Stack>}
                 readOnly
                 value={typeof selectedProps.children === 'string' ? selectedProps.children : value}

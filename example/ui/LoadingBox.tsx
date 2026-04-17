@@ -10,7 +10,7 @@ const LoadingBoxes = () => {
                 loading
             >
                 <Stack
-                    bgcolor="background.secondary"
+                    bgcolor="surface.light"
                     height={200}
                     width={300}
                     p={2}

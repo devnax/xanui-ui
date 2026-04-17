@@ -43,7 +43,7 @@ const Form = React.forwardRef(<T extends TagComponentType = "form">({ children, 
                 });
             }}
             sxr={{
-                bgcolor: "default",
+                bgcolor: 'surface',
                 p: 2,
                 maxWidth: 400,
                 radius: 1,

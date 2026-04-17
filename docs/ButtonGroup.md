@@ -12,7 +12,7 @@ import ButtonGroup from '@xanui/ui/ButtonGroup';
 
 export default function BasicButtonGroup() {
     return (
-        <ButtonGroup color="brand" variant="outline">
+        <ButtonGroup color="primary" variant="outline">
             <Button>Daily</Button>
             <Button>Weekly</Button>
             <Button>Monthly</Button>
@@ -44,7 +44,7 @@ import GridIcon from '@xanui/icons/GridView';
 
 export default function CompactGroup() {
     return (
-        <ButtonGroup size="small" color="default">
+        <ButtonGroup size="small" color="surface">
             <Button startIcon={<ListIcon />}>List</Button>
             <Button startIcon={<GridIcon />}>Grid</Button>
         </ButtonGroup>
@@ -61,7 +61,7 @@ import ButtonGroup from '@xanui/ui/ButtonGroup';
 
 export default function ResponsiveGroup() {
     return (
-        <ButtonGroup color={{ xs: 'default', md: 'brand' }}>
+        <ButtonGroup color={{ xs: 'surface', md: 'primary' }}>
             <Button>Profile</Button>
             <Button>Billing</Button>
             <Button>Security</Button>

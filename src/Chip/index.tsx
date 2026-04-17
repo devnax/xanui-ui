@@ -36,7 +36,7 @@ const Chip = React.forwardRef(<T extends TagComponentType = 'div'>(props: ChipPr
     label = p.label
     startIcon = p.startIcon
     endIcon = p.endIcon
-    color = p.color || "brand"
+    color = p.color || "primary"
     variant = p.variant || "fill"
     corner = p.corner || "circle"
     size = p.size || "medium"
@@ -70,7 +70,7 @@ const Chip = React.forwardRef(<T extends TagComponentType = 'div'>(props: ChipPr
     return (
         <Tag
             {...cornerCss}
-            {...template.primary}
+            {...template.main}
             {...(sizes[size as any] || {})}
             {...rest}
             sxr={{
@@ -97,7 +97,7 @@ const Chip = React.forwardRef(<T extends TagComponentType = 'div'>(props: ChipPr
                 sxr={{
                     alignItems: "center",
                     flexBox: true,
-                    color: template.primary.color + "!important"
+                    color: template.main.color + "!important"
                 }}
             >{label}</Tag>
             {endIcon}

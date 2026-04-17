@@ -24,7 +24,7 @@ const Menus = () => {
                     onClickOutside={() => setTarget(null)}
                     placement="bottom"
                 >
-                    <List width={180} variant="fill" color={"brand"} shadow={5}>
+                    <List width={180} variant="fill" color={"primary"} shadow={5}>
                         <ListItem >Home</ListItem>
                         <ListItem >About</ListItem>
                         <ListItem >Services</ListItem>

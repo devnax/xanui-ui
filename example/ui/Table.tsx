@@ -70,11 +70,11 @@ const Tables = () => {
         <Stack gap={4}>
             <Section title="Colors" gap={4}>
                 <Tb
-                    color="brand"
-                    variant="soft"
+                    color="primary"
+                    variant="ghost"
                 />
                 <Tb
-                    color="brand"
+                    color="primary"
                     evenColor
                 />
             </Section>

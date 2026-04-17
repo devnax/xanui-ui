@@ -33,7 +33,7 @@ const Tab = React.forwardRef(<T extends TagComponentType = "div">({ children, va
     return (
         <Button
             {..._props}
-            color={container.variant === "text" && isSelected ? container.color : "default"}
+            color={container.variant === "text" && isSelected ? container.color : 'surface'}
             variant={"text"}
             onClick={(e) => {
                 (container as any).onChange(value, e)

@@ -22,7 +22,7 @@ All props mirror `@xanui/core`'s `ThemeProviderProps` with one addition: `render
 
 | Name           | Type                 | Default     | Description                                                                                      |
 | -------------- | -------------------- | ----------- | ------------------------------------------------------------------------------------------------ |
-| `theme`        | `string`             | `'default'` | Active theme name registered in the core theme manager.                                          |
+| `theme`        | `string`             | `'surface'` | Active theme name registered in the core theme manager.                                          |
 | `mode`         | `'light' \| 'dark'`  | inherited   | Force a color mode if your tokens differentiate.                                                 |
 | `renderIsRoot` | `ReactNode`          | —           | Extra JSX rendered once near `document.body`; combined with XanUI's internal `RenderComponents`. |
 | `children`     | `ReactNode`          | —           | App subtree receiving the theme context.                                                         |

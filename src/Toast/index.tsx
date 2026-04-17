@@ -105,7 +105,7 @@ const ToastView = (props: UseToastProps & { tid: string, onExited: (tid: string)
     >
         <Alert
             variant="fill"
-            color="brand"
+            color="primary"
             {...rest as any}
             direction={"row"}
             mb={1}

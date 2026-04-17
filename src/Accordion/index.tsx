@@ -52,8 +52,8 @@ const Accordion = React.forwardRef(<T extends TagComponentType = "div">({ childr
         ...rootProps
     }] = useInterface<any>("Accordion", rest, {
         onClick: () => setExpand(!_expand) as any,
-        color: "brand",
-        variant: "soft"
+        color: "primary",
+        variant: "ghost"
     })
 
     const _p: any = {}
@@ -148,7 +148,7 @@ const Accordion = React.forwardRef(<T extends TagComponentType = "div">({ childr
         <Tag
             {...rootProps}
             sxr={{
-                bgcolor: "background.primary"
+                bgcolor: "surface.main"
             }}
             baseClass='accordion'
             classNames={[{ "accordion-expanded": expand }, ...(classNames || [])]}
@@ -182,10 +182,10 @@ const Accordion = React.forwardRef(<T extends TagComponentType = "div">({ childr
                     <Tag
                         {...slotProps?.content}
                         sxr={{
-                            color: "text.primary",
+                            color: "surface.contrast",
                             p: 2,
                             py: 1,
-                            bgcolor: "background.primary"
+                            bgcolor: "surface.main"
                         }}
                         baseClass='accordion-content'
                     >
