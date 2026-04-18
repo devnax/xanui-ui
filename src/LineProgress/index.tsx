@@ -27,7 +27,7 @@ const LineProgress = React.forwardRef(({ children, ...props }: LineProgressProps
     color = p.color ?? "primary"
     value = p.value
     hideTrack = p.hideTrack
-    speed = p.speed
+    speed = p.speed ?? 1
 
     let isVal = typeof value === 'number'
     if (isVal && (value as number) > 100) value = 100
@@ -42,7 +42,7 @@ const LineProgress = React.forwardRef(({ children, ...props }: LineProgressProps
                 height: thumbSize,
                 position: "relative",
                 overflow: "hidden",
-                bgcolor: hideTrack ? "transparent" : (color === 'surface' ? `surface.contrast` : `${color}.ghost`),
+                bgcolor: hideTrack ? "transparent" : `surface.divider`,
                 radius: 2,
             }}
             ref={ref}
@@ -51,12 +51,12 @@ const LineProgress = React.forwardRef(({ children, ...props }: LineProgressProps
                 component="span"
                 baseClass="line-progress-thumb"
                 sxr={{
-                    bgcolor: color === 'surface' ? `divider` : `${color}`,
+                    bgcolor: color === 'surface' ? `surface.contrast` : `${color}`,
                     width: isVal ? `${value}%` : "50%",
                     height: thumbSize,
                     position: "absolute",
                     left: 0,
-                    animation: isVal ? "none" : `${uid} ${speed ?? 1}s linear infinite`,
+                    animation: isVal ? "none" : `${uid} ${speed}s linear infinite`,
                     [`@keyframes ${uid}`]: {
                         "0%": { left: "-40%" },
                         "50%": { left: "20%", width: "80%" },

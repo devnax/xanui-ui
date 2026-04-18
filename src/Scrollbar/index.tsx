@@ -3,7 +3,7 @@ import { Tag, TagComponentType, TagProps, useInterface } from '@xanui/core';
 import React, { ReactNode, UIEvent, useImperativeHandle, useRef } from 'react'
 
 export type ScrollbarProps<T extends TagComponentType = "div"> = TagProps<T> & {
-    thumbSize?: number;
+    size?: number;
     thumbColor?: TagProps['color'];
     trackColor?: TagProps['color'];
     children?: ReactNode;
@@ -16,7 +16,7 @@ export type ScrollbarHandle = {
     scrollToTop: () => void;
 };
 
-const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ children, thumbSize, thumbColor, trackColor, ...rest }: ScrollbarProps<T>, ref: React.Ref<ScrollbarHandle>) => {
+const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ children, size, thumbColor, trackColor, ...rest }: ScrollbarProps<T>, ref: React.Ref<ScrollbarHandle>) => {
     let [{ onScroll, onScrollEnd, ...props }] = useInterface<any>("Scrollbar", rest, {})
     const innerRef = useRef<HTMLDivElement>(null);
 
@@ -59,20 +59,20 @@ const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ childr
 
     let sxr: any = {}
 
-    if (thumbSize) {
+    if (size) {
         sxr['&::-webkit-scrollbar'] = {
-            width: thumbSize,
-            height: thumbSize,
+            width: size,
+            height: size,
         }
     }
     if (thumbColor) {
         sxr['&::-webkit-scrollbar-thumb'] = {
-            backgroundColor: thumbColor,
+            backgroundColor: thumbColor + "!important",
             borderRadius: "6px",
             opacity: 0.6,
         }
         sxr['&::-webkit-scrollbar-thumb:hover'] = {
-            backgroundColor: thumbColor,
+            backgroundColor: thumbColor + "!important",
             opacity: 0.0,
         }
     }

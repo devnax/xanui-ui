@@ -33,7 +33,7 @@ const ButtonGroup = React.forwardRef(<T extends TagComponentType = "div">({ chil
         }
     }
 
-    let borderColor = color === 'surface' ? 'surface.divider' : `${color}.light`
+    let borderColor = `${color}.divider`
 
     return (
         <Tag
@@ -47,6 +47,7 @@ const ButtonGroup = React.forwardRef(<T extends TagComponentType = "div">({ chil
                 border: "1px solid",
                 borderColor: borderColor,
                 '& button, & button:hover': {
+                    border: 0,
                     borderRight: "1px solid",
                     borderColor: borderColor
                 },

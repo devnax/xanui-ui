@@ -43,7 +43,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
     speed = p.speed ?? 1.5
 
     if (trackColor === 'surface') {
-        trackColor = "surface.ghost"
+        trackColor = "surface.divider"
     }
 
     if (thumbColor === 'surface') {
@@ -114,7 +114,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
                     },
                     "& circle.circle-progress-track": {
                         fill: "none",
-                        stroke: trackColor || (color === 'surface' ? `surface.ghost` : `${color}.ghost`),
+                        stroke: trackColor || (`surface.divider`),
                         strokeWidth: trackSize ?? thumbSize,
                     }
                 },

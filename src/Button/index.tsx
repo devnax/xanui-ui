@@ -98,6 +98,7 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
             }}
         />
     }
+    console.log(template.hover);
 
     return (
         <Tag

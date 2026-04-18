@@ -18,7 +18,8 @@ const Skeleton = React.forwardRef(<T extends TagComponentType = "div">({ childre
       switch (animation) {
          case 'pulse':
             sxr = {
-               bgcolor: "surface.light",
+               radius: 1,
+               bgcolor: `${color}.divider`,
                width: "100%",
                animation: 'skpulse 1.5s infinite',
                "@keyframes skpulse": {
@@ -33,9 +34,10 @@ const Skeleton = React.forwardRef(<T extends TagComponentType = "div">({ childre
             break;
          case 'wave':
             sxr = {
+               radius: 1,
                position: 'relative',
                overflow: 'hidden',
-               bgcolor: "surface.dark",
+               bgcolor: `${color}.ghost`,
                "&::after": {
                   content: '""',
                   position: 'absolute',
@@ -43,8 +45,8 @@ const Skeleton = React.forwardRef(<T extends TagComponentType = "div">({ childre
                   left: "0%",
                   width: '100%',
                   height: '100%',
-                  animation: 'skwave 2s infinite',
-                  background: `linear-gradient(90deg, transparent 0%, var(--color-divider-secondary) 50%, transparent 100%)`,
+                  animation: 'skwave 2.5s infinite',
+                  background: `linear-gradient(90deg, transparent 0%, var(--color-${color}-divider) 50%, transparent 100%)`,
                },
                "@keyframes skwave": {
                   '0%': { left: '-100%' },
