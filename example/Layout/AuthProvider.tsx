@@ -14,7 +14,6 @@ export const AuthProvider = ({ children, value }: any) => {
 
 export const AuthForm = () => {
    const auth = useAuth()
-   console.log(auth);
 
    return (
       <div>form</div>
