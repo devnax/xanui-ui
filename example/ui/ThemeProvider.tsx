@@ -5,8 +5,8 @@ import Accodiond from './Accordion'
 import Section from '../Layout/Section'
 import { createTheme, ThemeProvider } from '@xanui/core'
 
-const lightTheme = createTheme("light", {})
-const darkTheme = createTheme("dark", {}, 'dark')
+const lightTheme = createTheme({ mode: "light" })
+const darkTheme = createTheme({ mode: "dark" })
 
 const ThemeProviders = () => {
     return (

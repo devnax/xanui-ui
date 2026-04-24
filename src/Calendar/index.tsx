@@ -279,7 +279,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
             maxHeight={308}
             width={250}
             radius={1}
-            bgcolor="surface.light"
+            bgcolor="surface.lighter"
             startContent={
                 <Stack className='calender-header' flexRow alignItems="center" justifyContent="space-between" p={1}>
                     <Text

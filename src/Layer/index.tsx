@@ -95,6 +95,7 @@ const Layer = ({ children, open, ...props }: LayerProps) => {
             variant={"fade"}
             open={open}
             exitOnUnmount
+            initialTransition={false}
         >
             <Tag
                 baseClass="layer"

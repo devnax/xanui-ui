@@ -166,8 +166,8 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
     }
 
     const _size = sizes[size]
-    let borderColor = _focus ? color : (variant === "fill" ? "transparent" : 'surface.divider')
-    borderColor = error ? "danger.main" : borderColor
+    let borderColor = _focus ? color : (variant === "fill" ? "transparent" : `${color}.divider`)
+    borderColor = error ? "danger.divider" : borderColor
     let multiprops: any = {}
     if (multiline) {
         multiprops = {
@@ -211,7 +211,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         alignItems: iconPlacement === 'center' ? iconPlacement : `flex-${iconPlacement}`,
                         flexWrap: "nowrap",
                         transitionProperty: "border, box-shadow, background",
-                        bgcolor: error ? "danger.ghost" : variant === "fill" ? "surface.light" : "surface.main",
+                        bgcolor: error ? "danger.ghost" : variant === "fill" ? "surface.light" : "transparent",
                         border: variant === "text" ? 0 : "1px solid",
                         borderColor: borderColor,
                         borderRadius: 1,

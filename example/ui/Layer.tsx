@@ -9,7 +9,7 @@ import { AuthForm } from '../Layout/AuthProvider'
 import Transition from '../../src/Transition'
 
 const Layers = () => {
-    const [open, setOpen] = useState<any>(true)
+    const [open, setOpen] = useState<any>(false)
 
     let layerContent = <Stack
         height="100%"
@@ -52,7 +52,7 @@ const Layers = () => {
                 >Open</Button>
                 <Button
                     onClick={(e) => {
-                        const l = Layer.open(<AuthForm />)
+                        const l = Layer.open(<div>{layerContent}</div>)
                         // const l = Layer.open(<Stack
                         //     height="100%"
                         //     alignItems="center"

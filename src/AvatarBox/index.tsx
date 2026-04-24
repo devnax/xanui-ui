@@ -44,7 +44,7 @@ const AvatarBox = React.forwardRef(({ src, title, subtitle, slotProps }: AvatarB
             </Text>}
             {subtitle && <Text
                fontSize={"button"}
-               color="surface.muted"
+               color="surface.light"
                {...slotProps?.subtitle}
                classNames="avatar-box-subtitle"
             >
