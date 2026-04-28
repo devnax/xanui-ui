@@ -11,6 +11,7 @@ import type { ListItemProps } from '../ListItem';
 
 export type AccordionProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "color"> & {
     expand?: boolean;
+    defaultExpand?: boolean;
     onClick?: () => void;
     title: useBreakpointPropsType<ReactElement | string>;
     subtitle?: useBreakpointPropsType<ReactElement | string>;
@@ -33,8 +34,8 @@ export type AccordionProps<T extends TagComponentType = "div"> = Omit<TagProps<T
     }
 }
 
-const Accordion = React.forwardRef(<T extends TagComponentType = "div">({ children, title, subtitle, ...rest }: AccordionProps<T>, ref: React.Ref<any>) => {
-    const [_expand, setExpand] = useState(false)
+const Accordion = React.forwardRef(<T extends TagComponentType = "div">({ children, title, subtitle, defaultExpand, ...rest }: AccordionProps<T>, ref: React.Ref<any>) => {
+    const [_expand, setExpand] = useState(defaultExpand || false)
     let [{
         expand,
         onClick,
