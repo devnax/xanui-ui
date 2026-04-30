@@ -149,7 +149,7 @@ const Accordion = React.forwardRef(<T extends TagComponentType = "div">({ childr
         <Tag
             {...rootProps}
             sxr={{
-                bgcolor: "default.main"
+                bgcolor: "default.base"
             }}
             baseClass='accordion'
             classNames={[{ "accordion-expanded": expand }, ...(classNames || [])]}
@@ -186,7 +186,7 @@ const Accordion = React.forwardRef(<T extends TagComponentType = "div">({ childr
                             color: "default.contrast",
                             p: 2,
                             py: 1,
-                            bgcolor: "default.main"
+                            bgcolor: "default.base"
                         }}
                         baseClass='accordion-content'
                     >

@@ -75,7 +75,7 @@ const Row = ({ rows, rawRow, row, rowAction, disableRow, hideCheckbox, columns, 
                 </IconButton>
                 <Menu target={target} placement="bottom-right" onClickOutside={() => setTarget(null)}>
                     <List
-                        bgcolor="default.main"
+                        bgcolor="default.base"
                         minWidth={160}
                         sx={{
                             '& > li': {

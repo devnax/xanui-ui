@@ -23,7 +23,7 @@ const Layers = () => {
                         setOpen(false)
                     }}
                 >Close</Button>
-                <List radius={1} width={180} variant="fill" bgcolor="default.main" shadow={5}>
+                <List radius={1} width={180} variant="fill" bgcolor="default.base" shadow={5}>
                     <ListItem >Home</ListItem>
                     <ListItem >About</ListItem>
                     <ListItem >Services</ListItem>
@@ -52,26 +52,25 @@ const Layers = () => {
                 >Open</Button>
                 <Button
                     onClick={(e) => {
-                        const l = Layer.open(<div>{layerContent}</div>)
-                        // const l = Layer.open(<Stack
-                        //     height="100%"
-                        //     alignItems="center"
-                        //     justifyContent="center"
-                        // >
-                        //     <Stack gap={2}>
-                        //         <Button
-                        //             onClick={(e) => {
-                        //                 l.close()
-                        //             }}
-                        //         >Close</Button>
-                        //         <List radius={1} width={180} variant="fill" bgcolor="default.main" shadow={5}>
-                        //             <ListItem >Home</ListItem>
-                        //             <ListItem >About</ListItem>
-                        //             <ListItem >Services</ListItem>
-                        //             <ListItem >Contact</ListItem>
-                        //         </List>
-                        //     </Stack>
-                        // </Stack>)
+                        const l = Layer.open(<Stack
+                            height="100%"
+                            alignItems="center"
+                            justifyContent="center"
+                        >
+                            <Stack gap={2}>
+                                <Button
+                                    onClick={(e) => {
+                                        l.close()
+                                    }}
+                                >Close</Button>
+                                <List radius={1} width={180} variant="fill" bgcolor="default.base" shadow={5}>
+                                    <ListItem >Home</ListItem>
+                                    <ListItem >About</ListItem>
+                                    <ListItem >Services</ListItem>
+                                    <ListItem >Contact</ListItem>
+                                </List>
+                            </Stack>
+                        </Stack>)
                     }}
                 >Action Layer</Button>
                 <Layer

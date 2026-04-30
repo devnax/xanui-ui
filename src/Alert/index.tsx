@@ -55,7 +55,6 @@ const Alert = ({ children, ...rest }: AlertProps) => {
 
     let isRow = direction === 'row'
 
-
     const template = useColorTemplate(color, variant)
 
     let iconsx = {

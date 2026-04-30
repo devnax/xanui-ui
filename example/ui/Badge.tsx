@@ -44,7 +44,7 @@ const Badges = () => {
                         <CameraAlt />
                     </IconButton>}
                 >
-                    <Stack width={120} height={120} bgcolor="default.main" border="1px dashed" borderColor='default.divider' radius={10}></Stack>
+                    <Stack width={120} height={120} bgcolor="default.base" border="1px dashed" borderColor='default.divider' radius={10}></Stack>
                 </Badge>
                 <Badge
                     visible={visible}
@@ -57,13 +57,13 @@ const Badges = () => {
                         <CameraAlt />
                     </IconButton>}
                 >
-                    <Stack width={120} height={120} bgcolor="default.main" border="1px dashed" borderColor='default.divider' radius={10}></Stack>
+                    <Stack width={120} height={120} bgcolor="default.base" border="1px dashed" borderColor='default.divider' radius={10}></Stack>
                 </Badge>
                 <Badge
                     disableTransition
                     content={2200}
                 >
-                    <Stack width={120} height={120} bgcolor="default.main" border="1px dashed" borderColor='default.divider' ></Stack>
+                    <Stack width={120} height={120} bgcolor="default.base" border="1px dashed" borderColor='default.divider' ></Stack>
                 </Badge> */}
             </Section>
         </Stack>

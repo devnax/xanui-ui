@@ -70,7 +70,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
     if (showPercentage && !children) {
         children = <Tag
             sxr={{
-                color: color === 'default' ? "default.contrast" : `${color}.main`,
+                color: color === 'default' ? "default.contrast" : `${color}.base`,
                 fontSize: size / 4
             }}
         >{value}%</Tag>
@@ -101,7 +101,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
                     "& circle.circle-progress-thumb": {
                         strokeDasharray: circumference,
                         strokeDashoffset: percent,
-                        stroke: thumbColor || (color === 'default' ? `default.contrast` : `${color}.main`),
+                        stroke: thumbColor || (color === 'default' ? `default.contrast` : `${color}.base`),
                         fill: "none",
                         strokeWidth: thumbSize,
                         strokeLinecap: "round",

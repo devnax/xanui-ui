@@ -57,10 +57,10 @@ export default function InsetPaper() {
     return (
         <Paper
             component="section"
-            bgcolor="default.main"
+            bgcolor="default.base"
             shadow={2}
             border="1px solid"
-            borderColor="border.main"
+            borderColor="border.base"
         >
             <strong>Need help?</strong>
             <p>Contact support and share this reference code: #A1B2.</p>

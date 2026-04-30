@@ -15,16 +15,15 @@ import { AuthProvider } from './AuthProvider';
 
 const ThemeBox = () => {
     const theme = useTheme()
-    console.log(theme.name);
 
     return (
         <Stack>
             <IconButton
                 onClick={() => {
-                    theme.change(theme.name === 'default-light' ? { mode: "dark" } : {})
+                    theme.change(theme.name === 'light' ? { mode: "dark" } : {})
                 }}
             >
-                {theme.name === 'default-light' ? <DarkModeIcon /> : <LightModeIcon />}
+                {theme.name === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
             </IconButton>
         </Stack>
     )
@@ -89,11 +88,10 @@ const Layout = () => {
                 theme={theme}
                 onThemeChange={t => setTheme(t)}
             >
-                <Stack height="100vh" flexRow bgcolor="default.main">
+                <Stack height="100vh" flexRow >
                     <ViewBox
                         width={250}
                         height="100%"
-                        bgcolor="default.surface"
                         endContent={<ThemeBox />}
                     >
                         <Text p={1} variant='text' fontWeight={600} mb={2} color="default.contrast">Components</Text>

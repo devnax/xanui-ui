@@ -9,7 +9,7 @@ import { Transition } from '@xanui/core'
 const Content = ({ name }: any) => {
     return (
         <Stack
-            bgcolor="primary.main"
+            bgcolor="primary.base"
             height={100}
             justifyContent="center"
             alignItems="center"

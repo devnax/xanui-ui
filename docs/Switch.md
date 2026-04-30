@@ -68,7 +68,7 @@ export default function CustomSwitch() {
       color="success"
       icon={<CheckIcon fontSize="small" />}
       slotProps={{
-        track: { bgcolor: 'success.surface', border: '1px solid', borderColor: 'success.main' },
+        track: { bgcolor: 'success.surface', border: '1px solid', borderColor: 'success.base' },
         thumb: { shadow: 1 },
       }}
       checked

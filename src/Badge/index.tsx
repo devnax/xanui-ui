@@ -125,7 +125,7 @@ const Badge = React.forwardRef(<T extends TagComponentType = "div">({ children, 
             display: 'flex',
             justifyContent: "center",
             alignItems: 'center',
-            ...template.main,
+            ...template.base,
             ..._css,
         }}
     >

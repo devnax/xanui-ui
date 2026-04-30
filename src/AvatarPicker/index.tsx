@@ -115,7 +115,7 @@ const AvatarPicker = React.forwardRef(<T extends TagComponentType = "div">({ val
                size={avatarSize}
                src={preview || defaultPreview}
                border={target ? '1px solid' : 0}
-               borderColor={target ? "danger.main" : "transparent"}
+               borderColor={target ? "danger.base" : "transparent"}
                bgcolor={target ? "danger.ghost" : bgcolor}
             />
             <Menu
@@ -130,7 +130,7 @@ const AvatarPicker = React.forwardRef(<T extends TagComponentType = "div">({ val
                }}
             >
                <Text
-                  bgcolor="danger.main"
+                  bgcolor="danger.base"
                   color="danger.contrast"
                   fontSize={"small"}
                   p={1}

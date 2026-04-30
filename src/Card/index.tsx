@@ -3,7 +3,7 @@ import React from 'react';
 import { Tag, TagProps, TagComponentType, useBreakpointProps, useInterface } from '@xanui/core';
 
 export type CardProps<T extends TagComponentType = "div"> = TagProps<T> & {
-   variant?: 'elevated' | 'outlined' | 'filled' | false;
+   variant?: 'elevated' | 'outline' | 'fill' | false;
 }
 
 const Card = React.forwardRef(<T extends TagComponentType = "div">({ children, ...rest }: CardProps<T>, ref: React.Ref<any>) => {
@@ -22,11 +22,11 @@ const Card = React.forwardRef(<T extends TagComponentType = "div">({ children, .
       elevated: {
          shadow: 2,
       },
-      outlined: {
+      outline: {
          border: '1px solid',
          borderColor: 'default.divider',
       },
-      filled: {
+      fill: {
          bgcolor: 'default.base',
       },
    }

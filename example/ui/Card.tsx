@@ -13,7 +13,7 @@ const Cards = () => {
       <Stack>
          <GridContainer spacing={2}>
             <GridItem xs={6} sm={6} md={4} lg={4} xl={3}>
-               <Card variant="outlined" p={0}>
+               <Card variant="outline" p={0}>
                   <Image
                      src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80"
                      alt="Random Image"
@@ -48,7 +48,7 @@ const Cards = () => {
                </Card>
             </GridItem>
             <GridItem xs={6} sm={6} md={4} lg={4} xl={3}>
-               <Card variant="outlined" p={0}>
+               <Card variant="elevated" p={0}>
                   <Image
                      src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80"
                      alt="Random Image"
@@ -81,7 +81,7 @@ const Cards = () => {
                </Card>
             </GridItem>
             <GridItem xs={6} sm={6} md={4} lg={4} xl={3}>
-               <Card variant="outlined" p={0}>
+               <Card variant="fill" p={0}>
                   <Image
                      src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80"
                      alt="Random Image"
@@ -114,7 +114,7 @@ const Cards = () => {
                </Card>
             </GridItem>
             <GridItem xs={6} sm={6} md={4} lg={4} xl={3}>
-               <Card variant="outlined" p={0}>
+               <Card variant="outline" p={0}>
                   <Image
                      src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80"
                      alt="Random Image"
