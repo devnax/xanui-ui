@@ -29,8 +29,8 @@ const ListItem = React.forwardRef(<T extends TagComponentType = "li">({ children
     const p: any = useBreakpointProps(_p)
     const listProps = useListContext()
     const template = useColorTemplate(listProps.color, listProps.variant)
-    const defaultTemplate = useColorTemplate("surface", "text")
-    const hoverTemplate = useColorTemplate('surface', "fill")
+    const defaultTemplate = useColorTemplate("default", "text")
+    const hoverTemplate = useColorTemplate('default', "fill")
 
     subtitle = p.subtitle
     startIcon = p.startIcon

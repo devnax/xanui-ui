@@ -5,7 +5,7 @@ let _d: CSSStyleDeclaration;
 
 const useBlurCss = (blur: number, mode?: "transparent" | "blur") => {
    return useMemo(() => {
-      let transparent = { bgcolor: "surface.ghost" }
+      let transparent = { bgcolor: "default.ghost" }
       if (typeof window === 'undefined' || mode === 'transparent') {
          return transparent
       }

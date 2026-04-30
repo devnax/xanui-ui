@@ -13,7 +13,7 @@ const Skeleton = React.forwardRef(<T extends TagComponentType = "div">({ childre
 
    if (loading) {
       animation ??= 'pulse'
-      color ??= 'surface'
+      color ??= 'default'
       let sxr: any = {}
       switch (animation) {
          case 'pulse':

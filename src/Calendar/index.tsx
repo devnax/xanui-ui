@@ -33,7 +33,7 @@ const ShowYears = ({ color, year, today, onClick }: any) => {
             className='calender-year-item'
         >
             <Button
-                color={selected ? color : 'surface'}
+                color={selected ? color : 'default'}
                 className='calender-year-button'
                 size='small'
                 corner="circle"
@@ -107,7 +107,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
             >
                 <IconButton
                     variant={"text"}
-                    color="surface"
+                    color="default"
                     disabled
                 >
                     {k}
@@ -147,7 +147,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                     if (isToday) {
                         css = {
                             variant: "fill",
-                            color: "surface"
+                            color: "default"
                         }
                     }
 
@@ -171,7 +171,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         <IconButton
                             className='calender-day-button'
                             variant={isSelected ? "fill" : "text"}
-                            color={isToday ? color : "surface"}
+                            color={isToday ? color : "default"}
                             {...css}
                             data-value={date}
                             onClick={(e: any) => {
@@ -210,7 +210,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                 className='calender-months-item'
             >
                 <Button
-                    color={selected ? color : 'surface'}
+                    color={selected ? color : 'default'}
                     className='calender-month-button'
                     size='small'
                     corner="circle"
@@ -222,7 +222,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         onButtonClick && onButtonClick("month", v)
                     }}
                     sx={{
-                        color: selected ? "primary.contrast" : "surface.contrast"
+                        color: selected ? "primary.contrast" : "default.contrast"
                     }}
                 >
                     {monthNames[m]}
@@ -279,7 +279,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
             maxHeight={308}
             width={250}
             radius={1}
-            bgcolor="surface.lighter"
+            bgcolor="default.base"
             startContent={
                 <Stack className='calender-header' flexRow alignItems="center" justifyContent="space-between" p={1}>
                     <Text
@@ -291,7 +291,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         {currentDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long' })}
                     </Text>
                     <IconButton
-                        color="surface"
+                        color="default"
                         variant='text'
                         size={28}
                         onClick={() => {
@@ -302,7 +302,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         <ResetIcon fontSize={20} />
                     </IconButton>
                     <IconButton
-                        color="surface"
+                        color="default"
                         variant='text'
                         size={28}
                         onClick={() => {
@@ -312,7 +312,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
                         <IconKeyboardArrowLeft />
                     </IconButton>
                     <IconButton
-                        color="surface"
+                        color="default"
                         variant='text'
                         size={28}
                         onClick={() => {

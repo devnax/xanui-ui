@@ -26,7 +26,7 @@ const useContextMenu = ({ children, onExited, onClickOutside, ...props }: MenuPr
                top={y}
                left={x}
                zIndex={99999999999999}
-               bgcolor="surface.main"
+               bgcolor="default.main"
                height={0}
                width={0}
             />

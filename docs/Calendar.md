@@ -45,14 +45,14 @@ export default function YearPicker() {
 ```
 
 ### Controlled color theme
-Swap palette tokens at breakpoints to ensure contrast in different surfaces.
+Swap palette tokens at breakpoints to ensure contrast in different defaults.
 
 ```tsx
 import Calendar from '@xanui/ui/Calendar';
 
-export default function ThemedCalendar({ surface }: { surface: 'light' | 'dark' }) {
+export default function ThemedCalendar({ default }: { default: 'light' | 'dark' }) {
 	return (
-		<Calendar color={surface === 'dark' ? 'surface' : 'primary'} />
+		<Calendar color={default === 'dark' ? 'default' : 'primary'} />
 	);
 }
 ```

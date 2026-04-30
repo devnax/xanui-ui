@@ -1,7 +1,7 @@
 
 # Radio
 
-`Radio` wraps the `Checkbox` component with radio-specific defaults (circular icons, `type="radio"`) while keeping the same flexible prop surface.
+`Radio` wraps the `Checkbox` component with radio-specific defaults (circular icons, `type="radio"`) while keeping the same flexible prop default.
 
 ## Basic Example
 

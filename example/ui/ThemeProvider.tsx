@@ -18,7 +18,7 @@ const ThemeProviders = () => {
                 title="List"
                 flexRow
                 gap={2}
-                bgcolor="surface.light"
+                bgcolor="default.surface"
                 p={2}
                 radius={2}
             >
@@ -46,7 +46,7 @@ const ThemeProviders = () => {
                 title="Accodiond"
                 flexRow
                 gap={2}
-                bgcolor="surface.light"
+                bgcolor="default.surface"
                 p={2}
                 radius={2}
             >

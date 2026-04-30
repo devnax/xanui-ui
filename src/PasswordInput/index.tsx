@@ -24,7 +24,7 @@ const PasswordInput = forwardRef(({ defaultShow, ...props }: PasswordInputProps,
          endIcon={
             <IconButton
                variant="text"
-               color="surface"
+               color="default"
                size="small"
                onClick={() => {
                   setShow(p => !p);

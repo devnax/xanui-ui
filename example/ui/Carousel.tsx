@@ -86,7 +86,7 @@ const Carousels = () => {
                                 width={"100%"}
                                 overflow={"hidden"}
                                 radius={2}
-                                bgcolor="surface.light"
+                                bgcolor="default.surface"
                             >
                                 <Image
                                     src={img.url}
@@ -110,7 +110,7 @@ const Carousels = () => {
                             radius={1}
                             overflow={"hidden"}
                             border={index.includes(i) ? "2px solid" : "1px solid"}
-                            borderColor={index.includes(i) ? "primary" : "surface.light"}
+                            borderColor={index.includes(i) ? "primary" : "default.surface"}
                             onClick={() => {
                                 ref.current?.goTo(i)
                             }}

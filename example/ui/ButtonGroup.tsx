@@ -11,7 +11,7 @@ const ButtonGroups = () => {
         <Stack>
             <Section title="Basic" gap={2} direction="row">
                 <ButtonGroup
-                    color='surface'
+                    color='default'
                     size="small"
                 >
                     <Button>1</Button>
@@ -19,7 +19,7 @@ const ButtonGroups = () => {
                     <Button>3</Button>
                 </ButtonGroup>
                 <ButtonGroup
-                    color='surface'
+                    color='default'
                     variant='ghost'
                     size="small"
                 >

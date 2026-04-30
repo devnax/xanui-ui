@@ -60,7 +60,7 @@ const Tabs = React.forwardRef(({ onChange, value, children, ...props }: TabsProp
                 disableTransition,
                 indicatorSize,
                 onChange: (v, e) => {
-                    onChange!(v, e)
+                    onChange && onChange(v, e)
 
                     if (variant === 'text') return
                     const indicator = indicatorRef.current;

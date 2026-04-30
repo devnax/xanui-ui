@@ -16,7 +16,7 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
 
     return (
         <TableHead position="relative">
-            <TableRow bgcolor="surface" borderBottom={1} >
+            <TableRow bgcolor="default" borderBottom={1} >
                 {!hideCheckbox && <TableCell th width={40}>
                     <Checkbox
                         size={compact ? "small" : "medium"}
@@ -60,7 +60,7 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
                             disabled={skeleton ? true : false}
                             flexRow
                             alignItems="center"
-                            cursor={sortable ? "pointer" : 'surface'}
+                            cursor={sortable ? "pointer" : 'default'}
                             userSelect={"none"}
                             gap={.5}
                             onClick={() => {
@@ -79,11 +79,11 @@ const TableHeadRender = ({ columns, rows, disableRow, rowAction, hideCheckbox, c
                                 }
                             }}
                         >
-                            <Text color="surface.muted" fontWeight={600}>{label}</Text>
+                            <Text color="default.muted" fontWeight={600}>{label}</Text>
                             {sortable && <>
                                 <SwitchRight
                                     opacity={sortables[_f as any] ? 1 : .3}
-                                    color={sortables[_f as any] ? 'primary' : 'surface.muted'}
+                                    color={sortables[_f as any] ? 'primary' : 'default.muted'}
                                     sx={{
                                         fontSize: 23,
                                         transform: sortables[_f as any] === 'desc' ? 'rotate(-90deg)' : 'rotate(90deg)',

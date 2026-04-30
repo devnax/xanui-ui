@@ -11,7 +11,7 @@ const Lists = () => {
     return (
         <Stack>
             <Section title="List">
-                <List width={200} color="surface"  >
+                <List width={200} color="default"  >
                     <ListItem
                         startIcon={<HomeIcon />}
                         endIcon={<InfoIcon />}

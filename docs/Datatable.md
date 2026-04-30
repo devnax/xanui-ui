@@ -85,7 +85,7 @@ export default function RemoteDatatable() {
 ```
 
 ### Row actions and filters
-Surface inline filters plus per-row actions for quick management workflows.
+default inline filters plus per-row actions for quick management workflows.
 
 ```tsx
 import EditIcon from '@xanui/icons/Edit';

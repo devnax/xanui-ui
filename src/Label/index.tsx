@@ -14,7 +14,7 @@ const Label = React.forwardRef(<T extends TagComponentType = "label">({ children
             verticalAlign: "middle",
             fontSize: "text",
             gap: .4,
-            color: "surface.contrast",
+            color: "default.contrast",
             userSelect: "none",
             cursor: "pointer",
             fontWeight: "500",

@@ -26,7 +26,7 @@ const DateFilter = ({ option, onChange, value }: Props) => {
    return (
       <Stack
          width={"100%"}
-         bgcolor="surface.light"
+         bgcolor="default.base"
          p={1}
          radius={1}
       >
@@ -45,7 +45,7 @@ const DateFilter = ({ option, onChange, value }: Props) => {
                <IconButton
                   size="small"
                   variant="ghost"
-                  color={'surface'}
+                  color={'default'}
                   onClick={(e: any) => {
                      setTarget(e.currentTarget)
                   }}
@@ -74,12 +74,12 @@ const DateFilter = ({ option, onChange, value }: Props) => {
             {
                isValue && <Chip
                   size="small"
-                  color="surface"
+                  color="default"
                   label={new Date(value).toLocaleDateString("en-US")}
                   endIcon={<IconButton
                      size={16}
                      variant={"text"}
-                     color="surface"
+                     color="default"
                      onClick={() => {
                         onChange(null);
                      }}

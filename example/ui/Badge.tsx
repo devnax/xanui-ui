@@ -39,12 +39,12 @@ const Badges = () => {
                     // disableTransition
                     placement={"left-bottom"}
                     content={<IconButton
-                        color="surface"
+                        color="default"
                     >
                         <CameraAlt />
                     </IconButton>}
                 >
-                    <Stack width={120} height={120} bgcolor="surface.main" border="1px dashed" borderColor='surface.divider' radius={10}></Stack>
+                    <Stack width={120} height={120} bgcolor="default.main" border="1px dashed" borderColor='default.divider' radius={10}></Stack>
                 </Badge>
                 <Badge
                     visible={visible}
@@ -52,18 +52,18 @@ const Badges = () => {
                     disableTransition
                     placement={"right-bottom"}
                     content={<IconButton
-                        color="surface"
+                        color="default"
                     >
                         <CameraAlt />
                     </IconButton>}
                 >
-                    <Stack width={120} height={120} bgcolor="surface.main" border="1px dashed" borderColor='surface.divider' radius={10}></Stack>
+                    <Stack width={120} height={120} bgcolor="default.main" border="1px dashed" borderColor='default.divider' radius={10}></Stack>
                 </Badge>
                 <Badge
                     disableTransition
                     content={2200}
                 >
-                    <Stack width={120} height={120} bgcolor="surface.main" border="1px dashed" borderColor='surface.divider' ></Stack>
+                    <Stack width={120} height={120} bgcolor="default.main" border="1px dashed" borderColor='default.divider' ></Stack>
                 </Badge> */}
             </Section>
         </Stack>

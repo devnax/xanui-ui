@@ -58,7 +58,7 @@ export default function ResponsiveChips() {
 		<div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
 			<Chip label="Draft" color="warning" size={sizes} />
 			<Chip label="Published" color="success" size={sizes} />
-			<Chip label="Archived" color="surface" size={sizes} />
+			<Chip label="Archived" color="default" size={sizes} />
 		</div>
 	);
 }

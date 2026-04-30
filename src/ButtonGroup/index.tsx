@@ -14,7 +14,7 @@ const ButtonGroup = React.forwardRef(<T extends TagComponentType = "div">({ chil
     let [{ color, variant, size, ...props }] = useInterface<any>("ButtonGroup", rest, {
         size: "medium",
         variant: "outline",
-        color: 'surface'
+        color: 'default'
     })
     const _p: any = {}
     if (color) _p.color = color

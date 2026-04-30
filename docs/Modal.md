@@ -30,7 +30,7 @@ export default function BasicModal() {
 | ------------------------------------------------------------ | --------------------------------------------------------------- | ------- | --------------------------------------- |
 | `open`                                                       | `boolean`                                                       | `false` | Controls visibility of the modal.       |
 | `size`                                                       | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'fullWidth' \| number` | `'xs'`  | Determines the max width of the dialog. |
-| `slotProps.modal`                                            | `TagProps<'div'>`                                               | —       | Style overrides for the dialog surface. |
+| `slotProps.modal`                                            | `TagProps<'div'>`                                               | —       | Style overrides for the dialog default. |
 | `slotProps.root`, `slotProps.transition`, `slotProps.portal` | `LayerProps['slotProps']`                                       | —       | Pass-through to the underlying `Layer`. |
 | `children`                                                   | `ReactNode`                                                     | —       | Content rendered inside the dialog.     |
 

@@ -40,7 +40,7 @@ import SettingsIcon from '@xanui/icons/Settings';
 
 export default function GhostIconButton() {
     return (
-        <IconButton variant="text" color="surface" size="small">
+        <IconButton variant="text" color="default" size="small">
             <SettingsIcon />
         </IconButton>
     );

@@ -15,7 +15,7 @@ const SelectedBox = (props: DatatablePropsWithState) => {
 
    return (
       <Stack
-         bgcolor="surface.light"
+         bgcolor="default.base"
          direction="row"
          alignItems="center"
          justifyContent="space-between"

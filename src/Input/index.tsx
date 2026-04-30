@@ -29,7 +29,7 @@ export type InputProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "
     endIcon?: useBreakpointPropsType<ReactElement>;
     iconPlacement?: useBreakpointPropsType<"start" | "center" | "end">;
     focused?: boolean;
-    color?: useBreakpointPropsType<Omit<UseColorTemplateColor, 'surface'>>;
+    color?: useBreakpointPropsType<Omit<UseColorTemplateColor, 'default'>>;
     variant?: useBreakpointPropsType<"fill" | "outline" | "text">;
     error?: boolean;
     helperText?: useBreakpointPropsType<string>;
@@ -211,7 +211,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         alignItems: iconPlacement === 'center' ? iconPlacement : `flex-${iconPlacement}`,
                         flexWrap: "nowrap",
                         transitionProperty: "border, box-shadow, background",
-                        bgcolor: error ? "danger.ghost" : variant === "fill" ? "surface.light" : "transparent",
+                        bgcolor: error ? "danger.ghost" : variant === "fill" ? "default.base" : "transparent",
                         border: variant === "text" ? 0 : "1px solid",
                         borderColor: borderColor,
                         borderRadius: 1,
@@ -221,8 +221,8 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                         height: multiline ? "auto" : _size.height,
                         minHeight: _size.height,
                         "& > input:-webkit-autofill,& > input:-webkit-autofill:hover, & > input:-webkit-autofill:focus,& > input:-webkit-autofill:active": {
-                            "-webkit-text-fill-color": "surface.contrast",
-                            "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.surface.light : theme.colors.surface.main} inset`,
+                            "-webkit-text-fill-color": "default.contrast",
+                            "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.default.base : theme.colors.default.main} inset`,
                             transition: "background-color 5000s ease-in-out 0s"
                         } as any,
                         "& textarea": {
@@ -235,7 +235,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                                 alignItems: 'center',
                                 justifyContent: "center",
                                 display: "flex",
-                                color: error ? "danger.main" : "surface.muted",
+                                color: error ? "danger.main" : "default.muted",
                                 flex: "0 0 auto",
                             },
                         }),
@@ -246,7 +246,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                                 alignItems: 'center',
                                 justifyContent: "center",
                                 display: 'flex',
-                                color: error ? "danger.main" : "surface.muted",
+                                color: error ? "danger.main" : "default.muted",
                                 flex: "0 0 auto",
                             },
                         })
@@ -265,7 +265,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                             border: 0,
                             outline: 0,
                             bgcolor: "transparent",
-                            color: error ? "danger.main" : "surface.contrast",
+                            color: error ? "danger.main" : "default.contrast",
                             fontSize: _size.fontSize,
                             height: multiline ? "auto" : _size.height + "px!important",
                             width: "100%",
@@ -296,7 +296,7 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
                     ref={refs?.helperText}
                     baseClass="input-helper-text"
                     sxr={{
-                        color: error ? "danger.main" : "surface.contrast",
+                        color: error ? "danger.main" : "default.contrast",
                         fontSize: "small",
                         lineHeight: "text",
                         fontWeight: 'text',

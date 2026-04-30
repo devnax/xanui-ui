@@ -11,7 +11,7 @@ import Box from '@xanui/ui/Box';
 
 export default function BasicBox() {
     return (
-        <Box p={3} radius={2} bgcolor="surface.light">
+        <Box p={3} radius={2} bgcolor="default.surface">
             Drop anything inside this flexible container.
         </Box>
     );
@@ -31,7 +31,7 @@ export default function BasicBox() {
 ## Usage Examples
 
 ### Semantic element
-Render a semantic element such as `section` or `nav` while keeping the same styling surface.
+Render a semantic element such as `section` or `nav` while keeping the same styling default.
 
 ```tsx
 import Box from '@xanui/ui/Box';
@@ -59,7 +59,7 @@ export default function ResponsiveBox() {
             flexDirection={{ xs: 'column', md: 'row' }}
             gap={2}
             p={2}
-            bgcolor="surface.main"
+            bgcolor="default.main"
         >
             <Box flex={1}>Panel A</Box>
             <Box flex={1}>Panel B</Box>

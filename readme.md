@@ -1,10 +1,10 @@
 # Xanui Library
 
-Xanui is a React design-system toolkit powered by `@xanui/core`. It combines low-level primitives (e.g., `Box`, `Stack`, `Layer`) with application-ready components (e.g., `Accordion`, `Modal`, `Datatable`, `Toast`) so product teams can build polished surfaces quickly while keeping full control over styling tokens.
+Xanui is a React design-system toolkit powered by `@xanui/core`. It combines low-level primitives (e.g., `Box`, `Stack`, `Layer`) with application-ready components (e.g., `Accordion`, `Modal`, `Datatable`, `Toast`) so product teams can build polished defaults quickly while keeping full control over styling tokens.
 
 ## Highlights
 
-- **Unified prop surface** – every component extends the `Tag` API, so spacing, layout, breakpoints, and system tokens behave identically across the library.
+- **Unified prop default** – every component extends the `Tag` API, so spacing, layout, breakpoints, and system tokens behave identically across the library.
 - **Production-ready defaults** – the color palette, typography scale, shadows, and radii mirror modern SaaS expectations yet remain overridable.
 - **Server compatible** – SSR-safe patterns ensure components render on the server and hydrate cleanly on the client.
 - **Documentation first** – each component ships with a dedicated Markdown guide in `docs/`, ready for consumption by the upcoming Next.js documentation site.
@@ -65,7 +65,7 @@ npm run dev
 
 | Category               | Components                                                                                                                                                      | Docs                                                                                                                                                                                                                                                    |
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Layout & Surfaces      | Box, Stack, Container, GridContainer, GridItem, Paper, Layer, ViewBox, Divider                                                                                  | `docs/Box.md`, `docs/Stack.md`, `docs/Container.md`, `docs/GridContainer.md`, `docs/GridItem.md`, `docs/Paper.md`, `docs/Layer.md`, `docs/ViewBox.md`, `docs/Divider.md`                                                                                |
+| Layout & defaults      | Box, Stack, Container, GridContainer, GridItem, Paper, Layer, ViewBox, Divider                                                                                  | `docs/Box.md`, `docs/Stack.md`, `docs/Container.md`, `docs/GridContainer.md`, `docs/GridItem.md`, `docs/Paper.md`, `docs/Layer.md`, `docs/ViewBox.md`, `docs/Divider.md`                                                                                |
 | Navigation             | Tabs, Tab, List, ListItem, Menu, Drawer                                                                                                                         | `docs/Tabs.md`, `docs/Tab.md`, `docs/List.md`, `docs/ListItem.md`, `docs/Menu.md`, `docs/Drawer.md`                                                                                                                                                     |
 | Data Display           | Table (and TableBody/TableCell/TableFooter/TableHead/TablePagination/TableRow), Datatable, Chip, Avatar, Image, Badge, CircleProgress, LineProgress, LoadingBox | `docs/Table*.md`, `docs/Datatable.md`, `docs/Chip.md`, `docs/Avatar.md`, `docs/Image.md`, `docs/Badge.md`, `docs/CircleProgress.md`, `docs/LineProgress.md`, `docs/LoadingBox.md`                                                                       |
 | Inputs & Forms         | Button, ButtonGroup, IconButton, Form, Input, Select, Option, Checkbox, Radio, Switch, Calendar, CalendarInput, Label                                           | `docs/Button.md`, `docs/ButtonGroup.md`, `docs/IconButton.md`, `docs/Form.md`, `docs/Input.md`, `docs/Select.md`, `docs/Option.md`, `docs/Checkbox.md`, `docs/Radio.md`, `docs/Switch.md`, `docs/Calendar.md`, `docs/CalendarInput.md`, `docs/Label.md` |
@@ -94,7 +94,7 @@ The development workflow encourages updating `docs/` alongside the corresponding
 
 Guidelines:
 
-- Keep new components aligned with the `TagProps` surface (spacing, layout, color tokens, responsive props).
+- Keep new components aligned with the `TagProps` default (spacing, layout, color tokens, responsive props).
 - Provide at least one example in `example/` when adding new UI patterns.
 - Maintain the established documentation structure (overview, basic example, props table, scenario demos).
 

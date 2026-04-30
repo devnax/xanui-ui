@@ -23,7 +23,7 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
     const p: any = useBreakpointProps(_p)
     evenColor = p.evenColor
     size = p.size ?? "medium"
-    color = p.color ?? 'surface'
+    color = p.color ?? 'default'
     variant = p.variant ?? "fill"
     borderType = p.borderType ?? "line"
 
@@ -68,11 +68,11 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
     let border: any = {
         line: {
             borderBottom: "1px solid",
-            borderColor: "surface.divider",
+            borderColor: "default.divider",
         },
         box: {
             border: "1px solid",
-            borderColor: "surface.divider",
+            borderColor: "default.divider",
         },
         none: {}
     }
@@ -87,7 +87,7 @@ const Table = React.forwardRef(<T extends TagComponentType = "table">({ children
                 {...rest}
                 baseClass='table'
                 sxr={{
-                    color: "surface.contrast",
+                    color: "default.contrast",
                     fontSize: size === "small" ? "text" : "text",
                     width: "100%",
                     "& thead, & tfoot": {

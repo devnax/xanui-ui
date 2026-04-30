@@ -27,7 +27,7 @@ const Buttons = () => {
                 <Button
                     startIcon={<UserIcon />}
                     endIcon={<InfoIcon />}
-                    color="surface"
+                    color="default"
                     // loading={bucket.get('loading')}
                     onClick={() => bucket.set('loading', !bucket.get('loading'))}
                 >
@@ -42,7 +42,7 @@ const Buttons = () => {
             </Section>
             <Section title="Icon Button" gap={2}>
                 <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-                    <IconButton color="surface">
+                    <IconButton color="default">
                         <UnarchiveIcon />
                     </IconButton>
                     <IconButton >
@@ -95,7 +95,7 @@ const Buttons = () => {
             </Section>
             <Section title="Colors">
                 <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-                    <Button color="surface" loading>Button</Button>
+                    <Button color="default" loading>Button</Button>
                     <Button startIcon={<InfoIcon />} color="primary" loading>Button</Button>
                     <Button startIcon={<InfoIcon />} color="info" direction="row">Button</Button>
                     <Button color="accent" loading endIcon={<HomeIcon />} direction="row">Button</Button>

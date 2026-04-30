@@ -44,7 +44,7 @@ export default function BasicMenu() {
 | `onClickOutside`       | `() => void`               | —                                    | Called when the user clicks outside the menu content.                                    |
 | `slotProps.transition` | `TransitionProps`          | `{ variant: 'grow', duration: 200 }` | Customize the enter/exit animation.                                                      |
 | `slotProps.portal`     | `PortalProps`              | —                                    | Override the portal container.                                                           |
-| `slotProps.content`    | `TagProps<'div'>`          | —                                    | Style overrides for the menu surface.                                                    |
+| `slotProps.content`    | `TagProps<'div'>`          | —                                    | Style overrides for the menu default.                                                    |
 
 ## Usage Examples
 

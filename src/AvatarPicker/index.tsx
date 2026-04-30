@@ -73,7 +73,7 @@ const AvatarPicker = React.forwardRef(<T extends TagComponentType = "div">({ val
             placement={value ? "right-top" : "right-bottom"}
             content={<Tag>
                <IconButton
-                  color={value ? "danger" : 'surface'}
+                  color={value ? "danger" : 'default'}
                   cursor={"pointer"}
                   size={value ? 20 : "small"}
                   onClick={(be: any) => {

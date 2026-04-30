@@ -27,7 +27,7 @@ export default function BasicList() {
 | -------------- | ----------------------- | ----------- | ----------------------------------------------------- |
 | `color`        | `UseColorTemplateColor` | `'primary'` | Color palette applied to selected list items.         |
 | `variant`      | `UseColorTemplateType`  | `'fill'`    | Visual style for selected rows (fill, outline, etc.). |
-| `hoverColor`   | `UseColorTemplateColor` | `'surface'` | Palette token used on hover states.                   |
+| `hoverColor`   | `UseColorTemplateColor` | `'default'` | Palette token used on hover states.                   |
 | `hoverVariant` | `UseColorTemplateType`  | `'alpha'`   | How hovered rows are tinted.                          |
 | `component`    | `TagComponentType`      | `'ul'`      | Underlying element for the list.                      |
 
@@ -59,7 +59,7 @@ import List from '@xanui/ui/List';
 
 export default function ResponsiveList({ scheme }: { scheme: 'light' | 'dark' }) {
     return (
-        <List color={scheme === 'dark' ? 'surface' : 'primary'}>
+        <List color={scheme === 'dark' ? 'default' : 'primary'}>
             {/* ListItem children */}
         </List>
     );

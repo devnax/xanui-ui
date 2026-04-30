@@ -65,7 +65,7 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<any>) =
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: checked ? color : "surface.muted",
+                    color: checked ? color : "default.muted",
                     cursor: "pointer",
                     disabled: disabled,
                     "& svg": {

@@ -1,6 +1,6 @@
 # Alert
 
-`Alert` surfaces contextual feedback and status updates with semantic coloring, optional titles, and inline dismissal.
+`Alert` defaults contextual feedback and status updates with semantic coloring, optional titles, and inline dismissal.
 
 ## Basic Example
 
@@ -25,7 +25,7 @@ export default function BasicAlert() {
 | `title`     | `string \| ReactElement`                                               | —           | Heading text placed above the body; accepts responsive values.                    |
 | `direction` | `'row' \| 'column'`                                                    | `'row'`     | Controls whether icon and content flow horizontally or vertically.                |
 | `variant`   | `UseColorTemplateType`                                                 | `'fill'`    | Chooses the background/text relationship for the selected color.                  |
-| `color`     | `UseColorTemplateColor`                                                | `'surface'` | Semantic palette token; also selects a matching icon when `icon` is not provided. |
+| `color`     | `UseColorTemplateColor`                                                | `'default'` | Semantic palette token; also selects a matching icon when `icon` is not provided. |
 | `icon`      | `'info' \| 'warning' \| 'success' \| 'error' \| false \| ReactElement` | inferred    | Overrides the default icon or hides it with `false`.                              |
 | `onClose`   | `() => void`                                                           | —           | Shows a dismiss button and triggers the provided handler.                         |
 | `slotProps` | `{ closeButton?: IconButtonProps }`                                    | —           | Customize the internal close button or other structural nodes.                    |

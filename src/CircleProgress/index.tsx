@@ -42,12 +42,12 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
     showPercentage = p.showPercentage
     speed = p.speed ?? 1.5
 
-    if (trackColor === 'surface') {
-        trackColor = "surface.divider"
+    if (trackColor === 'default') {
+        trackColor = "default.divider"
     }
 
-    if (thumbColor === 'surface') {
-        thumbColor = "surface.contrast"
+    if (thumbColor === 'default') {
+        thumbColor = "default.contrast"
     }
 
 
@@ -70,7 +70,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
     if (showPercentage && !children) {
         children = <Tag
             sxr={{
-                color: color === 'surface' ? "surface.contrast" : `${color}.main`,
+                color: color === 'default' ? "default.contrast" : `${color}.main`,
                 fontSize: size / 4
             }}
         >{value}%</Tag>
@@ -101,7 +101,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
                     "& circle.circle-progress-thumb": {
                         strokeDasharray: circumference,
                         strokeDashoffset: percent,
-                        stroke: thumbColor || (color === 'surface' ? `surface.contrast` : `${color}.main`),
+                        stroke: thumbColor || (color === 'default' ? `default.contrast` : `${color}.main`),
                         fill: "none",
                         strokeWidth: thumbSize,
                         strokeLinecap: "round",
@@ -114,7 +114,7 @@ const CircleProgress = React.forwardRef(({ children, ...props }: CircleProgressP
                     },
                     "& circle.circle-progress-track": {
                         fill: "none",
-                        stroke: trackColor || (`surface.divider`),
+                        stroke: trackColor || (`default.divider`),
                         strokeWidth: trackSize ?? thumbSize,
                     }
                 },

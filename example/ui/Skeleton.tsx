@@ -8,7 +8,7 @@ const Skeletons = () => {
    return (
       <Stack>
          <Section title="Basic">
-            <Stack p={2} gap={2} borderColor='surface.divider' radius={1} overflow="hidden" maxWidth={600}>
+            <Stack p={2} gap={2} borderColor='default.divider' radius={1} overflow="hidden" maxWidth={600}>
                <Skeleton animation={"wave"} height={16} radius={2} loading={true} >
                   <Stack p={2} gap={1}>
                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque ut minus sunt quas culpa ratione dicta hic harum dolorem deserunt unde exercitationem debitis impedit, a, quod asperiores officiis vitae at.

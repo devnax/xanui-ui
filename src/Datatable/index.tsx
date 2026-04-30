@@ -120,7 +120,7 @@ const DataTable = React.forwardRef((props: DatatableProps, ref: React.Ref<HTMLDi
                 '& thead': fixedHeader ? {
                     position: "sticky",
                     top: 0,
-                    bgcolor: "surface.main",
+                    bgcolor: "default.main",
                     zIndex: 1
                 } : {},
             }}

@@ -1,6 +1,6 @@
 # Paper
 
-`Paper` renders a styled container with padding, rounded corners, and background color suitable for cards, panels, or surface sections. It inherits the full XanUI `Tag` prop system so you can override spacing, colors, and semantic elements.
+`Paper` renders a styled container with padding, rounded corners, and background color suitable for cards, panels, or default sections. It inherits the full XanUI `Tag` prop system so you can override spacing, colors, and semantic elements.
 
 ## Basic Example
 
@@ -21,10 +21,10 @@ export default function BasicPaper() {
 
 | Name         | Type               | Default     | Description                                                            |
 | ------------ | ------------------ | ----------- | ---------------------------------------------------------------------- |
-| `component`  | `TagComponentType` | `'div'`     | Underlying element rendered by the paper surface.                      |
+| `component`  | `TagComponentType` | `'div'`     | Underlying element rendered by the paper default.                      |
 | `sx` / `sxr` | `CSSObject`        | —           | Custom styles merged with the default background, radius, and padding. |
-| `baseClass`  | `string`           | `'surface'` | CSS hook applied to the root element.                                  |
-| `children`   | `ReactNode`        | —           | Content displayed inside the surface.                                  |
+| `baseClass`  | `string`           | `'default'` | CSS hook applied to the root element.                                  |
+| `children`   | `ReactNode`        | —           | Content displayed inside the default.                                  |
 | `...rest`    | `TagProps`         | —           | Any other system or native HTML props (spacing, flex, events, etc.).   |
 
 ## Usage Examples
@@ -47,7 +47,7 @@ export default function ProfileCard() {
 }
 ```
 
-### Subtle inset surface
+### Subtle inset default
 Override styling to match different themes or interactive states.
 
 ```tsx
@@ -57,7 +57,7 @@ export default function InsetPaper() {
     return (
         <Paper
             component="section"
-            bgcolor="surface.main"
+            bgcolor="default.main"
             shadow={2}
             border="1px solid"
             borderColor="border.main"

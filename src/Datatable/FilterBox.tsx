@@ -74,7 +74,7 @@ const FilterBox = (props: DatatablePropsWithState) => {
             {
                filters && <Stack>
                   <IconButton
-                     color="surface"
+                     color="default"
                      variant={"text"}
                      onClick={() => {
                         setOpenFilter(true)
@@ -94,7 +94,7 @@ const FilterBox = (props: DatatablePropsWithState) => {
                            <Text fontWeight={600} fontSize="h6">Filters</Text>
                            <IconButton
                               size="small"
-                              color="surface"
+                              color="default"
                               variant="text"
                               onClick={() => {
                                  setOpenFilter(false)

@@ -27,7 +27,7 @@ const SelectFilter = ({ option, onChange, value }: Props) => {
    return (
       <Stack
          width={"100%"}
-         bgcolor="surface.light"
+         bgcolor="default.base"
          p={1}
          radius={1}
       >
@@ -46,7 +46,7 @@ const SelectFilter = ({ option, onChange, value }: Props) => {
                <IconButton
                   size="small"
                   variant="ghost"
-                  color={'surface'}
+                  color={'default'}
                   onClick={(e: any) => {
                      setTarget(e.currentTarget)
                   }}
@@ -75,12 +75,12 @@ const SelectFilter = ({ option, onChange, value }: Props) => {
             {
                !!value && <Chip
                   size="small"
-                  color="surface"
+                  color="default"
                   label={value}
                   endIcon={<IconButton
                      size={16}
                      variant={"text"}
-                     color="surface"
+                     color="default"
                      onClick={() => {
                         onChange(null);
                      }}

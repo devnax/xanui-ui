@@ -72,7 +72,7 @@ const RangeSlider = (props: RangeSliderProps) => {
    }
 
    if (disabled) {
-      color = 'surface.divider'
+      color = 'default.divider'
    }
 
    const isControlled = value !== undefined;
@@ -186,7 +186,7 @@ const RangeSlider = (props: RangeSliderProps) => {
                position: "absolute",
                width: "100%",
                height: _size.track,
-               bgcolor: 'surface.divider',
+               bgcolor: 'default.divider',
                radius: `${_size.track}px`,
             }}
          />

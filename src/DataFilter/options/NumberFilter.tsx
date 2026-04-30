@@ -21,7 +21,7 @@ const NumberFilter = ({ option, onChange, value }: Props) => {
    return (
       <Stack
          width={"100%"}
-         bgcolor="surface.light"
+         bgcolor="default.base"
          p={1}
          radius={1}
       >
@@ -40,7 +40,7 @@ const NumberFilter = ({ option, onChange, value }: Props) => {
                <IconButton
                   size="small"
                   variant="ghost"
-                  color={'surface'}
+                  color={'default'}
                   onClick={() => {
                      onChange(0);
                   }}

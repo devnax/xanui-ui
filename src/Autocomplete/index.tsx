@@ -43,7 +43,7 @@ export type AutocompleteProps = {
    endIcon?: useBreakpointPropsType<ReactElement>;
    iconPlacement?: useBreakpointPropsType<"start" | "center" | "end">;
    focused?: boolean;
-   color?: useBreakpointPropsType<Omit<UseColorTemplateColor, 'surface'>>;
+   color?: useBreakpointPropsType<Omit<UseColorTemplateColor, 'default'>>;
    variant?: useBreakpointPropsType<"fill" | "outline" | "text">;
    error?: boolean;
    helperText?: useBreakpointPropsType<string>;
@@ -80,11 +80,11 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
             size="small"
             label={getLabel!(v)}
             variant={"fill"}
-            color="surface"
+            color="default"
             endIcon={<IconButton
                size={20}
                variant={"text"}
-               color="surface"
+               color="default"
                onClick={(e) => {
                   e.stopPropagation();
                   let newValue = Array.isArray(value) ? [...value] : []
@@ -111,7 +111,7 @@ const Autocomplete = ({ value, onChange, renderOption, options, getLabel, multip
       endIcons.unshift(<IconButton
          key="auto-complete-clear-button"
          variant={"text"}
-         color="surface"
+         color="default"
          onClick={(e) => {
             e.stopPropagation();
             onChange && onChange(null)

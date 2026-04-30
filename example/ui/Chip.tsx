@@ -40,7 +40,7 @@ const Chips = () => {
     const [value, setValue] = useState("A")
     return (
         <Stack gap={3}>
-            <ChipBox color="surface" />
+            <ChipBox color="default" />
             <ChipBox color="primary" />
             <ChipBox color="accent" />
             <ChipBox color="success" />

@@ -22,7 +22,7 @@ const TabItem = ({ color, variant, verticle }: any) => {
                 color={color}
                 radius={1}
                 overflow="hidden"
-                bgcolor="surface.light"
+                bgcolor="default.surface"
                 p={1}
                 value={val}
                 onChange={(v: any) => {
@@ -50,7 +50,7 @@ const MobileTab = ({ color, variant, verticle }: any) => {
                 color={color}
                 radius={1}
                 overflow="hidden"
-                bgcolor="surface.light"
+                bgcolor="default.surface"
                 p={1}
                 value={val}
                 width={400}

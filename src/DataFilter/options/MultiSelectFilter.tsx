@@ -28,7 +28,7 @@ const MultiSelectFilter = ({ option, onChange, value }: Props) => {
    return (
       <Stack
          width={"100%"}
-         bgcolor="surface.light"
+         bgcolor="default.base"
          p={1}
          radius={1}
       >
@@ -47,7 +47,7 @@ const MultiSelectFilter = ({ option, onChange, value }: Props) => {
                <IconButton
                   size="small"
                   variant="ghost"
-                  color={'surface'}
+                  color={'default'}
                   onClick={(e: any) => {
                      setTarget(e.currentTarget)
                   }}
@@ -79,12 +79,12 @@ const MultiSelectFilter = ({ option, onChange, value }: Props) => {
                      <Chip
                         key={index}
                         size="small"
-                        color="surface"
+                        color="default"
                         label={val}
                         endIcon={<IconButton
                            size={16}
                            variant={"text"}
-                           color="surface"
+                           color="default"
                            onClick={() => {
                               onChange(value.filter(v => v !== val));
                            }}

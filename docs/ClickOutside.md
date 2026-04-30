@@ -34,7 +34,7 @@ export default function BasicClickOutside() {
 ## Usage Examples
 
 ### Controlled popover dismissal
-Pair `ClickOutside` with a `Menu` or `Popover` to close floating surfaces.
+Pair `ClickOutside` with a `Menu` or `Popover` to close floating defaults.
 
 ```tsx
 import ClickOutside from '@xanui/ui/ClickOutside';

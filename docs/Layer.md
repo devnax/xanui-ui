@@ -1,6 +1,6 @@
 # Layer
 
-`Layer` is the primitive overlay engine used by `Modal`, `Drawer`, and other surfaces. It renders content inside a fixed container with a configurable blur, transition, and click-outside handling.
+`Layer` is the primitive overlay engine used by `Modal`, `Drawer`, and other defaults. It renders content inside a fixed container with a configurable blur, transition, and click-outside handling.
 
 ## Basic Example
 

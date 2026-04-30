@@ -1,6 +1,6 @@
 # Form
 
-`Form` is a thin wrapper around the native `<form>` element that keeps the XanUI styling surface and exposes the underlying DOM node via `ref` for custom data handling.
+`Form` is a thin wrapper around the native `<form>` element that keeps the XanUI styling default and exposes the underlying DOM node via `ref` for custom data handling.
 
 ## Basic Example
 

@@ -14,7 +14,7 @@ const TableCell = React.forwardRef(<T extends TagComponentType = "td">({ childre
                 verticalAlign: "inherit",
                 textAlign: "left",
                 fontSize: "inherit",
-                color: "surface.contrast",
+                color: "default.contrast",
                 ...((rest as any)?.sx || {})
             }}
             baseClass='table-cell'

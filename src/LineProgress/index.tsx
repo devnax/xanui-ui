@@ -42,7 +42,7 @@ const LineProgress = React.forwardRef(({ children, ...props }: LineProgressProps
                 height: thumbSize,
                 position: "relative",
                 overflow: "hidden",
-                bgcolor: hideTrack ? "transparent" : `surface.divider`,
+                bgcolor: hideTrack ? "transparent" : `default.divider`,
                 radius: 2,
             }}
             ref={ref}
@@ -51,7 +51,7 @@ const LineProgress = React.forwardRef(({ children, ...props }: LineProgressProps
                 component="span"
                 baseClass="line-progress-thumb"
                 sxr={{
-                    bgcolor: color === 'surface' ? `surface.contrast` : `${color}`,
+                    bgcolor: color === 'default' ? `default.contrast` : `${color}`,
                     width: isVal ? `${value}%` : "50%",
                     height: thumbSize,
                     position: "absolute",

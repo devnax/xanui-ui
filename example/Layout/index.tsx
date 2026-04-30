@@ -15,6 +15,8 @@ import { AuthProvider } from './AuthProvider';
 
 const ThemeBox = () => {
     const theme = useTheme()
+    console.log(theme.name);
+
     return (
         <Stack>
             <IconButton
@@ -22,7 +24,7 @@ const ThemeBox = () => {
                     theme.change(theme.name === 'default-light' ? { mode: "dark" } : {})
                 }}
             >
-                {theme.name === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+                {theme.name === 'default-light' ? <DarkModeIcon /> : <LightModeIcon />}
             </IconButton>
         </Stack>
     )
@@ -87,14 +89,14 @@ const Layout = () => {
                 theme={theme}
                 onThemeChange={t => setTheme(t)}
             >
-                <Stack height="100vh" flexRow bgcolor="surface.main">
+                <Stack height="100vh" flexRow bgcolor="default.main">
                     <ViewBox
                         width={250}
                         height="100%"
-                        bgcolor="surface.light"
+                        bgcolor="default.surface"
                         endContent={<ThemeBox />}
                     >
-                        <Text p={1} variant='text' fontWeight={600} mb={2} color="surface.contrast">Components</Text>
+                        <Text p={1} variant='text' fontWeight={600} mb={2} color="default.contrast">Components</Text>
                         <List p={1} variant="fill" >
                             {
                                 menu.map((m, idx) => <ListItem

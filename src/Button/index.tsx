@@ -148,7 +148,7 @@ const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ childr
             >
                 <CircleProgress
                     {...slotProps?.loading}
-                    color={color === 'surface' ? `primary` : 'surface'}
+                    color={color === 'default' ? `primary` : 'default'}
                     size={progressSizes[size]}
                     className='button-loading-progress'
                 />

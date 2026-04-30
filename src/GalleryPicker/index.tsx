@@ -20,7 +20,7 @@ const FileCard = ({ file, onRemove }: { file: File | string, onRemove: () => voi
          width={100}
          height={100}
          border="1px solid"
-         borderColor='surface.divider'
+         borderColor='default.divider'
          radius={1}
          overflow="hidden"
          position="relative"
@@ -139,12 +139,12 @@ const GalleryPicker = React.forwardRef(<T extends TagComponentType = "div">({ ti
                <Stack
                   width={100}
                   height={100}
-                  bgcolor="surface.light"
+                  bgcolor="default.base"
                   radius={1}
                   alignItems="center"
                   overflow={"hidden"}
                   border="1px solid"
-                  borderColor='surface.divider'
+                  borderColor='default.divider'
                >
                   <FilePicker
                      {...filePickerProps}
@@ -154,7 +154,7 @@ const GalleryPicker = React.forwardRef(<T extends TagComponentType = "div">({ ti
                      flex={1}
                      cursor={"pointer"}
                      borderBottom={"1px solid"}
-                     borderColor="surface.divider"
+                     borderColor="default.divider"
                      sx={{
                         '& svg': {
                            opacity: 0.6,
@@ -164,7 +164,7 @@ const GalleryPicker = React.forwardRef(<T extends TagComponentType = "div">({ ti
                         }
                      }}
                   >
-                     <AddPhotoAlternateOutlined fontSize={28} color="surface.muted" />
+                     <AddPhotoAlternateOutlined fontSize={28} color="default.muted" />
                   </FilePicker>
                   <Button
                      size="small"
@@ -205,7 +205,7 @@ const GalleryPicker = React.forwardRef(<T extends TagComponentType = "div">({ ti
             {...filePickerProps}
             width="100%"
             border="1px dashed"
-            borderColor='surface.divider'
+            borderColor='default.divider'
             radius={2}
             alignItems="center"
             justifyContent="center"
@@ -221,10 +221,10 @@ const GalleryPicker = React.forwardRef(<T extends TagComponentType = "div">({ ti
                }}
             >
                <Tag mb={2}>
-                  {(icon as any) || <AddPhotoAlternateOutlined fontSize={38} color="surface.muted" />}
+                  {(icon as any) || <AddPhotoAlternateOutlined fontSize={38} color="default.muted" />}
                </Tag>
                <Text>{(title as any) || "Drag & drop images here or click to upload."}</Text>
-               <Text variant="button" color="surface.muted">
+               <Text variant="button" color="default.muted">
                   {
                      (subtitle as any) || `Images only · Max ${filePickerProps.maxFileSize / 1024}MB each · Up to ${filePickerProps.maxFileLimits} files.`
                   }

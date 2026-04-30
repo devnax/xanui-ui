@@ -9,7 +9,7 @@ import LoadingBox from '@xanui/ui/LoadingBox';
 
 export default function BasicLoadingBox() {
   return (
-    <LoadingBox loading sxr={{ width: 240, height: 120, border: '1px solid', borderColor: 'surface.divider' }}>
+    <LoadingBox loading sxr={{ width: 240, height: 120, border: '1px solid', borderColor: 'default.divider' }}>
       Content loads here
     </LoadingBox>
   );

@@ -64,18 +64,18 @@ const Row = ({ rows, rawRow, row, rowAction, disableRow, hideCheckbox, columns, 
                     )
                 })
             }
-            {!!(rows.length && rowAction && rowAction((rows as any)[0])?.length) && <TableCell width={30} bgcolor={selectedColor} borderColor="surface.divider">
+            {!!(rows.length && rowAction && rowAction((rows as any)[0])?.length) && <TableCell width={30} bgcolor={selectedColor} borderColor="default.divider">
                 <IconButton
                     disabled={isDisable || selected}
                     onClick={(e: any) => setTarget(e.currentTarget)}
                     variant="text"
-                    color="surface"
+                    color="default"
                 >
                     <ActionIcon />
                 </IconButton>
                 <Menu target={target} placement="bottom-right" onClickOutside={() => setTarget(null)}>
                     <List
-                        bgcolor="surface.main"
+                        bgcolor="default.main"
                         minWidth={160}
                         sx={{
                             '& > li': {

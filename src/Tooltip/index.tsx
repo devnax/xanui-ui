@@ -20,7 +20,7 @@ const Tooltip = ({ children, title, variant, color, placement }: TooltipProps) =
     if (variant) _p.variant = variant
     const p: any = useBreakpointProps(_p)
     title = p.title
-    color = p.color ?? 'surface'
+    color = p.color ?? 'default'
     variant = p.variant ?? "fill"
     placement ??= "bottom"
 
@@ -46,7 +46,7 @@ const Tooltip = ({ children, title, variant, color, placement }: TooltipProps) =
                         p: .5,
                         shadow: 1,
                         ...template.main,
-                        bgcolor: color == 'surface' ? "surface.main" : template.main.bgcolor,
+                        bgcolor: color == 'default' ? "default.main" : template.main.bgcolor,
                     }
                 }}
             >
