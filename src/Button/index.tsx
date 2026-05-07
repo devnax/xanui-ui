@@ -1,173 +1,217 @@
 "use client";
-import React, { ReactElement } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useColorTemplate, UseColorTemplateColor, UseColorTemplateType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
-import useCorner, { UseCornerTypes } from '../useCorner'
-import CircleProgress, { CircleProgressProps } from '../CircleProgress'
-import Skeleton, { SkeletonProps } from '../Skeleton';
+import React, { ReactElement } from "react";
+import {
+   Tag,
+   TagProps,
+   TagComponentType,
+   useInterface,
+   useColorTemplate,
+   UseColorTemplateColor,
+   UseColorTemplateType,
+   useBreakpointProps,
+   useBreakpointPropsType,
+} from "@xanui/core";
+import useCorner, { UseCornerTypes } from "../useCorner";
+import CircleProgress, { CircleProgressProps } from "../CircleProgress";
+import Skeleton, { SkeletonProps } from "../Skeleton";
 
+export type ButtonProps<T extends TagComponentType = "button"> = Omit<
+   TagProps<T>,
+   "color" | "size" | "direction"
+> & {
+   startIcon?: useBreakpointPropsType<ReactElement>;
+   endIcon?: useBreakpointPropsType<ReactElement>;
+   color?: useBreakpointPropsType<UseColorTemplateColor>;
+   variant?: useBreakpointPropsType<UseColorTemplateType>;
+   corner?: useBreakpointPropsType<UseCornerTypes>;
+   size?: useBreakpointPropsType<"small" | "medium" | "large">;
+   direction?: useBreakpointPropsType<"row" | "column">;
+   loading?: boolean;
+   skeleton?: boolean;
+   slotProps?: {
+      loading?: Omit<CircleProgressProps, "color" | "hideTrack" | "size">;
+      skeleton?: Omit<
+         SkeletonProps,
+         "height" | "width" | "loading" | "children"
+      >;
+   };
+};
 
-export type ButtonProps<T extends TagComponentType = 'button'> = Omit<TagProps<T>, "color" | "size" | "direction"> & {
-    startIcon?: useBreakpointPropsType<ReactElement>;
-    endIcon?: useBreakpointPropsType<ReactElement>;
-    color?: useBreakpointPropsType<UseColorTemplateColor>;
-    variant?: useBreakpointPropsType<UseColorTemplateType>;
-    corner?: useBreakpointPropsType<UseCornerTypes>;
-    size?: useBreakpointPropsType<"small" | "medium" | "large">;
-    direction?: useBreakpointPropsType<"row" | "column">;
-    loading?: boolean;
-    skeleton?: boolean;
-    slotProps?: {
-        loading?: Omit<CircleProgressProps, "color" | "hideTrack" | "size">;
-        skeleton?: Omit<SkeletonProps, "height" | "width" | "loading" | "children">
-    }
-}
+const Button = React.forwardRef(
+   <T extends TagComponentType = "button">(
+      { children, skeleton, ...rest }: ButtonProps<T>,
+      ref: React.Ref<any>,
+   ) => {
+      let [
+         {
+            variant,
+            startIcon,
+            endIcon,
+            color,
+            corner,
+            size,
+            loading,
+            direction,
+            slotProps,
+            disabled,
+            ..._props
+         },
+      ] = useInterface<any>("Button", rest, {
+         variant: "fill",
+         color: "primary",
+         corner: "rounded",
+         size: "medium",
+      });
 
+      const _p: any = {};
+      if (startIcon) _p.startIcon = startIcon;
+      if (endIcon) _p.endIcon = endIcon;
+      if (color) _p.color = color;
+      if (variant) _p.variant = variant;
+      if (corner) _p.corner = corner;
+      if (size) _p.size = size;
+      if (direction) _p.direction = direction;
+      const p: any = useBreakpointProps(_p);
 
-const Button = React.forwardRef(<T extends TagComponentType = 'button'>({ children, skeleton, ...rest }: ButtonProps<T>, ref: React.Ref<any>) => {
-    let [{ variant, startIcon, endIcon, color, corner, size, loading, direction, slotProps, disabled, ..._props }] = useInterface<any>('Button', rest, {
-        variant: "fill",
-        color: "primary",
-        corner: "rounded",
-        size: "medium"
-    })
+      startIcon = p.startIcon;
+      endIcon = p.endIcon;
+      color = p.color;
+      variant = p.variant;
+      corner = p.corner;
+      size = p.size;
+      direction = p.direction || "row";
 
-    const _p: any = {}
-    if (startIcon) _p.startIcon = startIcon
-    if (endIcon) _p.endIcon = endIcon
-    if (color) _p.color = color
-    if (variant) _p.variant = variant
-    if (corner) _p.corner = corner
-    if (size) _p.size = size
-    if (direction) _p.direction = direction
-    const p: any = useBreakpointProps(_p)
+      const template = useColorTemplate(color, variant);
+      const cornerCss = useCorner(corner);
 
-    startIcon = p.startIcon
-    endIcon = p.endIcon
-    color = p.color
-    variant = p.variant
-    corner = p.corner
-    size = p.size
-    direction = p.direction || "row"
-
-    const template = useColorTemplate(color, variant)
-    const cornerCss = useCorner(corner)
-
-    const sizes: any = {
-        small: {
+      const sizes: any = {
+         small: {
             height: 38,
-            px: (startIcon || endIcon) ? 1 : 1.5,
-            gap: .5,
-            fontSize: 'button'
-        },
-        medium: {
+            px: startIcon || endIcon ? 1 : 1.5,
+            gap: 0.5,
+            fontSize: "button",
+         },
+         medium: {
             height: 44,
-            px: (startIcon || endIcon) ? 1.5 : 2,
+            px: startIcon || endIcon ? 1.5 : 2,
             gap: 1,
-            fontSize: 'button'
-        },
-        large: {
+            fontSize: "button",
+         },
+         large: {
             height: 52,
-            px: (startIcon || endIcon) ? 2 : 3,
+            px: startIcon || endIcon ? 2 : 3,
             gap: 1,
-            fontSize: "text"
-        }
-    }
+            fontSize: "text",
+         },
+      };
 
-    const progressSizes: any = {
-        small: 20,
-        medium: 25,
-        large: 30
-    }
+      const progressSizes: any = {
+         small: 20,
+         medium: 25,
+         large: 30,
+      };
 
-    let _size = (sizes[size as any] || {})
-    if (direction === 'column') {
-        delete _size.height
-        _size.gap = .5
-        _size.py = 1
-    }
+      let _size = sizes[size as any] || {};
+      if (direction === "column") {
+         delete _size.height;
+         _size.gap = 0.5;
+         _size.py = 1;
+      }
 
-    if (skeleton) {
-        return <Skeleton
-            {...slotProps?.skeleton}
-            height={_size.height}
-            animation={"wave"}
-            sx={{
-                ...slotProps?.skeleton?.sx,
-                ..._size,
-                ...cornerCss,
-            }}
-        />
-    }
+      if (skeleton) {
+         return (
+            <Skeleton
+               {...slotProps?.skeleton}
+               height={_size.height}
+               animation={"wave"}
+               sx={{
+                  ...slotProps?.skeleton?.sx,
+                  ..._size,
+                  ...cornerCss,
+               }}
+            />
+         );
+      }
 
-    return (
-        <Tag
-            component='button'
-            baseClass='button'
+      return (
+         <Tag
+            component="button"
+            baseClass="button"
             {..._props}
             sxr={{
-                flexShrink: "0",
-                whiteSpace: "nowrap",
-                cursor: "pointer",
-                display: "flex",
-                textTransform: "uppercase",
-                flexDirection: direction,
-                alignItems: "center",
-                justifyContent: "center",
-                position: "relative",
-                overflow: "hidden",
-                userSelect: "none",
-                fontWeight: 500,
-                "&:active": {
-                    transform: variant !== "text" ? "scale(0.99)" : undefined
-                },
-                ..._size,
-                ...cornerCss,
-                ...template.main,
-
+               flexShrink: "0",
+               whiteSpace: "nowrap",
+               cursor: "pointer",
+               display: "flex",
+               textTransform: "uppercase",
+               flexDirection: direction,
+               alignItems: "center",
+               justifyContent: "center",
+               position: "relative",
+               overflow: "hidden",
+               userSelect: "none",
+               fontWeight: 500,
+               "&:active": {
+                  transform: variant !== "text" ? "scale(0.99)" : undefined,
+               },
+               ..._size,
+               ...cornerCss,
+               ...template.main,
             }}
             hover={{
-                ...template.hover,
-                ...((_props as any)?.hover || {})
+               ...template.hover,
+               ...((_props as any)?.hover || {}),
             }}
             disabled={disabled ?? loading ?? false}
             ref={ref}
-        >
-            {loading && <Tag
-                baseClass='button-loading-container'
-                sxr={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    zIndex: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                <CircleProgress
-                    {...slotProps?.loading}
-                    color={color === 'default' ? `primary` : 'default'}
-                    size={progressSizes[size]}
-                    className='button-loading-progress'
-                />
-            </Tag>}
-            {startIcon && <Tag
-                baseClass='button-start-icon'
-                component='span'
-                display="inline-block"
-                flexShrink={0}
-            >{startIcon}</Tag>}
+         >
+            {loading && (
+               <Tag
+                  baseClass="button-loading-container"
+                  sxr={{
+                     position: "absolute",
+                     top: 0,
+                     left: 0,
+                     right: 0,
+                     bottom: 0,
+                     zIndex: 1,
+                     display: "flex",
+                     justifyContent: "center",
+                     alignItems: "center",
+                  }}
+               >
+                  <CircleProgress
+                     {...slotProps?.loading}
+                     color={color === "default" ? `primary` : "default"}
+                     size={progressSizes[size]}
+                     className="button-loading-progress"
+                  />
+               </Tag>
+            )}
+            {startIcon && (
+               <Tag
+                  baseClass="button-start-icon"
+                  component="span"
+                  display="inline-block"
+                  flexShrink={0}
+               >
+                  {startIcon}
+               </Tag>
+            )}
             {children}
-            {endIcon && <Tag
-                baseClass='button-end-icon'
-                component='span'
-                display="inline-block"
-                flexShrink={0}
-            >{endIcon}</Tag>}
-        </Tag>
-    )
-})
+            {endIcon && (
+               <Tag
+                  baseClass="button-end-icon"
+                  component="span"
+                  display="inline-block"
+                  flexShrink={0}
+               >
+                  {endIcon}
+               </Tag>
+            )}
+         </Tag>
+      );
+   },
+);
 
-export default Button
+export default Button;

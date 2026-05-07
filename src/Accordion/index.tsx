@@ -1,202 +1,252 @@
 "use client";
-import React, { ReactElement, useState } from 'react';
-import { Tag, TagProps, useInterface, UseColorTemplateColor, UseColorTemplateType, TagComponentType, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
+import React, { ReactElement, useState } from "react";
+import {
+   Tag,
+   TagProps,
+   useInterface,
+   UseColorTemplateColor,
+   UseColorTemplateType,
+   TagComponentType,
+   useBreakpointPropsType,
+   useBreakpointProps,
+} from "@xanui/core";
 import ExpandIcon from "@xanui/icons/ExpandMore";
-import Collaps from '../Collaps';
-import List from '../List';
-import ListItem from '../ListItem';
-import type { CollapsProps } from '../Collaps';
-import type { ListProps } from '../List';
-import type { ListItemProps } from '../ListItem';
+import Collapse from "../Collapse";
+import List from "../List";
+import ListItem from "../ListItem";
+import type { CollapseProps } from "../Collapse";
+import type { ListProps } from "../List";
+import type { ListItemProps } from "../ListItem";
 
-export type AccordionProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "color"> & {
-    expand?: boolean;
-    defaultExpand?: boolean;
-    onClick?: () => void;
-    title: useBreakpointPropsType<ReactElement | string>;
-    subtitle?: useBreakpointPropsType<ReactElement | string>;
-    startIcon?: useBreakpointPropsType<ReactElement>;
-    endIcon?: useBreakpointPropsType<ReactElement>;
-    expandIcon?: useBreakpointPropsType<ReactElement>;
-    expandIconPlacement?: useBreakpointPropsType<"start" | "end">;
-    expandAction?: useBreakpointPropsType<"header" | "icon">;
-    color?: useBreakpointPropsType<UseColorTemplateColor>;
-    variant?: useBreakpointPropsType<UseColorTemplateType>;
-    hoverColor?: useBreakpointPropsType<UseColorTemplateColor>;
-    hoverVariant?: useBreakpointPropsType<UseColorTemplateType>;
+export type AccordionProps<T extends TagComponentType = "div"> = Omit<
+   TagProps<T>,
+   "color"
+> & {
+   expand?: boolean;
+   defaultExpand?: boolean;
+   onClick?: () => void;
+   title: useBreakpointPropsType<ReactElement | string>;
+   subtitle?: useBreakpointPropsType<ReactElement | string>;
+   startIcon?: useBreakpointPropsType<ReactElement>;
+   endIcon?: useBreakpointPropsType<ReactElement>;
+   expandIcon?: useBreakpointPropsType<ReactElement>;
+   expandIconPlacement?: useBreakpointPropsType<"start" | "end">;
+   expandAction?: useBreakpointPropsType<"header" | "icon">;
+   color?: useBreakpointPropsType<UseColorTemplateColor>;
+   variant?: useBreakpointPropsType<UseColorTemplateType>;
+   hoverColor?: useBreakpointPropsType<UseColorTemplateColor>;
+   hoverVariant?: useBreakpointPropsType<UseColorTemplateType>;
 
-    slotProps?: {
-        header?: Omit<ListProps, "children" | "color" | "variant" | "hoverColor" | "hoverVariant" | "className">;
-        headerContent?: Omit<ListItemProps, "children" | "subtitle" | "selected" | "startIcon" | "endIcon" | "onClick" | "className">
-        collaps?: Omit<CollapsProps, "children" | "open">;
-        content?: Omit<TagProps, "children">;
-        expandIconContainer?: Omit<TagProps<"div">, 'children' | 'className'>;
-    }
-}
+   slotProps?: {
+      header?: Omit<
+         ListProps,
+         | "children"
+         | "color"
+         | "variant"
+         | "hoverColor"
+         | "hoverVariant"
+         | "className"
+      >;
+      headerContent?: Omit<
+         ListItemProps,
+         | "children"
+         | "subtitle"
+         | "selected"
+         | "startIcon"
+         | "endIcon"
+         | "onClick"
+         | "className"
+      >;
+      collaps?: Omit<CollapseProps, "children" | "open">;
+      content?: Omit<TagProps, "children">;
+      expandIconContainer?: Omit<TagProps<"div">, "children" | "className">;
+   };
+};
 
-const Accordion = React.forwardRef(<T extends TagComponentType = "div">({ children, title, subtitle, defaultExpand, ...rest }: AccordionProps<T>, ref: React.Ref<any>) => {
-    const [_expand, setExpand] = useState(defaultExpand || false)
-    let [{
-        expand,
-        onClick,
-        color,
-        variant,
-        hoverColor,
-        hoverVariant,
-        expandIcon,
-        expandIconPlacement,
-        startIcon,
-        endIcon,
-        expandAction,
-        classNames,
-        slotProps,
-        ...rootProps
-    }] = useInterface<any>("Accordion", rest, {
-        onClick: () => setExpand(!_expand) as any,
-        color: "primary",
-        variant: "ghost"
-    })
+const Accordion = React.forwardRef(
+   <T extends TagComponentType = "div">(
+      { children, title, subtitle, defaultExpand, ...rest }: AccordionProps<T>,
+      ref: React.Ref<any>,
+   ) => {
+      const [_expand, setExpand] = useState(defaultExpand || false);
+      let [
+         {
+            expand,
+            onClick,
+            color,
+            variant,
+            hoverColor,
+            hoverVariant,
+            expandIcon,
+            expandIconPlacement,
+            startIcon,
+            endIcon,
+            expandAction,
+            classNames,
+            slotProps,
+            ...rootProps
+         },
+      ] = useInterface<any>("Accordion", rest, {
+         onClick: () => setExpand(!_expand) as any,
+         color: "primary",
+         variant: "ghost",
+      });
 
-    const _p: any = {}
-    if (title) _p.title = title
-    if (subtitle) _p.subtitle = subtitle
-    if (startIcon) _p.startIcon = startIcon
-    if (endIcon) _p.endIcon = endIcon
-    if (expandIcon) _p.expandIcon = expandIcon
-    if (expandIconPlacement) _p.expandIconPlacement = expandIconPlacement
-    if (expandAction) _p.expandAction = expandAction
-    if (color) _p.color = color
-    if (variant) _p.variant = variant
-    if (hoverColor) _p.hoverColor = hoverColor
-    if (hoverVariant) _p.hoverVariant = hoverVariant
+      const _p: any = {};
+      if (title) _p.title = title;
+      if (subtitle) _p.subtitle = subtitle;
+      if (startIcon) _p.startIcon = startIcon;
+      if (endIcon) _p.endIcon = endIcon;
+      if (expandIcon) _p.expandIcon = expandIcon;
+      if (expandIconPlacement) _p.expandIconPlacement = expandIconPlacement;
+      if (expandAction) _p.expandAction = expandAction;
+      if (color) _p.color = color;
+      if (variant) _p.variant = variant;
+      if (hoverColor) _p.hoverColor = hoverColor;
+      if (hoverVariant) _p.hoverVariant = hoverVariant;
 
-    const p: any = useBreakpointProps(_p)
+      const p: any = useBreakpointProps(_p);
 
-    title = p.title
-    subtitle = p.subtitle
-    startIcon = p.startIcon
-    endIcon = p.endIcon
-    expandIcon = p.expandIcon
-    expandIconPlacement = p.expandIconPlacement
-    expandAction = p.expandAction
-    color = p.color
-    variant = p.variant
-    hoverColor = p.hoverColor
-    hoverVariant = p.hoverVariant
+      title = p.title;
+      subtitle = p.subtitle;
+      startIcon = p.startIcon;
+      endIcon = p.endIcon;
+      expandIcon = p.expandIcon;
+      expandIconPlacement = p.expandIconPlacement;
+      expandAction = p.expandAction;
+      color = p.color;
+      variant = p.variant;
+      hoverColor = p.hoverColor;
+      hoverVariant = p.hoverVariant;
 
-    expand = expand === undefined ? _expand : expand
-    expandIcon = expandIcon ? <Tag
-        cursor="pointer"
-        {...slotProps?.expandIconContainer}
-        onClick={expandAction === 'icon' && onClick ? () => onClick() : () => { }}
-        className='expand-icon-container'
-    >
-        {expandIcon}
-    </Tag> : <Tag
-        transform={`rotate(${expand ? 0 : -180}deg)`}
-        transition="transform .4s"
-        cursor="pointer"
-        {...slotProps?.expandIconContainer}
-        onClick={expandAction === 'icon' && onClick ? () => onClick() : () => { }}
-        className='expand-icon-container'
-    >
-        <ExpandIcon />
-    </Tag>
+      expand = expand === undefined ? _expand : expand;
+      expandIcon = expandIcon ? (
+         <Tag
+            cursor="pointer"
+            {...slotProps?.expandIconContainer}
+            onClick={
+               expandAction === "icon" && onClick ? () => onClick() : () => {}
+            }
+            className="expand-icon-container"
+         >
+            {expandIcon}
+         </Tag>
+      ) : (
+         <Tag
+            transform={`rotate(${expand ? 0 : -180}deg)`}
+            transition="transform .4s"
+            cursor="pointer"
+            {...slotProps?.expandIconContainer}
+            onClick={
+               expandAction === "icon" && onClick ? () => onClick() : () => {}
+            }
+            className="expand-icon-container"
+         >
+            <ExpandIcon />
+         </Tag>
+      );
 
-    let itemsx: any = {}
+      let itemsx: any = {};
 
-    if (expandIconPlacement === 'start') {
-        itemsx = {
-            startIcon: <Tag
-                className='start-icon-container'
-                sxr={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 1
-                }}
-            >
-                {expandIcon}
-                {startIcon}
-            </Tag>,
-            endIcon
-        }
+      if (expandIconPlacement === "start") {
+         itemsx = {
+            startIcon: (
+               <Tag
+                  className="start-icon-container"
+                  sxr={{
+                     display: "flex",
+                     flexDirection: "row",
+                     alignItems: "center",
+                     gap: 1,
+                  }}
+               >
+                  {expandIcon}
+                  {startIcon}
+               </Tag>
+            ),
+            endIcon,
+         };
+      } else {
+         itemsx = {
+            endIcon: (
+               <Tag
+                  className="end-icon-container"
+                  sxr={{
+                     display: "flex",
+                     flexDirection: "row",
+                     alignItems: "center",
+                     gap: 1,
+                  }}
+               >
+                  {endIcon}
+                  {expandIcon}
+               </Tag>
+            ),
+            startIcon,
+         };
+      }
 
-    } else {
-        itemsx = {
-            endIcon: <Tag
-                className='end-icon-container'
-                sxr={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 1
-                }}
-            >
-                {endIcon}
-                {expandIcon}
-            </Tag>,
-            startIcon
-        }
-    }
+      if (expandAction === "icon") {
+         itemsx.onClick = () => {};
+         itemsx.cursor = "initial!important";
+      }
 
-    if (expandAction === 'icon') {
-        itemsx.onClick = () => { }
-        itemsx.cursor = "initial!important"
-    }
-
-    return (
-        <Tag
+      return (
+         <Tag
             {...rootProps}
             sxr={{
-                bgcolor: "default.base"
+               bgcolor: "default.base",
             }}
-            baseClass='accordion'
-            classNames={[{ "accordion-expanded": expand }, ...(classNames || [])]}
+            baseClass="accordion"
+            classNames={[
+               { "accordion-expanded": expand },
+               ...(classNames || []),
+            ]}
             ref={ref}
-        >
+         >
             <List
-                component='div'
-                {...slotProps?.header}
-                color={color}
-                variant={variant}
-                hoverColor={hoverColor}
-                hoverVariant={hoverVariant}
-                className='accoutdion-header'
+               component="div"
+               {...slotProps?.header}
+               color={color}
+               variant={variant}
+               hoverColor={hoverColor}
+               hoverVariant={hoverVariant}
+               className="accoutdion-header"
             >
-                <ListItem
-                    minHeight={55}
-                    radius={0}
-                    component='div'
-                    {...slotProps?.headerContent}
-                    {...itemsx}
-                    subtitle={subtitle}
-                    selected={expand}
-                    onClick={() => onClick && onClick()}
-                    className="accordion-header-content"
-                >{title}</ListItem>
-                <Collaps
-                    {...slotProps?.collaps}
-                    open={expand}
-                    className="accordion-collaps"
-                >
-                    <Tag
-                        {...slotProps?.content}
-                        sxr={{
-                            color: "default.contrast",
-                            p: 2,
-                            py: 1,
-                            bgcolor: "default.base"
-                        }}
-                        baseClass='accordion-content'
-                    >
-                        {children}
-                    </Tag>
-                </Collaps>
+               <ListItem
+                  minHeight={55}
+                  radius={0}
+                  component="div"
+                  {...slotProps?.headerContent}
+                  {...itemsx}
+                  subtitle={subtitle}
+                  selected={expand}
+                  onClick={() => onClick && onClick()}
+                  className="accordion-header-content"
+               >
+                  {title}
+               </ListItem>
+               <Collapse
+                  {...slotProps?.collaps}
+                  open={expand}
+                  className="accordion-collaps"
+               >
+                  <Tag
+                     {...slotProps?.content}
+                     sxr={{
+                        color: "default.contrast",
+                        p: 2,
+                        py: 1,
+                        bgcolor: "default.base",
+                     }}
+                     baseClass="accordion-content"
+                  >
+                     {children}
+                  </Tag>
+               </Collapse>
             </List>
-        </Tag>
-    )
-})
-export default Accordion
-
-
+         </Tag>
+      );
+   },
+);
+export default Accordion;

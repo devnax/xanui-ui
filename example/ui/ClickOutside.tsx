@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import ClickOutside from "../../src/ClickOutside";
 
 const Accordion = () => {
-    return (
-        <div>Accordion</div>
-    )
-}
+   return (
+      <ClickOutside onClickOutside={() => console.log("Clicked outside")}>
+         <div>Accordion</div>
+      </ClickOutside>
+   );
+};
 
-export default Accordion
+export default Accordion;

@@ -1,36 +1,35 @@
 "use client";
-import React, { useEffect, useMemo } from 'react'
-import ReactDOM from 'react-dom';
-import { useTheme, ThemeProvider } from '@xanui/core';
+import React, { useEffect, useMemo } from "react";
+import ReactDOM from "react-dom";
+import { useTheme, ThemeProvider } from "@xanui/core";
 export type PortalProps = {
-    children?: React.ReactNode;
-    appendTo?: HTMLElement;
-    container?: HTMLElement;
-}
+   children?: React.ReactNode;
+   appendTo?: HTMLElement;
+   container?: HTMLElement;
+};
 
 const Portal = ({ children, appendTo, container }: PortalProps) => {
-    const theme = useTheme()
-    appendTo = appendTo || document.body
+   const theme = useTheme();
+   appendTo = appendTo || document.body;
 
-    const c = useMemo(() => {
-        let _con: HTMLElement = container || document.createElement("div");
-        appendTo.appendChild(_con);
-        _con.className = "xui-portal"
-        return _con
-    }, [container])
+   const c = useMemo(() => {
+      let _con: HTMLElement = container || document.createElement("div");
+      appendTo.appendChild(_con);
+      _con.className = "xui-portal";
+      return _con;
+   }, [container]);
 
-    useEffect(() => {
-        return () => {
-            (appendTo as any).removeChild(c);
-        }
-    }, [])
+   useEffect(() => {
+      return () => {
+         c.remove();
+         // (appendTo as any).removeChild(c);
+      };
+   }, []);
 
-    return ReactDOM.createPortal(
-        <ThemeProvider theme={theme}>
-            {children}
-        </ThemeProvider>,
-        c,
-    );
-}
+   return ReactDOM.createPortal(
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>,
+      c,
+   );
+};
 
-export default Portal
+export default Portal;
