@@ -1,35 +1,38 @@
-import React from 'react'
-import Section from "../Layout/Section"
-import Stack from '../../src/Stack'
-import List from '../../src/List'
-import ListItem from '../../src/ListItem'
-import HomeIcon from '@xanui/icons/Home';
-import InfoIcon from '@xanui/icons/Info';
-
+import React from "react";
+import Section from "../Layout/Section";
+import Stack from "../../src/Stack";
+import List from "../../src/List";
+import ListItem from "../../src/ListItem";
+import HomeIcon from "@xanui/icons/Home";
+import InfoIcon from "@xanui/icons/Info";
 
 const Lists = () => {
-    return (
-        <Stack>
-            <Section title="List">
-                <List width={200} color="default"  >
-                    <ListItem
-                        startIcon={<HomeIcon />}
-                        endIcon={<InfoIcon />}
-                        subtitle="Another Item"
-                        selected
-                    >Home</ListItem>
-                    <ListItem
-                        color="red"
-                        startIcon={<HomeIcon />}
-                        endIcon={<InfoIcon />}
-                        subtitle="Administration"
-                    >About</ListItem>
-                    <ListItem>Services</ListItem>
-                    <ListItem>Contact</ListItem>
-                </List>
-            </Section>
-        </Stack>
-    )
-}
+   return (
+      <Stack>
+         <Section title="List">
+            <List width={200} color="primary">
+               <ListItem
+                  startIcon={<HomeIcon />}
+                  endIcon={<InfoIcon />}
+                  subtitle="Another Item"
+                  selected
+               >
+                  Home
+               </ListItem>
+               <ListItem
+                  color="red"
+                  startIcon={<HomeIcon />}
+                  endIcon={<InfoIcon />}
+                  subtitle="Administration"
+               >
+                  About
+               </ListItem>
+               <ListItem>Services</ListItem>
+               <ListItem>Contact</ListItem>
+            </List>
+         </Section>
+      </Stack>
+   );
+};
 
-export default Lists
+export default Lists;
