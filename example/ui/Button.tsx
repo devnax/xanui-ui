@@ -13,163 +13,158 @@ import CircleProgress from "../../src/CircleProgress";
 import { createBucket, xv } from "react-state-bucket";
 
 const bucket = createBucket({
-   loading: xv.boolean().default(false),
+  loading: xv.boolean().default(false),
 });
 
 const Buttons = () => {
-   return (
-      <Container maxWidth="md">
-         <Section title="Icon Button" gap={2}>
-            <Button
-               startIcon={<UserIcon />}
-               endIcon={<InfoIcon />}
-               color="default"
-               loading={bucket.get("loading")}
-               onClick={() => bucket.set("loading", !bucket.get("loading"))}
-            >
-               Buttons
-            </Button>
-         </Section>
-         <Section title="Icon Button" gap={2}>
-            <CircleProgress showPercentage size={40} />
-         </Section>
-         <Section title="Icon Button" gap={2}>
-            <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-               <IconButton color="default">
-                  <UnarchiveIcon />
-               </IconButton>
-               <IconButton>
-                  <IconClose />
-               </IconButton>
-               <IconButton color="accent">
-                  <IconClose />
-               </IconButton>
-               <IconButton color="success">
-                  <IconClose />
-               </IconButton>
-               <IconButton color="info">
-                  <IconClose />
-               </IconButton>
-               <IconButton color="warning">
-                  <IconClose />
-               </IconButton>
-               <IconButton color="danger" size={44} corner="rounded">
-                  <UnarchiveIcon />
-               </IconButton>
-            </Stack>
-            <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-               <IconButton variant="fill">
-                  <IconClose />
-               </IconButton>
-               <IconButton color="accent" variant="outline">
-                  <IconClose />
-               </IconButton>
-               <IconButton color="success" variant="ghost">
-                  <IconClose />
-               </IconButton>
-               <IconButton color="info" variant="text">
-                  <IconClose />
-               </IconButton>
-            </Stack>
-            <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-               <IconButton size={24} color="danger">
-                  <IconClose />
-               </IconButton>
-               <IconButton color="accent" size={28}>
-                  <IconClose />
-               </IconButton>
-               <IconButton color="success" size={32}>
-                  <IconClose />
-               </IconButton>
-               <IconButton color="info" size={38}>
-                  <IconClose />
-               </IconButton>
-            </Stack>
-         </Section>
-         <Section title="Colors">
-            <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-               <Button color="default" loading>
-                  Button
-               </Button>
-               <Button startIcon={<InfoIcon />} color="primary" loading>
-                  Button
-               </Button>
-               <Button startIcon={<InfoIcon />} color="info" direction="row">
-                  Button
-               </Button>
-               <Button
-                  color="accent"
-                  loading
-                  endIcon={<HomeIcon />}
-                  direction="row"
-               >
-                  Button
-               </Button>
-               <Button color="warning">Button</Button>
-               <Button color="success">Button</Button>
-               <Button color="danger">Button</Button>
-            </Stack>
-         </Section>
-         <Section title="Variants">
-            <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-               <Button color="primary" variant="fill">
-                  Button
-               </Button>
-               <Button color="primary" variant="outline">
-                  Outline
-               </Button>
-               <Button color="primary" variant="text">
-                  Button
-               </Button>
-            </Stack>
-         </Section>
-         <Section title="Sizes">
-            <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-               <Button
-                  startIcon={<InfoIcon fontSize={20} />}
-                  color="primary"
-                  size="small"
-               >
-                  Button
-               </Button>
-               <Button color="primary" size="medium">
-                  Button
-               </Button>
-               <Button color="primary" size="large">
-                  Button
-               </Button>
-            </Stack>
-         </Section>
+  return (
+    <Container maxWidth="md">
+      <Section title="Icon Button" gap={2}>
+        <Button
+          startIcon={<UserIcon />}
+          endIcon={<InfoIcon />}
+          color="default"
+          loading={bucket.get("loading")}
+          onClick={() => bucket.set("loading", !bucket.get("loading"))}
+        >
+          Buttons
+        </Button>
+      </Section>
+      <Section title="Icon Button" gap={2}>
+        <CircleProgress showPercentage size={40} />
+      </Section>
+      <Section title="Icon Button" gap={2}>
+        <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
+          <IconButton color="default">
+            <UnarchiveIcon />
+          </IconButton>
+          <IconButton>
+            <IconClose />
+          </IconButton>
+          <IconButton color="accent">
+            <IconClose />
+          </IconButton>
+          <IconButton color="success">
+            <IconClose />
+          </IconButton>
+          <IconButton color="info">
+            <IconClose />
+          </IconButton>
+          <IconButton color="warning">
+            <IconClose />
+          </IconButton>
+          <IconButton color="danger" size={44} corner="rounded">
+            <UnarchiveIcon />
+          </IconButton>
+        </Stack>
+        <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
+          <IconButton variant="fill">
+            <IconClose />
+          </IconButton>
+          <IconButton color="accent" variant="outline">
+            <IconClose />
+          </IconButton>
+          <IconButton color="success" variant="ghost">
+            <IconClose />
+          </IconButton>
+          <IconButton color="info" variant="text">
+            <IconClose />
+          </IconButton>
+        </Stack>
+        <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
+          <IconButton size={24} color="danger">
+            <IconClose />
+          </IconButton>
+          <IconButton color="accent" size={28}>
+            <IconClose />
+          </IconButton>
+          <IconButton color="success" size={32}>
+            <IconClose />
+          </IconButton>
+          <IconButton color="info" size={38}>
+            <IconClose />
+          </IconButton>
+        </Stack>
+      </Section>
+      <Section title="Colors">
+        <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
+          <Button color="default" loading>
+            Button
+          </Button>
+          <Button startIcon={<InfoIcon />} color="primary" loading>
+            Button
+          </Button>
+          <Button startIcon={<InfoIcon />} color="info" direction="row">
+            Button
+          </Button>
+          <Button color="accent" loading endIcon={<HomeIcon />} direction="row">
+            Button
+          </Button>
+          <Button color="warning">Button</Button>
+          <Button color="success">Button</Button>
+          <Button color="danger">Button</Button>
+        </Stack>
+      </Section>
+      <Section title="Variants">
+        <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
+          <Button color="primary" variant="fill">
+            Button
+          </Button>
+          <Button color="primary" variant="outline">
+            Outline
+          </Button>
+          <Button color="primary" variant="text">
+            Button
+          </Button>
+        </Stack>
+      </Section>
+      <Section title="Sizes">
+        <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
+          <Button
+            startIcon={<InfoIcon fontSize={20} />}
+            color="primary"
+            size="small"
+          >
+            Button
+          </Button>
+          <Button color="primary" size="medium">
+            Button
+          </Button>
+          <Button color="primary" size="large">
+            Button
+          </Button>
+        </Stack>
+      </Section>
 
-         <Section title="Responsive Variants">
-            <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-               <Button
-                  startIcon={<InfoIcon fontSize={20} />}
-                  color="primary"
-                  size="small"
-                  corner="circle"
-               >
-                  Button
-               </Button>
-               <Button
-                  startIcon={<InfoIcon fontSize={20} />}
-                  color="accent"
-                  size="medium"
-                  direction="column"
-               >
-                  Button
-               </Button>
-               <Button
-                  startIcon={<InfoIcon fontSize={20} />}
-                  color="danger"
-                  size="large"
-               >
-                  Button
-               </Button>
-            </Stack>
-         </Section>
-      </Container>
-   );
+      <Section title="Responsive Variants">
+        <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
+          <Button
+            startIcon={<InfoIcon fontSize={20} />}
+            color="primary"
+            size="small"
+            corner="circle"
+          >
+            Button
+          </Button>
+          <Button
+            startIcon={<InfoIcon fontSize={20} />}
+            color="accent"
+            size="medium"
+            direction="column"
+          >
+            Button
+          </Button>
+          <Button
+            startIcon={<InfoIcon fontSize={20} />}
+            color="danger"
+            size="large"
+          >
+            Button
+          </Button>
+        </Stack>
+      </Section>
+    </Container>
+  );
 };
 
 export default Buttons;
