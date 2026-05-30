@@ -123,14 +123,14 @@ const Buttons = () => {
           <Button
             startIcon={<InfoIcon fontSize={20} />}
             color="primary"
-            size="small"
+            size="xs"
           >
             Button
           </Button>
-          <Button color="primary" size="medium">
+          <Button color="primary" size="md">
             Button
           </Button>
-          <Button color="primary" size="large">
+          <Button color="primary" size="lg">
             Button
           </Button>
         </Stack>
@@ -141,7 +141,7 @@ const Buttons = () => {
           <Button
             startIcon={<InfoIcon fontSize={20} />}
             color="primary"
-            size="small"
+            size="xs"
             corner="circle"
           >
             Button
@@ -149,7 +149,7 @@ const Buttons = () => {
           <Button
             startIcon={<InfoIcon fontSize={20} />}
             color="accent"
-            size="medium"
+            size="md"
             direction="column"
           >
             Button
@@ -157,7 +157,7 @@ const Buttons = () => {
           <Button
             startIcon={<InfoIcon fontSize={20} />}
             color="danger"
-            size="large"
+            size="lg"
           >
             Button
           </Button>

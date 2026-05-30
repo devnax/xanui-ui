@@ -1,104 +1,118 @@
 "use client";
-import { Tag, TagComponentType, TagProps, useInterface } from '@xanui/core';
-import React, { ReactNode, UIEvent, useImperativeHandle, useRef } from 'react'
+import {
+  Tag,
+  TagComponentType,
+  TagProps,
+  useThemeComponent,
+} from "@xanui/core";
+import React, { ReactNode, UIEvent, useImperativeHandle, useRef } from "react";
 
 export type ScrollbarProps<T extends TagComponentType = "div"> = TagProps<T> & {
-    size?: number;
-    thumbColor?: TagProps['color'];
-    trackColor?: TagProps['color'];
-    children?: ReactNode;
-    onScrollEnd?: (e: UIEvent<HTMLDivElement>) => void;
-}
-
-export type ScrollbarHandle = {
-    scrollTo: (pos: number) => void;
-    scrollToBottom: () => void;
-    scrollToTop: () => void;
+  size?: number;
+  thumbColor?: TagProps["color"];
+  trackColor?: TagProps["color"];
+  children?: ReactNode;
+  onScrollEnd?: (e: UIEvent<HTMLDivElement>) => void;
 };
 
-const Scrollbar = React.forwardRef(<T extends TagComponentType = "div">({ children, size, thumbColor, trackColor, ...rest }: ScrollbarProps<T>, ref: React.Ref<ScrollbarHandle>) => {
-    let [{ onScroll, onScrollEnd, ...props }] = useInterface<any>("Scrollbar", rest, {})
+export type ScrollbarHandle = {
+  scrollTo: (pos: number) => void;
+  scrollToBottom: () => void;
+  scrollToTop: () => void;
+};
+
+const Scrollbar = React.forwardRef(
+  <T extends TagComponentType = "div">(
+    { children, size, thumbColor, trackColor, ...rest }: ScrollbarProps<T>,
+    ref: React.Ref<ScrollbarHandle>,
+  ) => {
+    let [{ onScroll, onScrollEnd, ...props }] = useThemeComponent<any>(
+      "Scrollbar",
+      rest,
+      {},
+    );
     const innerRef = useRef<HTMLDivElement>(null);
 
     useImperativeHandle(ref, () => ({
-        scrollTo(pos: number) {
-            innerRef.current?.scrollTo({
-                top: pos,
-                behavior: "smooth"
-            });
-        },
-        scrollToBottom() {
-            if (!innerRef.current) return;
-            const ele = innerRef.current;
-            ele.scrollTo({
-                top: ele.scrollHeight,
-                behavior: "smooth"
-            });
-        },
-        scrollToTop() {
-            innerRef.current?.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        }
+      scrollTo(pos: number) {
+        innerRef.current?.scrollTo({
+          top: pos,
+          behavior: "smooth",
+        });
+      },
+      scrollToBottom() {
+        if (!innerRef.current) return;
+        const ele = innerRef.current;
+        ele.scrollTo({
+          top: ele.scrollHeight,
+          behavior: "smooth",
+        });
+      },
+      scrollToTop() {
+        innerRef.current?.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      },
     }));
 
     if (onScroll || onScrollEnd) {
-        props.onScroll = (e: UIEvent<HTMLDivElement>) => {
-            if (onScrollEnd) {
-                const ele: any = e.target
-                const scrollTop = ele.scrollTop
-                const scrollHeight = ele.scrollHeight
-                const clientHeight = ele.clientHeight
-                const isScrollDown = scrollHeight - scrollTop <= clientHeight + 1
-                isScrollDown && onScrollEnd(e)
-            }
-            onScroll && onScroll(e)
+      props.onScroll = (e: UIEvent<HTMLDivElement>) => {
+        if (onScrollEnd) {
+          const ele: any = e.target;
+          const scrollTop = ele.scrollTop;
+          const scrollHeight = ele.scrollHeight;
+          const clientHeight = ele.clientHeight;
+          const isScrollDown = scrollHeight - scrollTop <= clientHeight + 1;
+          isScrollDown && onScrollEnd(e);
         }
+        onScroll && onScroll(e);
+      };
     }
 
-    let sxr: any = {}
+    let sxr: any = {};
+    size ??= 6;
 
-    if (size) {
-        sxr['&::-webkit-scrollbar'] = {
-            width: size,
-            height: size,
-        }
-    }
+    sxr["&::-webkit-scrollbar"] = {
+      width: `${size}px!important`,
+      height: `${size}px!important`,
+    };
+
     if (thumbColor) {
-        sxr['&::-webkit-scrollbar-thumb'] = {
-            backgroundColor: thumbColor + "!important",
-            borderRadius: "6px",
-            opacity: 0.6,
-        }
-        sxr['&::-webkit-scrollbar-thumb:hover'] = {
-            backgroundColor: thumbColor + "!important",
-            opacity: 0.0,
-        }
+      sxr["&::-webkit-scrollbar-thumb"] = {
+        backgroundColor: thumbColor + "!important",
+        borderRadius: "6px",
+        opacity: 0.6,
+      };
+      sxr["&::-webkit-scrollbar-thumb:hover"] = {
+        backgroundColor: thumbColor + "!important",
+        opacity: 0.0,
+      };
     }
 
     if (trackColor) {
-        sxr['&::-webkit-scrollbar-track'] = {
-            backgroundColor: trackColor,
-            borderRadius: "6px",
-        }
+      sxr["&::-webkit-scrollbar-track"] = {
+        backgroundColor: trackColor,
+        borderRadius: "6px",
+      };
     }
 
     return (
-        <Tag
-            {...props}
-            ref={innerRef}
-            baseClass='scrollbar'
-            sxr={{
-                height: "100%",
-                width: "100%",
-                overflow: "auto",
-                ...sxr,
-            }}
-        >
-            {children}
-        </Tag>
-    )
-})
+      <Tag
+        {...props}
+        ref={innerRef}
+        baseClass="scrollbar"
+        sxr={{
+          height: "100%",
+          width: "100%",
+          overflow: "auto",
+          ...sxr,
+        }}
+      >
+        {children}
+      </Tag>
+    );
+  },
+);
 
-export default Scrollbar 
+export default Scrollbar;

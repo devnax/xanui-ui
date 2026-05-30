@@ -64,9 +64,9 @@ import CheckIcon from '@xanui/icons/Check';
 export default function CustomSwitch() {
   return (
     <Switch
-      size="small"
+      size="sm"
       color="success"
-      icon={<CheckIcon fontSize="small" />}
+      icon={<CheckIcon fontsize="sm" />}
       slotProps={{
         track: { bgcolor: 'success.surface', border: '1px solid', borderColor: 'success.base' },
         thumb: { shadow: 1 },

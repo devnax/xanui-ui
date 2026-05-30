@@ -24,7 +24,7 @@ export default function HeadingBlock() {
 | Name        | Type                                                                            | Default         | Description                                                                           |
 | ----------- | ------------------------------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------- |
 | `variant`   | `'text' \| 'small' \| 'button' \| 'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'text'`        | Typography preset controlling font size, line height, and weight.                     |
-| `component` | `TagComponentType`                                                              | matches variant | Override the underlying element (e.g., render `span` while using `variant="button"`). |
+| `component` | `TagComponentType`                                                              | matches variant | Override the underlying element (e.g., render `span` while using `variant="sm"`). |
 | `children`  | `ReactNode`                                                                     | —               | Text content.                                                                         |
 | `...rest`   | `TagProps`                                                                      | —               | Color, spacing, display, and HTML attributes.                                         |
 
@@ -49,7 +49,7 @@ import Text from '@xanui/ui/Text';
 
 export default function LabelText() {
 	return (
-		<Text component="span" variant="button" color="default.muted">
+		<Text component="span" variant="sm" color="default.muted">
 			Required
 		</Text>
 	);

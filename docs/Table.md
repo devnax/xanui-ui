@@ -61,7 +61,7 @@ import Table from '@xanui/ui/Table';
 
 export default function ZebraTable() {
   return (
-    <Table evenColor borderType="box" size="small">
+    <Table evenColor borderType="box" size="sm">
       {/* head + body rows */}
     </Table>
   );

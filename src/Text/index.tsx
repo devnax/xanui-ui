@@ -1,32 +1,45 @@
-"use client"
-import React from 'react';
-import { Tag, TagProps, TagComponentType, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
-
+"use client";
+import React from "react";
+import {
+  Tag,
+  TagProps,
+  TagComponentType,
+  useBreakpointProps,
+  useBreakpointPropsType,
+  TypographyRefTypes,
+} from "@xanui/core";
 
 export type TextProps<T extends TagComponentType = "p"> = TagProps<T> & {
-    variant?: useBreakpointPropsType<"text" | "button" | "small" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6">
-}
+  variant?: useBreakpointPropsType<TypographyRefTypes>;
+};
 
-const Text = React.forwardRef(<T extends TagComponentType = "p">({ children, variant, ...props }: TextProps<T>, ref?: React.Ref<any>) => {
-    const _p: any = {}
-    if (variant) _p.variant = variant
-    const p: any = useBreakpointProps(_p)
-    variant = p.variant ?? 'text'
+const Text = React.forwardRef(
+  <T extends TagComponentType = "p">(
+    { children, variant, ...props }: TextProps<T>,
+    ref?: React.Ref<any>,
+  ) => {
+    const _p: any = {};
+    if (variant) _p.variant = variant;
+    const p: any = useBreakpointProps(_p);
+    variant = p.variant ?? "text";
 
     return (
-        <Tag
-            component={(variant as string).startsWith('h') ? variant as any : "p"}
-            {...props}
-            sxr={{
-                fontSize: variant,
-                lineHeight: variant,
-                fontWeight: variant,
-                color: "default.contrast",
-            }}
-            baseClass='text'
-            ref={ref}
-        >{children}</Tag>
-    )
-})
+      <Tag
+        component={(variant as string).startsWith("h") ? (variant as any) : "p"}
+        {...props}
+        sxr={{
+          fontSize: variant,
+          lineHeight: variant,
+          fontWeight: variant,
+          color: "default.contrast",
+        }}
+        baseClass="text"
+        ref={ref}
+      >
+        {children}
+      </Tag>
+    );
+  },
+);
 
-export default Text
+export default Text;

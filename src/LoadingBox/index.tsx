@@ -1,65 +1,80 @@
-"use client"
-import React from 'react';
-import { Tag, TagProps, TagComponentType, UseColorTemplateColor, useInterface, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
-import CircleProgress, { CircleProgressProps } from '../CircleProgress';
+"use client";
+import React from "react";
+import {
+  Tag,
+  TagProps,
+  TagComponentType,
+  UseColorTemplateColor,
+  useThemeComponent,
+  useBreakpointProps,
+  useBreakpointPropsType,
+} from "@xanui/core";
+import CircleProgress, { CircleProgressProps } from "../CircleProgress";
 
+export type LoadingBoxProps<T extends TagComponentType = "div"> = Omit<
+  TagProps<T>,
+  "color"
+> & {
+  loading?: boolean;
+  color?: useBreakpointPropsType<UseColorTemplateColor>;
+  slotProps?: {
+    CircleProgress?: Omit<CircleProgressProps, "value">;
+  };
+};
 
-export type LoadingBoxProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "color"> & {
-    loading?: boolean;
-    color?: useBreakpointPropsType<UseColorTemplateColor>;
-    slotProps?: {
-        CircleProgress?: Omit<CircleProgressProps, "value">
-    }
-
-}
-
-const LoadingBox = React.forwardRef(<T extends TagComponentType = "div">({ children, ...props }: LoadingBoxProps<T>, ref: React.Ref<any>) => {
-    let [{ loading, color, slotProps, ...rest }] = useInterface<any>("LoadingBox", props, {})
-    const _p: any = {}
-    if (color) _p.color = color
-    const p: any = useBreakpointProps(_p)
-    color = p.color ?? "primary"
+const LoadingBox = React.forwardRef(
+  <T extends TagComponentType = "div">(
+    { children, ...props }: LoadingBoxProps<T>,
+    ref: React.Ref<any>,
+  ) => {
+    let [{ loading, color, slotProps, ...rest }] = useThemeComponent<any>(
+      "LoadingBox",
+      props,
+      {},
+    );
+    const _p: any = {};
+    if (color) _p.color = color;
+    const p: any = useBreakpointProps(_p);
+    color = p.color ?? "primary";
 
     return (
-        <Tag
-            baseClass='loading-box'
-            {...rest}
+      <Tag
+        baseClass="loading-box"
+        {...rest}
+        sxr={{
+          position: "relative",
+          display: "inline-block",
+          overflow: "hidden",
+          ...((rest as any).sx || {}),
+        }}
+        ref={ref}
+      >
+        {loading && (
+          <Tag
+            baseClass="loading-box-container"
             sxr={{
-                position: "relative",
-                display: "inline-block",
-                overflow: "hidden",
-                ...((rest as any).sx || {})
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 1,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-            ref={ref}
-        >
-            {loading && <Tag
-                baseClass="loading-box-container"
-                sxr={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    zIndex: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                <CircleProgress
-                    color="primary"
-                    hideTrack
-                    {...slotProps?.CircleProgress}
-                />
-            </Tag>}
-            <Tag
-                disabled={loading}
-            >
-                {children}
-            </Tag>
-        </Tag>
-    )
-})
+          >
+            <CircleProgress
+              color="primary"
+              hideTrack
+              {...slotProps?.CircleProgress}
+            />
+          </Tag>
+        )}
+        <Tag disabled={loading}>{children}</Tag>
+      </Tag>
+    );
+  },
+);
 
-export default LoadingBox
-
+export default LoadingBox;

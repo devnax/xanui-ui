@@ -1,155 +1,190 @@
 "use client";
-import { ReactNode, useEffect, useState } from 'react'
-import { Tag, TagProps, useBreakpointProps, useBreakpointPropsType, useInterface, TransitionProps, Transition } from "@xanui/core"
-import useBlurCss from '../useBlurCss';
+import { ReactNode, useEffect, useState } from "react";
+import {
+  Tag,
+  TagProps,
+  useBreakpointProps,
+  useBreakpointPropsType,
+  useThemeComponent,
+  TransitionProps,
+  Transition,
+} from "@xanui/core";
+import useBlurCss from "../useBlurCss";
 import { Renderar } from "@xanui/core";
-import ClickOutside, { ClickOutsideProps } from '../ClickOutside';
+import ClickOutside, { ClickOutsideProps } from "../ClickOutside";
 // import Transition from '../Transition';
 
 export type LayerProps = {
-    open: boolean;
-    children: ReactNode;
-    transition?: TransitionProps['variant'];
-    zIndex?: number;
-    blur?: useBreakpointPropsType<number>
-    blurMode?: useBreakpointPropsType<"blur" | "transparent">
-    onClickOutside?: () => void;
-    onEnter?: TransitionProps["onEnter"];
-    onEntered?: TransitionProps['onEntered'];
-    onExit?: TransitionProps['onExit'];
-    onExited?: TransitionProps['onExited'];
-    slotProps?: {
-        root?: Omit<TagProps<"div">, "children">;
-        transition?: Omit<TransitionProps, "children" | "open" | "variant" | "onExit" | "onExited" | "onEnter" | "onEntered">;
-        content?: Omit<TagProps<"div">, "children">;
-        clickOutside?: Omit<ClickOutsideProps, "children" | "onClickOutside">;
-    }
-}
+  open: boolean;
+  children: ReactNode;
+  transition?: TransitionProps["variant"];
+  zIndex?: number;
+  blur?: useBreakpointPropsType<number>;
+  blurMode?: useBreakpointPropsType<"blur" | "transparent">;
+  onClickOutside?: () => void;
+  onEnter?: TransitionProps["onEnter"];
+  onEntered?: TransitionProps["onEntered"];
+  onExit?: TransitionProps["onExit"];
+  onExited?: TransitionProps["onExited"];
+  slotProps?: {
+    root?: Omit<TagProps<"div">, "children">;
+    transition?: Omit<
+      TransitionProps,
+      | "children"
+      | "open"
+      | "variant"
+      | "onExit"
+      | "onExited"
+      | "onEnter"
+      | "onEntered"
+    >;
+    content?: Omit<TagProps<"div">, "children">;
+    clickOutside?: Omit<ClickOutsideProps, "children" | "onClickOutside">;
+  };
+};
 
 export type ActionLayerFunctionChildreProps = {
-    open: Function,
-    close: Function
-}
-export type ActionLayerChildren = ReactNode | ((props: ActionLayerFunctionChildreProps) => ReactNode)
+  open: Function;
+  close: Function;
+};
+export type ActionLayerChildren =
+  | ReactNode
+  | ((props: ActionLayerFunctionChildreProps) => ReactNode);
 
 const Layer = ({ children, open, ...props }: LayerProps) => {
-    let [{
-        onClickOutside,
-        placement,
-        transition,
-        zIndex,
-        blur,
-        blurMode,
-        onEnter,
-        onEntered,
-        onExit,
-        onExited,
-        slotProps
-    }] = useInterface<any>("Layer", props, {})
+  let [
+    {
+      onClickOutside,
+      placement,
+      transition,
+      zIndex,
+      blur,
+      blurMode,
+      onEnter,
+      onEntered,
+      onExit,
+      onExited,
+      slotProps,
+    },
+  ] = useThemeComponent<any>("Layer", props, {});
 
-    const _p: any = {}
-    if (blur) _p.blur = blur
-    if (blurMode) _p.blurMode = blurMode
-    const p: any = useBreakpointProps(_p)
+  const _p: any = {};
+  if (blur) _p.blur = blur;
+  if (blurMode) _p.blurMode = blurMode;
+  const p: any = useBreakpointProps(_p);
 
-    blur = p.blur
-    blurMode = p.blurMode
+  blur = p.blur;
+  blurMode = p.blurMode;
 
-    const [exited, setExited] = useState(!open)
-    placement = placement || "bottom-left"
-    const blurCss = blur ? useBlurCss(blur, blurMode) : {}
+  const [exited, setExited] = useState(!open);
+  placement = placement || "bottom-left";
+  const blurCss = blur ? useBlurCss(blur, blurMode) : {};
 
-    useEffect(() => {
-        if (exited && open) {
-            setExited(false)
-        }
-    }, [open])
-
-    // if (exited) return <></>
-    let duration = slotProps?.transition?.duration || 300
-    let delay = slotProps?.transition?.delay || 0
-
-    let content = <Transition
-        duration={duration}
-        delay={delay}
-        easing="standard"
-        variant={transition || "zoomOver"}
-        {...slotProps?.transition}
-        open={open}
-        onEnter={onEnter}
-        onEntered={onEntered}
-        onExit={onExit}
-        onExited={() => {
-            setExited(true)
-            onExited && onExited()
-        }}
-    >
-        {children}
-    </Transition>
-
-    return (
-        <Transition
-            duration={duration}
-            delay={delay}
-            easing="smooth"
-            variant={"fade"}
-            open={open}
-            exitOnUnmount
-            initialTransition={false}
-        >
-            <Tag
-                baseClass="layer"
-                {...slotProps?.root}
-                sxr={{
-                    ...slotProps?.root?.sx,
-                    position: "fixed",
-                    zIndex: 1500 + (zIndex || 0),
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    width: "100%",
-                    height: "100%",
-                    ...blurCss
-                }}
-            >
-                {
-                    onClickOutside ? <ClickOutside
-                        {...slotProps?.clickOutside}
-                        onClickOutside={onClickOutside || (() => { })}
-                    >
-                        {content}
-                    </ClickOutside> : content
-                }
-            </Tag>
-        </Transition>
-    )
-}
-
-Layer.open = (Children: ActionLayerChildren, props?: Partial<Omit<LayerProps, 'children'>>) => {
-    const InstanceLayer = ({ children, ...props }: LayerProps) => <Layer {...props} >{children}</Layer>;
-    const l = Renderar.render(InstanceLayer as any, {
-        ...props,
-        open: true,
-        children: typeof Children === "function" ? <Children
-            open={() => l.updateProps({ open: true })}
-            close={() => l.updateProps({ open: false })}
-        /> : Children,
-        onExited: () => {
-            Renderar.unrender(InstanceLayer as any)
-            if (props?.onExited) {
-                props.onExited()
-            }
-        }
-    })
-    return {
-        open: () => {
-            l.updateProps({ open: true })
-        },
-        close: () => {
-            l.updateProps({ open: false })
-        },
+  useEffect(() => {
+    if (exited && open) {
+      setExited(false);
     }
-}
+  }, [open]);
 
-export default Layer
+  // if (exited) return <></>
+  let duration = slotProps?.transition?.duration || 300;
+  let delay = slotProps?.transition?.delay || 0;
+
+  let content = (
+    <Transition
+      duration={duration}
+      delay={delay}
+      easing="standard"
+      variant={transition || "zoomOver"}
+      {...slotProps?.transition}
+      open={open}
+      onEnter={onEnter}
+      onEntered={onEntered}
+      onExit={onExit}
+      onExited={() => {
+        setExited(true);
+        onExited && onExited();
+      }}
+    >
+      {children}
+    </Transition>
+  );
+
+  return (
+    <Transition
+      duration={duration}
+      delay={delay}
+      easing="smooth"
+      variant={"fade"}
+      open={open}
+      exitOnUnmount
+      initialTransition={false}
+    >
+      <Tag
+        baseClass="layer"
+        {...slotProps?.root}
+        sxr={{
+          ...slotProps?.root?.sx,
+          position: "fixed",
+          zIndex: 1500 + (zIndex || 0),
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          width: "100%",
+          height: "100%",
+          ...blurCss,
+        }}
+      >
+        {onClickOutside ? (
+          <ClickOutside
+            {...slotProps?.clickOutside}
+            onClickOutside={onClickOutside || (() => {})}
+          >
+            {content}
+          </ClickOutside>
+        ) : (
+          content
+        )}
+      </Tag>
+    </Transition>
+  );
+};
+
+Layer.open = (
+  Children: ActionLayerChildren,
+  props?: Partial<Omit<LayerProps, "children">>,
+) => {
+  const InstanceLayer = ({ children, ...props }: LayerProps) => (
+    <Layer {...props}>{children}</Layer>
+  );
+  const l = Renderar.render(InstanceLayer as any, {
+    ...props,
+    open: true,
+    children:
+      typeof Children === "function" ? (
+        <Children
+          open={() => l.updateProps({ open: true })}
+          close={() => l.updateProps({ open: false })}
+        />
+      ) : (
+        Children
+      ),
+    onExited: () => {
+      Renderar.unrender(InstanceLayer as any);
+      if (props?.onExited) {
+        props.onExited();
+      }
+    },
+  });
+  return {
+    open: () => {
+      l.updateProps({ open: true });
+    },
+    close: () => {
+      l.updateProps({ open: false });
+    },
+  };
+};
+
+export default Layer;

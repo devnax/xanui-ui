@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { DataFilterSelect } from "../types";
 import IconButton from "../../IconButton";
@@ -9,76 +9,63 @@ import ClearAll from "@xanui/icons/ClearAll";
 import Input from "../../Input";
 
 type Props = {
-   option: DataFilterSelect;
-   value: string | null;
-   onChange: (value: string | null) => void;
-}
+  option: DataFilterSelect;
+  value: string | null;
+  onChange: (value: string | null) => void;
+};
 
 const TextFilter = ({ option, onChange, value }: Props) => {
+  const isValue = value !== null && value !== undefined;
 
-   const isValue = value !== null && value !== undefined;
-
-   return (
+  return (
+    <Stack width={"100%"} bgcolor="default.base" p={1} radius={1}>
       <Stack
-         width={"100%"}
-         bgcolor="default.base"
-         p={1}
-         radius={1}
+        direction="row"
+        alignItems="center"
+        justifyContent={"space-between"}
+        gap={0.5}
+        mb={isValue ? 0.5 : 0}
       >
-         <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent={"space-between"}
-            gap={0.5}
-            mb={isValue ? .5 : 0}
-         >
-            <Text>{option.label}</Text>
-            <Stack
-               direction="row"
-               gap={0.5}
+        <Text>{option.label}</Text>
+        <Stack direction="row" gap={0.5}>
+          <IconButton
+            size="sm"
+            variant="ghost"
+            color={"default"}
+            onClick={() => {
+              onChange("");
+            }}
+          >
+            <Add />
+          </IconButton>
+          {isValue && (
+            <IconButton
+              size="sm"
+              variant="ghost"
+              color={"danger"}
+              onClick={() => {
+                onChange(null);
+              }}
             >
-               <IconButton
-                  size="small"
-                  variant="ghost"
-                  color={'default'}
-                  onClick={() => {
-                     onChange('');
-                  }}
-               >
-                  <Add />
-               </IconButton>
-               {
-                  isValue && <IconButton
-                     size="small"
-                     variant="ghost"
-                     color={"danger"}
-                     onClick={() => {
-                        onChange(null);
-                     }}
-                  >
-                     <ClearAll />
-                  </IconButton>
-               }
-            </Stack>
-         </Stack>
-         <Stack
-            direction="row"
-            gap={0.5}
-            flexWrap="wrap"
-         >
-            {
-               isValue && <Input
-                  variant={"outline"}
-                  value={value.toString()}
-                  onChange={(e: any) => {
-                     onChange(e.target.value);
-                  }}
-                  fullWidth
-               />
-            }
-         </Stack>
+              <ClearAll />
+            </IconButton>
+          )}
+        </Stack>
       </Stack>
-   )
-}
+      <Stack direction="row" gap={0.5} flexWrap="wrap">
+        {isValue && (
+          <Input
+            variant={"outline"}
+            value={value.toString()}
+            onChange={(e: any) => {
+              onChange(e.target.value);
+            }}
+            fullWidth
+          />
+        )}
+      </Stack>
+    </Stack>
+  );
+};
 
-export default TextFilter
+export default TextFilter;

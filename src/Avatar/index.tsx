@@ -1,87 +1,105 @@
-"use client"
-import React, { useState } from 'react';
-import { Tag, TagProps, TagComponentType, useInterface, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
-import PersonIcon from '@xanui/icons/Person'
-import Skeleton, { SkeletonProps } from '../Skeleton';
+"use client";
+import React, { useState } from "react";
+import {
+  Tag,
+  TagProps,
+  TagComponentType,
+  useThemeComponent,
+  useBreakpointPropsType,
+  useBreakpointProps,
+} from "@xanui/core";
+import PersonIcon from "@xanui/icons/Person";
+import Skeleton, { SkeletonProps } from "../Skeleton";
 
 export type AvatarProps<T extends TagComponentType = "img"> = TagProps<T> & {
-    size?: useBreakpointPropsType<number>;
-    skeleton?: boolean;
-    slotProps?: {
-        skeleton?: Omit<SkeletonProps, "height" | "width" | "loading" | "children">
-    }
-}
+  size?: useBreakpointPropsType<number>;
+  skeleton?: boolean;
+  slotProps?: {
+    skeleton?: Omit<SkeletonProps, "height" | "width" | "loading" | "children">;
+  };
+};
 
-const Avatar = React.forwardRef(<T extends TagComponentType = "img">({ children, src, alt, skeleton, ...rest }: AvatarProps<T>, ref: any) => {
-    const [faild, setFaild] = useState<boolean>()
-    let [{ size, slotProps, ...props }] = useInterface<any>("Avatar", rest, {})
-    size ??= 36
-    const _p: any = {}
-    if (size) _p.size = size
-    const p: any = useBreakpointProps(_p)
-    size = p.size
+const Avatar = React.forwardRef(
+  <T extends TagComponentType = "img">(
+    { children, src, alt, skeleton, ...rest }: AvatarProps<T>,
+    ref: any,
+  ) => {
+    const [faild, setFaild] = useState<boolean>();
+    let [{ size, slotProps, ...props }] = useThemeComponent<any>(
+      "Avatar",
+      rest,
+      {},
+    );
+    size ??= 36;
+    const _p: any = {};
+    if (size) _p.size = size;
+    const p: any = useBreakpointProps(_p);
+    size = p.size;
 
     if (skeleton) {
-        return <Skeleton
-            {...slotProps?.skeleton}
-            height={size}
-            width={size}
-            animation={"wave"}
-            sx={{
-                ...slotProps?.skeleton?.sx,
-                borderRadius: size,
-            }}
+      return (
+        <Skeleton
+          {...slotProps?.skeleton}
+          height={size}
+          width={size}
+          animation={"wave"}
+          sx={{
+            ...slotProps?.skeleton?.sx,
+            borderRadius: size,
+          }}
         />
+      );
     }
 
     if (faild === false || !src) {
-        let t = alt?.charAt(0).toUpperCase() || (children || <PersonIcon />)
-        return (
-            <Tag
-                component="div"
-                src={src}
-                {...props}
-                baseClass='avatar'
-                sxr={{
-                    display: "inline-flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    bgcolor: "default.base",
-                    radius: size,
-                    fontSize: (size / 3) * 2,
-                    width: size,
-                    height: size,
-                    userSelect: "none",
-                    color: "default.contrast",
-                    '& svg': {
-                        fontSize: (size / 3) * 2,
-                        opacity: .6
-                    }
-                }}
-                ref={ref}
-            >{t}</Tag>
-        )
+      let t = alt?.charAt(0).toUpperCase() || children || <PersonIcon />;
+      return (
+        <Tag
+          component="div"
+          src={src}
+          {...props}
+          baseClass="avatar"
+          sxr={{
+            display: "inline-flex",
+            justifyContent: "center",
+            alignItems: "center",
+            bgcolor: "default.base",
+            radius: size,
+            fontSize: (size / 3) * 2,
+            width: size,
+            height: size,
+            userSelect: "none",
+            color: "default.contrast",
+            "& svg": {
+              fontSize: (size / 3) * 2,
+              opacity: 0.6,
+            },
+          }}
+          ref={ref}
+        >
+          {t}
+        </Tag>
+      );
     }
     return (
-        <Tag
-            component="img"
-            radius={size}
-            width={size}
-            height={size}
-            objectFit="cover"
-            {...props}
-            alt={alt}
-            src={src}
-            baseClass='avatar'
-            onError={(e) => {
-                setFaild(false)
-                props.onError && props.onError(e as any)
-            }}
-            ref={ref}
-        />
-    )
-})
+      <Tag
+        component="img"
+        radius={size}
+        width={size}
+        height={size}
+        objectFit="cover"
+        {...props}
+        alt={alt}
+        src={src}
+        baseClass="avatar"
+        onError={(e) => {
+          setFaild(false);
+          props.onError && props.onError(e as any);
+        }}
+        ref={ref}
+      />
+    );
+  },
+);
 
-export default Avatar
-
-
+export default Avatar;

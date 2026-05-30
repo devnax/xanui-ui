@@ -1,46 +1,45 @@
 "use client";
-import TableHead from './TableHead'
-import Table from '../Table'
-import TableBody from '../TableBody'
-import Row from './Row'
-import { DatatablePropsWithState } from './types';
+import TableHead from "./TableHead";
+import Table from "../Table";
+import TableBody from "../TableBody";
+import Row from "./Row";
+import { DatatablePropsWithState } from "./types";
 
 const TableArea = (props: DatatablePropsWithState) => {
-   let {
-      rows,
-      compact,
-      renderRow,
-      state,
-      update,
-      slotProps
-   } = props
+  let { rows, compact, renderRow, state, update, slotProps } = props;
 
-   return (
-      <Table width="100%" size={compact ? "small" : "medium"} border="1px solid" borderColor="default.divider" {...slotProps?.table}>
-         <TableHead {...props} update={update} state={state} />
-         <TableBody
-            sx={{
-               '& tr:last-child td': {
-                  borderBottom: 0
-               }
-            }}
-         >
-            {
-               rows?.map((row: any, idx) => {
-                  let _row = renderRow ? renderRow(structuredClone(row), state) : row
-                  return <Row
-                     key={`dt-row-${row.id}-${idx}`}
-                     rawRow={row}
-                     row={_row}
-                     {...props}
-                     update={update}
-                     state={state}
-                  />
-               })
-            }
-         </TableBody>
-      </Table>
-   )
-}
+  return (
+    <Table
+      width="100%"
+      size={compact ? "sm" : "md"}
+      border="1px solid"
+      borderColor="default.divider"
+      {...slotProps?.table}
+    >
+      <TableHead {...props} update={update} state={state} />
+      <TableBody
+        sx={{
+          "& tr:last-child td": {
+            borderBottom: 0,
+          },
+        }}
+      >
+        {rows?.map((row: any, idx) => {
+          let _row = renderRow ? renderRow(structuredClone(row), state) : row;
+          return (
+            <Row
+              key={`dt-row-${row.id}-${idx}`}
+              rawRow={row}
+              row={_row}
+              {...props}
+              update={update}
+              state={state}
+            />
+          );
+        })}
+      </TableBody>
+    </Table>
+  );
+};
 
-export default TableArea
+export default TableArea;

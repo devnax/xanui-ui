@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { DataFilterSelect } from "../types";
 import IconButton from "../../IconButton";
@@ -9,96 +9,83 @@ import ClearAll from "@xanui/icons/ClearAll";
 import InputNumber from "../../InputNumber";
 
 type Props = {
-   option: DataFilterSelect;
-   value: [number, number] | null;
-   onChange: (value: [number, number] | null) => void;
-}
+  option: DataFilterSelect;
+  value: [number, number] | null;
+  onChange: (value: [number, number] | null) => void;
+};
 
 const NumberRangeFilter = ({ option, onChange, value }: Props) => {
+  const isValue =
+    value !== null &&
+    value !== undefined &&
+    Array.isArray(value) &&
+    value.length === 2;
 
-   const isValue = value !== null && value !== undefined && Array.isArray(value) && value.length === 2;
-
-   return (
+  return (
+    <Stack width={"100%"} bgcolor="default.base" p={1} radius={1}>
       <Stack
-         width={"100%"}
-         bgcolor="default.base"
-         p={1}
-         radius={1}
+        direction="row"
+        alignItems="center"
+        justifyContent={"space-between"}
+        gap={0.5}
+        mb={isValue ? 0.5 : 0}
       >
-         <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent={"space-between"}
-            gap={0.5}
-            mb={isValue ? .5 : 0}
-         >
-            <Text>{option.label}</Text>
-            <Stack
-               direction="row"
-               gap={0.5}
+        <Text>{option.label}</Text>
+        <Stack direction="row" gap={0.5}>
+          <IconButton
+            size="sm"
+            variant="ghost"
+            color={"default"}
+            onClick={() => {
+              onChange([0, 0]);
+            }}
+          >
+            <Add />
+          </IconButton>
+          {isValue && (
+            <IconButton
+              size="sm"
+              variant="ghost"
+              color={"danger"}
+              onClick={() => {
+                onChange(null);
+              }}
             >
-               <IconButton
-                  size="small"
-                  variant="ghost"
-                  color={'default'}
-                  onClick={() => {
-                     onChange([0, 0]);
-                  }}
-               >
-                  <Add />
-               </IconButton>
-               {
-                  isValue && <IconButton
-                     size="small"
-                     variant="ghost"
-                     color={"danger"}
-                     onClick={() => {
-                        onChange(null);
-                     }}
-                  >
-                     <ClearAll />
-                  </IconButton>
-               }
-            </Stack>
-         </Stack>
-         <Stack
-            direction="row"
-            gap={0.5}
-            flexWrap="wrap"
-         >
-            {
-               isValue && <Stack
-                  direction="row"
-                  gap={0.5}
-                  flex={1}
-               >
-                  <InputNumber
-                     flex={1}
-                     variant={"outline"}
-                     size="small"
-                     placeholder="Min"
-                     value={value[0] as any ?? ''}
-                     onChange={(e) => {
-                        const val = e.target.value === '' ? 0 : Number(e.target.value);
-                        onChange([val, value ? value[1] : 0]);
-                     }}
-                  />
-                  <InputNumber
-                     variant={"outline"}
-                     flex={1}
-                     size="small"
-                     placeholder="Max"
-                     value={value[1] as any ?? undefined}
-                     onChange={(e) => {
-                        const val = e.target.value === '' ? 0 : Number(e.target.value);
-                        onChange([value ? value[0] : 0, val]);
-                     }}
-                  />
-               </Stack>
-            }
-         </Stack>
+              <ClearAll />
+            </IconButton>
+          )}
+        </Stack>
       </Stack>
-   )
-}
+      <Stack direction="row" gap={0.5} flexWrap="wrap">
+        {isValue && (
+          <Stack direction="row" gap={0.5} flex={1}>
+            <InputNumber
+              flex={1}
+              variant={"outline"}
+              size="sm"
+              placeholder="Min"
+              value={(value[0] as any) ?? ""}
+              onChange={(e) => {
+                const val = e.target.value === "" ? 0 : Number(e.target.value);
+                onChange([val, value ? value[1] : 0]);
+              }}
+            />
+            <InputNumber
+              variant={"outline"}
+              flex={1}
+              size="sm"
+              placeholder="Max"
+              value={(value[1] as any) ?? undefined}
+              onChange={(e) => {
+                const val = e.target.value === "" ? 0 : Number(e.target.value);
+                onChange([value ? value[0] : 0, val]);
+              }}
+            />
+          </Stack>
+        )}
+      </Stack>
+    </Stack>
+  );
+};
 
-export default NumberRangeFilter
+export default NumberRangeFilter;

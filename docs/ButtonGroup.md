@@ -44,7 +44,7 @@ import GridIcon from '@xanui/icons/GridView';
 
 export default function CompactGroup() {
     return (
-        <ButtonGroup size="small" color="default">
+        <ButtonGroup size="sm" color="default">
             <Button startIcon={<ListIcon />}>List</Button>
             <Button startIcon={<GridIcon />}>Grid</Button>
         </ButtonGroup>

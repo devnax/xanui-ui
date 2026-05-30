@@ -91,7 +91,7 @@ export default function CustomClearCalendar() {
 			onChange={setValue}
 			slotProps={{
 				input: {
-					endIcon: value ? <span role="button">Reset</span> : undefined,
+					endIcon: value ? <span role="sm">Reset</span> : undefined,
 				},
 			}}
 		/>

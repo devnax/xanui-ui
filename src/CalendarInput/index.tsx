@@ -1,76 +1,91 @@
 "use client";
-import Input, { InputProps } from '../Input'
-import Menu, { MenuProps } from '../Menu'
-import { useRef, useState } from 'react'
-import Calendar, { CalendarProps } from '../Calendar'
-import Stack from '../Stack'
-import ClickOutside from '../ClickOutside'
-import CalendarIcon from '@xanui/icons/CalendarMonth';
-import IconButton from '../IconButton'
-import ClearIcon from '@xanui/icons/Clear';
-import { useInterface } from '@xanui/core'
+import Input, { InputProps } from "../Input";
+import Menu, { MenuProps } from "../Menu";
+import { useRef, useState } from "react";
+import Calendar, { CalendarProps } from "../Calendar";
+import Stack from "../Stack";
+import ClickOutside from "../ClickOutside";
+import CalendarIcon from "@xanui/icons/CalendarMonth";
+import IconButton from "../IconButton";
+import ClearIcon from "@xanui/icons/Clear";
+import { useThemeComponent } from "@xanui/core";
 
-export type CalenderInpurProps = Omit<InputProps, "value" | "onChange" | "slotProps"> & {
-    value?: CalendarProps["value"];
-    onChange?: CalendarProps["onChange"];
-    getInputValue?: (value?: Date | null) => string;
-    slotProps?: {
-        input?: InputProps['slotProps'];
-        calender?: CalendarProps;
-        menu?: MenuProps;
-    }
-}
+export type CalenderInpurProps = Omit<
+  InputProps,
+  "value" | "onChange" | "slotProps"
+> & {
+  value?: CalendarProps["value"];
+  onChange?: CalendarProps["onChange"];
+  getInputValue?: (value?: Date | null) => string;
+  slotProps?: {
+    input?: InputProps["slotProps"];
+    calender?: CalendarProps;
+    menu?: MenuProps;
+  };
+};
 
 const CalenderInput = (props: CalenderInpurProps) => {
-    let [{ value, onChange, getInputValue, slotProps, placeholder, ...inputProps }] = useInterface<any>("CanlendarInput", props, {})
-    const [target, setTarget] = useState<any>()
-    const inputRef: any = useRef(null)
+  let [
+    { value, onChange, getInputValue, slotProps, placeholder, ...inputProps },
+  ] = useThemeComponent<any>("CanlendarInput", props, {});
+  const [target, setTarget] = useState<any>();
+  const inputRef: any = useRef(null);
 
-    return (
-        <>
-            <Input
-                readOnly
-                startIcon={<CalendarIcon />}
-                placeholder={placeholder}
-                {...inputProps}
-                endIcon={<>
-                    {value && <Stack>
-                        <IconButton
-                            color="default"
-                            size={28}
-                            variant="text"
-                            onClick={() => {
-                                onChange && onChange(null)
-                            }}
-                        >
-                            <ClearIcon fontSize={20} />
-                        </IconButton>
-                    </Stack>}
-                </>}
-                cursor="pointer"
-                ref={inputRef}
-                onFocus={() => setTarget(target ? null : inputRef?.current)}
-                value={getInputValue ? getInputValue(value) : (value ? value.toLocaleDateString("en-US") : "")}
-            />
-            <Menu
-                target={target}
-                placement="bottom-left"
-                bgcolor="transparent"
-                {...slotProps?.menu}
-            >
-                <ClickOutside onClickOutside={() => setTarget(null)}>
-                    <Calendar
-                        {...slotProps?.calender}
-                        value={value}
-                        onChange={(e) => {
-                            setTarget(null)
-                            onChange && onChange(e)
-                        }}
-                    />
-                </ClickOutside>
-            </Menu>
-        </>
-    )
-}
+  return (
+    <>
+      <Input
+        readOnly
+        startIcon={<CalendarIcon />}
+        placeholder={placeholder}
+        {...inputProps}
+        endIcon={
+          <>
+            {value && (
+              <Stack>
+                <IconButton
+                  color="default"
+                  size={28}
+                  variant="text"
+                  onClick={() => {
+                    onChange && onChange(null);
+                  }}
+                >
+                  <ClearIcon fontSize={20} />
+                </IconButton>
+              </Stack>
+            )}
+          </>
+        }
+        cursor="pointer"
+        ref={inputRef}
+        onFocus={() => setTarget(target ? null : inputRef?.current)}
+        value={
+          getInputValue
+            ? getInputValue(value)
+            : value
+              ? value.toLocaleDateString("en-US")
+              : ""
+        }
+      />
+      <Menu
+        target={target}
+        placement="bottom-left"
+        bgcolor="transparent"
+        {...slotProps?.menu}
+      >
+        <ClickOutside onClickOutside={() => setTarget(null)}>
+          <Calendar
+            {...slotProps?.calender}
+            value={value}
+            onChange={(e) => {
+              setTarget(null);
+              onChange && onChange(e);
+            }}
+          />
+        </ClickOutside>
+      </Menu>
+    </>
+  );
+};
 
-export default CalenderInput
+export default CalenderInput;

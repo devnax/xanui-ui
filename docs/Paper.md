@@ -41,7 +41,7 @@ export default function ProfileCard() {
         <Paper p={2} gap={1} display="flex" flexDirection="column">
             <h4>Profile completeness</h4>
             <p>Finish the remaining steps to unlock advanced features.</p>
-            <Button size="small">Review steps</Button>
+            <Button size="sm">Review steps</Button>
         </Paper>
     );
 }

@@ -1,121 +1,139 @@
 "use client";
-import { Renderar, Tag, TagProps, useBreakpointProps, useBreakpointPropsType } from '@xanui/core';
-import Layer, { LayerProps } from '../Layer';
-import ClickOutside, { ClickOutsideProps } from '../ClickOutside';
-
+import {
+  Renderar,
+  Tag,
+  TagProps,
+  useBreakpointProps,
+  useBreakpointPropsType,
+} from "@xanui/core";
+import Layer, { LayerProps } from "../Layer";
+import ClickOutside, { ClickOutsideProps } from "../ClickOutside";
 
 export type DrawerProps = Omit<LayerProps, "transition" | "slotProps"> & {
-    placement?: useBreakpointPropsType<"left" | "right" | "bottom" | "top">;
-    size?: useBreakpointPropsType<number | "small" | "medium" | "large">;
-    onClickOutside?: () => void;
-    slotProps?: {
-        layer?: Partial<Omit<LayerProps, "children">>
-        root?: TagProps<"div">;
-        content?: TagProps<"div">;
-        clickOutside?: Omit<ClickOutsideProps, "children" | "onClickOutside">;
-    }
-}
+  placement?: useBreakpointPropsType<"left" | "right" | "bottom" | "top">;
+  size?: useBreakpointPropsType<number | "xs" | "sm" | "md" | "lg" | "xl">;
+  onClickOutside?: () => void;
+  slotProps?: {
+    layer?: Partial<Omit<LayerProps, "children">>;
+    root?: TagProps<"div">;
+    content?: TagProps<"div">;
+    clickOutside?: Omit<ClickOutsideProps, "children" | "onClickOutside">;
+  };
+};
 
 const getVariant = (placement?: any) => {
-    switch (placement) {
-        case "right":
-            return "fadeLeft"
-        case "top":
-            return "fadeDown"
-        case "bottom":
-            return "fadeUp"
-        default:
-            return "fadeRight"
-    }
-}
+  switch (placement) {
+    case "right":
+      return "fadeLeft";
+    case "top":
+      return "fadeDown";
+    case "bottom":
+      return "fadeUp";
+    default:
+      return "fadeRight";
+  }
+};
 
-const Drawer = ({ children, placement, size, slotProps, onClickOutside, ...layerProps }: DrawerProps) => {
-    const _p: any = {}
-    if (placement) _p.placement = placement
-    if (size) _p.size = size
-    const p: any = useBreakpointProps(_p)
+const Drawer = ({
+  children,
+  placement,
+  size,
+  slotProps,
+  onClickOutside,
+  ...layerProps
+}: DrawerProps) => {
+  const _p: any = {};
+  if (placement) _p.placement = placement;
+  if (size) _p.size = size;
+  const p: any = useBreakpointProps(_p);
 
-    placement = p.placement ?? 'left'
-    size = p.size || "medium"
+  placement = p.placement ?? "left";
+  size = p.size || "md";
 
-    let isSide = placement === 'left' || placement === 'right'
-    let sizes: any = {
-        small: 220,
-        medium: 330,
-        large: 440
-    }
+  let isSide = placement === "left" || placement === "right";
+  let sizes: any = {
+    xs: 220,
+    sm: 280,
+    md: 360,
+    lg: 460,
+    xl: 620,
+  };
 
-    let _size = sizes[size as any] || size
+  const _size = typeof size === "string" ? sizes[size] || sizes.md : size;
 
-    return (
-        <Layer
-            {...layerProps}
-            {...slotProps?.layer}
-            transition={getVariant(placement)}
-
+  return (
+    <Layer
+      {...layerProps}
+      {...slotProps?.layer}
+      transition={getVariant(placement)}
+    >
+      <Tag
+        {...slotProps?.root}
+        baseClass="drawer"
+        sxr={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          flexDirection: isSide ? "row" : "column",
+          justifyContent:
+            placement === "left" || placement === "top"
+              ? "flex-start"
+              : "flex-end",
+        }}
+      >
+        <ClickOutside
+          {...slotProps?.clickOutside}
+          onClickOutside={onClickOutside || (() => {})}
         >
-            <Tag
-                {...slotProps?.root}
-                baseClass='drawer'
-                sxr={{
-                    width: "100vw",
-                    height: "100vh",
-                    display: "flex",
-                    direction: isSide ? "row" : "column" as any,
-                    justifyContent: placement === 'left' || placement === 'top' ? "flex-start" : "flex-end"
-                }}
-            >
-                <ClickOutside
-                    {...slotProps?.clickOutside}
-                    onClickOutside={onClickOutside || (() => { })}
-                >
-                    <Tag
-                        sxr={{
-                            width: isSide ? _size : "100%",
-                            height: isSide ? "100%" : _size,
-                            bgcolor: "default.base",
-                            shadow: 20
-                        }}
-                        baseClass='drawer-content'
-                    >
-                        {children}
-                    </Tag>
-                </ClickOutside>
-            </Tag>
-        </Layer>
-    )
-}
+          <Tag
+            sxr={{
+              width: isSide ? _size : "100%",
+              height: isSide ? "100%" : _size,
+              bgcolor: "default.base",
+              shadow: 20,
+            }}
+            baseClass="drawer-content"
+          >
+            {children}
+          </Tag>
+        </ClickOutside>
+      </Tag>
+    </Layer>
+  );
+};
 
+Drawer.open = (
+  children: DrawerProps["children"],
+  props?: Omit<DrawerProps, "children" | "open">,
+) => {
+  const d = Renderar.render(Drawer as any, {
+    open: true,
+    ...props,
+    children,
+    onExited: () => {
+      d.unrender();
+    },
+    onClickOutside: () => {
+      if (props?.onClickOutside) {
+        props.onClickOutside();
+      } else {
+        d.updateProps({ open: false });
+      }
+    },
+  });
 
-Drawer.open = (children: DrawerProps["children"], props?: Omit<DrawerProps, "children" | "open">) => {
-    const d = Renderar.render(Drawer as any, {
-        open: true,
-        ...props,
-        children,
-        onExited: () => {
-            d.unrender()
-        },
-        onClickOutside: () => {
-            if (props?.onClickOutside) {
-                props.onClickOutside()
-            } else {
-                d.updateProps({ open: false })
-            }
-        }
-    })
-
-    return {
-        open: () => {
-            d.updateProps({ open: true })
-        },
-        close: () => {
-            d.updateProps({ open: false })
-        },
-    }
-}
+  return {
+    open: () => {
+      d.updateProps({ open: true });
+    },
+    close: () => {
+      d.updateProps({ open: false });
+    },
+  };
+};
 
 Drawer.close = () => {
-    Renderar.unrender(Drawer as any)
-}
+  Renderar.unrender(Drawer as any);
+};
 
-export default Drawer
+export default Drawer;

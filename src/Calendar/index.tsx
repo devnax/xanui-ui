@@ -1,334 +1,394 @@
 "use client";
-import { useEffect, useRef, useState } from 'react';
-import Stack from '../Stack'
-import IconButton from '../IconButton';
-import IconKeyboardArrowRight from '@xanui/icons/KeyboardArrowRight';
-import IconKeyboardArrowLeft from '@xanui/icons/KeyboardArrowLeft';
-import Text from '../Text';
-import Button from '../Button';
-import ResetIcon from '@xanui/icons/Replay';
-import ViewBox from '../ViewBox';
-import { UseColorTemplateColor, useInterface, useBreakpointPropsType, useBreakpointProps } from '@xanui/core';
+import { useEffect, useRef, useState } from "react";
+import Stack from "../Stack";
+import IconButton from "../IconButton";
+import IconKeyboardArrowRight from "@xanui/icons/KeyboardArrowRight";
+import IconKeyboardArrowLeft from "@xanui/icons/KeyboardArrowLeft";
+import Text from "../Text";
+import Button from "../Button";
+import ResetIcon from "@xanui/icons/Replay";
+import ViewBox from "../ViewBox";
+import {
+  UseColorTemplateColor,
+  useThemeComponent,
+  useBreakpointPropsType,
+  useBreakpointProps,
+} from "@xanui/core";
+import Scrollbar from "../Scrollbar";
 
 export type CalendarProps = {
-    value?: Date | null;
-    onChange?: (date: Date | null) => void;
-    viewMode?: useBreakpointPropsType<"year" | "month" | "day">;
-    onButtonClick?: (mode: CalendarProps["viewMode"], value: CalendarProps["value"]) => void;
-    color?: useBreakpointPropsType<UseColorTemplateColor>;
-}
-
+  value?: Date | null;
+  onChange?: (date: Date | null) => void;
+  viewMode?: useBreakpointPropsType<"year" | "month" | "day">;
+  onButtonClick?: (
+    mode: CalendarProps["viewMode"],
+    value: CalendarProps["value"],
+  ) => void;
+  color?: useBreakpointPropsType<UseColorTemplateColor>;
+};
 
 const ShowYears = ({ color, year, today, onClick }: any) => {
-    let years: any[] = []
-    const selectedRef: any = useRef(null)
-    for (let y = 1900; y < today.getFullYear() + 40; y++) {
-        const selected = year == y
-        years.push(<Stack
-            key={y}
-            sx={{
-                width: 50,
-                p: .1
-            }}
-            className='calender-year-item'
+  let years: any[] = [];
+  const selectedRef: any = useRef(null);
+  for (let y = 1900; y < today.getFullYear() + 40; y++) {
+    const selected = year == y;
+    years.push(
+      <Stack
+        key={y}
+        sx={{
+          width: 50,
+          p: 0.1,
+        }}
+        className="calender-year-item"
+      >
+        <Button
+          color={selected ? color : "default"}
+          className="calender-year-button"
+          size="sm"
+          corner="circle"
+          ref={selected ? selectedRef : null}
+          onClick={() => onClick(y)}
+          variant={selected ? "fill" : "text"}
         >
-            <Button
-                color={selected ? color : 'default'}
-                className='calender-year-button'
-                size='small'
-                corner="circle"
-                ref={selected ? selectedRef : null}
-                onClick={() => onClick(y)}
-                variant={selected ? "fill" : "text"}
-            >
-                {y}
-            </Button>
-        </Stack>)
+          {y}
+        </Button>
+      </Stack>,
+    );
+  }
+
+  useEffect(() => {
+    if (selectedRef?.current) {
+      selectedRef?.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
     }
+  }, []);
 
-    useEffect(() => {
-        if (selectedRef?.current) {
-            selectedRef?.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
-        }
-    }, [])
-
-    return (
-        <Stack
-            sx={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                overflow: "hidden",
-                overflowY: "auto"
-            }}
-            className='calender-years'
-        >
-            {years}
-        </Stack>
-    )
-}
-
+  return (
+    <Scrollbar
+      className="calender-years"
+      size={0}
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        flexDirection: "row",
+        overflow: "hidden",
+        overflowY: "auto",
+        height: 250,
+      }}
+    >
+      {years}
+    </Scrollbar>
+  );
+};
 
 const Calendar = ({ value, ...rest }: CalendarProps) => {
-    let [{ onChange, viewMode: VMode, onButtonClick, color }] = useInterface<any>("Calender", rest, {})
-    const _p: any = {}
-    if (VMode) _p.VMode = VMode
-    if (color) _p.color = color
-    const p: any = useBreakpointProps(_p)
-    color = p.color || "primary"
+  let [{ onChange, viewMode: VMode, onButtonClick, color }] =
+    useThemeComponent<any>("Calender", rest, {});
+  const _p: any = {};
+  if (VMode) _p.VMode = VMode;
+  if (color) _p.color = color;
+  const p: any = useBreakpointProps(_p);
+  color = p.color || "primary";
 
-    let [viewMode, setViewMode] = useState<any>(p.VMode || "day");
-    let [selectedDate, setSelectedDate] = useState(new Date());
-    selectedDate = value instanceof Date ? value : selectedDate
-    const [currentDate, setCurrentDate] = useState(selectedDate);
-    const year = currentDate.getFullYear()
-    const month = currentDate.getMonth()
-    const daysInMonth = 32 - new Date(year, month, 32).getDate()
-    const today = new Date();
-    const btnWidth = 36
-    const boxWidth = btnWidth * 7
+  let [viewMode, setViewMode] = useState<any>(p.VMode || "day");
+  let [selectedDate, setSelectedDate] = useState(new Date());
+  selectedDate = value instanceof Date ? value : selectedDate;
+  const [currentDate, setCurrentDate] = useState(selectedDate);
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const daysInMonth = 32 - new Date(year, month, 32).getDate();
+  const today = new Date();
+  const btnWidth = 40;
+  const boxWidth = btnWidth * 7;
 
-    const showCalendar = () => {
+  const showCalendar = () => {
+    let firstDay = new Date(year, month).getDay();
+    let rows = [];
+    let row = [];
 
-        let firstDay = (new Date(year, month)).getDay();
-        let rows = []
-        let row = []
-
-        const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-        for (let i = 0; i < dayNames.length; i++) {
-            const k = dayNames[i];
-            row.push(<Stack
-                key={"dayname-" + i}
-                sx={{
-                    width: btnWidth,
-                    height: btnWidth,
-                    alignItems: "center",
-                    justifyContent: "center"
-                }}
-            >
-                <IconButton
-                    variant={"text"}
-                    color="default"
-                    disabled
-                >
-                    {k}
-                </IconButton>
-            </Stack>)
-        }
-
-        rows.push(<Stack flexRow key={"header"} className='calender-day-row'>
-            {row}
-        </Stack>);
-
-        let date = 1;
-        for (let i = 0; i < 6; i++) {
-            let row = []
-            for (let j = 0; j < 7; j++) {
-                if (i === 0 && j < firstDay) {
-                    row.push(<Stack
-                        alignItems="center"
-                        justifyContent="center"
-                        key={date + j + i}
-                        sx={{
-                            width: btnWidth,
-                            height: btnWidth,
-                            alignItems: "center",
-                            justifyContent: "center"
-                        }}
-                    >
-
-                    </Stack>)
-                } else if (date > daysInMonth) {
-                    break;
-                } else {
-                    let isToday = date === today.getDate() && year === today.getFullYear() && month === today.getMonth()
-                    let isSelected = date === selectedDate.getDate() && year === selectedDate.getFullYear() && month === selectedDate.getMonth()
-
-                    let css: any = {}
-                    if (isToday) {
-                        css = {
-                            variant: "fill",
-                            color: "default"
-                        }
-                    }
-
-                    if (isSelected) {
-                        css = {
-                            variant: "fill",
-                            color: color
-                        }
-                    }
-
-                    row.push(<Stack
-                        sx={{
-                            width: btnWidth,
-                            height: btnWidth,
-                            alignItems: "center",
-                            justifyContent: "center"
-                        }}
-                        key={date + j + i}
-                        className='calender-day-item'
-                    >
-                        <IconButton
-                            className='calender-day-button'
-                            variant={isSelected ? "fill" : "text"}
-                            color={isToday ? color : "default"}
-                            {...css}
-                            data-value={date}
-                            onClick={(e: any) => {
-                                let d = e.target.getAttribute("data-value")
-                                if (!d) return
-                                let selectedDate = new Date(year, month, parseInt(d))
-                                onChange ? onChange(selectedDate) : setSelectedDate(selectedDate)
-                                onButtonClick && onButtonClick("day", selectedDate)
-                            }}
-                        >
-                            {date}
-                        </IconButton>
-                    </Stack>)
-                    date++;
-                }
-            }
-            rows.push(<Stack flexRow key={"row" + i} className='calender-day-row'>
-                {row}
-            </Stack>);
-        }
-        return rows
+    const dayNames = ["S", "M", "T", "W", "T", "F", "S"];
+    for (let i = 0; i < dayNames.length; i++) {
+      const k = dayNames[i];
+      row.push(
+        <Stack
+          key={"dayname-" + i}
+          sx={{
+            width: btnWidth,
+            height: btnWidth,
+            justifyContent: "center",
+          }}
+        >
+          <IconButton variant={"text"} size={"sm"} color="default" disabled>
+            {k}
+          </IconButton>
+        </Stack>,
+      );
     }
 
-    const showMonth = () => {
-        let months: any[] = []
-        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        for (let m = 0; m < monthNames.length; m++) {
-            const selected = currentDate.getMonth() === m
+    rows.push(
+      <Stack flexRow key={"header"} className="calender-day-row">
+        {row}
+      </Stack>,
+    );
 
-            months.push(<Stack
-                key={m}
-                width={"50%"}
-                alignItems="center"
-                justifyContent="center"
-                p={.1}
-                className='calender-months-item'
-            >
-                <Button
-                    color={selected ? color : 'default'}
-                    className='calender-month-button'
-                    size='small'
-                    corner="circle"
-                    variant={selected ? "fill" : 'text'}
-                    onClick={() => {
-                        const v = new Date(currentDate.getFullYear(), m)
-                        setCurrentDate(v)
-                        setViewMode("day")
-                        onButtonClick && onButtonClick("month", v)
-                    }}
-                    sx={{
-                        color: selected ? "primary.contrast" : "default.contrast"
-                    }}
-                >
-                    {monthNames[m]}
-                </Button>
-            </Stack>)
-        }
-
-        return (
+    let date = 1;
+    for (let i = 0; i < 6; i++) {
+      let row = [];
+      for (let j = 0; j < 7; j++) {
+        if (i === 0 && j < firstDay) {
+          row.push(
             <Stack
-                className='calender-months'
-                sx={{
-                    flexWrap: "wrap",
-                    overflow: "hidden",
-                    overflowY: "auto",
-                    flexDirection: "row"
-                }}
+              alignItems="center"
+              justifyContent="center"
+              key={date + j + i}
+              sx={{
+                width: btnWidth,
+                height: btnWidth,
+              }}
+            ></Stack>,
+          );
+        } else if (date > daysInMonth) {
+          break;
+        } else {
+          let isToday =
+            date === today.getDate() &&
+            year === today.getFullYear() &&
+            month === today.getMonth();
+          let isSelected =
+            date === selectedDate.getDate() &&
+            year === selectedDate.getFullYear() &&
+            month === selectedDate.getMonth();
+
+          let css: any = {
+            color: "default",
+            variant: "text",
+          };
+          if (isToday) {
+            css = {
+              variant: "outline",
+              color: "primary",
+            };
+          }
+
+          if (isSelected) {
+            css = {
+              variant: "fill",
+              color: color,
+            };
+          }
+
+          row.push(
+            <Stack
+              sx={{
+                width: btnWidth,
+                height: btnWidth,
+                justifyContent: "center",
+              }}
+              key={date + j + i}
+              className="calender-day-item"
             >
-                {months}
-            </Stack>
-        )
-    }
-
-    let view: any = null
-    switch (viewMode) {
-        case "year":
-            view = <ShowYears
-                color={color}
-                today={today}
-                year={year}
-                boxWidth={boxWidth}
-                onClick={(y: any) => {
-                    currentDate.setFullYear(y)
-                    setCurrentDate(currentDate)
-                    setViewMode("month")
-                    onButtonClick && onButtonClick("year", currentDate)
+              <IconButton
+                className="calender-day-button"
+                size={"sm"}
+                {...css}
+                data-value={date}
+                onClick={(e: any) => {
+                  let d = e.target.getAttribute("data-value");
+                  if (!d) return;
+                  let selectedDate = new Date(year, month, parseInt(d));
+                  onChange
+                    ? onChange(selectedDate)
+                    : setSelectedDate(selectedDate);
+                  onButtonClick && onButtonClick("day", selectedDate);
                 }}
-            />
-            break;
-        case "month":
-            view = showMonth()
-            break;
-        default:
-            view = (<>
+              >
+                {date}
+              </IconButton>
+            </Stack>,
+          );
+          date++;
+        }
+      }
+      rows.push(
+        <Stack flexRow key={"row" + i} className="calender-day-row">
+          {row}
+        </Stack>,
+      );
+    }
+    return rows;
+  };
 
-                {showCalendar()}
-            </>
-            )
-            break;
+  const showMonth = () => {
+    let months: any[] = [];
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    for (let m = 0; m < monthNames.length; m++) {
+      const selected = currentDate.getMonth() === m;
+
+      months.push(
+        <Stack
+          key={m}
+          width={"50%"}
+          alignItems="center"
+          justifyContent="center"
+          p={0.1}
+          className="calender-months-item"
+        >
+          <Button
+            color={selected ? color : "default"}
+            className="calender-month-button"
+            size="sm"
+            corner="circle"
+            variant={selected ? "fill" : "text"}
+            onClick={() => {
+              const v = new Date(currentDate.getFullYear(), m);
+              setCurrentDate(v);
+              setViewMode("day");
+              onButtonClick && onButtonClick("month", v);
+            }}
+            sx={{
+              color: selected ? "primary.contrast" : "default.contrast",
+            }}
+          >
+            {monthNames[m]}
+          </Button>
+        </Stack>,
+      );
     }
 
     return (
-        <ViewBox
-            className='calender-root'
-            maxHeight={308}
-            width={250}
-            radius={1}
-            bgcolor="default.base"
-            startContent={
-                <Stack className='calender-header' flexRow alignItems="center" justifyContent="space-between" p={1}>
-                    <Text
-                        fontWeight="bold"
-                        cursor="pointer"
-                        onClick={() => setViewMode(viewMode !== 'day' ? "day" : "year")}
-                        flex={1}
-                    >
-                        {currentDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long' })}
-                    </Text>
-                    <IconButton
-                        color="default"
-                        variant='text'
-                        size={28}
-                        onClick={() => {
-                            setCurrentDate(new Date())
-                            onChange ? onChange(new Date()) : setSelectedDate(new Date())
-                        }}
-                    >
-                        <ResetIcon fontSize={20} />
-                    </IconButton>
-                    <IconButton
-                        color="default"
-                        variant='text'
-                        size={28}
-                        onClick={() => {
-                            setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
-                        }}
-                    >
-                        <IconKeyboardArrowLeft />
-                    </IconButton>
-                    <IconButton
-                        color="default"
-                        variant='text'
-                        size={28}
-                        onClick={() => {
-                            setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))
-                        }}
-                    >
-                        <IconKeyboardArrowRight />
-                    </IconButton>
-                </Stack>
-            }
-        >
-            <Stack height="100%" p={.5} className='calender-container'>
-                {view}
-            </Stack>
-        </ViewBox>
+      <Stack
+        className="calender-months"
+        sx={{
+          flexWrap: "wrap",
+          overflow: "hidden",
+          overflowY: "auto",
+          flexDirection: "row",
+          height: 250,
+        }}
+      >
+        {months}
+      </Stack>
     );
+  };
+
+  let view: any = null;
+  switch (viewMode) {
+    case "year":
+      view = (
+        <ShowYears
+          color={color}
+          today={today}
+          year={year}
+          onClick={(y: any) => {
+            currentDate.setFullYear(y);
+            setCurrentDate(currentDate);
+            setViewMode("month");
+            onButtonClick && onButtonClick("year", currentDate);
+          }}
+        />
+      );
+      break;
+    case "month":
+      view = showMonth();
+      break;
+    default:
+      view = <>{showCalendar()}</>;
+      break;
+  }
+
+  return (
+    <ViewBox
+      className="calender-root"
+      width={boxWidth}
+      maxHeight={400}
+      radius={1}
+      bgcolor="default.base"
+      startContent={
+        <Stack
+          className="calender-header"
+          flexRow
+          alignItems="center"
+          justifyContent="space-between"
+          p={1}
+        >
+          <Text
+            fontWeight="bold"
+            cursor="pointer"
+            onClick={() => setViewMode(viewMode !== "day" ? "day" : "year")}
+            flex={1}
+          >
+            {currentDate.toLocaleDateString(undefined, {
+              year: "numeric",
+              month: "long",
+            })}
+          </Text>
+          <IconButton
+            color="default"
+            variant="text"
+            size={"sm"}
+            onClick={() => {
+              setCurrentDate(new Date());
+              onChange ? onChange(new Date()) : setSelectedDate(new Date());
+            }}
+          >
+            <ResetIcon fontSize={20} />
+          </IconButton>
+          <IconButton
+            color="default"
+            variant="text"
+            size={"sm"}
+            onClick={() => {
+              setCurrentDate(
+                new Date(
+                  currentDate.getFullYear(),
+                  currentDate.getMonth() - 1,
+                  1,
+                ),
+              );
+            }}
+          >
+            <IconKeyboardArrowLeft />
+          </IconButton>
+          <IconButton
+            color="default"
+            variant="text"
+            size={"sm"}
+            onClick={() => {
+              setCurrentDate(
+                new Date(
+                  currentDate.getFullYear(),
+                  currentDate.getMonth() + 1,
+                  1,
+                ),
+              );
+            }}
+          >
+            <IconKeyboardArrowRight />
+          </IconButton>
+        </Stack>
+      }
+    >
+      <Stack height="100%" p={0.5} className="calender-container">
+        {view}
+      </Stack>
+    </ViewBox>
+  );
 };
 
 export default Calendar;

@@ -5,7 +5,7 @@ import {
   Tag,
   TagProps,
   TagComponentType,
-  useInterface,
+  useThemeComponent,
   useBreakpointProps,
   useBreakpointPropsType,
 } from "@xanui/core";
@@ -22,7 +22,7 @@ export type ViewBoxProps<T extends TagComponentType = "div"> = TagProps<T> & {
 const ViewBox = React.forwardRef(
   ({ children, ...rest }: ViewBoxProps, ref?: any) => {
     let [{ startContent, endContent, slotProps, horizental, ...props }] =
-      useInterface<any>("ViewBox", rest, {});
+      useThemeComponent<any>("ViewBox", rest, {});
     const _p: any = {};
     if (startContent) _p.startContent = startContent;
     if (endContent) _p.endContent = endContent;

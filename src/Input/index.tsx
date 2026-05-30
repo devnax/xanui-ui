@@ -1,66 +1,83 @@
 "use client";
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
-import { Tag, TagProps, TagComponentType, UseColorTemplateColor, useBreakpointPropsType, useInterface, useBreakpointProps, useMergeRefs } from '@xanui/core';
-import Label, { LabelProps } from '../Label';
+import React, { ReactElement, useEffect, useMemo, useState } from "react";
+import {
+  Tag,
+  TagProps,
+  TagComponentType,
+  UseColorTemplateColor,
+  useBreakpointPropsType,
+  useThemeComponent,
+  useBreakpointProps,
+  useMergeRefs,
+} from "@xanui/core";
+import Label, { LabelProps } from "../Label";
 
-export type InputProps<T extends TagComponentType = "div"> = Omit<TagProps<T>, "size" | "color" | "label"> & {
-    value?: string;
-    type?: TagProps<'input'>['type'];
-    name?: string;
-    placeholder?: string;
-    readOnly?: boolean;
-    autoFocus?: boolean;
-    autoComplete?: string;
-    label?: useBreakpointPropsType<string>;
+export type InputProps<T extends TagComponentType = "div"> = Omit<
+  TagProps<T>,
+  "size" | "color" | "label"
+> & {
+  value?: string;
+  type?: TagProps<"input">["type"];
+  name?: string;
+  placeholder?: string;
+  readOnly?: boolean;
+  autoFocus?: boolean;
+  autoComplete?: string;
+  label?: useBreakpointPropsType<string>;
 
-    onFocus?: (e: React.FocusEvent<any>) => void;
-    onBlur?: (e: React.FocusEvent<any>) => void;
-    onChange?: (e: React.ChangeEvent<any>) => void;
-    onInput?: (e: React.FormEvent<any>) => void;
-    onKeyDown?: (e: React.KeyboardEvent<any>) => void;
-    onKeyUp?: (e: React.KeyboardEvent<any>) => void;
+  onFocus?: (e: React.FocusEvent<any>) => void;
+  onBlur?: (e: React.FocusEvent<any>) => void;
+  onChange?: (e: React.ChangeEvent<any>) => void;
+  onInput?: (e: React.FormEvent<any>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<any>) => void;
+  onKeyUp?: (e: React.KeyboardEvent<any>) => void;
 
-    rows?: useBreakpointPropsType<number>;
-    minRows?: useBreakpointPropsType<number>;
-    maxRows?: useBreakpointPropsType<number>;
-    fullWidth?: boolean;
+  rows?: useBreakpointPropsType<number>;
+  minRows?: useBreakpointPropsType<number>;
+  maxRows?: useBreakpointPropsType<number>;
+  fullWidth?: boolean;
 
-    startIcon?: useBreakpointPropsType<ReactElement>;
-    endIcon?: useBreakpointPropsType<ReactElement>;
-    iconPlacement?: useBreakpointPropsType<"start" | "center" | "end">;
-    focused?: boolean;
-    color?: useBreakpointPropsType<Omit<UseColorTemplateColor, 'default'>>;
-    variant?: useBreakpointPropsType<"fill" | "outline" | "text">;
-    error?: boolean;
-    helperText?: useBreakpointPropsType<string>;
-    multiline?: boolean;
-    size?: useBreakpointPropsType<"small" | "medium" | "large">;
+  startIcon?: useBreakpointPropsType<ReactElement>;
+  endIcon?: useBreakpointPropsType<ReactElement>;
+  iconPlacement?: useBreakpointPropsType<"start" | "center" | "end">;
+  focused?: boolean;
+  color?: useBreakpointPropsType<Omit<UseColorTemplateColor, "default">>;
+  variant?: useBreakpointPropsType<"fill" | "outline" | "text">;
+  error?: boolean;
+  helperText?: useBreakpointPropsType<string>;
+  multiline?: boolean;
+  size?: useBreakpointPropsType<"xs" | "sm" | "md" | "lg" | "xl">;
 
-    refs?: {
-        inputRoot?: React.Ref<"div">;
-        label?: React.Ref<"label">;
-        rootContainer?: React.Ref<"div">;
-        // startIcon?: React.Ref<ReactElement>;
-        // endIcon?: React.Ref<ReactElement>;
-        // inputContainer?: React.Ref<"div">;
-        input?: React.Ref<'input' | 'textarea'>;
-        helperText?: React.Ref<"div">;
-    };
+  refs?: {
+    inputRoot?: React.Ref<"div">;
+    label?: React.Ref<"label">;
+    rootContainer?: React.Ref<"div">;
+    // startIcon?: React.Ref<ReactElement>;
+    // endIcon?: React.Ref<ReactElement>;
+    // inputContainer?: React.Ref<"div">;
+    input?: React.Ref<"input" | "textarea">;
+    helperText?: React.Ref<"div">;
+  };
 
-    slotProps?: {
-        inputRoot?: Omit<TagProps<"div">, "children">;
-        label?: Omit<LabelProps, "children">;
-        rootContainer?: Omit<TagProps<"div">, "children">;
-        // startIcon?: Omit<TagProps<'div'>, "children">;
-        // endIcon?: Omit<TagProps<'div'>, "children">;
-        // inputContainer?: Omit<TagProps<"div">, "children">;
-        helperText?: Omit<TagProps<"div">, "children">;
-        input?: Partial<TagProps<T>>;
-    }
-}
+  slotProps?: {
+    inputRoot?: Omit<TagProps<"div">, "children">;
+    label?: Omit<LabelProps, "children">;
+    rootContainer?: Omit<TagProps<"div">, "children">;
+    // startIcon?: Omit<TagProps<'div'>, "children">;
+    // endIcon?: Omit<TagProps<'div'>, "children">;
+    // inputContainer?: Omit<TagProps<"div">, "children">;
+    helperText?: Omit<TagProps<"div">, "children">;
+    input?: Partial<TagProps<T>>;
+  };
+};
 
-const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, refs, ...props }: InputProps<T>, ref?: React.Ref<any>) => {
-    let [{
+const Input = React.forwardRef(
+  <T extends TagComponentType = "div">(
+    { value, refs, ...props }: InputProps<T>,
+    ref?: React.Ref<any>,
+  ) => {
+    let [
+      {
         startIcon,
         endIcon,
         iconPlacement,
@@ -92,220 +109,272 @@ const Input = React.forwardRef(<T extends TagComponentType = "div">({ value, ref
         slotProps,
 
         ...rest
-    }, theme] = useInterface<any>("Input", props, {})
+      },
+      theme,
+    ] = useThemeComponent<any>("Input", props, {});
 
-    const _p: any = {}
-    if (startIcon) _p.startIcon = startIcon
-    if (endIcon) _p.endIcon = endIcon
-    if (iconPlacement) _p.iconPlacement = iconPlacement
-    if (color) _p.color = color
-    if (variant) _p.variant = variant
-    if (helperText) _p.helperText = helperText
-    if (size) _p.size = size
-    if (rows) _p.rows = rows
-    if (minRows) _p.minRows = minRows
-    if (maxRows) _p.maxRows = maxRows
-    const p: any = useBreakpointProps(_p)
-    startIcon = p.startIcon
-    endIcon = p.endIcon
-    iconPlacement = p.iconPlacement
-    color = p.color ?? "primary"
-    variant = p.variant ?? "fill"
-    helperText = p.helperText
-    size = p.size ?? 'medium'
-    rows = p.rows
-    minRows = p.minRows
-    maxRows = p.maxRows
+    const _p: any = {};
+    if (startIcon) _p.startIcon = startIcon;
+    if (endIcon) _p.endIcon = endIcon;
+    if (iconPlacement) _p.iconPlacement = iconPlacement;
+    if (color) _p.color = color;
+    if (variant) _p.variant = variant;
+    if (helperText) _p.helperText = helperText;
+    if (size) _p.size = size;
+    if (rows) _p.rows = rows;
+    if (minRows) _p.minRows = minRows;
+    if (maxRows) _p.maxRows = maxRows;
+    const p: any = useBreakpointProps(_p);
+    startIcon = p.startIcon;
+    endIcon = p.endIcon;
+    iconPlacement = p.iconPlacement;
+    color = p.color ?? "primary";
+    variant = p.variant ?? "fill";
+    helperText = p.helperText;
+    size = p.size ?? "md";
+    rows = p.rows;
+    minRows = p.minRows;
+    maxRows = p.maxRows;
 
-    iconPlacement ??= multiline ? "end" : "center"
-    if (!value) iconPlacement = 'center'
+    iconPlacement ??= multiline ? "end" : "center";
+    if (!value) iconPlacement = "center";
 
-    const [_focused, setFocused] = useState(false)
-    let _focus = focused || _focused
+    const [_focused, setFocused] = useState(false);
+    let _focus = focused || _focused;
     const inputRef = React.useRef<HTMLInputElement | HTMLTextAreaElement>(null);
     const inputMergeRef = useMergeRefs(inputRef, refs?.input as any);
 
     useEffect(() => {
-        if (autoFocus) {
-            setTimeout(() => {
-                inputRef.current?.focus()
-            }, 100);
-        }
-    }, [autoFocus])
+      if (autoFocus) {
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 100);
+      }
+    }, [autoFocus]);
 
-    let _rows = useMemo(() => {
-        if (rows) return rows
+    let _rows =
+      useMemo(() => {
+        if (rows) return rows;
         if (value && multiline) {
-            let lines = (value as string).split(`\n`).length
-            if (minRows && minRows > lines) {
-                return minRows
-            } else if (maxRows && maxRows < lines) {
-                return maxRows
-            } else {
-                return lines
-            }
+          let lines = (value as string).split(`\n`).length;
+          if (minRows && minRows > lines) {
+            return minRows;
+          } else if (maxRows && maxRows < lines) {
+            return maxRows;
+          } else {
+            return lines;
+          }
         }
-    }, [value]) || 1
+      }, [value]) || 1;
 
     const sizes: any = {
-        small: {
-            height: 38,
-            gap: .5,
-            fontSize: 'button',
-        },
-        medium: {
-            height: 46,
-            gap: 1,
-            fontSize: "text"
-        },
-        large: {
-            height: 52,
-            gap: 1,
-            fontSize: 'big'
-        }
-    }
+      xs: {
+        height: 30,
+        gap: 0.25,
+        fontSize: "sm",
+        px: 0.75,
+      },
 
-    const _size = sizes[size]
-    let borderColor = _focus ? color : (variant === "fill" ? "transparent" : `${color}.divider`)
-    borderColor = error ? "danger.divider" : borderColor
-    let multiprops: any = {}
+      sm: {
+        height: 38,
+        gap: 0.5,
+        fontSize: "sm",
+        px: 1,
+      },
+
+      md: {
+        height: 46,
+        gap: 1,
+        fontSize: "md",
+        px: 1,
+      },
+
+      lg: {
+        height: 52,
+        gap: 1,
+        fontSize: "lg",
+        px: 1.5,
+      },
+
+      xl: {
+        height: 60,
+        gap: 1.25,
+        fontSize: "xl",
+        px: 2,
+      },
+    };
+
+    const icon_sizes: any = {
+      xs: "md",
+      sm: "lg",
+      md: "h6",
+      lg: "h5",
+      xl: "h4",
+    };
+
+    const _size = sizes[size];
+    let borderColor = _focus
+      ? color
+      : variant === "fill"
+        ? "transparent"
+        : `${color}.divider`;
+    borderColor = error ? "danger.divider" : borderColor;
+    let multiprops: any = {};
     if (multiline) {
-        multiprops = {
-            rows: _rows,
-            sx: {
-                resize: "none"
-            }
-        }
+      multiprops = {
+        rows: _rows,
+        sx: {
+          resize: "none",
+        },
+      };
     }
 
     return (
+      <Tag
+        width={fullWidth ? "100%" : "auto"}
+        {...rest}
+        ref={ref}
+        baseClass="input-wrapper"
+        sxr={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 0.5,
+        }}
+      >
+        {!!label && (
+          <Label {...slotProps?.label} ref={refs?.label}>
+            {label}
+          </Label>
+        )}
         <Tag
-            width={fullWidth ? "100%" : "auto"}
-            {...rest}
-            ref={ref}
-            baseClass="input-wrapper"
-            sxr={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: .5,
-            }}
+          {...slotProps?.inputRoot}
+          ref={refs?.inputRoot}
+          baseClass={"input-root"}
+          sxr={{
+            width: "100%",
+            overflow: "hidden",
+          }}
         >
-            {!!label && <Label {...slotProps?.label} ref={refs?.label}>{label}</Label>}
+          <Tag
+            {...slotProps?.rootContainer}
+            ref={refs?.rootContainer}
+            baseClass="input-root-container"
+            sxr={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems:
+                iconPlacement === "center"
+                  ? iconPlacement
+                  : `flex-${iconPlacement}`,
+              flexWrap: "nowrap",
+              transitionProperty: "border, box-shadow, background",
+              bgcolor: error
+                ? "danger.ghost"
+                : variant === "fill"
+                  ? "default.base"
+                  : "transparent",
+              border: variant === "text" ? 0 : "1px solid",
+              borderColor: borderColor,
+              borderRadius: 1,
+              px: 1,
+              // py: .5,
+              ..._size,
+              height: multiline ? "auto" : _size.height,
+              minHeight: _size.height,
+              "& > input:-webkit-autofill,& > input:-webkit-autofill:hover, & > input:-webkit-autofill:focus,& > input:-webkit-autofill:active":
+                {
+                  "-webkit-text-fill-color": "default.contrast",
+                  "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.default.base : theme.colors.default.base} inset`,
+                  transition: "background-color 5000s ease-in-out 0s",
+                } as any,
+              "& textarea": {
+                resize: "none",
+              },
+
+              ...(!!startIcon && {
+                "& > :first-child:not(.xui-input)": {
+                  height: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  display: "flex",
+                  color: error ? "danger.base" : "default.muted",
+                  flex: "0 0 auto",
+                  fontSize: icon_sizes[size],
+                },
+              }),
+
+              ...(!!endIcon && {
+                "& > :last-child:not(.xui-input)": {
+                  height: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  display: "flex",
+                  color: error ? "danger.base" : "default.muted",
+                  flex: "0 0 auto",
+                  fontSize: icon_sizes[size],
+                },
+              }),
+            }}
+            disabled={disabled || false}
+          >
+            {startIcon}
             <Tag
-                {...slotProps?.inputRoot}
-                ref={refs?.inputRoot}
-                baseClass={'input-root'}
-                sxr={{
-                    width: "100%",
-                    overflow: "hidden",
-                }}
+              {...slotProps?.input}
+              ref={inputMergeRef}
+              baseClass="input"
+              component={multiline ? "textarea" : "input"}
+              {...multiprops}
+              sxr={{
+                border: 0,
+                outline: 0,
+                bgcolor: "transparent",
+                color: error ? "danger.base" : "default.contrast",
+                fontSize: _size.fontSize,
+                height: multiline ? "auto" : _size.height + "px!important",
+                width: "100%",
+                maxHeight: 200,
+              }}
+              value={value}
+              onChange={onChange}
+              onFocus={(e: any) => {
+                focused ?? setFocused(true);
+                onFocus && onFocus(e);
+              }}
+              onBlur={(e: any) => {
+                focused ?? setFocused(false);
+                onBlur && onBlur(e);
+              }}
+              onKeyDown={onKeyDown}
+              onKeyUp={onKeyUp}
+              name={name}
+              placeholder={placeholder}
+              type={type}
+              readOnly={readOnly}
+              autoComplete={autoComplete}
+            />
+            {endIcon}
+          </Tag>
+          {helperText && (
+            <Tag
+              {...slotProps?.helperText}
+              ref={refs?.helperText}
+              baseClass="input-helper-text"
+              sxr={{
+                color: error ? "danger.base" : "default.contrast",
+                fontSize: "sm",
+                lineHeight: "sm",
+                fontWeight: "sm",
+                pl: 0.5,
+              }}
             >
-                <Tag
-                    {...slotProps?.rootContainer}
-                    ref={refs?.rootContainer}
-                    baseClass='input-root-container'
-                    sxr={{
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: iconPlacement === 'center' ? iconPlacement : `flex-${iconPlacement}`,
-                        flexWrap: "nowrap",
-                        transitionProperty: "border, box-shadow, background",
-                        bgcolor: error ? "danger.ghost" : variant === "fill" ? "default.base" : "transparent",
-                        border: variant === "text" ? 0 : "1px solid",
-                        borderColor: borderColor,
-                        borderRadius: 1,
-                        px: 1,
-                        // py: .5,
-                        ..._size,
-                        height: multiline ? "auto" : _size.height,
-                        minHeight: _size.height,
-                        "& > input:-webkit-autofill,& > input:-webkit-autofill:hover, & > input:-webkit-autofill:focus,& > input:-webkit-autofill:active": {
-                            "-webkit-text-fill-color": "default.contrast",
-                            "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.default.base : theme.colors.default.base} inset`,
-                            transition: "background-color 5000s ease-in-out 0s"
-                        } as any,
-                        "& textarea": {
-                            resize: "none"
-                        },
-
-                        ...(!!startIcon && {
-                            "& > :first-child:not(.xui-input)": {
-                                height: "100%",
-                                alignItems: 'center',
-                                justifyContent: "center",
-                                display: "flex",
-                                color: error ? "danger.base" : "default.muted",
-                                flex: "0 0 auto",
-                            },
-                        }),
-
-                        ...(!!endIcon && {
-                            "& > :last-child:not(.xui-input)": {
-                                height: "100%",
-                                alignItems: 'center',
-                                justifyContent: "center",
-                                display: 'flex',
-                                color: error ? "danger.base" : "default.muted",
-                                flex: "0 0 auto",
-                            },
-                        })
-
-                    }}
-                    disabled={disabled || false}
-                >
-                    {startIcon}
-                    <Tag
-                        {...slotProps?.input}
-                        ref={inputMergeRef}
-                        baseClass='input'
-                        component={multiline ? 'textarea' : 'input'}
-                        {...multiprops}
-                        sxr={{
-                            border: 0,
-                            outline: 0,
-                            bgcolor: "transparent",
-                            color: error ? "danger.base" : "default.contrast",
-                            fontSize: _size.fontSize,
-                            height: multiline ? "auto" : _size.height + "px!important",
-                            width: "100%",
-                            maxHeight: 200,
-                        }}
-                        value={value}
-                        onChange={onChange}
-                        onFocus={(e: any) => {
-                            focused ?? setFocused(true)
-                            onFocus && onFocus(e)
-                        }}
-                        onBlur={(e: any) => {
-                            focused ?? setFocused(false)
-                            onBlur && onBlur(e)
-                        }}
-                        onKeyDown={onKeyDown}
-                        onKeyUp={onKeyUp}
-                        name={name}
-                        placeholder={placeholder}
-                        type={type}
-                        readOnly={readOnly}
-                        autoComplete={autoComplete}
-                    />
-                    {endIcon}
-                </Tag>
-                {helperText && <Tag
-                    {...slotProps?.helperText}
-                    ref={refs?.helperText}
-                    baseClass="input-helper-text"
-                    sxr={{
-                        color: error ? "danger.base" : "default.contrast",
-                        fontSize: "small",
-                        lineHeight: "text",
-                        fontWeight: 'text',
-                        pl: .5,
-                    }}
-                >{helperText}</Tag>}
+              {helperText}
             </Tag>
+          )}
         </Tag>
-    )
-})
+      </Tag>
+    );
+  },
+);
 
-export default Input
+export default Input;
