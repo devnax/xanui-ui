@@ -11,7 +11,6 @@ import {
   useBreakpointProps,
   useBreakpointPropsType,
 } from "@xanui/core";
-import useCorner, { UseCornerTypes } from "../useCorner";
 import CircleProgress, { CircleProgressProps } from "../CircleProgress";
 import Skeleton, { SkeletonProps } from "../Skeleton";
 
@@ -23,7 +22,7 @@ export type ButtonProps<T extends TagComponentType = "button"> = Omit<
   endIcon?: useBreakpointPropsType<ReactElement>;
   color?: useBreakpointPropsType<UseColorTemplateColor>;
   variant?: useBreakpointPropsType<UseColorTemplateType>;
-  corner?: useBreakpointPropsType<UseCornerTypes>;
+  corner?: useBreakpointPropsType<"square" | "rounded" | "circle">;
   size?: useBreakpointPropsType<"xs" | "sm" | "md" | "lg" | "xl">;
   direction?: useBreakpointPropsType<"row" | "column">;
   loading?: boolean;
@@ -79,7 +78,6 @@ const Button = React.forwardRef(
     direction = p.direction || "row";
 
     const template = useColorTemplate(color, variant);
-    const cornerCss = useCorner(corner);
 
     const sizes: any = {
       xs: {
@@ -135,6 +133,21 @@ const Button = React.forwardRef(
       xl: "h3",
     };
 
+    const radiuses: any = {
+      xs: 0.6,
+      sm: 0.8,
+      md: 1,
+      lg: 1,
+      xl: 1.2,
+    };
+
+    let radius: any = 0;
+    if (corner === "rounded") {
+      radius = radiuses[size];
+    } else if (corner === "circle") {
+      radius = "100%";
+    }
+
     let _size = sizes[size as any] || {};
     if (direction === "column") {
       delete _size.height;
@@ -151,7 +164,7 @@ const Button = React.forwardRef(
           sx={{
             ...slotProps?.skeleton?.sx,
             ..._size,
-            ...cornerCss,
+            radius,
           }}
         />
       );
@@ -161,7 +174,7 @@ const Button = React.forwardRef(
       <Tag
         component="button"
         baseClass="button"
-        {..._props}
+        // {..._props}
         sxr={{
           flexShrink: "0",
           whiteSpace: "nowrap",
@@ -175,11 +188,11 @@ const Button = React.forwardRef(
           overflow: "hidden",
           userSelect: "none",
           fontWeight: 500,
+          radius,
           "&:active": {
             transform: variant !== "text" ? "scale(0.99)" : undefined,
           },
           ..._size,
-          ...cornerCss,
           ...template.main,
         }}
         hover={{

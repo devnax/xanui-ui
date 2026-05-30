@@ -50,13 +50,11 @@ const Select = React.forwardRef(
     }: SelectProps,
     ref: React.Ref<any>,
   ) => {
-    let [{ slotProps, color, variant, ...inputProps }] = useThemeComponent<any>(
-      "Select",
-      props,
-      {},
-    );
+    let [{ slotProps, color, variant, size, ...inputProps }] =
+      useThemeComponent<any>("Select", props, {});
     color ??= "primary";
     variant ??= "fill";
+    size ??= "md";
     const [target, setTarget] = useState<any>();
     const conRef = useRef(null);
     const { childs, selectedProps } = useMemo(() => {
@@ -85,6 +83,7 @@ const Select = React.forwardRef(
     return (
       <>
         <Input
+          size={size}
           ref={mergeRefs}
           color={color}
           variant={variant === "ghost" ? "fill" : variant}
@@ -145,6 +144,7 @@ const Select = React.forwardRef(
           }}
         >
           <List
+            size={size}
             ref={refs?.list}
             {...slotProps?.list}
             color={color}

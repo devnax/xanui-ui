@@ -131,7 +131,7 @@ const Input = React.forwardRef(
     color = p.color ?? "primary";
     variant = p.variant ?? "fill";
     helperText = p.helperText;
-    size = p.size ?? "md";
+    size = p.size ?? "xl";
     rows = p.rows;
     minRows = p.minRows;
     maxRows = p.maxRows;
@@ -212,6 +212,14 @@ const Input = React.forwardRef(
       xl: "h4",
     };
 
+    const radiuses: any = {
+      xs: 0.6,
+      sm: 0.8,
+      md: 1,
+      lg: 1,
+      xl: 1.2,
+    };
+
     const _size = sizes[size];
     let borderColor = _focus
       ? color
@@ -276,7 +284,7 @@ const Input = React.forwardRef(
                   : "transparent",
               border: variant === "text" ? 0 : "1px solid",
               borderColor: borderColor,
-              borderRadius: 1,
+              radius: radiuses[size],
               px: 1,
               // py: .5,
               ..._size,
