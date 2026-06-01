@@ -10,7 +10,6 @@ import React, {
 import Input, { InputProps } from "../Input";
 import List, { ListProps } from "../List";
 import Menu, { MenuProps } from "../Menu";
-import Stack from "../Stack";
 import { OptionProps } from "../Option";
 import DownIcon from "@xanui/icons/KeyboardArrowDown";
 import UpIcon from "@xanui/icons/KeyboardArrowUp";
@@ -23,7 +22,7 @@ export type SelectProps = Omit<
   value?: string | number;
   onChange?: (value: string | number) => void;
   children: ReactElement<OptionProps> | ReactElement<OptionProps>[];
-
+  disableArrow?: boolean;
   refs?: {
     input?: React.Ref<any>;
     menu?: React.Ref<any>;
@@ -44,6 +43,8 @@ const Select = React.forwardRef(
       children,
       error,
       helperText,
+      disableArrow,
+      endIcon,
       name,
       refs,
       ...props
@@ -88,10 +89,10 @@ const Select = React.forwardRef(
           color={color}
           variant={variant === "ghost" ? "fill" : variant}
           endIcon={
-            <Stack flexDirection="row" component="span">
-              {" "}
-              {target ? <UpIcon /> : <DownIcon />}
-            </Stack>
+            <>
+              {!disableArrow && <>{target ? <UpIcon /> : <DownIcon />}</>}
+              {endIcon}
+            </>
           }
           readOnly
           value={

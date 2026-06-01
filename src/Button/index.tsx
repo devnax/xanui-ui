@@ -174,7 +174,7 @@ const Button = React.forwardRef(
       <Tag
         component="button"
         baseClass="button"
-        // {..._props}
+        {..._props}
         sxr={{
           flexShrink: "0",
           whiteSpace: "nowrap",
