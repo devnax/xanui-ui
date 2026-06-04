@@ -21,7 +21,7 @@ const Text = React.forwardRef(
     const _p: any = {};
     if (variant) _p.variant = variant;
     const p: any = useBreakpointProps(_p);
-    variant = p.variant ?? "text";
+    variant = p.variant ?? "md";
 
     return (
       <Tag
