@@ -20,10 +20,10 @@ export type ListItemProps<T extends TagComponentType = "li"> = TagProps<T> & {
   size?: useBreakpointPropsType<"xs" | "sm" | "md" | "lg" | "xl">;
 
   slotProps?: {
-    content: Omit<TextProps, "children">;
-    startIcon: Omit<TagProps, "children">;
-    endIcon: Omit<TagProps, "children">;
-    subtitle: Omit<TextProps, "children">;
+    content?: Omit<TextProps, "children">;
+    startIcon?: Omit<TagProps, "children">;
+    endIcon?: Omit<TagProps, "children">;
+    subtitle?: Omit<TextProps, "children">;
   };
 };
 
