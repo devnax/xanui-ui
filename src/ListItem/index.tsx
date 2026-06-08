@@ -171,6 +171,7 @@ const ListItem = React.forwardRef(
             sx={{
               fontSize: _size.fontSize,
               ...sx.text,
+              ...slotProps?.content?.sx,
             }}
           >
             {children}
