@@ -1,104 +1,91 @@
-# Xanui Library
+# @xanui/ui
 
-Xanui is a React design-system toolkit powered by `@xanui/core`. It combines low-level primitives (e.g., `Box`, `Stack`, `Layer`) with application-ready components (e.g., `Accordion`, `Modal`, `Datatable`, `Toast`) so product teams can build polished defaults quickly while keeping full control over styling tokens.
+A modern, fully-typed React UI component library built on top of [`@xanui/core`](https://github.com/devnax/xanui-core).
 
-## Highlights
+`@xanui/ui` provides a complete set of accessible, themeable, and composable components — from basic building blocks like buttons and inputs to complex patterns like data tables, autocompletes, and filters — so you can build production UIs faster without sacrificing flexibility.
 
-- **Unified prop default** – every component extends the `Tag` API, so spacing, layout, breakpoints, and system tokens behave identically across the library.
-- **Production-ready defaults** – the color palette, typography scale, shadows, and radii mirror modern SaaS expectations yet remain overridable.
-- **Server compatible** – SSR-safe patterns ensure components render on the server and hydrate cleanly on the client.
-- **Documentation first** – each component ships with a dedicated Markdown guide in `docs/`, ready for consumption by the upcoming Next.js documentation site.
-- **Hooks & utilities** – helpers such as `useClickOutside` mirror the component APIs so lower-level integrations feel consistent.
+## ✨ Features
 
-## Installation
+- 🧩 **60+ Components** — buttons, inputs, modals, menus, tables, calendars, and more
+- 🎨 **Themeable** — built on `@xanui/core`'s theming and color template system
+- 📱 **Responsive by default** — breakpoint-aware props (`useBreakpointPropsType`) on most components
+- 🟦 **TypeScript-first** — fully typed props, refs, and slot APIs
+- 🧱 **Composable slot system** — override internal parts via `slotProps` without forking components
+- ⚡ **Tree-shakeable** — import only what you use
+- 🪶 **Lightweight core** — no heavy third-party UI dependencies
+
+## 📦 Installation
 
 ```bash
-npm install @xanui/ui
-
+npm install @xanui/ui @xanui/core @xanui/icons
 ```
 
-Required peer packages (`react`, `react-dom`, `@xanui/core`, `@xanui/icons`) should already exist in your project; otherwise, install them alongside Xanui.
+```bash
+yarn add @xanui/ui @xanui/core @xanui/icons
+```
 
-## Quick Start
+```bash
+pnpm add @xanui/ui @xanui/core @xanui/icons
+```
+
+> `@xanui/core` and `@xanui/icons` are required peer dependencies.
+
+## 🚀 Quick Start
 
 ```tsx
-import ThemeProvider from '@xanui/ui/ThemeProvider';
-import Box from '@xanui/ui/Box';
-import Button from '@xanui/ui/Button';
+import { ThemeProvider } from "@xanui/core";
+import { Button, Input, Card } from "@xanui/ui";
 
-export default function App() {
+function App() {
   return (
-    <ThemeProvider theme="light">
-      <Box p={3} gap={2} display="flex" flexDirection="column">
-        <h1>Welcome</h1>
-        <Button color="primary" onClick={() => alert('Hello from Xanui!')}>
-          Get Started
+    <ThemeProvider>
+      <Card>
+        <Input label="Email" placeholder="you@example.com" fullWidth />
+        <Button color="primary" variant="fill">
+          Submit
         </Button>
-      </Box>
+      </Card>
     </ThemeProvider>
   );
 }
 ```
 
-### Theming and Tokens
+## 🧱 Components
 
-`ThemeProvider` injects the active token set from `@xanui/core`. At the component level you can:
+A few highlights from the library:
 
-- Provide responsive props (`{ xs: 'column', md: 'row' }`) via `useBreakpointProps`.
-- Override styles with `sx`/`sxr` objects or custom CSS classes via `baseClass`.
-- Extend color templates by registering new palettes in the core theme manager.
+| Category | Components |
+|---|---|
+| **Form** | `Input`, `InputNumber`, `PasswordInput`, `Select`, `Autocomplete`, `Checkbox`, `Radio`, `Switch`, `RangeSlider`, `CalendarInput` |
+| **Layout** | `Box`, `Stack`, `Container`, `GridContainer`, `GridItem`, `ViewBox`, `Divider` |
+| **Feedback** | `Alert`, `Toast`, `Skeleton`, `CircleProgress`, `LineProgress`, `LoadingBox` |
+| **Overlay** | `Modal`, `Drawer`, `Menu`, `Tooltip`, `Layer`, `Portal` |
+| **Data Display** | `Datatable`, `DataFilter`, `Table`, `Avatar`, `AvatarBox`, `Chip`, `Badge`, `Card` |
+| **Navigation** | `Tabs`, `Tab`, `List`, `ListItem`, `Accordion` |
+| **Media** | `Image`, `Carousel`, `GalleryPicker`, `AvatarPicker`, `FilePicker` |
 
-## Documentation & Examples
+Full documentation and live examples are coming soon on our documentation site.
 
-- **Component guides** – `docs/<Component>.md` follows a consistent structure (overview → basic example → props table → scenario examples). These files serve both as standalone references and as the content source for the forthcoming Next.js docs site (`documentation/`).
-- **Playground** – `example/` contains runnable demos that mirror the documentation examples.
+## 🛠 Tech Stack
 
-Once the Next.js docs site scaffolding is complete, run it with:
+- **React 19**
+- **TypeScript**
+- **[@xanui/core](https://github.com/devnax/xanui-core)** — theming engine, `Tag` primitive, and shared hooks
+- **[@xanui/icons](https://www.npmjs.com/package/@xanui/icons)** — icon set used across components
 
-```bash
-cd documentation
-npm install
-npm run dev
-```
+## 📄 License
 
-## Component Index
+MIT
 
-| Category               | Components                                                                                                                                                      | Docs                                                                                                                                                                                                                                                    |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Layout & defaults      | Box, Stack, Container, GridContainer, GridItem, Paper, Layer, ViewBox, Divider                                                                                  | `docs/Box.md`, `docs/Stack.md`, `docs/Container.md`, `docs/GridContainer.md`, `docs/GridItem.md`, `docs/Paper.md`, `docs/Layer.md`, `docs/ViewBox.md`, `docs/Divider.md`                                                                                |
-| Navigation             | Tabs, Tab, List, ListItem, Menu, Drawer                                                                                                                         | `docs/Tabs.md`, `docs/Tab.md`, `docs/List.md`, `docs/ListItem.md`, `docs/Menu.md`, `docs/Drawer.md`                                                                                                                                                     |
-| Data Display           | Table (and TableBody/TableCell/TableFooter/TableHead/TablePagination/TableRow), Datatable, Chip, Avatar, Image, Badge, CircleProgress, LineProgress, LoadingBox | `docs/Table*.md`, `docs/Datatable.md`, `docs/Chip.md`, `docs/Avatar.md`, `docs/Image.md`, `docs/Badge.md`, `docs/CircleProgress.md`, `docs/LineProgress.md`, `docs/LoadingBox.md`                                                                       |
-| Inputs & Forms         | Button, ButtonGroup, IconButton, Form, Input, Select, Option, Checkbox, Radio, Switch, Calendar, CalendarInput, Label                                           | `docs/Button.md`, `docs/ButtonGroup.md`, `docs/IconButton.md`, `docs/Form.md`, `docs/Input.md`, `docs/Select.md`, `docs/Option.md`, `docs/Checkbox.md`, `docs/Radio.md`, `docs/Switch.md`, `docs/Calendar.md`, `docs/CalendarInput.md`, `docs/Label.md` |
-| Disclosure & Feedback  | Accordion, Collaps, Alert, Toast, Tooltip, Modal, Portal, Scrollbar, Toast, NoSSR                                                                               | `docs/Accordion.md`, `docs/Collaps.md`, `docs/Alert.md`, `docs/Toast.md`, `docs/Tooltip.md`, `docs/Modal.md`, `docs/Portal.md`, `docs/Scrollbar.md`, `docs/NoSSR.md`                                                                                    |
-| Typography & Utilities | Text, ThemeProvider, ClickOutside, useCorner, useClickOutside, View helpers                                                                                     | `docs/Text.md`, `docs/ThemeProvider.md`, `docs/ClickOutside.md`, `docs/useCorner.md`, `docs/useClickOutside.md`, `docs/ViewBox.md`                                                                                                                      |
+## 👤 Author
 
-> The full list is available in `docs/`. Each entry adheres to the shared documentation template for easy navigation and consistency.
+**Devnax (Naxrul Ahmed)**
+Full-Stack Software Engineer
 
-## Local Development
+- GitHub: [@devnax](https://github.com/devnax)
+- npm: [~devnax](https://www.npmjs.com/~devnax)
+- LinkedIn: [devnax](https://linkedin.com/in/devnax)
 
-```bash
-npm install
-npm run start   # runs makepack dev server plus the example playground
-npm run build   # bundles the library via makepack
-```
+---
 
-The development workflow encourages updating `docs/` alongside the corresponding component so examples stay truthful. The `example/` playground hot-reloads component changes for rapid iteration.
-
-## Contributing
-
-1. Fork this repository and clone your fork.
-2. Install dependencies via `npm install`.
-3. Implement your change (component, hook, docs, or tooling) inside `src/` and update/author `docs/<Component>.md` accordingly.
-4. Run `npm run start` to validate the example playground and lint output.
-5. Open a pull request with a clear description, screenshots when UI changes occur, and reference to relevant documentation updates.
-
-Guidelines:
-
-- Keep new components aligned with the `TagProps` default (spacing, layout, color tokens, responsive props).
-- Provide at least one example in `example/` when adding new UI patterns.
-- Maintain the established documentation structure (overview, basic example, props table, scenario demos).
-
-## License
-
-Distributed under the MIT License. Refer to `LICENSE` for full text.
-
+📚 Full documentation coming soon.
