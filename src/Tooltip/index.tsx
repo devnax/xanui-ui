@@ -24,7 +24,7 @@ export type TooltipProps = {
   placement?: MenuProps["placement"];
   slotProps?: {
     title?: Omit<TextProps, "children">;
-    menu: Omit<MenuProps, "target" | "chilcren" | "placement">;
+    menu?: Omit<MenuProps, "target" | "chilcren" | "placement">;
   };
 };
 
@@ -73,7 +73,7 @@ const Tooltip = ({
             ...template.main,
             bgcolor:
               color == "default" ? "default.base" : template.main.bgcolor,
-            ...slotProps?.menu.slotProps?.content,
+            ...slotProps?.menu?.slotProps?.content,
           },
         }}
       >
