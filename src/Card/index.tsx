@@ -33,7 +33,7 @@ const Card = React.forwardRef(
         borderColor: "default.divider",
       },
       fill: {
-        bgcolor: "default.base",
+        bgcolor: "default.primary",
       },
     };
 

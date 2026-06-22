@@ -19,7 +19,9 @@ const ThemeBox = () => {
     <Stack>
       <IconButton
         onClick={() => {
-          theme.update(theme.name === "light" ? { mode: "dark" } : {});
+          theme.update(
+            theme.name === "light" ? { mode: "dark" } : { mode: "light" },
+          );
         }}
       >
         {theme.name === "light" ? <DarkModeIcon /> : <LightModeIcon />}
@@ -73,7 +75,7 @@ const Layout = () => {
   );
   const currentMenu = menu[currentMenuIndex];
   const Render: any = currentMenu?.render || (() => <></>);
-  const [theme, setTheme] = React.useState<any>({ mode: "dark" });
+  const [theme, setTheme] = React.useState<any>({ mode: "light" });
 
   React.useEffect(() => {
     const ele = document.getElementById(`menu-${currentMenuIndex}`);

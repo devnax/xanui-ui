@@ -96,7 +96,7 @@ const Row = ({
             onClickOutside={() => setTarget(null)}
           >
             <List
-              bgcolor="default.base"
+              bgcolor="default.primary"
               minWidth={160}
               sx={{
                 "& > li": {

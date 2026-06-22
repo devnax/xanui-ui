@@ -318,7 +318,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
       width={boxWidth}
       maxHeight={400}
       radius={1}
-      bgcolor="default.base"
+      bgcolor="default.primary"
       startContent={
         <Stack
           className="calender-header"

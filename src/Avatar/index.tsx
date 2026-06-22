@@ -63,7 +63,7 @@ const Avatar = React.forwardRef(
             display: "inline-flex",
             justifyContent: "center",
             alignItems: "center",
-            bgcolor: "default.base",
+            bgcolor: "default.primary",
             radius: size,
             fontSize: (size / 3) * 2,
             width: size,

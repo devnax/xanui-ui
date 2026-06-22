@@ -9,7 +9,7 @@ import Scrollbar from '@xanui/ui/Scrollbar';
 
 export default function BasicScrollbar() {
   return (
-    <Scrollbar height={280} width={360} p={2} bgcolor="default.base">
+    <Scrollbar height={280} width={360} p={2} bgcolor="default.primary">
       <LongList />
     </Scrollbar>
   );

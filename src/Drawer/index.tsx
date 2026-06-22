@@ -89,7 +89,7 @@ const Drawer = ({
             sxr={{
               width: isSide ? _size : "100%",
               height: isSide ? "100%" : _size,
-              bgcolor: "default.base",
+              bgcolor: "default.primary",
               shadow: 20,
             }}
             baseClass="drawer-content"

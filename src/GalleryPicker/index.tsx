@@ -169,7 +169,7 @@ const GalleryPicker = React.forwardRef(
             <Stack
               width={100}
               height={100}
-              bgcolor="default.base"
+              bgcolor="default.primary"
               radius={1}
               alignItems="center"
               overflow={"hidden"}

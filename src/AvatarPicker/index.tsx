@@ -142,7 +142,7 @@ const AvatarPicker = React.forwardRef(
             size={avatarSize}
             src={preview || defaultPreview}
             border={target ? "1px solid" : 0}
-            borderColor={target ? "danger.base" : "transparent"}
+            borderColor={target ? "danger.primary" : "transparent"}
             bgcolor={target ? "danger.ghost" : bgcolor}
           />
           <Menu
@@ -157,7 +157,7 @@ const AvatarPicker = React.forwardRef(
             }}
           >
             <Text
-              bgcolor="danger.base"
+              bgcolor="danger.primary"
               color="danger.contrast"
               fontSize={"sm"}
               p={1}

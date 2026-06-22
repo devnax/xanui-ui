@@ -59,7 +59,7 @@ export default function ResponsiveBox() {
             flexDirection={{ xs: 'column', md: 'row' }}
             gap={2}
             p={2}
-            bgcolor="default.base"
+            bgcolor="default.primary"
         >
             <Box flex={1}>Panel A</Box>
             <Box flex={1}>Panel B</Box>

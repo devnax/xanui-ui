@@ -1,63 +1,66 @@
-"use client"
-import { Renderar, Tag, TagComponentType } from "@xanui/core"
-import { useEffect, useRef, useState } from "react"
-import Menu, { MenuProps } from "../Menu"
+"use client";
+import { Renderar, Tag, TagComponentType } from "@xanui/core";
+import { useEffect, useRef, useState } from "react";
+import Menu, { MenuProps } from "../Menu";
 
+const useContextMenu = ({
+  children,
+  onExited,
+  onClickOutside,
+  ...props
+}: MenuProps) => {
+  const Comp = ({ x, y }: any) => {
+    const ref = useRef(null);
+    const [target, setTarget] = useState<any>();
 
-const useContextMenu = ({ children, onExited, onClickOutside, ...props }: MenuProps) => {
+    useEffect(() => {
+      setTarget(ref.current);
+      return () => {
+        Renderar.unrender(Comp);
+      };
+    }, []);
 
-   const Comp = ({ x, y }: any) => {
-      const ref = useRef(null)
-      const [target, setTarget] = useState<any>()
+    return (
+      <>
+        <Tag
+          baseClass="context-menu-target"
+          ref={ref}
+          position={"fixed"}
+          top={y}
+          left={x}
+          zIndex={99999999999999}
+          bgcolor="default.primary"
+          height={0}
+          width={0}
+        />
+        <Menu
+          {...props}
+          target={target!}
+          onClickOutside={(e) => {
+            Renderar.unrender(Comp);
+            onClickOutside && onClickOutside(e);
+          }}
+        >
+          {children}
+        </Menu>
+      </>
+    );
+  };
 
-      useEffect(() => {
-         setTarget(ref.current)
-         return () => {
-            Renderar.unrender(Comp)
-         }
-      }, [])
+  const onContextMenu = (e: React.MouseEvent<TagComponentType, MouseEvent>) => {
+    e.preventDefault();
+    Renderar.render(Comp, {
+      x: e.pageX,
+      y: e.pageY,
+      open: true,
+    });
+  };
 
-      return (
-         <>
-            <Tag
-               baseClass="context-menu-target"
-               ref={ref}
-               position={"fixed"}
-               top={y}
-               left={x}
-               zIndex={99999999999999}
-               bgcolor="default.base"
-               height={0}
-               width={0}
-            />
-            <Menu
-               {...props}
-               target={target!}
-               onClickOutside={(e) => {
-                  Renderar.unrender(Comp)
-                  onClickOutside && onClickOutside(e)
-               }}
-            >
-               {children}
-            </Menu>
-         </>
-      )
-   }
+  onContextMenu.close = () => {
+    Renderar.unrender(Comp);
+  };
 
-   const onContextMenu = (e: React.MouseEvent<TagComponentType, MouseEvent>) => {
-      e.preventDefault()
-      Renderar.render(Comp, {
-         x: e.pageX,
-         y: e.pageY,
-         open: true,
-      })
-   }
+  return onContextMenu;
+};
 
-   onContextMenu.close = () => {
-      Renderar.unrender(Comp)
-   }
-
-   return onContextMenu
-}
-
-export default useContextMenu
+export default useContextMenu;

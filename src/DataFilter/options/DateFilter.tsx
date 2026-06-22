@@ -23,7 +23,7 @@ const DateFilter = ({ option, onChange, value }: Props) => {
   const isValue = value !== null && value !== undefined && value !== "";
 
   return (
-    <Stack width={"100%"} bgcolor="default.base" p={1} radius={1}>
+    <Stack width={"100%"} bgcolor="default.primary" p={1} radius={1}>
       <Stack
         direction="row"
         alignItems="center"

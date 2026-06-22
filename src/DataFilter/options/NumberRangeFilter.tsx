@@ -22,7 +22,7 @@ const NumberRangeFilter = ({ option, onChange, value }: Props) => {
     value.length === 2;
 
   return (
-    <Stack width={"100%"} bgcolor="default.base" p={1} radius={1}>
+    <Stack width={"100%"} bgcolor="default.primary" p={1} radius={1}>
       <Stack
         direction="row"
         alignItems="center"

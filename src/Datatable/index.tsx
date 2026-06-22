@@ -135,7 +135,7 @@ const DataTable = React.forwardRef(
             ? {
                 position: "sticky",
                 top: 0,
-                bgcolor: "default.base",
+                bgcolor: "default.primary",
                 zIndex: 1,
               }
             : {},

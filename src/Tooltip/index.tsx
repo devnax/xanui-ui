@@ -72,7 +72,7 @@ const Tooltip = ({
             shadow: 1,
             ...template.main,
             bgcolor:
-              color == "default" ? "default.base" : template.main.bgcolor,
+              color == "default" ? "default.primary" : template.main.bgcolor,
             ...slotProps?.menu?.slotProps?.content,
           },
         }}

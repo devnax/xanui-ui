@@ -95,7 +95,8 @@ const CircleProgress = React.forwardRef(
       children = (
         <Tag
           sxr={{
-            color: color === "default" ? "default.contrast" : `${color}.base`,
+            color:
+              color === "default" ? "default.contrast" : `${color}.primary`,
             fontSize: Math.max(10, size * 0.24),
             fontWeight: 500,
             lineHeight: 1,
@@ -135,7 +136,7 @@ const CircleProgress = React.forwardRef(
               strokeDashoffset: percent,
               stroke:
                 thumbColor ||
-                (color === "default" ? `default.contrast` : `${color}.base`),
+                (color === "default" ? `default.contrast` : `${color}.primary`),
               fill: "none",
               strokeWidth: thumbSize,
               strokeLinecap: "round",
