@@ -49,6 +49,7 @@ const ListItem = React.forwardRef(
     const template = useColorTemplate(listProps.color, listProps.variant);
     const defaultTemplate = useColorTemplate("default", "text");
     const hoverTemplate = useColorTemplate(listProps.color, "ghost");
+    console.log(defaultTemplate);
 
     subtitle = p.subtitle;
     startIcon = p.startIcon;
@@ -71,7 +72,7 @@ const ListItem = React.forwardRef(
       },
 
       md: {
-        fontSize: "text",
+        fontSize: "md",
         py: 1,
         px: 1.5,
         minHeight: 42,

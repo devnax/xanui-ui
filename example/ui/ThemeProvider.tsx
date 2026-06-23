@@ -1,52 +1,41 @@
-import React from 'react'
-import Stack from '../../src/Stack'
-import Lists from './List'
-import Accodiond from './Accordion'
-import Section from '../Layout/Section'
-import { createTheme, ThemeProvider } from '@xanui/core'
+import React from "react";
+import Stack from "../../src/Stack";
+import Lists from "./List";
+import Accodiond from "./Accordion";
+import Section from "../Layout/Section";
+import { createTheme, ThemeProvider } from "@xanui/core";
 
-const lightTheme = createTheme({ mode: "light" })
-const darkTheme = createTheme({ mode: "dark" })
+const lightTheme = createTheme({ mode: "light" });
+const darkTheme = createTheme({ mode: "dark" });
 
 const ThemeProviders = () => {
-    return (
-        <Stack
-            gap={2}
-            m={2}
-        >
-            <Section
-                title="List"
-                flexRow
-                gap={2}
-                bgcolor="default.surface"
-                p={2}
-                radius={2}
-            >
-                <Section title="Light Theme">
-                    <ThemeProvider
-                        theme={lightTheme}
-                        p={1}
-                        radius={1}
-                    >
-                        <Lists />
-                    </ThemeProvider>
-                </Section>
-                <Section title="Dark Theme">
-                    <ThemeProvider
-                        theme={darkTheme}
-                        p={1}
-                        radius={1}
-                    >
-                        <Lists />
-                    </ThemeProvider>
-                </Section>
-            </Section>
-            {/* 
+  return (
+    <Stack gap={2} m={2}>
+      <Section
+        title="List"
+        flexRow
+        gap={2}
+        bgcolor="default.primary"
+        p={2}
+        radius={2}
+      >
+        <Section title="Light Theme">
+          <ThemeProvider theme={lightTheme} p={1} radius={1}>
+            <Lists />
+          </ThemeProvider>
+        </Section>
+        <Section title="Dark Theme">
+          <ThemeProvider theme={darkTheme} p={1} radius={1}>
+            <Lists />
+          </ThemeProvider>
+        </Section>
+      </Section>
+      {/* 
             <Section
                 title="Accodiond"
                 flexRow
                 gap={2}
-                bgcolor="default.surface"
+                bgcolor="default.primary"
                 p={2}
                 radius={2}
             >
@@ -69,8 +58,8 @@ const ThemeProviders = () => {
                     </ThemeProvider>
                 </Section>
             </Section> */}
-        </Stack>
-    )
-}
+    </Stack>
+  );
+};
 
-export default ThemeProviders
+export default ThemeProviders;

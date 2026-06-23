@@ -262,7 +262,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
               onButtonClick && onButtonClick("month", v);
             }}
             sx={{
-              color: selected ? "primary.contrast" : "default.contrast",
+              color: selected ? "default.contrast" : "default.contrast",
             }}
           >
             {monthNames[m]}
@@ -318,7 +318,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
       width={boxWidth}
       maxHeight={400}
       radius={1}
-      bgcolor="default.primary"
+      bgcolor="default.9"
       startContent={
         <Stack
           className="calender-header"

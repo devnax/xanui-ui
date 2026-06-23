@@ -11,7 +11,7 @@ import Box from '@xanui/ui/Box';
 
 export default function BasicBox() {
     return (
-        <Box p={3} radius={2} bgcolor="default.surface">
+        <Box p={3} radius={2} bgcolor="default.primary">
             Drop anything inside this flexible container.
         </Box>
     );

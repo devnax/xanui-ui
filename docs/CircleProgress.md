@@ -44,7 +44,7 @@ export default function ContrastCircleProgress() {
 			value={45}
 			size={80}
 			color="warning"
-			trackColor="default.surface"
+			trackColor="default.primary"
 			thumbColor="warning"
 		/>
 	);

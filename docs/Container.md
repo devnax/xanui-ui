@@ -52,7 +52,7 @@ import Container from '@xanui/ui/Container';
 
 export default function SectionWrapper() {
     return (
-        <Container sxr={{ py: 6, bgcolor: 'default.surface' }}>
+        <Container sxr={{ py: 6, bgcolor: 'default.primary' }}>
             <h2>Pricing</h2>
             <p>Compare plans at a glance.</p>
         </Container>
