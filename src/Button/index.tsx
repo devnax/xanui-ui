@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { ReactElement } from "react";
 import {
   Tag,
@@ -54,7 +54,7 @@ const Button = React.forwardRef(
       },
     ] = useThemeComponent<any>("Button", rest, {
       variant: "fill",
-      color: "primary",
+      color: "brand",
       corner: "rounded",
       size: "md",
     });
@@ -219,7 +219,7 @@ const Button = React.forwardRef(
           >
             <CircleProgress
               {...slotProps?.loading}
-              color={color === "default" ? `primary` : "default"}
+              color={color === "default" ? `brand` : "default"}
               size={progressSizes[size]}
               className="button-loading-progress"
             />

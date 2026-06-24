@@ -23,7 +23,7 @@ const Cards = () => {
                 <Text variant="h6">Electronic Gadget</Text>
               </Link>
 
-              <Text variant="md" color="default.muted" lineHeight={1.3}>
+              <Text variant="md" color="text.secondary" lineHeight={1.3}>
                 This is a description of the electronic gadget. It has many
                 features and is very useful for daily tasks.
               </Text>
@@ -33,7 +33,7 @@ const Cards = () => {
                 </Text>
                 <Text
                   variant="md"
-                  color="default.muted"
+                  color="text.secondary"
                   sx={{ textDecoration: "line-through" }}
                 >
                   $249.99
@@ -59,7 +59,7 @@ const Cards = () => {
             />
             <Stack p={1}>
               <Text variant="h6">Electronic Gadget</Text>
-              <Text variant="md" color="default.muted" lineHeight={1.3}>
+              <Text variant="md" color="text.secondary" lineHeight={1.3}>
                 This is a description of the electronic gadget. It has many
                 features and is very useful for daily tasks.
               </Text>
@@ -69,7 +69,7 @@ const Cards = () => {
                 </Text>
                 <Text
                   variant="md"
-                  color="default.muted"
+                  color="text.secondary"
                   sx={{ textDecoration: "line-through" }}
                 >
                   $249.99
@@ -95,7 +95,7 @@ const Cards = () => {
             />
             <Stack p={1}>
               <Text variant="h6">Electronic Gadget</Text>
-              <Text variant="md" color="default.muted" lineHeight={1.3}>
+              <Text variant="md" color="text.secondary" lineHeight={1.3}>
                 This is a description of the electronic gadget. It has many
                 features and is very useful for daily tasks.
               </Text>
@@ -105,7 +105,7 @@ const Cards = () => {
                 </Text>
                 <Text
                   variant="md"
-                  color="default.muted"
+                  color="text.secondary"
                   sx={{ textDecoration: "line-through" }}
                 >
                   $249.99
@@ -131,7 +131,7 @@ const Cards = () => {
             />
             <Stack p={1}>
               <Text variant="h6">Electronic Gadget</Text>
-              <Text variant="md" color="default.muted" lineHeight={1.3}>
+              <Text variant="md" color="text.secondary" lineHeight={1.3}>
                 This is a description of the electronic gadget. It has many
                 features and is very useful for daily tasks.
               </Text>
@@ -141,7 +141,7 @@ const Cards = () => {
                 </Text>
                 <Text
                   variant="md"
-                  color="default.muted"
+                  color="text.secondary"
                   sx={{ textDecoration: "line-through" }}
                 >
                   $249.99

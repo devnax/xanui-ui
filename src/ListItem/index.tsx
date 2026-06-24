@@ -49,7 +49,6 @@ const ListItem = React.forwardRef(
     const template = useColorTemplate(listProps.color, listProps.variant);
     const defaultTemplate = useColorTemplate("default", "text");
     const hoverTemplate = useColorTemplate(listProps.color, "ghost");
-    console.log(defaultTemplate);
 
     subtitle = p.subtitle;
     startIcon = p.startIcon;

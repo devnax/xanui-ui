@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   Renderar,
   Tag,
@@ -89,8 +89,8 @@ const Drawer = ({
             sxr={{
               width: isSide ? _size : "100%",
               height: isSide ? "100%" : _size,
-              bgcolor: "default.primary",
-              shadow: 20,
+              bgcolor: "paper.primary",
+              shadow: "xl",
             }}
             baseClass="drawer-content"
           >

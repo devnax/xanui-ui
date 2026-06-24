@@ -41,7 +41,7 @@ const List = React.forwardRef(
     if (size) _p.size = size;
     const p: any = useBreakpointProps(_p);
 
-    color = p.color ?? "primary";
+    color = p.color ?? "brand";
     variant = p.variant ?? "fill";
     size = p.size ?? "md";
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { DataFilterSelect } from "../types";
@@ -25,7 +25,7 @@ const MultiSelectFilter = ({ option, onChange, value }: Props) => {
   const [target, setTarget] = React.useState<HTMLElement | undefined>();
   const isValue = value && value.length > 0;
   return (
-    <Stack width={"100%"} bgcolor="default.primary" p={1} radius={1}>
+    <Stack width={"100%"} bgcolor="paper.primary" p={1} radius={1}>
       <Stack
         direction="row"
         alignItems="center"

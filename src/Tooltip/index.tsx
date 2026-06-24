@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   Children,
   cloneElement,
@@ -72,7 +72,7 @@ const Tooltip = ({
             shadow: 1,
             ...template.main,
             bgcolor:
-              color == "default" ? "default.primary" : template.main.bgcolor,
+              color == "default" ? "paper.primary" : template.main.bgcolor,
             ...slotProps?.menu?.slotProps?.content,
           },
         }}

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 import React from 'react';
 import { Tag, TagProps, TagComponentType } from '@xanui/core';
 
@@ -14,7 +14,7 @@ const Label = React.forwardRef(<T extends TagComponentType = "label">({ children
             verticalAlign: "middle",
             fontSize: "text",
             gap: .4,
-            color: "default.contrast",
+            color: "text.primary",
             userSelect: "none",
             cursor: "pointer",
             fontWeight: "500",

@@ -70,7 +70,8 @@ const ButtonGroup = React.forwardRef(
       },
     };
 
-    let borderColor = `${color}.divider`;
+    let borderColor =
+      color === "default" ? `paper.secondary` : `${color}.secondary`;
 
     return (
       <Tag

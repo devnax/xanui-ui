@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { DataFilterSelect } from "../types";
 import IconButton from "../../IconButton";
@@ -22,7 +22,7 @@ const NumberRangeFilter = ({ option, onChange, value }: Props) => {
     value.length === 2;
 
   return (
-    <Stack width={"100%"} bgcolor="default.primary" p={1} radius={1}>
+    <Stack width={"100%"} bgcolor="paper.primary" p={1} radius={1}>
       <Stack
         direction="row"
         alignItems="center"

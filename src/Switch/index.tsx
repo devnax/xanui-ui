@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { ReactElement, useState } from "react";
 import {
   Tag,
@@ -101,7 +101,7 @@ const Switch = React.forwardRef((props: SwitchProps, ref?: React.Ref<any>) => {
           position: "absolute",
           top: "50%",
           transform: "translateY(-50%)",
-          bgcolor: checked ? color : "default.divider",
+          bgcolor: checked ? color : "divider.primary",
         }}
       ></Tag>
       <Tag

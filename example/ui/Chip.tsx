@@ -22,7 +22,7 @@ const Chips = () => {
   return (
     <Stack gap={3}>
       <ChipBox color="default" />
-      <ChipBox color="primary" />
+      <ChipBox color="brand" />
       <ChipBox color="accent" />
       <ChipBox color="success" />
       <ChipBox color="warning" />

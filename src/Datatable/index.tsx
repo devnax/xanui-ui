@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useMemo } from "react";
 import ViewBox from "../ViewBox";
 import { Tag, useThemeComponent } from "@xanui/core";
@@ -135,7 +135,7 @@ const DataTable = React.forwardRef(
             ? {
                 position: "sticky",
                 top: 0,
-                bgcolor: "default.primary",
+                bgcolor: "paper.primary",
                 zIndex: 1,
               }
             : {},

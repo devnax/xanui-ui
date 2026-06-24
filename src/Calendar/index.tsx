@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef, useState } from "react";
 import Stack from "../Stack";
 import IconButton from "../IconButton";
@@ -44,8 +44,7 @@ const ShowYears = ({ color, year, today, onClick }: any) => {
         <Button
           color={selected ? color : "default"}
           className="calender-year-button"
-          size="sm"
-          corner="circle"
+          size="xs"
           ref={selected ? selectedRef : null}
           onClick={() => onClick(y)}
           variant={selected ? "fill" : "text"}
@@ -91,7 +90,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
   if (VMode) _p.VMode = VMode;
   if (color) _p.color = color;
   const p: any = useBreakpointProps(_p);
-  color = p.color || "primary";
+  color = p.color || "brand";
 
   let [viewMode, setViewMode] = useState<any>(p.VMode || "day");
   let [selectedDate, setSelectedDate] = useState(new Date());
@@ -169,7 +168,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
           if (isToday) {
             css = {
               variant: "outline",
-              color: "primary",
+              color: "brand",
             };
           }
 
@@ -252,17 +251,13 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
           <Button
             color={selected ? color : "default"}
             className="calender-month-button"
-            size="sm"
-            corner="circle"
+            size="xs"
             variant={selected ? "fill" : "text"}
             onClick={() => {
               const v = new Date(currentDate.getFullYear(), m);
               setCurrentDate(v);
               setViewMode("day");
               onButtonClick && onButtonClick("month", v);
-            }}
-            sx={{
-              color: selected ? "default.contrast" : "default.contrast",
             }}
           >
             {monthNames[m]}
@@ -318,7 +313,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
       width={boxWidth}
       maxHeight={400}
       radius={1}
-      bgcolor="default.9"
+      bgcolor="paper.primary"
       startContent={
         <Stack
           className="calender-header"

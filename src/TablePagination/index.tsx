@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Text from "../Text";
 import Select, { SelectProps } from "../Select";
 import Option from "../Option";
@@ -124,7 +124,7 @@ const TablePagination = React.forwardRef(
           <Text fontSize="sm">
             {current?.from}-{current.to}
           </Text>
-          <Text color="default.muted">of</Text>
+          <Text color="text.secondary">of</Text>
           <Text fontSize="sm">{total}</Text>
         </Tag>
         <Tag baseClass="table-pagination-navigation" flexBox flexRow gap={0.4}>

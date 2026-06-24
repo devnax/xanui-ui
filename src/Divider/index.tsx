@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import {
   Tag,
@@ -41,7 +41,7 @@ const Divider = React.forwardRef(
         sxr={{
           width: isHori ? "100%" : size,
           height: isHori ? size : "100%",
-          bgcolor: color === "default" ? `default.divider` : `${color}.divider`,
+          bgcolor: color === "default" ? `divider.primary` : `${color}.primary`,
         }}
         ref={ref}
       >

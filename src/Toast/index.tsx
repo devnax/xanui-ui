@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { UseColorTemplateColor, UseColorTemplateType, Transition, useBreakpointPropsType, Renderar } from "@xanui/core";
 import React, { ReactElement, useState } from "react";
 import Alert, { AlertProps } from "../Alert";
@@ -105,7 +105,7 @@ const ToastView = (props: UseToastProps & { tid: string, onExited: (tid: string)
     >
         <Alert
             variant="fill"
-            color="primary"
+            color="brand"
             {...rest as any}
             direction={"row"}
             mb={1}

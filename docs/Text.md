@@ -11,7 +11,7 @@ export default function HeadingBlock() {
 	return (
 		<>
 			<Text variant="h2">Dashboard</Text>
-			<Text variant="small" color="default.muted">
+			<Text variant="small" color="text.secondary">
 				Track the latest performance metrics in one place.
 			</Text>
 		</>
@@ -49,7 +49,7 @@ import Text from '@xanui/ui/Text';
 
 export default function LabelText() {
 	return (
-		<Text component="span" variant="sm" color="default.muted">
+		<Text component="span" variant="sm" color="text.secondary">
 			Required
 		</Text>
 	);

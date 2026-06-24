@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState, ReactElement } from "react";
 import {
   Tag,
@@ -56,7 +56,7 @@ const Checkbox = React.forwardRef(
     const [c, set] = useState(false);
     checked ??= c;
     size ??= "md";
-    color ??= "primary";
+    color ??= "brand";
 
     onChange = onChange || (() => set(!c));
     if (indeterminate) {
@@ -94,7 +94,7 @@ const Checkbox = React.forwardRef(
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: checked ? color : "default.muted",
+            color: checked ? `${color}.primary` : "text.secondary",
             cursor: "pointer",
             disabled: disabled,
             fontSize: size,

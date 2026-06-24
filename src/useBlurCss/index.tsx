@@ -1,11 +1,11 @@
-"use client"
+﻿"use client"
 import { useMemo } from "react"
 
 let _d: CSSStyleDeclaration;
 
 const useBlurCss = (blur: number, mode?: "transparent" | "blur") => {
    return useMemo(() => {
-      let transparent = { bgcolor: "default.ghost" }
+      let transparent = { bgcolor: "paper.ghost.primary" }
       if (typeof window === 'undefined' || mode === 'transparent') {
          return transparent
       }

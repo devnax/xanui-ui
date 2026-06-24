@@ -13,7 +13,7 @@
     "release": "makepack release"
   },
   "dependencies": {
-    "@xanui/core": "^1.3.24",
+    "@xanui/core": "^1.3.25",
     "@xanui/icons": "^1.1.14",
     "pretty-class": "^1.0.8"
   },

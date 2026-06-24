@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { ReactElement, useEffect, useRef, useState } from "react";
 import {
   Tag,
@@ -77,7 +77,7 @@ const RangeSlider = (props: RangeSliderProps) => {
   }
 
   if (disabled) {
-    color = "default.divider";
+    color = "divider.primary";
   }
 
   const isControlled = value !== undefined;
@@ -187,7 +187,7 @@ const RangeSlider = (props: RangeSliderProps) => {
           position: "absolute",
           width: "100%",
           height: _size.track,
-          bgcolor: "default.divider",
+          bgcolor: "divider.primary",
           radius: `${_size.track}px`,
         }}
       />

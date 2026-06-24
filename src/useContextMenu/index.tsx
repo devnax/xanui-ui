@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Renderar, Tag, TagComponentType } from "@xanui/core";
 import { useEffect, useRef, useState } from "react";
 import Menu, { MenuProps } from "../Menu";
@@ -29,7 +29,7 @@ const useContextMenu = ({
           top={y}
           left={x}
           zIndex={99999999999999}
-          bgcolor="default.primary"
+          bgcolor="paper.primary"
           height={0}
           width={0}
         />

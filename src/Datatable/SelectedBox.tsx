@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import IconButton from "../IconButton";
 import Stack from "../Stack";
 import Text from "../Text";
@@ -12,7 +12,7 @@ const SelectedBox = (props: DatatablePropsWithState) => {
 
   return (
     <Stack
-      bgcolor="default.primary"
+      bgcolor="paper.primary"
       direction="row"
       alignItems="center"
       justifyContent="space-between"
@@ -31,7 +31,7 @@ const SelectedBox = (props: DatatablePropsWithState) => {
               <IconButton
                 key={label}
                 variant="ghost"
-                color="primary"
+                color="brand"
                 {...bprops}
               >
                 {icon}

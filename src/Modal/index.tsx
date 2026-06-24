@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { ReactNode } from "react";
 // import useModal, { UseModalProps } from "../useModal";
 import { Renderar, Tag, TagProps } from "@xanui/core";
@@ -51,7 +51,7 @@ const Modal = (props: ModalProps) => {
           maxWidth: sizes[size as any] || size,
           width: "100%",
           radius: 2,
-          bgcolor: "default.primary",
+          bgcolor: "paper.primary",
           shadow: 15,
           ...root?.sx,
         }}

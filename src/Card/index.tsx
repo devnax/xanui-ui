@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import {
   Tag,
@@ -9,7 +9,7 @@ import {
 } from "@xanui/core";
 
 export type CardProps<T extends TagComponentType = "div"> = TagProps<T> & {
-  variant?: "elevated" | "outline" | "fill" | false;
+  variant?: "outline" | "fill" | false;
 };
 
 const Card = React.forwardRef(
@@ -22,18 +22,15 @@ const Card = React.forwardRef(
     const _p: any = {};
     if (variant !== undefined) _p.variant = variant;
     const p: any = useBreakpointProps(_p);
-    variant = p.variant ?? "elevated";
+    variant = p.variant ?? "fill";
 
     const variantSx: any = {
-      elevated: {
-        shadow: 2,
-      },
       outline: {
         border: "1px solid",
-        borderColor: "default.divider",
+        borderColor: "divider.primary",
       },
       fill: {
-        bgcolor: "default.primary",
+        bgcolor: "paper.primary",
       },
     };
 

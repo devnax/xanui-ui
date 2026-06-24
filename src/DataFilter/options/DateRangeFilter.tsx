@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { DataFilterDate } from "../types";
 import IconButton from "../../IconButton";
@@ -18,7 +18,7 @@ const DateRangeFilter = ({ option, onChange, value }: Props) => {
   const isValue = value !== null && value !== undefined && value.length === 2;
 
   return (
-    <Stack width={"100%"} bgcolor="default.primary" p={1} radius={1}>
+    <Stack width={"100%"} bgcolor="paper.primary" p={1} radius={1}>
       <Stack
         direction="row"
         alignItems="center"

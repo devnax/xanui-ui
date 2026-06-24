@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { ReactNode, useEffect, useState, useRef } from "react";
 import {
   Tag,
@@ -279,7 +279,7 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
             {...slotProps?.content}
             sxr={{
               overflow: "hidden",
-              bgcolor: "default.primary",
+              bgcolor: "paper.primary",
               shadow: 2,
               radius: 1,
               transformOrigin: getTransformOrigin(placed),

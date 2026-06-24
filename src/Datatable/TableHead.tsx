@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import TableHead from "../TableHead";
 import TableRow from "../TableRow";
 import TableCell from "../TableCell";
@@ -91,14 +91,14 @@ const TableHeadRender = ({
                 }
               }}
             >
-              <Text color="default.muted" fontWeight={600}>
+              <Text color="text.secondary" fontWeight={600}>
                 {label}
               </Text>
               {sortable && (
                 <>
                   <SwitchRight
                     opacity={sortables[_f as any] ? 1 : 0.3}
-                    color={sortables[_f as any] ? "primary" : "default.muted"}
+                    color={sortables[_f as any] ? "brand.primary" : "text.secondary"}
                     sx={{
                       fontSize: 23,
                       transform:

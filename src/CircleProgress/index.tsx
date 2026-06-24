@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { ReactElement, useId } from "react";
 import {
   Tag,
@@ -51,7 +51,7 @@ const CircleProgress = React.forwardRef(
     if (speed) _p.speed = speed;
     const p: any = useBreakpointProps(_p);
 
-    color = p.color ?? "primary";
+    color = p.color ?? "brand";
     trackColor = p.trackColor;
     thumbColor = p.thumbColor;
     size = p.size ?? "md";
@@ -61,11 +61,11 @@ const CircleProgress = React.forwardRef(
     speed = p.speed ?? 1.5;
 
     if (trackColor === "default") {
-      trackColor = "default.divider";
+      trackColor = "divider.primary";
     }
 
     if (thumbColor === "default") {
-      thumbColor = "default.contrast";
+      thumbColor = "text.primary";
     }
 
     let sizes: any = {
@@ -95,8 +95,7 @@ const CircleProgress = React.forwardRef(
       children = (
         <Tag
           sxr={{
-            color:
-              color === "default" ? "default.contrast" : `${color}.primary`,
+            color: color === "default" ? "text.primary" : `${color}.primary`,
             fontSize: Math.max(10, size * 0.24),
             fontWeight: 500,
             lineHeight: 1,
@@ -136,7 +135,7 @@ const CircleProgress = React.forwardRef(
               strokeDashoffset: percent,
               stroke:
                 thumbColor ||
-                (color === "default" ? `default.contrast` : `${color}.primary`),
+                (color === "default" ? `text.primary` : `${color}.primary`),
               fill: "none",
               strokeWidth: thumbSize,
               strokeLinecap: "round",
@@ -151,7 +150,7 @@ const CircleProgress = React.forwardRef(
             },
             "& circle.circle-progress-track": {
               fill: "none",
-              stroke: trackColor || `default.divider`,
+              stroke: trackColor || `divider.primary`,
               strokeWidth: trackSize ?? thumbSize,
             },
           },

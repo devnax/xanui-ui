@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   Tag,
   TagProps,
@@ -68,7 +68,7 @@ const Alert = ({ children, ...rest }: AlertProps) => {
 
   let iconsx = {
     fontSize: isRow ? "h6" : "h2",
-    color: color === "default" ? "default.contrast" : template.main.color,
+    color: color === "default" ? "text.primary" : template.main.color,
   };
 
   const icons: any = {
@@ -274,16 +274,16 @@ const ConfirmAlert = (props: ConfirmAlertProps) => {
   let okcolor = color;
   let closecolor = color;
   if (color === "default") {
-    okcolor = "primary";
-    closecolor = "default";
+    okcolor = "brand";
+    closecolor = "paper";
     variant = "text";
   } else {
     if (variant === "fill") {
-      okcolor = "default";
-      closecolor = "default";
+      okcolor = "paper";
+      closecolor = "paper";
     } else {
       okcolor = color;
-      closecolor = "default";
+      closecolor = "paper";
     }
   }
 

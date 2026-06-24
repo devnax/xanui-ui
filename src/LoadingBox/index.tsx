@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import {
   Tag,
@@ -65,7 +65,7 @@ const LoadingBox = React.forwardRef(
             }}
           >
             <CircleProgress
-              color="primary"
+              color="brand"
               hideTrack
               {...slotProps?.CircleProgress}
             />

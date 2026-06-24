@@ -43,8 +43,8 @@ const IconButton = React.forwardRef(
     const p: any = useBreakpointProps(_p);
 
     size = p.size ?? "md";
-    color = p.color;
-    variant = p.variant;
+    color = p.color ?? "brand";
+    variant = p.variant ?? "text";
     corner = p.corner ?? "circle";
 
     let template = useColorTemplate(color || "primary", variant || "fill");

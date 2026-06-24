@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { ReactElement, useId } from "react";
 import {
   Tag,
@@ -49,7 +49,7 @@ const LineProgress = React.forwardRef(
           height: thumbSize,
           position: "relative",
           overflow: "hidden",
-          bgcolor: hideTrack ? "transparent" : `default.divider`,
+          bgcolor: hideTrack ? "transparent" : `divider.primary`,
           radius: 2,
         }}
         ref={ref}
@@ -58,7 +58,7 @@ const LineProgress = React.forwardRef(
           component="span"
           baseClass="line-progress-thumb"
           sxr={{
-            bgcolor: color === "default" ? `default.contrast` : `${color}`,
+            bgcolor: color === "default" ? `text.primary` : `${color}`,
             width: isVal ? `${value}%` : "50%",
             height: thumbSize,
             position: "absolute",

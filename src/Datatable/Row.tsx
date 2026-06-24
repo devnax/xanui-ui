@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import TableRow from "../TableRow";
 import TableCell from "../TableCell";
@@ -80,7 +80,7 @@ const Row = ({
         <TableCell
           width={30}
           bgcolor={selectedColor}
-          borderColor="default.divider"
+          borderColor="divider.primary"
         >
           <IconButton
             disabled={isDisable || selected}
@@ -96,7 +96,7 @@ const Row = ({
             onClickOutside={() => setTarget(null)}
           >
             <List
-              bgcolor="default.primary"
+              bgcolor="paper.primary"
               minWidth={160}
               sx={{
                 "& > li": {

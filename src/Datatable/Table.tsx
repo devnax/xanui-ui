@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import TableHead from "./TableHead";
 import Table from "../Table";
 import TableBody from "../TableBody";
@@ -13,7 +13,7 @@ const TableArea = (props: DatatablePropsWithState) => {
       width="100%"
       size={compact ? "sm" : "md"}
       border="1px solid"
-      borderColor="default.divider"
+      borderColor="divider.primary"
       {...slotProps?.table}
     >
       <TableHead {...props} update={update} state={state} />

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 import React from 'react';
 import { Tag, TagProps, TagComponentType } from '@xanui/core';
 
@@ -14,7 +14,7 @@ const TableCell = React.forwardRef(<T extends TagComponentType = "td">({ childre
                 verticalAlign: "inherit",
                 textAlign: "left",
                 fontSize: "inherit",
-                color: "default.contrast",
+                color: "text.primary",
                 ...((rest as any)?.sx || {})
             }}
             baseClass='table-cell'

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import FilePicker, { FilePickerError, FilePickerProps } from "../FilePicker";
 import Alert, { AlertProps } from "../Alert";
@@ -31,7 +31,7 @@ const FileCard = ({
       width={100}
       height={100}
       border="1px solid"
-      borderColor="default.divider"
+      borderColor="divider.primary"
       radius={1}
       overflow="hidden"
       position="relative"
@@ -169,12 +169,12 @@ const GalleryPicker = React.forwardRef(
             <Stack
               width={100}
               height={100}
-              bgcolor="default.primary"
+              bgcolor="paper.primary"
               radius={1}
               alignItems="center"
               overflow={"hidden"}
               border="1px solid"
-              borderColor="default.divider"
+              borderColor="divider.primary"
             >
               <FilePicker
                 {...filePickerProps}
@@ -184,7 +184,7 @@ const GalleryPicker = React.forwardRef(
                 flex={1}
                 cursor={"pointer"}
                 borderBottom={"1px solid"}
-                borderColor="default.divider"
+                borderColor="divider.primary"
                 sx={{
                   "& svg": {
                     opacity: 0.6,
@@ -196,7 +196,7 @@ const GalleryPicker = React.forwardRef(
               >
                 <AddPhotoAlternateOutlined
                   fontSize={28}
-                  color="default.muted"
+                  color="text.secondary"
                 />
               </FilePicker>
               <Button
@@ -240,7 +240,7 @@ const GalleryPicker = React.forwardRef(
           {...filePickerProps}
           width="100%"
           border="1px dashed"
-          borderColor="default.divider"
+          borderColor="divider.primary"
           radius={2}
           alignItems="center"
           justifyContent="center"
@@ -259,14 +259,14 @@ const GalleryPicker = React.forwardRef(
               {(icon as any) || (
                 <AddPhotoAlternateOutlined
                   fontSize={38}
-                  color="default.muted"
+                  color="text.secondary"
                 />
               )}
             </Tag>
             <Text>
               {(title as any) || "Drag & drop images here or click to upload."}
             </Text>
-            <Text variant="sm" color="default.muted">
+            <Text variant="sm" color="text.secondary">
               {(subtitle as any) ||
                 `Images only · Max ${filePickerProps.maxFileSize / 1024}MB each · Up to ${filePickerProps.maxFileLimits} files.`}
             </Text>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import {
   Tag,
@@ -128,7 +128,7 @@ const Input = React.forwardRef(
     startIcon = p.startIcon;
     endIcon = p.endIcon;
     iconPlacement = p.iconPlacement;
-    color = p.color ?? "primary";
+    color = p.color ?? "brand";
     variant = p.variant ?? "fill";
     helperText = p.helperText;
     size = p.size ?? "md";
@@ -221,12 +221,15 @@ const Input = React.forwardRef(
     };
 
     const _size = sizes[size];
-    let borderColor = _focus
-      ? color
-      : variant === "fill"
-        ? "transparent"
-        : `${color}.divider`;
-    borderColor = error ? "danger.divider" : borderColor;
+    let borderColor = "transparent";
+    if (variant === "fill") {
+      borderColor = "divider.primary";
+    }
+    if (_focus) {
+      borderColor = color === "default" ? "brand.primary" : `${color}.primary`;
+    }
+
+    borderColor = error ? "danger.primary" : borderColor;
     let multiprops: any = {};
     if (multiline) {
       multiprops = {
@@ -280,7 +283,7 @@ const Input = React.forwardRef(
               bgcolor: error
                 ? "danger.ghost"
                 : variant === "fill"
-                  ? "default.primary"
+                  ? "paper.primary"
                   : "transparent",
               border: variant === "text" ? 0 : "1px solid",
               borderColor: borderColor,
@@ -292,8 +295,8 @@ const Input = React.forwardRef(
               minHeight: _size.height,
               "& > input:-webkit-autofill,& > input:-webkit-autofill:hover, & > input:-webkit-autofill:focus,& > input:-webkit-autofill:active":
                 {
-                  "-webkit-text-fill-color": "default.contrast",
-                  "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.default.primary : theme.colors.default.primary} inset`,
+                  "-webkit-text-fill-color": "text.primary",
+                  "box-shadow": `0 0 0px 1000px ${variant === "fill" ? theme.colors.paper.primary : theme.colors.paper.primary} inset`,
                   transition: "background-color 5000s ease-in-out 0s",
                 } as any,
               "& textarea": {
@@ -306,7 +309,7 @@ const Input = React.forwardRef(
                   alignItems: "center",
                   justifyContent: "center",
                   display: "flex",
-                  color: error ? "danger.primary" : "default.muted",
+                  color: error ? "danger.primary" : "text.secondary",
                   flex: "0 0 auto",
                   fontSize: icon_sizes[size],
                 },
@@ -318,7 +321,7 @@ const Input = React.forwardRef(
                   alignItems: "center",
                   justifyContent: "center",
                   display: "flex",
-                  color: error ? "danger.primary" : "default.muted",
+                  color: error ? "danger.primary" : "text.secondary",
                   flex: "0 0 auto",
                   fontSize: icon_sizes[size],
                 },
@@ -337,7 +340,7 @@ const Input = React.forwardRef(
                 border: 0,
                 outline: 0,
                 bgcolor: "transparent",
-                color: error ? "danger.primary" : "default.contrast",
+                color: error ? "danger.primary" : "text.primary",
                 fontSize: _size.fontSize,
                 height: multiline ? "auto" : _size.height + "px!important",
                 width: "100%",
@@ -369,7 +372,7 @@ const Input = React.forwardRef(
               ref={refs?.helperText}
               baseClass="input-helper-text"
               sxr={{
-                color: error ? "danger.primary" : "default.contrast",
+                color: error ? "danger.primary" : "text.primary",
                 fontSize: "sm",
                 lineHeight: "sm",
                 fontWeight: "sm",

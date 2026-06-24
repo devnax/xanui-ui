@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { DataFilterSelect } from "../types";
@@ -24,7 +24,7 @@ const SelectFilter = ({ option, onChange, value }: Props) => {
   const ref: any = React.useRef(null);
   const [target, setTarget] = React.useState<HTMLElement | undefined>();
   return (
-    <Stack width={"100%"} bgcolor="default.primary" p={1} radius={1}>
+    <Stack width={"100%"} bgcolor="paper.primary" p={1} radius={1}>
       <Stack
         direction="row"
         alignItems="center"

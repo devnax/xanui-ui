@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import {
   Tag,
@@ -84,11 +84,11 @@ const Table = React.forwardRef(
     let border: any = {
       line: {
         borderBottom: "1px solid",
-        borderColor: "default.divider",
+        borderColor: "divider.primary",
       },
       box: {
         border: "1px solid",
-        borderColor: "default.divider",
+        borderColor: "divider.primary",
       },
       none: {},
     };
@@ -103,7 +103,7 @@ const Table = React.forwardRef(
           {...rest}
           baseClass="table"
           sxr={{
-            color: "default.contrast",
+            color: "text.primary",
             fontSize: "text",
             width: "100%",
             "& thead, & tfoot": {

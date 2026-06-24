@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import {
   Tag,
@@ -31,7 +31,7 @@ const Text = React.forwardRef(
           fontSize: variant,
           lineHeight: variant,
           fontWeight: variant,
-          color: "default.contrast",
+          color: "text.primary",
         }}
         baseClass="text"
         ref={ref}

@@ -20,7 +20,9 @@ const ThemeBox = () => {
       <IconButton
         onClick={() => {
           theme.update(
-            theme.name === "light" ? { mode: "dark" } : { mode: "light" },
+            theme.name === "light"
+              ? { name: "dark", mode: "dark" }
+              : { name: "light", mode: "light" },
           );
         }}
       >
@@ -89,13 +91,7 @@ const Layout = () => {
       <AppRoot theme={theme} onThemeUpdate={(t) => setTheme(t)}>
         <Stack height="100vh" flexRow>
           <ViewBox width={250} height="100%" endContent={<ThemeBox />}>
-            <Text
-              p={1}
-              variant="md"
-              fontWeight={600}
-              mb={2}
-              color="default.contrast"
-            >
+            <Text p={1} variant="md" fontWeight={600} mb={2}>
               Components
             </Text>
             <List p={1} variant="fill">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { ReactElement, useState } from "react";
 import {
   Tag,
@@ -88,7 +88,7 @@ const Accordion = React.forwardRef(
       },
     ] = useThemeComponent<any>("Accordion", rest, {
       onClick: () => setExpand(!_expand) as any,
-      color: "primary",
+      color: "brand",
       variant: "ghost",
     });
 
@@ -195,7 +195,7 @@ const Accordion = React.forwardRef(
       <Tag
         {...rootProps}
         sxr={{
-          bgcolor: "default.10",
+          bgcolor: "paper.primary",
         }}
         baseClass="accordion"
         classNames={[{ "accordion-expanded": expand }, ...(classNames || [])]}
@@ -229,10 +229,10 @@ const Accordion = React.forwardRef(
             <Tag
               {...slotProps?.content}
               sxr={{
-                color: "default.contrast",
+                color: "text.primary",
                 p: 2,
                 py: 1,
-                bgcolor: "default.10",
+                bgcolor: "paper.primary",
               }}
               baseClass="accordion-content"
             >

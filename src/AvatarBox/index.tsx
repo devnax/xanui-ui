@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import { Tag, TagProps } from "@xanui/core";
 import Avatar, { AvatarProps } from "../Avatar";
@@ -46,7 +46,7 @@ const AvatarBox = React.forwardRef(
           {subtitle && (
             <Text
               fontSize={"sm"}
-              color="default.primary"
+              color="text.secondary"
               {...slotProps?.subtitle}
               classNames="avatar-box-subtitle"
             >
