@@ -94,7 +94,7 @@ const Layout = () => {
             <Text p={1} variant="md" fontWeight={600} mb={2}>
               Components
             </Text>
-            <List p={1} variant="fill">
+            <List p={1} variant="ghost">
               {menu.map((m, idx) => (
                 <ListItem
                   key={m.label}
@@ -106,7 +106,9 @@ const Layout = () => {
                   selected={currentMenuIndex === idx}
                   endIcon={
                     <CheckIcon
-                      color={m.done ? "success" : "success.ghost"}
+                      color={
+                        m.done ? "success.primary" : "success.ghost.primary"
+                      }
                       fontSize={20}
                     />
                   }

@@ -51,7 +51,7 @@ const Modal = (props: ModalProps) => {
           maxWidth: sizes[size as any] || size,
           width: "100%",
           radius: 2,
-          bgcolor: "paper.primary",
+          bgcolor: "surface.primary",
           shadow: 15,
           ...root?.sx,
         }}

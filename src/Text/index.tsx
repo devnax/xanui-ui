@@ -34,7 +34,7 @@ const Text = React.forwardRef(
           color: "text.primary",
         }}
         baseClass="text"
-        ref={ref}
+        ref={ref as any}
       >
         {children}
       </Tag>

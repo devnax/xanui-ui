@@ -91,7 +91,7 @@ const Buttons = () => {
           <Button color="default" loading>
             Button
           </Button>
-          <Button startIcon={<InfoIcon />} color="primary" loading>
+          <Button startIcon={<InfoIcon />} color="brand" loading>
             Button
           </Button>
           <Button startIcon={<InfoIcon />} color="info" direction="row">
@@ -107,13 +107,13 @@ const Buttons = () => {
       </Section>
       <Section title="Variants">
         <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
-          <Button color="primary" variant="fill">
+          <Button color="brand" variant="fill">
             Button
           </Button>
-          <Button color="primary" variant="outline">
+          <Button color="brand" variant="outline">
             Outline
           </Button>
-          <Button color="primary" variant="text">
+          <Button color="brand" variant="text">
             Button
           </Button>
         </Stack>
@@ -122,15 +122,15 @@ const Buttons = () => {
         <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
           <Button
             startIcon={<InfoIcon fontSize={20} />}
-            color="primary"
+            color="brand"
             size="xs"
           >
             Button
           </Button>
-          <Button color="primary" size="md">
+          <Button color="brand" size="md">
             Button
           </Button>
-          <Button color="primary" size="lg">
+          <Button color="brand" size="lg">
             Button
           </Button>
         </Stack>
@@ -140,9 +140,8 @@ const Buttons = () => {
         <Stack flexRow gap={2} alignItems="center" flexWrap="wrap">
           <Button
             startIcon={<InfoIcon fontSize={20} />}
-            color="primary"
+            color="brand"
             size="xs"
-            corner="circle"
           >
             Button
           </Button>
