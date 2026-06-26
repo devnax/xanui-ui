@@ -1,12 +1,5 @@
 "use client";
-import React, {
-  ReactElement,
-  useMemo,
-  cloneElement,
-  useState,
-  Children,
-  useRef,
-} from "react";
+import React, { ReactElement, useState, useRef, Children } from "react";
 import Input, { InputProps } from "../Input";
 import List, { ListProps } from "../List";
 import Menu, { MenuProps } from "../Menu";
@@ -14,13 +7,14 @@ import { OptionProps } from "../Option";
 import DownIcon from "@xanui/icons/KeyboardArrowDown";
 import UpIcon from "@xanui/icons/KeyboardArrowUp";
 import { useThemeComponent, useMergeRefs } from "@xanui/core";
+import { SelectContext } from "./context";
 
 export type SelectProps = Omit<
   InputProps,
   "onChange" | "value" | "children" | "slotProps"
 > & {
-  value?: string | number;
-  onChange?: (value: string | number) => void;
+  value?: string;
+  onChange?: (value: string) => void;
   children: ReactElement<OptionProps> | ReactElement<OptionProps>[];
   disableArrow?: boolean;
   refs?: {
@@ -44,6 +38,7 @@ const Select = React.forwardRef(
       error,
       helperText,
       disableArrow,
+      startIcon,
       endIcon,
       name,
       refs,
@@ -53,36 +48,39 @@ const Select = React.forwardRef(
   ) => {
     let [{ slotProps, color, variant, size, ...inputProps }] =
       useThemeComponent<any>("Select", props, {});
-    color ??= "primary";
+    color ??= "brand";
     variant ??= "fill";
     size ??= "md";
+    const [selectOptionProps, setSelectedOptionProps] = useState<OptionProps>(
+      () => {
+        const selecTedProps: any = Children.toArray(children).find(
+          (c: any) => c.props.value.toString() === value?.toString(),
+        );
+
+        if (selecTedProps) {
+          return selecTedProps.props;
+        }
+      },
+    );
     const [target, setTarget] = useState<any>();
     const conRef = useRef(null);
-    const { childs, selectedProps } = useMemo(() => {
-      let sProps: any = {};
-      const c = Children.map(children, (child: any) => {
-        let selected = child.props.value === value;
-        if (selected) sProps = child.props;
-        return cloneElement(child, {
-          value: undefined,
-          selected,
-          onClick: () => {
-            setTarget(null);
-            onChange && onChange(child.props.value);
-          },
-        });
-      });
-      return {
-        childs: c,
-        selectedProps: sProps as OptionProps,
-      };
-    }, [children, value]);
 
     const mergeRefs = useMergeRefs(ref, conRef);
     const toggleMenu = () => setTarget(target ? null : conRef.current);
 
     return (
-      <>
+      <SelectContext.Provider
+        value={{
+          value,
+          onChange: (optionProps) => {
+            setTarget(null);
+            if (onChange) {
+              setSelectedOptionProps(optionProps);
+              onChange(optionProps.value);
+            }
+          },
+        }}
+      >
         <Input
           size={size}
           ref={mergeRefs}
@@ -95,20 +93,16 @@ const Select = React.forwardRef(
             </>
           }
           readOnly
-          value={
-            typeof selectedProps.children === "string"
-              ? selectedProps.children
-              : value
-          }
+          value={selectOptionProps?.children || ""}
           cursor="pointer"
           userSelect="none"
-          startIcon={selectedProps.startIcon}
           focused={!!target}
           error={error}
           helperText={helperText}
           name={name}
           {...slotProps?.input}
           {...inputProps}
+          startIcon={selectOptionProps?.startIcon ?? startIcon}
           refs={{
             input: refs?.input,
             ...slotProps?.input?.refs,
@@ -155,10 +149,10 @@ const Select = React.forwardRef(
             }
             overflow={"auto"}
           >
-            {childs}
+            {children}
           </List>
         </Menu>
-      </>
+      </SelectContext.Provider>
     );
   },
 );

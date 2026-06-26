@@ -20,9 +20,11 @@ const ThemeBox = () => {
       <IconButton
         onClick={() => {
           theme.update(
-            theme.name === "light"
-              ? { name: "dark", mode: "dark" }
-              : { name: "light", mode: "light" },
+            createTheme(
+              theme.name === "light"
+                ? { name: "dark", mode: "dark" }
+                : { name: "light", mode: "light" },
+            ),
           );
         }}
       >
@@ -77,7 +79,9 @@ const Layout = () => {
   );
   const currentMenu = menu[currentMenuIndex];
   const Render: any = currentMenu?.render || (() => <></>);
-  const [theme, setTheme] = React.useState<any>({ mode: "light" });
+  const [theme, setTheme] = React.useState<any>(
+    createTheme({ name: "light", mode: "light" }),
+  );
 
   React.useEffect(() => {
     const ele = document.getElementById(`menu-${currentMenuIndex}`);

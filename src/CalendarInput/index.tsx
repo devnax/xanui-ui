@@ -56,6 +56,7 @@ const CalenderInput = (props: CalenderInpurProps) => {
             )}
           </>
         }
+        width={32 * 7 + 16}
         cursor="pointer"
         ref={inputRef}
         onFocus={() => setTarget(target ? null : inputRef?.current)}

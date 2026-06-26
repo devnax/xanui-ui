@@ -7,7 +7,6 @@ import { DatatablePropsWithState } from "./types";
 
 const TableArea = (props: DatatablePropsWithState) => {
   let { rows, compact, renderRow, state, update, slotProps } = props;
-
   return (
     <Table
       width="100%"

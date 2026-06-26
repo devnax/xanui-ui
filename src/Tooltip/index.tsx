@@ -7,20 +7,12 @@ import {
   useState,
 } from "react";
 import Menu, { MenuProps } from "../Menu";
-import {
-  useBreakpointProps,
-  useColorTemplate,
-  UseColorTemplateColor,
-  UseColorTemplateType,
-  useBreakpointPropsType,
-} from "@xanui/core";
+import { useBreakpointProps, useBreakpointPropsType } from "@xanui/core";
 import Text, { TextProps } from "../Text";
 
 export type TooltipProps = {
   children: ReactElement;
   title: useBreakpointPropsType<string | ReactElement>;
-  color?: useBreakpointPropsType<UseColorTemplateColor>;
-  variant?: useBreakpointPropsType<UseColorTemplateType>;
   placement?: MenuProps["placement"];
   slotProps?: {
     title?: Omit<TextProps, "children">;
@@ -28,26 +20,14 @@ export type TooltipProps = {
   };
 };
 
-const Tooltip = ({
-  children,
-  title,
-  variant,
-  color,
-  placement,
-  slotProps,
-}: TooltipProps) => {
+const Tooltip = ({ children, title, placement, slotProps }: TooltipProps) => {
   const [target, setTarget] = useState<any>();
   const _p: any = {};
   if (title) _p.title = title;
-  if (color) _p.color = color;
-  if (variant) _p.variant = variant;
   const p: any = useBreakpointProps(_p);
   title = p.title;
-  color = p.color ?? "default";
-  variant = p.variant ?? "fill";
   placement ??= "bottom";
 
-  const template = useColorTemplate(color as any, variant as any);
   if (!children || Array.isArray(children))
     throw new Error("Invalid children in Toast");
   const first: any = Children.toArray(children).shift();
@@ -69,10 +49,8 @@ const Tooltip = ({
           ...slotProps?.menu?.slotProps,
           content: {
             p: 0.5,
-            shadow: 1,
-            ...template.main,
-            bgcolor:
-              color == "default" ? "paper.primary" : template.main.bgcolor,
+            shadow: "xs",
+            bgcolor: "paper.primary",
             ...slotProps?.menu?.slotProps?.content,
           },
         }}

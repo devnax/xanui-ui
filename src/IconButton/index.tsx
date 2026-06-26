@@ -115,9 +115,6 @@ const IconButton = React.forwardRef(
           userSelect: "none",
           flexShrink: 0,
           bgcolor: "transparent",
-          "&:active": {
-            transform: variant !== "text" ? "scale(0.97)" : undefined,
-          },
 
           "& svg": {
             width: "1em",

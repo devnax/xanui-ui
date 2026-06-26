@@ -26,7 +26,7 @@ const TableHeadRender = ({
 
   return (
     <TableHead position="relative">
-      <TableRow bgcolor="default" borderBottom={1}>
+      <TableRow bgcolor="paper.primary" borderBottom={1}>
         {!hideCheckbox && (
           <TableCell th width={40}>
             <Checkbox
@@ -98,7 +98,9 @@ const TableHeadRender = ({
                 <>
                   <SwitchRight
                     opacity={sortables[_f as any] ? 1 : 0.3}
-                    color={sortables[_f as any] ? "brand.primary" : "text.secondary"}
+                    color={
+                      sortables[_f as any] ? "brand.primary" : "text.secondary"
+                    }
                     sx={{
                       fontSize: 23,
                       transform:

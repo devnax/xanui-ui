@@ -189,9 +189,6 @@ const Button = React.forwardRef(
           userSelect: "none",
           fontWeight: 500,
           radius,
-          "&:active": {
-            transform: variant !== "text" ? "scale(0.99)" : undefined,
-          },
           ..._size,
           ...template.main,
         }}

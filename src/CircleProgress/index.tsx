@@ -62,10 +62,14 @@ const CircleProgress = React.forwardRef(
 
     if (trackColor === "default") {
       trackColor = "divider.primary";
+    } else if (trackColor) {
+      trackColor = `${trackColor}.primary`;
     }
 
     if (thumbColor === "default") {
       thumbColor = "text.primary";
+    } else if (thumbColor) {
+      thumbColor = `${thumbColor}.primary`;
     }
 
     let sizes: any = {
@@ -158,7 +162,7 @@ const CircleProgress = React.forwardRef(
           height: size,
           position: "relative",
         }}
-        ref={ref}
+        ref={ref as any}
       >
         <svg viewBox="0 0 50 50" className="circle-progress-svg">
           {!hideTrack && (

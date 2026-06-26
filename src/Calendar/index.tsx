@@ -100,7 +100,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
   const month = currentDate.getMonth();
   const daysInMonth = 32 - new Date(year, month, 32).getDate();
   const today = new Date();
-  const btnWidth = 40;
+  const btnWidth = 32;
   const boxWidth = btnWidth * 7;
 
   const showCalendar = () => {
@@ -112,18 +112,20 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
     for (let i = 0; i < dayNames.length; i++) {
       const k = dayNames[i];
       row.push(
-        <Stack
+        <IconButton
           key={"dayname-" + i}
+          variant={"text"}
+          size={"xs"}
+          color="default"
+          disabled
           sx={{
             width: btnWidth,
             height: btnWidth,
             justifyContent: "center",
           }}
         >
-          <IconButton variant={"text"} size={"sm"} color="default" disabled>
-            {k}
-          </IconButton>
-        </Stack>,
+          {k}
+        </IconButton>,
       );
     }
 
@@ -180,33 +182,29 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
           }
 
           row.push(
-            <Stack
+            <IconButton
+              key={`date_${date}`}
               sx={{
                 width: btnWidth,
                 height: btnWidth,
                 justifyContent: "center",
               }}
-              key={date + j + i}
-              className="calender-day-item"
+              className="calender-day-button"
+              size={"xs"}
+              {...css}
+              data-value={date}
+              onClick={(e: any) => {
+                let d = e.target.getAttribute("data-value");
+                if (!d) return;
+                let selectedDate = new Date(year, month, parseInt(d));
+                onChange
+                  ? onChange(selectedDate)
+                  : setSelectedDate(selectedDate);
+                onButtonClick && onButtonClick("day", selectedDate);
+              }}
             >
-              <IconButton
-                className="calender-day-button"
-                size={"sm"}
-                {...css}
-                data-value={date}
-                onClick={(e: any) => {
-                  let d = e.target.getAttribute("data-value");
-                  if (!d) return;
-                  let selectedDate = new Date(year, month, parseInt(d));
-                  onChange
-                    ? onChange(selectedDate)
-                    : setSelectedDate(selectedDate);
-                  onButtonClick && onButtonClick("day", selectedDate);
-                }}
-              >
-                {date}
-              </IconButton>
-            </Stack>,
+              {date}
+            </IconButton>,
           );
           date++;
         }
@@ -245,7 +243,6 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
           width={"50%"}
           alignItems="center"
           justifyContent="center"
-          p={0.1}
           className="calender-months-item"
         >
           <Button
@@ -310,10 +307,9 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
   return (
     <ViewBox
       className="calender-root"
-      width={boxWidth}
-      maxHeight={400}
+      width={boxWidth + 16}
       radius={1}
-      bgcolor="paper.primary"
+      bgcolor="surface.primary"
       startContent={
         <Stack
           className="calender-header"
@@ -330,7 +326,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
           >
             {currentDate.toLocaleDateString(undefined, {
               year: "numeric",
-              month: "long",
+              month: "short",
             })}
           </Text>
           <IconButton
@@ -379,7 +375,7 @@ const Calendar = ({ value, ...rest }: CalendarProps) => {
         </Stack>
       }
     >
-      <Stack height="100%" p={0.5} className="calender-container">
+      <Stack p={1} height="100%" className="calender-container">
         {view}
       </Stack>
     </ViewBox>

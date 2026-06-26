@@ -195,7 +195,7 @@ const Accordion = React.forwardRef(
       <Tag
         {...rootProps}
         sxr={{
-          bgcolor: "paper.primary",
+          bgcolor: "surface.primary",
         }}
         baseClass="accordion"
         classNames={[{ "accordion-expanded": expand }, ...(classNames || [])]}
@@ -232,7 +232,7 @@ const Accordion = React.forwardRef(
                 color: "text.primary",
                 p: 2,
                 py: 1,
-                bgcolor: "paper.primary",
+                bgcolor: "surface.primary",
               }}
               baseClass="accordion-content"
             >

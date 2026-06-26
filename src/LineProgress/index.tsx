@@ -31,7 +31,7 @@ const LineProgress = React.forwardRef(
     const p: any = useBreakpointProps(_p);
 
     thumbSize = p.thumbSize ?? 4;
-    color = p.color ?? "primary";
+    color = p.color ?? "brand";
     value = p.value;
     hideTrack = p.hideTrack;
     speed = p.speed ?? 1;
@@ -52,13 +52,13 @@ const LineProgress = React.forwardRef(
           bgcolor: hideTrack ? "transparent" : `divider.primary`,
           radius: 2,
         }}
-        ref={ref}
+        ref={ref as any}
       >
         <Tag
           component="span"
           baseClass="line-progress-thumb"
           sxr={{
-            bgcolor: color === "default" ? `text.primary` : `${color}`,
+            bgcolor: color === "default" ? `text.primary` : `${color}.primary`,
             width: isVal ? `${value}%` : "50%",
             height: thumbSize,
             position: "absolute",

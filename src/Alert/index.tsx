@@ -275,15 +275,15 @@ const ConfirmAlert = (props: ConfirmAlertProps) => {
   let closecolor = color;
   if (color === "default") {
     okcolor = "brand";
-    closecolor = "paper";
+    closecolor = "default";
     variant = "text";
   } else {
     if (variant === "fill") {
-      okcolor = "paper";
-      closecolor = "paper";
+      okcolor = "brand";
+      closecolor = "default";
     } else {
       okcolor = color;
-      closecolor = "paper";
+      closecolor = "default";
     }
   }
 

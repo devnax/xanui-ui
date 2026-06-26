@@ -24,9 +24,9 @@ const Tabs = React.forwardRef(
     const p: any = useBreakpointProps(_p);
 
     variant = p.variant ?? "end-line";
-    color = p.color ?? "primary";
+    color = p.color ?? "brand";
     disableTransition = p.disableTransition;
-    indicatorSize = p.indicatorSize ?? 3;
+    indicatorSize = p.indicatorSize ?? 2;
 
     const indicatorRef = useRef<HTMLElement>(null);
     const indicatorState = useRef({
@@ -40,14 +40,15 @@ const Tabs = React.forwardRef(
         indicatorProps = {
           top: 0,
           border: "1px solid",
-          borderColor: color,
+          borderColor:
+            color === "default" ? "divider.primary" : `${color}.primary`,
           bgcolor: "transparent",
         };
         break;
       case "ghost":
         indicatorProps = {
           top: 0,
-          bgcolor: `${color}.ghost`,
+          bgcolor: `${color}.ghost.primary`,
         };
         break;
       case "text":
@@ -97,19 +98,22 @@ const Tabs = React.forwardRef(
               from: {
                 left: indicatorState.current.left ?? 0,
                 width: indicatorState.current.width ?? 0,
+                opacity: 0,
               },
               to: {
                 left: target.offsetLeft,
                 width: target.clientWidth,
+                opacity: 1,
               },
-              duration: 180,
+              duration: 300,
               easing: (t) => 1 - Math.pow(1 - t, 3),
-              onUpdate: ({ left, width }) => {
+              onUpdate: ({ left, width, opacity }) => {
                 indicatorState.current.left = left;
                 indicatorState.current.width = width;
 
                 indicator.style.left = `${left}px`;
                 indicator.style.width = `${width}px`;
+                indicator.style.opacity = `${opacity}`;
               },
             });
           },
@@ -134,8 +138,10 @@ const Tabs = React.forwardRef(
               radius: 1,
               position: "absolute",
               zIndex: -1,
-              bgcolor: color,
+              bgcolor:
+                color === "default" ? "paper.primary" : `${color}.primary`,
               height: 2,
+              radus: indicatorSize,
               ...indicatorProps,
             }}
           />

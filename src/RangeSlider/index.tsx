@@ -44,7 +44,7 @@ const RangeSlider = (props: RangeSliderProps) => {
     color,
     size,
   });
-  color = bp.color ?? "primary";
+  color = bp.color ?? "brand";
   size = bp.size;
 
   const sizesSX: any = {
@@ -74,10 +74,6 @@ const RangeSlider = (props: RangeSliderProps) => {
 
   if (thumbSize) {
     _size.thumb = thumbSize;
-  }
-
-  if (disabled) {
-    color = "divider.primary";
   }
 
   const isControlled = value !== undefined;
@@ -196,7 +192,7 @@ const RangeSlider = (props: RangeSliderProps) => {
         sxr={{
           position: "absolute",
           height: _size.track,
-          bgcolor: color,
+          bgcolor: `${color}.primary`,
           radius: `${_size.track}px`,
           left: `${startPercent}%`,
           width: `${endPercent - startPercent}%`,
@@ -213,7 +209,7 @@ const RangeSlider = (props: RangeSliderProps) => {
               width: _size.thumb,
               height: _size.thumb,
               radius: `${_size.thumb}px`,
-              bgcolor: color,
+              bgcolor: `${color}.primary`,
               left: `${percent}%`,
               transform: "translateX(-50%)",
               cursor: disabled ? "not-allowed" : "initial",

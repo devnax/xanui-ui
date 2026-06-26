@@ -108,10 +108,11 @@ const Table = React.forwardRef(
             width: "100%",
             "& thead, & tfoot": {
               bgcolor: main.main.bgcolor,
-              "& th": {
-                color: main.main.color,
-              },
             },
+            "& thead th, & tfoot th": {
+              color: main.main.color,
+            },
+
             "& td, & th": {
               p: _size,
               ...border[borderType],

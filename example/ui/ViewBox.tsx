@@ -8,7 +8,7 @@ const Viewboxes = () => {
     <Stack gap={2}>
       <ViewBox
         border="1px solid"
-        borderColor="default.divider"
+        borderColor="divider.primary"
         borderRadius={1}
         overflow="hidden"
         height={300}
@@ -20,7 +20,7 @@ const Viewboxes = () => {
       </ViewBox>
       <ViewBox
         border="1px solid"
-        borderColor="default.divider"
+        borderColor="divider.primary"
         borderRadius={1}
         overflow="hidden"
         height={300}
@@ -31,7 +31,7 @@ const Viewboxes = () => {
       </ViewBox>
       <ViewBox
         border="1px solid"
-        borderColor="default.divider"
+        borderColor="divider.primary"
         borderRadius={1}
         overflow="hidden"
         height={300}
@@ -42,7 +42,7 @@ const Viewboxes = () => {
       </ViewBox>
       <ViewBox
         border="1px solid"
-        borderColor="default.divider"
+        borderColor="divider.primary"
         borderRadius={1}
         overflow="hidden"
         height={300}
@@ -53,7 +53,7 @@ const Viewboxes = () => {
       </ViewBox>
       <ViewBox
         border="1px solid"
-        borderColor="default.divider"
+        borderColor="divider.primary"
         borderRadius={1}
         overflow="hidden"
         height={300}
@@ -64,7 +64,7 @@ const Viewboxes = () => {
       </ViewBox>
       <ViewBox
         border="1px solid"
-        borderColor="default.divider"
+        borderColor="divider.primary"
         borderRadius={1}
         overflow="hidden"
         height={300}
@@ -75,7 +75,7 @@ const Viewboxes = () => {
       </ViewBox>
       <ViewBox
         border="1px solid"
-        borderColor="default.divider"
+        borderColor="divider.primary"
         borderRadius={1}
         overflow="hidden"
         height={300}

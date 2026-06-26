@@ -222,7 +222,7 @@ const Input = React.forwardRef(
 
     const _size = sizes[size];
     let borderColor = "transparent";
-    if (variant === "fill") {
+    if (variant === "outline") {
       borderColor = "divider.primary";
     }
     if (_focus) {
@@ -281,11 +281,11 @@ const Input = React.forwardRef(
               flexWrap: "nowrap",
               transitionProperty: "border, box-shadow, background",
               bgcolor: error
-                ? "danger.ghost"
+                ? "danger.ghost.primry"
                 : variant === "fill"
                   ? "paper.primary"
                   : "transparent",
-              border: variant === "text" ? 0 : "1px solid",
+              border: variant === "text" ? 0 : 1,
               borderColor: borderColor,
               radius: radiuses[size],
               px: 1,

@@ -13,7 +13,7 @@ import People from "@xanui/icons/People";
 
 const TabItem = ({ color, variant, verticle }: any) => {
   const [val, setVal] = useState<string>("Services");
-  color ??= "primary";
+  color ??= "brand";
   variant ??= "end-line";
   return (
     <Stack gap={3} direction="row" alignItems="center">
@@ -41,7 +41,7 @@ const TabItem = ({ color, variant, verticle }: any) => {
 
 const MobileTab = ({ color, variant, verticle }: any) => {
   const [val, setVal] = useState<string>("home");
-  color ??= "primary";
+  color ??= "brand";
   variant ??= "end-line";
   return (
     <Stack gap={3} direction="row" alignItems="center">
@@ -68,8 +68,8 @@ const MobileTab = ({ color, variant, verticle }: any) => {
 };
 
 const TabView = () => {
-  const [color, setColor] = useState("primary");
-  const [variant, setVariant] = useState("start-line");
+  const [color, setColor] = useState("brand");
+  const [variant, setVariant] = useState("end-line");
   const [verticle, setVerticle] = useState(false);
   return (
     <Stack gap={3}>
@@ -84,7 +84,7 @@ const TabView = () => {
           <Text>Verticle?</Text>
         </Stack>
         <Select value={color} onChange={(v: any) => setColor(v)}>
-          <Option value="primary">primary</Option>
+          <Option value="brand">Brand</Option>
           <Option value="accent">accent</Option>
           <Option value="info">info</Option>
           <Option value="success">success</Option>

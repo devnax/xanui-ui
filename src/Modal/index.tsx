@@ -52,7 +52,7 @@ const Modal = (props: ModalProps) => {
           width: "100%",
           radius: 2,
           bgcolor: "surface.primary",
-          shadow: 15,
+          shadow: "xl",
           ...root?.sx,
         }}
         baseClass="modal"

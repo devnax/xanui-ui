@@ -94,7 +94,8 @@ const TablePagination = React.forwardRef(
               width={perpage.toString().length * 10 + 60}
               minWidth={"auto"}
               maxWidth={"auto"}
-              value={perpage}
+              size={"xs"}
+              value={perpage.toString()}
               onChange={(value: any) => {
                 onChange &&
                   onChange({
@@ -106,8 +107,8 @@ const TablePagination = React.forwardRef(
               }}
             >
               {perpages.map((p: number) => (
-                <Option key={p} value={p}>
-                  {p}
+                <Option key={p} value={p.toString()}>
+                  {p.toString()}
                 </Option>
               ))}
             </Select>

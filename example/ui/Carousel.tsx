@@ -93,7 +93,7 @@ const Carousels = () => {
             radius={1}
             overflow={"hidden"}
             border={index.includes(i) ? "2px solid" : "1px solid"}
-            borderColor={index.includes(i) ? "primary" : "default.primary"}
+            borderColor={index.includes(i) ? "brand.primary" : "paper.primary"}
             onClick={() => {
               ref.current?.goTo(i);
             }}

@@ -47,7 +47,7 @@ const Switch = React.forwardRef((props: SwitchProps, ref?: React.Ref<any>) => {
   if (icon) _p.icon = icon;
   const p: any = useBreakpointProps(_p);
   size = p.size ?? "md";
-  color = p.color ?? "primary";
+  color = p.color ?? "brand";
   disabled = p.disabled;
   trackSize = p.trackSize;
   icon = p.icon;
@@ -101,7 +101,7 @@ const Switch = React.forwardRef((props: SwitchProps, ref?: React.Ref<any>) => {
           position: "absolute",
           top: "50%",
           transform: "translateY(-50%)",
-          bgcolor: checked ? color : "divider.primary",
+          bgcolor: checked ? `${color}.primary` : "paper.primary",
         }}
       ></Tag>
       <Tag
@@ -116,6 +116,8 @@ const Switch = React.forwardRef((props: SwitchProps, ref?: React.Ref<any>) => {
           position: "absolute",
           top: "50%",
           border: isNormalSize ? 0 : 1,
+          borderColor: !checked ? "divider.primary" : `${color}.primary`,
+          shadow: "xs",
           left: 0,
           transform: `translate(${transform}, -50%)`,
           display: "flex",

@@ -1,12 +1,8 @@
 import React from "react";
 import Stack from "../../src/Stack";
 import Lists from "./List";
-import Accodiond from "./Accordion";
 import Section from "../Layout/Section";
 import { createTheme, ThemeProvider } from "@xanui/core";
-
-const lightTheme = createTheme({ mode: "light" });
-const darkTheme = createTheme({ mode: "dark" });
 
 const ThemeProviders = () => {
   return (
@@ -20,12 +16,20 @@ const ThemeProviders = () => {
         radius={2}
       >
         <Section title="Light Theme">
-          <ThemeProvider theme={lightTheme} p={1} radius={1}>
+          <ThemeProvider
+            theme={createTheme({ name: "light", mode: "light" })}
+            p={1}
+            radius={1}
+          >
             <Lists />
           </ThemeProvider>
         </Section>
         <Section title="Dark Theme">
-          <ThemeProvider theme={darkTheme} p={1} radius={1}>
+          <ThemeProvider
+            theme={createTheme({ name: "dark", mode: "dark" })}
+            p={1}
+            radius={1}
+          >
             <Lists />
           </ThemeProvider>
         </Section>

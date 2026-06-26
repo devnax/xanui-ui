@@ -35,14 +35,21 @@ const Tab = React.forwardRef(
       }
     }, [container.variant, container.color]);
     const isSelected = value === container.value;
+    const color = isSelected ? container.color : "default";
+    const sx: any = {};
+    if (isSelected) {
+      if (container.variant === "fill") {
+        sx.color = `${container.color}.contrast!important`;
+      } else if (container.variant === "ghost") {
+        // sx.color = `${container.color}.primary!important`;
+      }
+    }
+
     return (
       <Button
         {..._props}
-        color={
-          container.variant === "text" && isSelected
-            ? container.color
-            : "default"
-        }
+        color={color}
+        sx={sx}
         variant={"text"}
         onClick={(e) => {
           (container as any).onChange(value, e);

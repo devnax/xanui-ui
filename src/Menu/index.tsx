@@ -279,8 +279,8 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
             {...slotProps?.content}
             sxr={{
               overflow: "hidden",
-              bgcolor: "paper.primary",
-              shadow: 2,
+              bgcolor: "surface.primary",
+              shadow: "lg",
               radius: 1,
               transformOrigin: getTransformOrigin(placed),
               ...slotProps?.content?.sx,
