@@ -88,13 +88,6 @@ const Tabs = React.forwardRef(
 
             const target = e.currentTarget as HTMLElement;
 
-            if (disableInitialTransition && !init.current) {
-              init.current = true;
-              indicator.style.left = `${target.offsetLeft}px`;
-              indicator.style.width = `${target.clientWidth}px`;
-              return;
-            }
-
             if (disableTransition) {
               indicator.style.left = `${target.offsetLeft}px`;
               indicator.style.width = `${target.clientWidth}px`;
@@ -131,7 +124,7 @@ const Tabs = React.forwardRef(
                 width: target.clientWidth,
                 opacity: 1,
               },
-              duration: 300,
+              duration: disableInitialTransition && !init.current ? 0 : 300,
               easing: (t) => 1 - Math.pow(1 - t, 3),
               onUpdate: ({ left, width, opacity }) => {
                 indicatorState.current.left = left;
@@ -142,6 +135,8 @@ const Tabs = React.forwardRef(
                 indicator.style.opacity = `${opacity}`;
               },
             });
+
+            init.current = true;
           },
         }}
       >

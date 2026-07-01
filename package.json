@@ -1,6 +1,6 @@
 {
   "name": "@xanui/ui",
-  "version": "1.2.20",
+  "version": "1.2.21",
   "description": "A modern, fully-typed React UI component library — 60+ components, an OKLCH-based theming engine via createTheme(), responsive props, and a flexible Tag primitive system. Built on @xanui/core",
   "private": false,
   "type": "module",
