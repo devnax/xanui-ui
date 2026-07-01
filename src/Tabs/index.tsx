@@ -14,19 +14,32 @@ export type { TabsProps };
 const Tabs = React.forwardRef(
   ({ onChange, value, children, ...props }: TabsProps, ref: any) => {
     let [
-      { color, variant, indicatorSize, disableTransition, slotProps, ...rest },
+      {
+        color,
+        variant,
+        indicatorSize,
+        disableTransition,
+        disableInitialTransition,
+        slotProps,
+        ...rest
+      },
     ] = useThemeComponent<any>("Tabs", props, {});
     const _p: any = {};
     if (variant) _p.variant = variant;
     if (color) _p.color = color;
     if (disableTransition) _p.disableTransition = disableTransition;
+    if (disableInitialTransition)
+      _p.disableInitialTransition = disableInitialTransition;
     if (indicatorSize) _p.indicatorSize = indicatorSize;
     const p: any = useBreakpointProps(_p);
 
     variant = p.variant ?? "end-line";
     color = p.color ?? "brand";
     disableTransition = p.disableTransition;
+    disableInitialTransition = p.disableInitialTransition;
     indicatorSize = p.indicatorSize ?? 2;
+
+    const init = useRef<boolean>(false);
 
     const indicatorRef = useRef<HTMLElement>(null);
     const indicatorState = useRef({
@@ -69,6 +82,11 @@ const Tabs = React.forwardRef(
           onChange: (v, e) => {
             onChange && onChange(v, e);
 
+            if (disableInitialTransition && !init.current) {
+              init.current = true;
+              return;
+            }
+
             if (variant === "text") return;
             const indicator = indicatorRef.current;
             if (!indicator) return;
@@ -92,6 +110,12 @@ const Tabs = React.forwardRef(
                 indicator.style.height = `${target.offsetHeight}px`;
                 indicator.style.top = `${target.offsetTop}px`;
                 break;
+            }
+
+            if (disableTransition) {
+              indicator.style.left = `${target.offsetLeft}px`;
+              indicator.style.width = `${target.clientWidth}px`;
+              return;
             }
 
             animate({
@@ -141,7 +165,6 @@ const Tabs = React.forwardRef(
               bgcolor:
                 color === "default" ? "paper.primary" : `${color}.primary`,
               height: 2,
-              radus: indicatorSize,
               ...indicatorProps,
             }}
           />
