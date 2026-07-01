@@ -82,16 +82,24 @@ const Tabs = React.forwardRef(
           onChange: (v, e) => {
             onChange && onChange(v, e);
 
-            if (disableInitialTransition && !init.current) {
-              init.current = true;
-              return;
-            }
-
             if (variant === "text") return;
             const indicator = indicatorRef.current;
             if (!indicator) return;
 
             const target = e.currentTarget as HTMLElement;
+
+            if (disableInitialTransition && !init.current) {
+              init.current = true;
+              indicator.style.left = `${target.offsetLeft}px`;
+              indicator.style.width = `${target.clientWidth}px`;
+              return;
+            }
+
+            if (disableTransition) {
+              indicator.style.left = `${target.offsetLeft}px`;
+              indicator.style.width = `${target.clientWidth}px`;
+              return;
+            }
 
             switch (variant) {
               case "start-line":
@@ -110,12 +118,6 @@ const Tabs = React.forwardRef(
                 indicator.style.height = `${target.offsetHeight}px`;
                 indicator.style.top = `${target.offsetTop}px`;
                 break;
-            }
-
-            if (disableTransition) {
-              indicator.style.left = `${target.offsetLeft}px`;
-              indicator.style.width = `${target.clientWidth}px`;
-              return;
             }
 
             animate({
