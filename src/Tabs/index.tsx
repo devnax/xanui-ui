@@ -20,7 +20,6 @@ const Tabs = React.forwardRef(
         indicatorSize,
         disableTransition,
         disableInitialTransition,
-        slotProps,
         ...rest
       },
     ] = useThemeComponent<any>("Tabs", props, {});
