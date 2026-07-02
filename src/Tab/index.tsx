@@ -49,7 +49,10 @@ const Tab = React.forwardRef(
       <Button
         {..._props}
         color={color}
-        sx={sx}
+        sx={{
+          ...sx,
+          ...(_props?.sx || {}),
+        }}
         variant={"text"}
         onClick={(e) => {
           (container as any).onChange(value, e);
