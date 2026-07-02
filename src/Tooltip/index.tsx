@@ -4,6 +4,7 @@ import {
   cloneElement,
   isValidElement,
   ReactElement,
+  useRef,
   useState,
 } from "react";
 import Menu, { MenuProps } from "../Menu";
@@ -14,28 +15,50 @@ export type TooltipProps = {
   children: ReactElement;
   title: useBreakpointPropsType<string | ReactElement>;
   placement?: MenuProps["placement"];
+  delay?: useBreakpointPropsType<number | false>;
   slotProps?: {
     title?: Omit<TextProps, "children">;
-    menu?: Omit<MenuProps, "target" | "chilcren" | "placement">;
+    menu?: Omit<MenuProps, "target" | "children" | "placement">;
   };
 };
 
-const Tooltip = ({ children, title, placement, slotProps }: TooltipProps) => {
+const Tooltip = ({
+  children,
+  title,
+  placement,
+  delay,
+  slotProps,
+}: TooltipProps) => {
   const [target, setTarget] = useState<any>();
   const _p: any = {};
   if (title) _p.title = title;
+  if (delay) _p.delay = delay;
   const p: any = useBreakpointProps(_p);
   title = p.title;
+  delay = p.delay ?? 400;
   placement ??= "bottom";
 
   if (!children || Array.isArray(children))
-    throw new Error("Invalid children in Toast");
+    throw new Error("Invalid children in Tooltip");
   const first: any = Children.toArray(children).shift();
+  const delayRef = useRef<any>(null);
   const child = cloneElement(first, {
     onMouseEnter: (e) => {
-      setTarget(e.target);
+      if (delay) {
+        delayRef.current = setTimeout(() => {
+          setTarget(e.target);
+        }, delay as any);
+      } else {
+        setTarget(e.target);
+      }
     },
-    onMouseLeave: () => setTarget(null),
+    onMouseLeave: () => {
+      if (delayRef.current) {
+        clearTimeout(delayRef.current);
+        delayRef.current = null;
+      }
+      setTarget(null);
+    },
   });
 
   return (
