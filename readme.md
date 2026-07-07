@@ -1,91 +1,116 @@
-# @xanui/ui
+# @xanui/ui Documentation
 
-A modern, fully-typed React UI component library built on top of [`@xanui/core`](https://github.com/devnax/xanui-core).
+Component-by-component reference for `@xanui/ui`, a React 19 UI library built on [`@xanui/core`](https://github.com/devnax/xanui-core).
 
-`@xanui/ui` provides a complete set of accessible, themeable, and composable components — from basic building blocks like buttons and inputs to complex patterns like data tables, autocompletes, and filters — so you can build production UIs faster without sacrificing flexibility.
+Start here: **[Core Concepts](./docs/core-concepts.md)** — the shared `Tag` primitive, theming, color tokens, responsive breakpoint props, `slotProps`, skeleton loading, and transitions that every component below builds on.
 
-## ✨ Features
+## Layout
 
-- 🧩 **60+ Components** — buttons, inputs, modals, menus, tables, calendars, and more
-- 🎨 **Themeable** — built on `@xanui/core`'s theming and color template system
-- 📱 **Responsive by default** — breakpoint-aware props (`useBreakpointPropsType`) on most components
-- 🟦 **TypeScript-first** — fully typed props, refs, and slot APIs
-- 🧱 **Composable slot system** — override internal parts via `slotProps` without forking components
-- ⚡ **Tree-shakeable** — import only what you use
-- 🪶 **Lightweight core** — no heavy third-party UI dependencies
+- [Box](./docs/Box.md)
+- [Stack](./docs/Stack.md)
+- [Container](./docs/Container.md)
+- [GridContainer](./docs/GridContainer.md)
+- [GridItem](./docs/GridItem.md)
+- [ViewBox](./docs/ViewBox.md)
+- [Divider](./docs/Divider.md)
+- [Layer](./docs/Layer.md)
 
-## 📦 Installation
+## Typography
 
-```bash
-npm install @xanui/ui @xanui/core @xanui/icons
-```
+- [Text](./docs/Text.md)
+- [Label](./docs/Label.md)
+- [Link](./docs/Link.md)
 
-```bash
-yarn add @xanui/ui @xanui/core @xanui/icons
-```
+## Buttons & Actions
 
-```bash
-pnpm add @xanui/ui @xanui/core @xanui/icons
-```
+- [Button](./docs/Button.md)
+- [IconButton](./docs/IconButton.md)
+- [ButtonGroup](./docs/ButtonGroup.md)
 
-> `@xanui/core` and `@xanui/icons` are required peer dependencies.
+## Forms & Inputs
 
-## 🚀 Quick Start
+- [Input](./docs/Input.md)
+- [InputNumber](./docs/InputNumber.md)
+- [PasswordInput](./docs/PasswordInput.md)
+- [Checkbox](./docs/Checkbox.md)
+- [Radio](./docs/Radio.md)
+- [Switch](./docs/Switch.md)
+- [RangeSlider](./docs/RangeSlider.md)
+- [Select](./docs/Select.md)
+- [Option](./docs/Option.md)
+- [Autocomplete](./docs/Autocomplete.md)
+- [Calendar](./docs/Calendar.md)
+- [CalendarInput](./docs/CalendarInput.md)
+- [Form](./docs/Form.md)
 
-```tsx
-import { ThemeProvider } from "@xanui/core";
-import { Button, Input, Card } from "@xanui/ui";
+## Feedback & Status
 
-function App() {
-  return (
-    <ThemeProvider>
-      <Card>
-        <Input label="Email" placeholder="you@example.com" fullWidth />
-        <Button color="primary" variant="fill">
-          Submit
-        </Button>
-      </Card>
-    </ThemeProvider>
-  );
-}
-```
+- [Alert](./docs/Alert.md)
+- [Toast](./docs/Toast.md)
+- [Skeleton](./docs/Skeleton.md)
+- [CircleProgress](./docs/CircleProgress.md)
+- [LineProgress](./docs/LineProgress.md)
+- [LoadingBox](./docs/LoadingBox.md)
 
-## 🧱 Components
+## Overlays
 
-A few highlights from the library:
+- [Modal](./docs/Modal.md)
+- [Drawer](./docs/Drawer.md)
+- [Menu](./docs/Menu.md)
+- [Tooltip](./docs/Tooltip.md)
+- [Portal](./docs/Portal.md)
+- [ClickOutside](./docs/ClickOutside.md)
+- [Transition](./docs/Transition.md) *(internal — see note below)*
 
-| Category | Components |
-|---|---|
-| **Form** | `Input`, `InputNumber`, `PasswordInput`, `Select`, `Autocomplete`, `Checkbox`, `Radio`, `Switch`, `RangeSlider`, `CalendarInput` |
-| **Layout** | `Box`, `Stack`, `Container`, `GridContainer`, `GridItem`, `ViewBox`, `Divider` |
-| **Feedback** | `Alert`, `Toast`, `Skeleton`, `CircleProgress`, `LineProgress`, `LoadingBox` |
-| **Overlay** | `Modal`, `Drawer`, `Menu`, `Tooltip`, `Layer`, `Portal` |
-| **Data Display** | `Datatable`, `DataFilter`, `Table`, `Avatar`, `AvatarBox`, `Chip`, `Badge`, `Card` |
-| **Navigation** | `Tabs`, `Tab`, `List`, `ListItem`, `Accordion` |
-| **Media** | `Image`, `Carousel`, `GalleryPicker`, `AvatarPicker`, `FilePicker` |
+## Data Display
 
-Full documentation and live examples are coming soon on our documentation site.
+- [Card](./docs/Card.md)
+- [Datatable](./docs/Datatable.md)
+- [DataFilter](./docs/DataFilter.md)
+- [Table](./docs/Table.md)
+- [TableHead](./docs/TableHead.md)
+- [TableBody](./docs/TableBody.md)
+- [TableRow](./docs/TableRow.md)
+- [TableCell](./docs/TableCell.md)
+- [TableFooter](./docs/TableFooter.md)
+- [TablePagination](./docs/TablePagination.md)
+- [Avatar](./docs/Avatar.md)
+- [AvatarBox](./docs/AvatarBox.md)
+- [Chip](./docs/Chip.md)
+- [Badge](./docs/Badge.md)
 
-## 🛠 Tech Stack
+## Navigation
 
-- **React 19**
-- **TypeScript**
-- **[@xanui/core](https://github.com/devnax/xanui-core)** — theming engine, `Tag` primitive, and shared hooks
-- **[@xanui/icons](https://www.npmjs.com/package/@xanui/icons)** — icon set used across components
+- [Tabs](./docs/Tabs.md)
+- [Tab](./docs/Tab.md)
+- [Accordion](./docs/Accordion.md)
+- [List](./docs/List.md)
+- [ListItem](./docs/ListItem.md)
 
-## 📄 License
+## Media & File Handling
 
-MIT
+- [Image](./docs/Image.md)
+- [Carousel](./docs/Carousel.md)
+- [GalleryPicker](./docs/GalleryPicker.md)
+- [AvatarPicker](./docs/AvatarPicker.md)
+- [FilePicker](./docs/FilePicker.md)
 
-## 👤 Author
+## Utilities
 
-**Devnax (Naxrul Ahmed)**
-Full-Stack Software Engineer
+- [Scrollbar](./docs/Scrollbar.md)
+- [NoSSR](./docs/NoSSR.md)
+- [useCorner](./docs/useCorner.md)
+- [useContextMenu](./docs/useContextMenu.md)
+- [useBlurCss](./docs/useBlurCss.md) *(internal — see note below)*
+- [useClickOutside](./docs/useClickOutside.md) *(internal, currently unused — see note below)*
 
-- GitHub: [@devnax](https://github.com/devnax)
-- npm: [~devnax](https://www.npmjs.com/~devnax)
-- LinkedIn: [devnax](https://linkedin.com/in/devnax)
+## Notes on the current source
 
----
+A handful of things surfaced while writing these docs that are worth knowing before relying on them:
 
-📚 Full documentation coming soon.
+- **`Collapse` is exported as `Collaps`** in `src/index.tsx` — almost certainly a typo, but it's the name you have to import today (`import { Collaps as Collapse } from "@xanui/ui"`). See [Collapse.md](./docs/Collapse.md).
+- **Internal-only utilities**: `useBlurCss` and `useClickOutside` are not exported from the package root (`src/index.tsx`). `useClickOutside` additionally appears unused anywhere in the current source — `ClickOutside` re-implements the same logic inline instead of calling it.
+- **`Transition` (`src/Transition/`) is a separate, parallel implementation** of `@xanui/core`'s `Transition`, not a wrapper around it, and doesn't appear to be used by any other component in this package — everything else (`Toast`, `Menu`, `Layer`) imports `Transition` from `@xanui/core` directly.
+- A few theme-registration keys have typos baked into the source (e.g. `Calendar` is registered as `"Calender"`, `AvatarPicker` as `"AvaterPicker"`) — flagged in each affected doc since they're the actual keys needed to target those components via theme component-transforms.
+
+These are documented as-is (matching current behavior) rather than "corrected," since fixing them is a source-code change outside the scope of this documentation pass.
