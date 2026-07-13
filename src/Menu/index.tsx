@@ -213,7 +213,6 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
   const [placed, setPlaced] = useState<PlacementTypes>(placement);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Open/close effect
   useEffect(() => {
     if (closed && isOpen) setClosed(false);
   }, [isOpen]);
@@ -280,7 +279,7 @@ const Menu = ({ children, target, ...props }: MenuProps) => {
             sxr={{
               overflow: "hidden",
               bgcolor: "surface.primary",
-              shadow: "lg",
+              shadow: "md",
               radius: 1,
               transformOrigin: getTransformOrigin(placed),
               ...slotProps?.content?.sx,

@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement, useEffect, useRef } from "react";
 import Input from "../Input";
 import Menu from "../Menu";
 import List from "../List";
@@ -61,16 +61,14 @@ const Autocomplete = ({
   const [inputValue, setInputValue] = React.useState(
     value ? getLabel(value) : "",
   );
-  const [timer, setTimer] = React.useState<any>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const menuRef = React.useRef<any>(null);
 
   useEffect(() => {
-    if (!inputValue) {
-      setInputValue(value ? getLabel(value) : "");
-    }
+    setInputValue(value ? getLabel(value) : "");
   }, [value]);
 
   getLabel ??= (option: any) => option.toString();
@@ -151,14 +149,6 @@ const Autocomplete = ({
           .includes(inputValue.toLowerCase()),
       );
     }
-    if (!multiple && inputValue) {
-      const find = results.find(
-        (option) =>
-          getLabel!(option).toString().toLowerCase() ===
-          inputValue.toLowerCase(),
-      );
-      onChange && onChange(find || null);
-    }
     setOptions(results);
     setOpen(true);
     setLoading(false);
@@ -166,15 +156,14 @@ const Autocomplete = ({
 
   useEffect(() => {
     if (focused) {
-      clearTimeout(timer);
-      setTimer(
-        setTimeout(() => {
-          loadOptions();
-        }, 300),
-      );
+      clearTimeout(timerRef.current ?? undefined);
+      timerRef.current = setTimeout(() => {
+        loadOptions();
+      }, 300);
     } else {
       setOpen(false);
     }
+    return () => clearTimeout(timerRef.current ?? undefined);
   }, [focused, inputValue]);
 
   return (
@@ -196,7 +185,10 @@ const Autocomplete = ({
         startIcon={startIcons.length ? startIcons : undefined}
         endIcon={endIcons}
         value={inputValue}
-        onFocus={() => setFocused(true)}
+        onFocus={(e) => {
+          setFocused(true);
+          inputProps.onFocus?.(e);
+        }}
         onKeyDown={(e) => {
           if (inputProps?.onKeyDown) {
             inputProps.onKeyDown(e);
@@ -214,8 +206,8 @@ const Autocomplete = ({
           }
         }}
         onChange={(e) => {
-          const value = e.target.value;
-          setInputValue(value);
+          const text = e.target.value;
+          setInputValue(text);
         }}
       />
       <Menu

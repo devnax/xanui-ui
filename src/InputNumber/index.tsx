@@ -16,28 +16,31 @@ const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     const isNumeric =
       props.value === undefined ||
       props.value === "" ||
-      !isNaN(Number(props.value));
+      (props.value as any) === "-" ||
+      (!Number.isNaN(Number(props.value)) && !Number.isNaN(props.value as any));
     const errorProps: Partial<InputProps> = {};
     if (!isNumeric) {
       errorProps.error = true;
-      errorProps.helperText = "Value must be numeric";
     }
+
+    const val =
+      props.value === undefined || props.value === null ? "" : props.value;
 
     return (
       <Input
         {...props}
         {...errorProps}
         ref={mergeRef}
-        autoCorrect="no"
-        autoComplete="no"
-        autoCapitalize="no"
+        autoCorrect="off"
+        autoComplete="off"
+        autoCapitalize="off"
         endIcon={
           <>
             {!disableArrow && <UnfoldMore />}
             {props.endIcon}
           </>
         }
-        value={props.value ?? ("" as any)}
+        value={val?.toString() || ""}
         onKeyDown={(e: any) => {
           props.onKeyDown?.(e);
           if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
@@ -65,7 +68,7 @@ const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
             return;
           }
 
-          if (!/^\d*\.?\d*$/.test(value)) return;
+          if (!/^-?\d*\.?\d*$/.test(value)) return;
 
           if (value === ".") value = "0.";
           const nextEvent = {

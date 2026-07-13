@@ -1,9 +1,10 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   animate,
   Tag,
   useBreakpointProps,
+  useMergeRefs,
   useThemeComponent,
 } from "@xanui/core";
 import { TabContext } from "./context";
@@ -39,6 +40,8 @@ const Tabs = React.forwardRef(
     indicatorSize = p.indicatorSize ?? 2;
 
     const init = useRef<boolean>(false);
+    const containerRef = useRef<HTMLElement>(null);
+    const mergeRef = useMergeRefs(ref, containerRef);
 
     const indicatorRef = useRef<HTMLElement>(null);
     const indicatorState = useRef({
@@ -70,6 +73,66 @@ const Tabs = React.forwardRef(
         break;
     }
 
+    useEffect(() => {
+      if (variant === "text") return;
+      const indicator = indicatorRef.current;
+      if (!indicator) return;
+
+      const target = containerRef.current?.querySelector(
+        `[data-tab="${value}"]`,
+      ) as HTMLElement;
+
+      if (disableTransition) {
+        indicator.style.left = `${target.offsetLeft}px`;
+        indicator.style.width = `${target.clientWidth}px`;
+        return;
+      }
+
+      switch (variant) {
+        case "start-line":
+          indicator.style.removeProperty("bottom");
+          indicator.style.top = `${target.offsetTop}px`;
+          indicator.style.height = `${indicatorSize}px`;
+          break;
+        case "end-line":
+          indicator.style.removeProperty("top");
+          indicator.style.bottom = `${target.offsetTop}px`;
+          indicator.style.height = `${indicatorSize}px`;
+          break;
+        case "fill":
+        case "outline":
+        case "ghost":
+          indicator.style.height = `${target.offsetHeight}px`;
+          indicator.style.top = `${target.offsetTop}px`;
+          break;
+      }
+
+      animate({
+        from: {
+          left: indicatorState.current.left ?? 0,
+          width: indicatorState.current.width ?? 0,
+          opacity: 0,
+        },
+        to: {
+          left: target.offsetLeft,
+          width: target.clientWidth,
+          opacity: 1,
+        },
+        duration: disableInitialTransition && !init.current ? 0 : 300,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
+        onUpdate: ({ left, width, opacity }) => {
+          indicatorState.current.left = left;
+          indicatorState.current.width = width;
+
+          indicator.style.left = `${left}px`;
+          indicator.style.width = `${width}px`;
+          indicator.style.opacity = `${opacity}`;
+        },
+      });
+
+      init.current = true;
+    }, [value, variant, color, indicatorSize, disableTransition]);
+
     return (
       <TabContext.Provider
         value={{
@@ -79,63 +142,9 @@ const Tabs = React.forwardRef(
           disableTransition,
           indicatorSize,
           onChange: (v, e) => {
-            onChange && onChange(v, e);
-
-            if (variant === "text") return;
-            const indicator = indicatorRef.current;
-            if (!indicator) return;
-
-            const target = e.currentTarget as HTMLElement;
-
-            if (disableTransition) {
-              indicator.style.left = `${target.offsetLeft}px`;
-              indicator.style.width = `${target.clientWidth}px`;
-              return;
+            if (onChange) {
+              onChange(v, e);
             }
-
-            switch (variant) {
-              case "start-line":
-                indicator.style.removeProperty("bottom");
-                indicator.style.top = `${target.offsetTop}px`;
-                indicator.style.height = `${indicatorSize}px`;
-                break;
-              case "end-line":
-                indicator.style.removeProperty("top");
-                indicator.style.bottom = `${target.offsetTop}px`;
-                indicator.style.height = `${indicatorSize}px`;
-                break;
-              case "fill":
-              case "outline":
-              case "ghost":
-                indicator.style.height = `${target.offsetHeight}px`;
-                indicator.style.top = `${target.offsetTop}px`;
-                break;
-            }
-
-            animate({
-              from: {
-                left: indicatorState.current.left ?? 0,
-                width: indicatorState.current.width ?? 0,
-                opacity: 0,
-              },
-              to: {
-                left: target.offsetLeft,
-                width: target.clientWidth,
-                opacity: 1,
-              },
-              duration: disableInitialTransition && !init.current ? 0 : 300,
-              easing: (t) => 1 - Math.pow(1 - t, 3),
-              onUpdate: ({ left, width, opacity }) => {
-                indicatorState.current.left = left;
-                indicatorState.current.width = width;
-
-                indicator.style.left = `${left}px`;
-                indicator.style.width = `${width}px`;
-                indicator.style.opacity = `${opacity}`;
-              },
-            });
-
-            init.current = true;
           },
         }}
       >
@@ -148,7 +157,7 @@ const Tabs = React.forwardRef(
             display: "flex",
             flexDirection: "row",
           }}
-          ref={ref}
+          ref={mergeRef}
         >
           {children}
           <Tag

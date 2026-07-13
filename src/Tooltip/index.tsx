@@ -73,7 +73,7 @@ const Tooltip = ({
           content: {
             p: 0.5,
             shadow: "xs",
-            bgcolor: "paper.primary",
+            bgcolor: "surface.primary",
             ...slotProps?.menu?.slotProps?.content,
           },
         }}

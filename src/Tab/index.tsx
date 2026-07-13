@@ -36,10 +36,13 @@ const Tab = React.forwardRef(
     }, [container.variant, container.color]);
     const isSelected = value === container.value;
     const color = isSelected ? container.color : "default";
+
     const sx: any = {};
     if (isSelected) {
       if (container.variant === "fill") {
-        sx.color = `${container.color}.contrast!important`;
+        const textColor =
+          color === "default" ? "text.primary" : `${color}.contrast`;
+        sx.color = `${textColor}!important`;
       } else if (container.variant === "ghost") {
         // sx.color = `${container.color}.primary!important`;
       }
@@ -49,6 +52,7 @@ const Tab = React.forwardRef(
       <Button
         {..._props}
         color={color}
+        data-tab={value}
         sx={{
           ...sx,
           ...(_props?.sx || {}),
